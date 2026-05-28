@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout aimunger
+        uses: actions/checkout@v4
+
+      - name: Checkout letters-to-shareholders
+        uses: actions/checkout@v4
+        with:
+          repository: chenjing002/letters-to-shareholders
+          path: _build/letters
+
+      - name: Checkout llm-reader
+        uses: actions/checkout@v4
+        with:
+          repository: chenjing002/llm-reader
+          path: _build/llm-reader
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: _build/letters/package-lock.json
+
+      - name: Build letters site
+        working-directory: _build/letters
+        run: |
+          sed -i "s|base: '/letters-to-shareholders/'|base: '/letters/'|" astro.config.mjs
+          sed -i "s|site: 'https://chenjing002.github.io'|site: 'https://aimunger.com'|" astro.config.mjs
+          npm ci
+          npm run build
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp index.html style.css favicon.svg CNAME _site/
+          cp -r _build/letters/dist/ _site/letters/
+          mkdir -p _site/llm-reader
+          cp _build/llm-reader/index.html _build/llm-reader/logo.svg _site/llm-reader/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

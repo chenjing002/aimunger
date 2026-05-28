@@ -278,6 +278,16 @@ body {
     margin-bottom: 10px;
 }
 
+a.resource-link {
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid var(--color-accent);
+}
+
+a.resource-link:hover {
+    box-shadow: 0 4px 20px rgba(139, 37, 0, 0.12);
+}
+
 .resource-item h4 {
     font-family: var(--font-serif);
     font-size: 16px;
