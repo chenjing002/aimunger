@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  repository_dispatch:
+    types: [subsite-updated]
   workflow_dispatch:
 
 permissions:
@@ -55,6 +57,11 @@ jobs:
           cp -r _build/letters/dist/ _site/letters/
           mkdir -p _site/llm-reader
           cp _build/llm-reader/index.html _build/llm-reader/logo.svg _site/llm-reader/
+
+      - name: Generate sitemap and robots.txt
+        run: |
+          node generate-sitemap.js
+          cp robots.txt _site/robots.txt
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
