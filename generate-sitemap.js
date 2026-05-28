@@ -52,7 +52,7 @@ for (const page of scannedPages) {
   allUrls.add(`${SITE}${page}`);
 }
 
-// Assign priorities
+// Assign priorities and changefreq
 function getPriority(url) {
   if (url === `${SITE}/`) return '1.0';
   if (url.endsWith('/letters/') || url.endsWith('/llm-reader/')) return '0.8';
@@ -60,6 +60,14 @@ function getPriority(url) {
   if (url.includes('/letter/')) return '0.6';
   if (url.includes('/year/')) return '0.5';
   return '0.5';
+}
+
+function getChangefreq(url) {
+  if (url === `${SITE}/`) return 'weekly';
+  if (url.endsWith('/llm-reader/')) return 'daily';
+  if (url.endsWith('/letters/')) return 'weekly';
+  if (url.includes('/company/') || url.includes('/letter/')) return 'monthly';
+  return 'monthly';
 }
 
 // Sort URLs for consistent output
@@ -70,6 +78,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 ${sortedUrls.map(url => `  <url>
     <loc>${url}</loc>
     <lastmod>${today}</lastmod>
+    <changefreq>${getChangefreq(url)}</changefreq>
     <priority>${getPriority(url)}</priority>
   </url>`).join('\n')}
 </urlset>
