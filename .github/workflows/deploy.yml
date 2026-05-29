@@ -58,6 +58,9 @@ jobs:
           mkdir -p _site/llm-reader
           cp _build/llm-reader/*.html _build/llm-reader/logo.svg _site/llm-reader/
 
+      - name: Generate articles from QA data
+        run: node generate-articles.js
+
       - name: Generate sitemap and robots.txt
         run: |
           node generate-sitemap.js
