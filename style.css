@@ -10,9 +10,9 @@
     --color-text-secondary: #6b6b6b;
     --color-accent: #8b2500;
     --color-border: #e8e4df;
+    --color-surface: #f5f0eb;
     --color-card-bg: #fff;
     --font-serif: 'Noto Serif SC', serif;
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 html {
@@ -20,7 +20,7 @@ html {
 }
 
 body {
-    font-family: var(--font-sans);
+    font-family: var(--font-serif);
     color: var(--color-text);
     background: var(--color-bg);
     line-height: 1.7;
@@ -90,15 +90,20 @@ body {
 }
 
 .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
     text-decoration: none;
     color: var(--color-text-secondary);
     font-size: 14px;
     font-weight: 500;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .nav-links a:hover {
     color: var(--color-accent);
+    background: var(--color-surface);
 }
 
 /* Main */
@@ -154,6 +159,7 @@ body {
     border: 1px solid var(--color-border);
     border-radius: 14px;
     overflow: hidden;
+    box-shadow: 0 1px 3px rgba(16, 15, 15, 0.03);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
@@ -241,7 +247,7 @@ body {
     color: var(--color-accent);
     text-decoration: none;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     transition: opacity 0.2s ease;
 }
 
