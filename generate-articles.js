@@ -4,6 +4,7 @@ const path = require('path');
 const SITE_DIR = path.join(__dirname, '_site');
 const QA_HTML_PATH = path.join(SITE_DIR, 'llm-reader', 'qa.html');
 const ARTICLES_DIR = path.join(SITE_DIR, 'articles');
+const INDEX_PATH = path.join(SITE_DIR, 'index.html');
 
 // Pinyin mapping for Chinese name characters
 const PINYIN = {
@@ -124,9 +125,9 @@ function generateArticlePage(article) {
             </a>
             <ul class="nav-links">
                 <li><a href="/articles/" class="active">文章</a></li>
-                <li><a href="/#about">关于</a></li>
+                <li><a href="/about/">关于</a></li>
                 <li><a href="/#resources">资料库</a></li>
-                <li><a href="/#contact">联系</a></li>
+                <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
     </header>
@@ -194,9 +195,9 @@ function generateListingPage(articles) {
             </a>
             <ul class="nav-links">
                 <li><a href="/articles/" class="active">文章</a></li>
-                <li><a href="/#about">关于</a></li>
+                <li><a href="/about/">关于</a></li>
                 <li><a href="/#resources">资料库</a></li>
-                <li><a href="/#contact">联系</a></li>
+                <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
     </header>
@@ -261,6 +262,35 @@ function run() {
     const dir = path.join(ARTICLES_DIR, article.slug);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(article));
+  }
+
+  // Inject latest 5 posts into index.html
+  const latest = articles.slice(0, 5);
+  if (latest.length > 0 && fs.existsSync(INDEX_PATH)) {
+    const latestCards = latest.map(a => {
+      const dateStr = (a.created_at || '').slice(0, 10);
+      const excerpt = escHtml(getExcerpt(a.answer));
+      return `                    <a href="/articles/${a.slug}/" class="project-card">
+                        <div class="project-card-inner">
+                            <time class="article-list-date">${escHtml(dateStr)}</time>
+                            <h3 class="project-title">${escHtml(a.title)}</h3>
+                            <p class="project-desc">${excerpt}</p>
+                            <span class="project-arrow">&rarr;</span>
+                        </div>
+                    </a>`;
+    }).join('\n');
+
+    const latestSection = `            <section class="projects">
+                <h2 class="section-title">最新文章</h2>
+                <div class="articles-list">
+${latestCards}
+                </div>
+            </section>`;
+
+    let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
+    indexHtml = indexHtml.replace('<!-- LATEST_POSTS_PLACEHOLDER -->', latestSection);
+    fs.writeFileSync(INDEX_PATH, indexHtml);
+    console.log(`Injected ${latest.length} latest posts into index.html`);
   }
 
   console.log(`Generated ${articles.length} article pages`);

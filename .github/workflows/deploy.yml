@@ -54,6 +54,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html style.css favicon.svg CNAME _site/
+          cp -r about contact _site/
           cp -r _build/letters/dist/ _site/letters/
           mkdir -p _site/llm-reader
           cp _build/llm-reader/*.html _build/llm-reader/logo.svg _site/llm-reader/
