@@ -126,7 +126,7 @@ function generateArticlePage(article) {
             <ul class="nav-links">
                 <li><a href="/articles/" class="active">文章</a></li>
                 <li><a href="/about/">关于</a></li>
-                <li><a href="/#resources">资料库</a></li>
+                <li><a href="/resources/">资料库</a></li>
                 <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
@@ -196,7 +196,7 @@ function generateListingPage(articles) {
             <ul class="nav-links">
                 <li><a href="/articles/" class="active">文章</a></li>
                 <li><a href="/about/">关于</a></li>
-                <li><a href="/#resources">资料库</a></li>
+                <li><a href="/resources/">资料库</a></li>
                 <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
