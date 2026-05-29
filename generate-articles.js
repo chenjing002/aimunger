@@ -243,7 +243,7 @@ function run() {
   const articles = data.map(qa => ({
     ...qa,
     slug: generateSlug(qa),
-    title: extractName(qa) || `文章 ${qa.id}`,
+    title: qa.question || `文章 ${qa.id}`,
   }));
 
   // Deduplicate slugs
