@@ -13,6 +13,8 @@ function collectPages(dir, base = '') {
       urls.push(...collectPages(path.join(dir, entry.name), `${base}/${entry.name}`));
     } else if (entry.name === 'index.html') {
       urls.push(`${base}/`);
+    } else if (entry.name.endsWith('.html')) {
+      urls.push(`${base}/${entry.name}`);
     }
   }
   return urls;
