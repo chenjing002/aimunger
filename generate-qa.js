@@ -3,7 +3,7 @@ const path = require('path');
 
 const SITE_DIR = path.join(__dirname, '_site');
 const QA_HTML_PATH = path.join(SITE_DIR, 'llm-reader', 'qa.html');
-const ARTICLES_DIR = path.join(SITE_DIR, 'articles');
+const ARTICLES_DIR = path.join(SITE_DIR, 'qa');
 const INDEX_PATH = path.join(SITE_DIR, 'index.html');
 
 // Pinyin mapping for Chinese name characters
@@ -124,7 +124,7 @@ function generateArticlePage(article) {
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/articles/" class="active">文章</a></li>
+                <li><a href="/qa/" class="active">QA</a></li>
                 <li><a href="/about/">关于</a></li>
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/contact/">联系</a></li>
@@ -136,7 +136,7 @@ function generateArticlePage(article) {
         <div class="container">
             <article class="article">
                 <div class="article-header">
-                    <a href="/articles/" class="article-back">&larr; 所有文章</a>
+                    <a href="/qa/" class="article-back">&larr; 所有QA</a>
                     <h1 class="article-title">${escHtml(article.title)}</h1>
                     <time class="article-date">${escHtml(dateStr)}</time>
                 </div>
@@ -163,7 +163,7 @@ function generateListingPage(articles) {
   const cards = articles.map(a => {
     const dateStr = (a.created_at || '').slice(0, 10);
     const excerpt = escHtml(getExcerpt(a.answer));
-    return `                    <a href="/articles/${a.slug}/" class="project-card">
+    return `                    <a href="/qa/${a.slug}/" class="project-card">
                         <div class="project-card-inner">
                             <time class="article-list-date">${escHtml(dateStr)}</time>
                             <h3 class="project-title">${escHtml(a.title)}</h3>
@@ -178,8 +178,8 @@ function generateListingPage(articles) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章 - aimunger</title>
-    <meta name="description" content="深度研究备忘录与投资观察文章。">
+    <title>QA - aimunger</title>
+    <meta name="description" content="深度研究备忘录与投资观察。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -194,7 +194,7 @@ function generateListingPage(articles) {
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/articles/" class="active">文章</a></li>
+                <li><a href="/qa/" class="active">QA</a></li>
                 <li><a href="/about/">关于</a></li>
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/contact/">联系</a></li>
@@ -205,7 +205,7 @@ function generateListingPage(articles) {
     <main class="main">
         <div class="container">
             <section class="hero">
-                <h1 class="hero-title">文章</h1>
+                <h1 class="hero-title">QA</h1>
                 <p class="hero-desc">深度研究备忘录与投资观察。</p>
             </section>
 
@@ -243,7 +243,7 @@ function run() {
   const articles = data.map(qa => ({
     ...qa,
     slug: generateSlug(qa),
-    title: qa.question || `文章 ${qa.id}`,
+    title: qa.question || `QA ${qa.id}`,
   }));
 
   // Deduplicate slugs
@@ -270,7 +270,7 @@ function run() {
     const latestCards = latest.map(a => {
       const dateStr = (a.created_at || '').slice(0, 10);
       const excerpt = escHtml(getExcerpt(a.answer));
-      return `                    <a href="/articles/${a.slug}/" class="project-card">
+      return `                    <a href="/qa/${a.slug}/" class="project-card">
                         <div class="project-card-inner">
                             <time class="article-list-date">${escHtml(dateStr)}</time>
                             <h3 class="project-title">${escHtml(a.title)}</h3>
@@ -281,7 +281,7 @@ function run() {
     }).join('\n');
 
     const latestSection = `            <section class="projects">
-                <h2 class="section-title">最新文章</h2>
+                <h2 class="section-title">最新QA</h2>
                 <div class="articles-list">
 ${latestCards}
                 </div>

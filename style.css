@@ -269,7 +269,7 @@ body {
     color: var(--color-accent);
 }
 
-/* Articles listing */
+/* QA listing */
 .articles-list {
     display: flex;
     flex-direction: column;
