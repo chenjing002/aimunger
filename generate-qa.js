@@ -124,7 +124,7 @@ function generateArticlePage(article) {
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/qa/" class="active">QA</a></li>
+                <li><a href="/qa/" class="active">问答</a></li>
                 <li><a href="/about/">关于</a></li>
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/contact/">联系</a></li>
@@ -136,7 +136,7 @@ function generateArticlePage(article) {
         <div class="container">
             <article class="article">
                 <div class="article-header">
-                    <a href="/qa/" class="article-back">&larr; 所有QA</a>
+                    <a href="/qa/" class="article-back">&larr; 所有问答</a>
                     <h1 class="article-title">${escHtml(article.title)}</h1>
                     <time class="article-date">${escHtml(dateStr)}</time>
                 </div>
@@ -178,7 +178,7 @@ function generateListingPage(articles) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA - aimunger</title>
+    <title>问答 - aimunger</title>
     <meta name="description" content="深度研究备忘录与投资观察。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -194,7 +194,7 @@ function generateListingPage(articles) {
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/qa/" class="active">QA</a></li>
+                <li><a href="/qa/" class="active">问答</a></li>
                 <li><a href="/about/">关于</a></li>
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/contact/">联系</a></li>
@@ -205,7 +205,7 @@ function generateListingPage(articles) {
     <main class="main">
         <div class="container">
             <section class="hero">
-                <h1 class="hero-title">QA</h1>
+                <h1 class="hero-title">问答</h1>
                 <p class="hero-desc">深度研究备忘录与投资观察。</p>
             </section>
 
@@ -243,7 +243,7 @@ function run() {
   const articles = data.map(qa => ({
     ...qa,
     slug: generateSlug(qa),
-    title: qa.question || `QA ${qa.id}`,
+    title: qa.question || `问答 ${qa.id}`,
   }));
 
   // Deduplicate slugs
@@ -281,7 +281,7 @@ function run() {
     }).join('\n');
 
     const latestSection = `            <section class="projects">
-                <h2 class="section-title">最新QA</h2>
+                <h2 class="section-title">最新问答</h2>
                 <div class="articles-list">
 ${latestCards}
                 </div>
