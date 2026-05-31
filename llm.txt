@@ -17,12 +17,6 @@
 - Sitemap: https://aimunger.com/sitemap.xml
 - Robots: https://aimunger.com/robots.txt
 
-## Source Code
-
-- Main site: https://github.com/chenjing002/aimunger
-- Letters to Shareholders: https://github.com/chenjing002/letters-to-shareholders
-- LLM Reader: https://github.com/chenjing002/llm-reader
-
 ## About
 
 这是一个专注于中国股票与长期投资的研究资料库。目标是系统整理深度研究材料，减少信息碎片化，帮助投资者更深入、更独立地思考。
