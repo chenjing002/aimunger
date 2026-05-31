@@ -1,0 +1,32 @@
+# aimunger
+
+> 专注中国股票与长期投资的研究资料库。
+
+## Site Structure
+
+- https://aimunger.com/ — 首页
+- https://aimunger.com/qa/ — 问答：基于深度研究的投资问答
+- https://aimunger.com/resources/ — 资料库：致股东信、AI 辅助阅读工具等
+- https://aimunger.com/letters/ — 中国上市公司历年致股东信收录与整理
+- https://aimunger.com/llm-reader/ — LLM Reader：AI 辅助阅读笔记工具
+- https://aimunger.com/about/ — 关于
+- https://aimunger.com/contact/ — 联系
+
+## Key Resources
+
+- Sitemap: https://aimunger.com/sitemap.xml
+- Robots: https://aimunger.com/robots.txt
+
+## Source Code
+
+- Main site: https://github.com/chenjing002/aimunger
+- Letters to Shareholders: https://github.com/chenjing002/letters-to-shareholders
+- LLM Reader: https://github.com/chenjing002/llm-reader
+
+## About
+
+这是一个专注于中国股票与长期投资的研究资料库。目标是系统整理深度研究材料，减少信息碎片化，帮助投资者更深入、更独立地思考。
+
+## Contact
+
+- Email: hi@chenjing.tech

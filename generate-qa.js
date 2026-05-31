@@ -147,6 +147,10 @@ function generateArticlePage(article) {
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/chenjing002/letters-to-shareholders" target="_blank" rel="noopener">letters-to-shareholders</a>
+                <a href="https://github.com/chenjing002/llm-reader" target="_blank" rel="noopener">llm-reader</a>
+            </div>
             <p>&copy; 2026 aimunger</p>
         </div>
     </footer>
@@ -219,6 +223,10 @@ ${cards}
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/chenjing002/letters-to-shareholders" target="_blank" rel="noopener">letters-to-shareholders</a>
+                <a href="https://github.com/chenjing002/llm-reader" target="_blank" rel="noopener">llm-reader</a>
+            </div>
             <p>&copy; 2026 aimunger</p>
         </div>
     </footer>

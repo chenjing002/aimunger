@@ -264,6 +264,23 @@ body {
     font-size: 13px;
 }
 
+.footer-links {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.footer-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-accent);
+}
+
 /* Nav active state */
 .nav-links a.active {
     color: var(--color-accent);

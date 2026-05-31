@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://aimunger.com/sitemap.xml
+Llm-Txt: https://aimunger.com/llm.txt
