@@ -148,8 +148,11 @@ function generateArticlePage(article) {
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <a href="https://github.com/chenjing002/letters-to-shareholders" target="_blank" rel="noopener">letters-to-shareholders</a>
-                <a href="https://github.com/chenjing002/llm-reader" target="_blank" rel="noopener">llm-reader</a>
+                <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
+                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
+                <a href="https://aimunger.com/llm.txt">llm.txt</a>
+                <a href="https://aimunger.com/sitemap.xml">sitemap</a>
+                <a href="https://aimunger.com/rss.xml">rss</a>
             </div>
             <p>&copy; 2026 aimunger</p>
         </div>
@@ -224,8 +227,11 @@ ${cards}
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <a href="https://github.com/chenjing002/letters-to-shareholders" target="_blank" rel="noopener">letters-to-shareholders</a>
-                <a href="https://github.com/chenjing002/llm-reader" target="_blank" rel="noopener">llm-reader</a>
+                <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
+                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
+                <a href="https://aimunger.com/llm.txt">llm.txt</a>
+                <a href="https://aimunger.com/sitemap.xml">sitemap</a>
+                <a href="https://aimunger.com/rss.xml">rss</a>
             </div>
             <p>&copy; 2026 aimunger</p>
         </div>

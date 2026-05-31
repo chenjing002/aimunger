@@ -53,7 +53,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp index.html style.css favicon.svg CNAME _site/
+          cp index.html style.css favicon.svg CNAME llm.txt _site/
           cp -r about contact resources _site/
           cp -r _build/letters/dist/ _site/letters/
           mkdir -p _site/llm-reader
@@ -62,9 +62,10 @@ jobs:
       - name: Generate QA pages from QA data
         run: node generate-qa.js
 
-      - name: Generate sitemap and robots.txt
+      - name: Generate sitemap, robots.txt, and RSS
         run: |
           node generate-sitemap.js
+          node generate-rss.js
           cp robots.txt _site/robots.txt
 
       - name: Upload artifact
