@@ -863,14 +863,13 @@
     for (i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (n === dragging) continue;
-      n.vx += (W / 2 - n.x) * 0.002;
-      n.vy += (H / 2 - n.y) * 0.002;
+      var cx = toWorldX(W / 2), cy = toWorldY(H / 2);
+      n.vx += (cx - n.x) * 0.002;
+      n.vy += (cy - n.y) * 0.002;
       n.vx *= 0.82;
       n.vy *= 0.82;
       n.x += n.vx;
       n.y += n.vy;
-      n.x = Math.max(30, Math.min(W - 30, n.x));
-      n.y = Math.max(30, Math.min(H - 30, n.y));
     }
   }
 
