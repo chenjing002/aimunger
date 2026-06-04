@@ -754,9 +754,16 @@
 
     canvas.addEventListener('wheel', function(ev) {
       ev.preventDefault();
-      var pos = getCanvasPos(ev);
-      var factor = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
-      zoomAt(pos.sx, pos.sy, factor);
+      if (ev.ctrlKey) {
+        var pos = getCanvasPos(ev);
+        var factor = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
+        zoomAt(pos.sx, pos.sy, factor);
+      } else {
+        panX -= ev.deltaX;
+        panY -= ev.deltaY;
+        animTarget = null;
+        wake();
+      }
     }, { passive: false });
   }
 
