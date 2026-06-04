@@ -287,23 +287,10 @@ ${cards}
             </section>
 
             <section class="wiki-graph-section" id="wiki-graph-section" style="display:none">
-                <div class="graph-toolbar">
-                    <div class="graph-type-filters">
-                        <button class="graph-type-btn active" data-type="all">全部</button>
-                        <button class="graph-type-btn" data-type="person">人物</button>
-                        <button class="graph-type-btn" data-type="company">公司</button>
-                        <button class="graph-type-btn" data-type="institution">机构</button>
-                    </div>
-                    <div class="graph-actions">
-                        <label class="graph-checkbox-label"><input type="checkbox" id="graph-hide-isolated"> 隐藏孤立</label>
-                        <button class="graph-reset-btn" id="graph-reset">重置视图</button>
-                    </div>
-                </div>
                 <div class="graph-layout">
                     <div class="graph-main" id="graph-main">
                         <canvas id="wiki-graph"></canvas>
                         <div class="graph-tooltip" id="graph-tooltip"></div>
-                        <div class="graph-hint" id="graph-hint">点击节点进入聚焦模式</div>
                     </div>
                     <aside class="graph-detail" id="graph-detail">
                         <button class="graph-detail-close" id="graph-detail-close">&times;</button>
@@ -327,9 +314,7 @@ function generateGraphScript() {
   return `(function() {
   'use strict';
 
-  // === Color palette ===
   var COLORS = {
-    bgPage: '#FAF8F4',
     nodePerson: '#8B5E3C',
     nodeCompany: '#8B2D13',
     nodeInstitution: '#7B6B5D',
@@ -351,7 +336,6 @@ function generateGraphScript() {
 
   var TYPE_LABELS = { person: '人物', company: '公司', institution: '机构' };
 
-  // === DOM ===
   var searchInput = document.getElementById('wiki-search');
   var listSection = document.getElementById('wiki-list');
   var graphSection = document.getElementById('wiki-graph-section');
@@ -360,27 +344,18 @@ function generateGraphScript() {
   var canvas = document.getElementById('wiki-graph');
   var graphMain = document.getElementById('graph-main');
   var tooltip = document.getElementById('graph-tooltip');
-  var hint = document.getElementById('graph-hint');
   var detailPanel = document.getElementById('graph-detail');
   var detailBody = document.getElementById('graph-detail-body');
   var detailClose = document.getElementById('graph-detail-close');
-  var resetBtn = document.getElementById('graph-reset');
-  var hideIsolatedCb = document.getElementById('graph-hide-isolated');
-  var typeFilterBtns = document.querySelectorAll('.graph-type-btn');
 
-  // === State ===
   var currentView = 'list';
   var graphInited = false;
-  var graphData = null;
   var nodes = [], nodeMap = {}, edges = [], degree = {};
   var selectedNode = null;
   var hoveredNode = null;
-  var hoveredEdge = null;
   var dragging = null;
   var dragMoved = false;
   var offsetX = 0, offsetY = 0;
-  var activeTypeFilter = 'all';
-  var hideIsolated = false;
   var searchMatches = new Set();
   var neighborSet = new Set();
   var neighborEdgeSet = new Set();
@@ -389,7 +364,6 @@ function generateGraphScript() {
   var animating = false;
   var isMobile = window.innerWidth < 768;
 
-  // === View toggle ===
   viewBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       var view = this.getAttribute('data-view');
@@ -409,14 +383,10 @@ function generateGraphScript() {
     });
   });
 
-  // === Search ===
   searchInput.addEventListener('input', function() {
     var q = this.value.trim();
-    if (currentView === 'list') {
-      applyListSearch(q);
-    } else {
-      applyGraphSearch(q);
-    }
+    if (currentView === 'list') applyListSearch(q);
+    else applyGraphSearch(q);
   });
 
   searchInput.addEventListener('keydown', function(ev) {
@@ -440,7 +410,7 @@ function generateGraphScript() {
 
   function applyGraphSearch(q) {
     searchMatches = new Set();
-    if (!q) return;
+    if (!q) { wake(); return; }
     q = q.toLowerCase();
     nodes.forEach(function(n) {
       if (n.id.toLowerCase().includes(q)) searchMatches.add(n.id);
@@ -448,16 +418,16 @@ function generateGraphScript() {
     if (searchMatches.size === 1) {
       var match = nodes.find(function(n) { return searchMatches.has(n.id); });
       if (match) focusOnNode(match);
+    } else {
+      wake();
     }
   }
 
-  // === Graph init ===
   function initGraph() {
     graphInited = true;
     fetch('/wiki/data.json')
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        graphData = data;
         setupGraph(data);
         applyGraphSearch(searchInput.value);
       });
@@ -504,12 +474,13 @@ function generateGraphScript() {
     });
 
     attachCanvasEvents();
-    attachControlEvents();
+    detailClose.addEventListener('click', function() { resetView(); });
     startAnimation();
 
     window.addEventListener('resize', function() {
       isMobile = window.innerWidth < 768;
       resizeCanvas();
+      wake();
     });
   }
 
@@ -527,7 +498,6 @@ function generateGraphScript() {
     }
   }
 
-  // === Animation ===
   function startAnimation() {
     if (animating) return;
     animating = true;
@@ -549,7 +519,6 @@ function generateGraphScript() {
     } else {
       stableFrames = 0;
     }
-
     requestAnimationFrame(tick);
   }
 
@@ -558,51 +527,40 @@ function generateGraphScript() {
     startAnimation();
   }
 
-  // === Simulation ===
   function simulate() {
-    var visNodes = getVisibleNodes();
-    var visSet = new Set(visNodes.map(function(n) { return n.id; }));
+    var i, j, a, b, dx, dy, d, force, fx, fy;
 
     // Repulsion
-    for (var i = 0; i < visNodes.length; i++) {
-      for (var j = i + 1; j < visNodes.length; j++) {
-        var a = visNodes[i], b = visNodes[j];
-        var dx = b.x - a.x, dy = b.y - a.y;
-        var d = Math.max(Math.hypot(dx, dy), 1);
-        var force = 1200 / (d * d);
-        var fx = (dx / d) * force, fy = (dy / d) * force;
+    for (i = 0; i < nodes.length; i++) {
+      for (j = i + 1; j < nodes.length; j++) {
+        a = nodes[i]; b = nodes[j];
+        dx = b.x - a.x; dy = b.y - a.y;
+        d = Math.max(Math.hypot(dx, dy), 1);
+        force = 1200 / (d * d);
+        fx = (dx / d) * force; fy = (dy / d) * force;
         if (a !== dragging) { a.vx -= fx; a.vy -= fy; }
         if (b !== dragging) { b.vx += fx; b.vy += fy; }
       }
     }
 
     // Attraction along edges
-    for (var i = 0; i < edges.length; i++) {
-      var a = nodeMap[edges[i].source], b = nodeMap[edges[i].target];
-      if (!a || !b || !visSet.has(a.id) || !visSet.has(b.id)) continue;
-      var dx = b.x - a.x, dy = b.y - a.y;
-      var d = Math.max(Math.hypot(dx, dy), 1);
-      var idealLen = selectedNode ? 120 : 100;
-      var force = (d - idealLen) * 0.008;
-      var fx = (dx / d) * force, fy = (dy / d) * force;
+    for (i = 0; i < edges.length; i++) {
+      a = nodeMap[edges[i].source]; b = nodeMap[edges[i].target];
+      if (!a || !b) continue;
+      dx = b.x - a.x; dy = b.y - a.y;
+      d = Math.max(Math.hypot(dx, dy), 1);
+      force = (d - 100) * 0.008;
+      fx = (dx / d) * force; fy = (dy / d) * force;
       if (a !== dragging) { a.vx += fx; a.vy += fy; }
       if (b !== dragging) { b.vx -= fx; b.vy -= fy; }
     }
 
-    // Center gravity
-    for (var i = 0; i < visNodes.length; i++) {
-      var n = visNodes[i];
+    // Center gravity + damping
+    for (i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
       if (n === dragging) continue;
-      var cx = W / 2, cy = H / 2;
-      if (selectedNode && n === selectedNode) {
-        cx = detailPanel.classList.contains('visible') && !isMobile ? (W / 2 - 40) : W / 2;
-        cy = H / 2;
-        n.vx += (cx - n.x) * 0.015;
-        n.vy += (cy - n.y) * 0.015;
-      } else {
-        n.vx += (cx - n.x) * 0.002;
-        n.vy += (cy - n.y) * 0.002;
-      }
+      n.vx += (W / 2 - n.x) * 0.002;
+      n.vy += (H / 2 - n.y) * 0.002;
       n.vx *= 0.82;
       n.vy *= 0.82;
       n.x += n.vx;
@@ -612,34 +570,12 @@ function generateGraphScript() {
     }
   }
 
-  // === Visibility ===
-  function getVisibleNodes() {
-    return nodes.filter(function(n) {
-      if (activeTypeFilter !== 'all' && n.type !== activeTypeFilter) return false;
-      if (hideIsolated && (degree[n.id] || 0) === 0) return false;
-      return true;
-    });
-  }
-
-  function isNodeVisible(n) {
-    if (activeTypeFilter !== 'all' && n.type !== activeTypeFilter) return false;
-    if (hideIsolated && (degree[n.id] || 0) === 0) return false;
-    return true;
-  }
-
-  function getNeighborIds(nodeId, hops) {
+  function getNeighborIds(nodeId) {
     var visited = new Set([nodeId]);
-    var frontier = [nodeId];
-    for (var h = 0; h < hops; h++) {
-      var next = [];
-      frontier.forEach(function(id) {
-        edges.forEach(function(e) {
-          if (e.source === id && !visited.has(e.target)) { visited.add(e.target); next.push(e.target); }
-          if (e.target === id && !visited.has(e.source)) { visited.add(e.source); next.push(e.source); }
-        });
-      });
-      frontier = next;
-    }
+    edges.forEach(function(e) {
+      if (e.source === nodeId) visited.add(e.target);
+      if (e.target === nodeId) visited.add(e.source);
+    });
     return visited;
   }
 
@@ -651,13 +587,11 @@ function generateGraphScript() {
     return s;
   }
 
-  // === Focus mode ===
   function focusOnNode(node) {
     selectedNode = node;
-    neighborSet = getNeighborIds(node.id, 1);
+    neighborSet = getNeighborIds(node.id);
     neighborEdgeSet = getConnectedEdges(neighborSet);
     showDetailPanel(node);
-    hint.style.display = 'none';
     wake();
   }
 
@@ -665,25 +599,18 @@ function generateGraphScript() {
     selectedNode = null;
     neighborSet = new Set();
     neighborEdgeSet = new Set();
-    searchMatches = new Set();
-    searchInput.value = '';
     hideDetailPanel();
-    hint.style.display = '';
     wake();
   }
 
-  // === Draw ===
   function draw() {
     ctx.clearRect(0, 0, W, H);
-
-    var visibleSet = new Set(getVisibleNodes().map(function(n) { return n.id; }));
 
     // Draw edges
     for (var i = 0; i < edges.length; i++) {
       var e = edges[i];
       var a = nodeMap[e.source], b = nodeMap[e.target];
       if (!a || !b) continue;
-      if (!visibleSet.has(a.id) || !visibleSet.has(b.id)) continue;
 
       var isHighEdge = hoveredNode && (a === hoveredNode || b === hoveredNode);
       var isFocusEdge = selectedNode && neighborEdgeSet.has(i);
@@ -708,8 +635,6 @@ function generateGraphScript() {
     // Draw nodes
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
-      if (!visibleSet.has(n.id)) continue;
-
       var r = getRadius(n);
       var isSelected = n === selectedNode;
       var isHovered = n === hoveredNode;
@@ -724,11 +649,8 @@ function generateGraphScript() {
         });
       var isHoverFaded = !selectedNode && hoveredNode && !isHovered && !isHoverNeighbor;
 
-      // Node fill color
       var fillColor;
-      if (isSelected) {
-        fillColor = COLORS.nodeSelected;
-      } else if (isHovered) {
+      if (isSelected || isHovered) {
         fillColor = COLORS.nodeSelected;
       } else if (isNeighbor || isHoverNeighbor) {
         fillColor = COLORS.nodeConnected;
@@ -740,50 +662,30 @@ function generateGraphScript() {
         fillColor = TYPE_COLORS[n.type] || COLORS.nodePerson;
       }
 
-      // Draw glow for selected/search match
       if (isSelected || isSearchMatch) {
-        ctx.save();
         ctx.beginPath();
         ctx.arc(n.x, n.y, r + 6, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(139,45,19,0.12)';
         ctx.fill();
-        ctx.restore();
       }
 
-      // Node circle
       ctx.beginPath();
       ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
       ctx.fillStyle = fillColor;
       ctx.fill();
-
-      // Type indicator: company gets a thin white inner ring, institution gets a dot
-      if (n.type === 'company' && r > 5) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r - 2, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(255,255,255,0.4)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      } else if (n.type === 'institution' && r > 5) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.fill();
-      }
     }
 
     // Draw labels
-    drawLabels(visibleSet);
+    drawLabels();
   }
 
-  function drawLabels(visibleSet) {
+  function drawLabels() {
     ctx.font = '12px "Noto Serif SC", serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
 
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
-      if (!visibleSet.has(n.id)) continue;
-
       var r = getRadius(n);
       var isSelected = n === selectedNode;
       var isHovered = n === hoveredNode;
@@ -795,7 +697,6 @@ function generateGraphScript() {
                  (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
         });
 
-      // Determine if label should show
       var showLabel = false;
       if (selectedNode) {
         showLabel = isSelected || isNeighbor;
@@ -817,7 +718,6 @@ function generateGraphScript() {
       var text = n.id;
       var textW = ctx.measureText(text).width;
 
-      // Background for readability
       ctx.fillStyle = COLORS.labelBg;
       ctx.fillRect(n.x - textW / 2 - 3, labelY - 1, textW + 6, 16);
 
@@ -836,23 +736,6 @@ function generateGraphScript() {
     return base;
   }
 
-  // === Edge hover detection ===
-  function findEdgeNear(mx, my, threshold) {
-    threshold = threshold || 6;
-    for (var i = 0; i < edges.length; i++) {
-      var a = nodeMap[edges[i].source], b = nodeMap[edges[i].target];
-      if (!a || !b) continue;
-      var dx = b.x - a.x, dy = b.y - a.y;
-      var lenSq = dx * dx + dy * dy;
-      if (lenSq === 0) continue;
-      var t = Math.max(0, Math.min(1, ((mx - a.x) * dx + (my - a.y) * dy) / lenSq));
-      var px = a.x + t * dx, py = a.y + t * dy;
-      if (Math.hypot(mx - px, my - py) < threshold) return edges[i];
-    }
-    return null;
-  }
-
-  // === Canvas events ===
   function attachCanvasEvents() {
     canvas.addEventListener('mousedown', function(ev) {
       var pos = getCanvasPos(ev);
@@ -862,6 +745,7 @@ function generateGraphScript() {
         dragMoved = false;
         offsetX = node.x - pos.x;
         offsetY = node.y - pos.y;
+        ev.preventDefault();
       }
     });
 
@@ -880,22 +764,7 @@ function generateGraphScript() {
       var prevHovered = hoveredNode;
       hoveredNode = findNodeAt(pos.x, pos.y);
 
-      if (!hoveredNode) {
-        var edge = findEdgeNear(pos.x, pos.y);
-        if (edge !== hoveredEdge) {
-          hoveredEdge = edge;
-          if (edge) {
-            var refs = edge.refs && edge.refs.length > 0 ? edge.refs.join(', ') : edge.source;
-            tooltip.textContent = '关联来源: ' + refs;
-            tooltip.style.left = pos.x + 12 + 'px';
-            tooltip.style.top = pos.y - 8 + 'px';
-            tooltip.style.display = 'block';
-          } else {
-            tooltip.style.display = 'none';
-          }
-        }
-      } else {
-        hoveredEdge = null;
+      if (hoveredNode) {
         tooltip.style.display = 'none';
       }
 
@@ -911,9 +780,8 @@ function generateGraphScript() {
     });
 
     canvas.addEventListener('mouseleave', function() {
-      dragging = null;
+      if (dragging) dragging = null;
       hoveredNode = null;
-      hoveredEdge = null;
       tooltip.style.display = 'none';
       canvas.style.cursor = 'default';
       wake();
@@ -928,7 +796,7 @@ function generateGraphScript() {
     });
 
     canvas.addEventListener('click', function(ev) {
-      if (dragMoved) return;
+      if (dragMoved) { dragMoved = false; return; }
       var pos = getCanvasPos(ev);
       var node = findNodeAt(pos.x, pos.y);
       if (!node && selectedNode) {
@@ -936,8 +804,7 @@ function generateGraphScript() {
       }
     });
 
-    // Touch
-    var touchStartTime = 0;
+    // Touch support
     canvas.addEventListener('touchstart', function(ev) {
       var touch = ev.touches[0];
       var pos = getTouchPos(touch);
@@ -947,7 +814,6 @@ function generateGraphScript() {
         dragMoved = false;
         offsetX = node.x - pos.x;
         offsetY = node.y - pos.y;
-        touchStartTime = Date.now();
         ev.preventDefault();
       }
     }, { passive: false });
@@ -966,7 +832,7 @@ function generateGraphScript() {
       }
     }, { passive: false });
 
-    canvas.addEventListener('touchend', function(ev) {
+    canvas.addEventListener('touchend', function() {
       if (dragging && !dragMoved) {
         focusOnNode(dragging);
       }
@@ -985,56 +851,28 @@ function generateGraphScript() {
   }
 
   function findNodeAt(mx, my) {
-    for (var i = nodes.length - 1; i >= 0; i--) {
+    var closest = null, closestDist = Infinity;
+    for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
-      if (!isNodeVisible(n)) continue;
-      if (Math.hypot(n.x - mx, n.y - my) < getRadius(n) + 4) return n;
+      var dist = Math.hypot(n.x - mx, n.y - my);
+      var hitR = getRadius(n) + 4;
+      if (dist < hitR && dist < closestDist) {
+        closest = n;
+        closestDist = dist;
+      }
     }
-    return null;
+    return closest;
   }
 
-  // === Control events ===
-  function attachControlEvents() {
-    typeFilterBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        typeFilterBtns.forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
-        activeTypeFilter = this.getAttribute('data-type');
-        wake();
-      });
-    });
-
-    hideIsolatedCb.addEventListener('change', function() {
-      hideIsolated = this.checked;
-      wake();
-    });
-
-    resetBtn.addEventListener('click', function() {
-      resetView();
-      activeTypeFilter = 'all';
-      typeFilterBtns.forEach(function(b) {
-        b.classList.toggle('active', b.getAttribute('data-type') === 'all');
-      });
-      hideIsolated = false;
-      hideIsolatedCb.checked = false;
-    });
-
-    detailClose.addEventListener('click', function() {
-      resetView();
-    });
-  }
-
-  // === Detail panel ===
   function showDetailPanel(node) {
     var neighbors = [];
     edges.forEach(function(e) {
       if (e.source === node.id && nodeMap[e.target]) neighbors.push(nodeMap[e.target]);
       if (e.target === node.id && nodeMap[e.source]) neighbors.push(nodeMap[e.source]);
     });
-    // Sort neighbors by degree
     neighbors.sort(function(a, b) { return (degree[b.id] || 0) - (degree[a.id] || 0); });
 
-    var typeLabel = TYPE_LABELS[node.type] || '未知';
+    var typeLabel = TYPE_LABELS[node.type] || '';
     var html = '<div class="detail-header">' +
       '<span class="detail-type-badge type-' + node.type + '">' + escH(typeLabel) + '</span>' +
       '<h3 class="detail-name">' + escH(node.id) + '</h3>' +
@@ -1062,7 +900,6 @@ function generateGraphScript() {
     detailBody.innerHTML = html;
     detailPanel.classList.add('visible');
 
-    // Bind neighbor clicks
     var nbItems = detailBody.querySelectorAll('.detail-neighbor-item');
     nbItems.forEach(function(item) {
       item.addEventListener('click', function(ev) {
@@ -1072,7 +909,6 @@ function generateGraphScript() {
       });
     });
 
-    // Resize canvas since detail panel takes space
     if (!isMobile) {
       setTimeout(function() { resizeCanvas(); wake(); }, 50);
     }
@@ -1232,81 +1068,6 @@ function generateWikiCSS() {
     padding-bottom: 72px;
 }
 
-/* Toolbar */
-.graph-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-}
-
-.graph-type-filters {
-    display: flex;
-    gap: 4px;
-    background: var(--color-surface);
-    border-radius: 8px;
-    padding: 3px;
-}
-
-.graph-type-btn {
-    padding: 5px 12px;
-    font-family: var(--font-serif);
-    font-size: 12px;
-    font-weight: 500;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.graph-type-btn.active {
-    background: var(--color-card-bg);
-    color: var(--color-text);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.graph-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.graph-checkbox-label {
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    user-select: none;
-}
-
-.graph-checkbox-label input {
-    cursor: pointer;
-}
-
-.graph-reset-btn {
-    padding: 5px 12px;
-    font-family: var(--font-serif);
-    font-size: 12px;
-    font-weight: 500;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    background: var(--color-card-bg);
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.graph-reset-btn:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-}
-
 /* Graph layout: main + detail side-by-side */
 .graph-layout {
     display: flex;
@@ -1327,20 +1088,6 @@ function generateWikiCSS() {
 #wiki-graph {
     display: block;
     width: 100%;
-}
-
-.graph-hint {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    background: rgba(255,255,255,0.85);
-    padding: 4px 14px;
-    border-radius: 20px;
-    pointer-events: none;
-    opacity: 0.7;
 }
 
 .graph-tooltip {
@@ -1558,11 +1305,6 @@ function generateWikiCSS() {
         grid-template-columns: 1fr;
     }
 
-    .graph-toolbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
     .graph-layout {
         flex-direction: column;
     }
@@ -1576,11 +1318,6 @@ function generateWikiCSS() {
     }
 }
 
-@media (max-width: 420px) {
-    .graph-type-filters {
-        flex-wrap: wrap;
-    }
-}
 `;
 }
 
