@@ -124,11 +124,10 @@ function generateArticlePage(article) {
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/qa/" class="active">问答</a></li>
-                <li><a href="/wiki/">Wiki</a></li>
                 <li><a href="/resources/">资料库</a></li>
+                <li><a href="/wiki/">Wiki</a></li>
+                <li><a href="/qa/" class="active">问答</a></li>
                 <li><a href="/about/">关于</a></li>
-                <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
     </header>
@@ -202,11 +201,10 @@ function generateListingPage(articles) {
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/qa/" class="active">问答</a></li>
-                <li><a href="/wiki/">Wiki</a></li>
                 <li><a href="/resources/">资料库</a></li>
+                <li><a href="/wiki/">Wiki</a></li>
+                <li><a href="/qa/" class="active">问答</a></li>
                 <li><a href="/about/">关于</a></li>
-                <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
     </header>

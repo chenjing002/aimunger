@@ -10,7 +10,6 @@
 - https://aimunger.com/letters/ — 中国上市公司历年致股东信收录与整理
 - https://aimunger.com/llm-reader/ — LLM Reader：AI 辅助阅读笔记工具
 - https://aimunger.com/about/ — 关于
-- https://aimunger.com/contact/ — 联系
 
 ## Key Resources
 

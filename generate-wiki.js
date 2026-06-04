@@ -95,11 +95,10 @@ const NAV_HTML = `    <header class="header">
                 <span class="logo-text">aimunger</span>
             </a>
             <ul class="nav-links">
-                <li><a href="/qa/">问答</a></li>
-                <li><a href="/wiki/" class="active">Wiki</a></li>
                 <li><a href="/resources/">资料库</a></li>
+                <li><a href="/wiki/" class="active">Wiki</a></li>
+                <li><a href="/qa/">问答</a></li>
                 <li><a href="/about/">关于</a></li>
-                <li><a href="/contact/">联系</a></li>
             </ul>
         </nav>
     </header>`;
