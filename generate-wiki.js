@@ -1,9 +1,77 @@
 const fs = require('fs');
 const path = require('path');
 
+const IR_LOG_WIKI = path.join(__dirname, '..', 'IR-log', 'wiki');
 const WIKI_SOURCE = path.join(__dirname, 'wiki-source');
 const SITE_DIR = path.join(__dirname, '_site');
 const WIKI_DIR = path.join(SITE_DIR, 'wiki');
+
+const SLUG_MAP = {
+  '万科': 'vanke',
+  '华生': 'huasheng',
+  '张旭': 'zhangxu',
+  '李录': 'lilu',
+  '栗淼': 'limiao',
+  '王石': 'wangshi',
+  '芒格': 'charlie-munger',
+  '辛杰': 'xinjie',
+  '郁亮': 'yuliang',
+  '郭钧': 'guojun',
+  '丁祖昱': 'dingzuyu',
+  '万物云': 'onewo',
+  '何享健': 'hexiangjian',
+  '傅育宁': 'fuyuning',
+  '刘元生': 'liuyuansheng',
+  '单伟建': 'shanweijian',
+  '吴亚军': 'wuyajun',
+  '周小川': 'zhouxiaochuan',
+  '孔庆平': 'kongqingping',
+  '孙文杰': 'sunwenjie',
+  '巴菲特': 'warren-buffett',
+  '新鸿基': 'shkp',
+  '方洪波': 'fanghongbo',
+  '普洛斯': 'glp',
+  '朱保全': 'zhubaoquan',
+  '李如成': 'lirucheng',
+  '梅志明': 'meizhiming',
+  '楼继伟': 'loujiwei',
+  '比亚迪': 'byd',
+  '毛大庆': 'maodaqing',
+  '潘樟良': 'panzhangliang',
+  '缪建民': 'miaojianmin',
+  '蔡曼莉': 'caimanli',
+  '赵燕菁': 'zhaoyanjing',
+  '郝建民': 'haojianmin',
+  '陈启宗': 'ronnie-chan',
+  '陈序平': 'chenxuping',
+  '陈曾熙': 'chan-tseng-hsi',
+  '雅戈尔': 'youngor',
+  '颜建国': 'yanjianguo',
+  '马明哲': 'mamingzhe',
+  '高西庆': 'gaoxiqing',
+  '黄奇帆': 'huangqifan',
+  '深基地B': 'shenzhen-chiwan-base',
+  '中国平安': 'ping-an',
+  '中国建筑': 'cscec',
+  '中投公司': 'cic',
+  '中海发展': 'china-overseas-land',
+  '中金公司': 'cicc',
+  '华润置地': 'cr-land',
+  '南山控股': 'nanshan-holdings',
+  '恒隆地产': 'hang-lung',
+  '招商蛇口': 'cmsk',
+  '深圳地铁': 'shenzhen-metro',
+  '绿景地产': 'lvgem',
+  '美的集团': 'midea',
+  '越秀地产': 'yuexiu-property',
+  '长江电力': 'yangtze-power',
+  '龙湖集团': 'longfor',
+  '招商局集团': 'cmg',
+};
+
+function getSlug(title) {
+  return SLUG_MAP[title] || encodeURIComponent(title);
+}
 
 function escHtml(s) {
   return String(s || '')
@@ -41,7 +109,7 @@ function extractLinks(body) {
 function markdownToHtml(text, wikiNames) {
   let html = text.replace(/\[\[([^\]]+)\]\]/g, (_, name) => {
     if (wikiNames.has(name)) {
-      return `<a href="/wiki/${encodeURIComponent(name)}/" class="wiki-link">${escHtml(name)}</a>`;
+      return `<a href="/wiki/${getSlug(name)}/" class="wiki-link">${escHtml(name)}</a>`;
     }
     return `<span class="wiki-link-broken">${escHtml(name)}</span>`;
   });
@@ -84,7 +152,8 @@ function classifyNode(title) {
   const companies = [
     '万科', '万物云', '新鸿基', '普洛斯', '比亚迪', '深基地B', '美的集团',
     '绿景地产', '雅戈尔', '长江电力', '龙湖集团', '中国平安', '中国建筑',
-    '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展'
+    '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展',
+    '招商局集团'
   ];
   const institutions = ['中投公司', '中金公司', '深圳地铁'];
   if (companies.includes(title)) return 'company';
@@ -159,7 +228,36 @@ ${FOOTER_HTML}
 </html>`;
 }
 
+function syncFromIRLog() {
+  if (!fs.existsSync(IR_LOG_WIKI)) return;
+  fs.mkdirSync(WIKI_SOURCE, { recursive: true });
+  const srcFiles = fs.readdirSync(IR_LOG_WIKI).filter(f => f.endsWith('.md'));
+  const destFiles = fs.readdirSync(WIKI_SOURCE).filter(f => f.endsWith('.md'));
+  // Remove files in wiki-source that no longer exist in IR-log
+  for (const f of destFiles) {
+    if (!srcFiles.includes(f)) {
+      fs.unlinkSync(path.join(WIKI_SOURCE, f));
+      console.log(`Removed: ${f}`);
+    }
+  }
+  // Copy new or updated files
+  let synced = 0;
+  for (const f of srcFiles) {
+    const src = path.join(IR_LOG_WIKI, f);
+    const dest = path.join(WIKI_SOURCE, f);
+    const srcContent = fs.readFileSync(src, 'utf-8');
+    const destContent = fs.existsSync(dest) ? fs.readFileSync(dest, 'utf-8') : null;
+    if (srcContent !== destContent) {
+      fs.writeFileSync(dest, srcContent);
+      synced++;
+    }
+  }
+  if (synced > 0) console.log(`Synced ${synced} wiki files from IR-log`);
+}
+
 function run() {
+  syncFromIRLog();
+
   if (!fs.existsSync(WIKI_SOURCE)) {
     console.log('wiki-source directory not found, skipping wiki generation');
     return;
@@ -189,6 +287,7 @@ function run() {
   // Build graph data with types and descriptions
   const nodes = entries.map(e => ({
     id: e.title,
+    slug: getSlug(e.title),
     type: classifyNode(e.title),
     desc: e.plainText.slice(0, 200)
   }));
@@ -212,11 +311,21 @@ function run() {
     text: e.plainText.slice(0, 500),
   }));
 
-  // Write output
+  // Write output — clean old page directories first
   fs.mkdirSync(WIKI_DIR, { recursive: true });
+  const keepFiles = new Set(['data.json', 'index.html', 'wiki.css']);
+  const slugSet = new Set(entries.map(e => getSlug(e.title)));
+  for (const name of fs.readdirSync(WIKI_DIR)) {
+    if (keepFiles.has(name)) continue;
+    const full = path.join(WIKI_DIR, name);
+    if (fs.statSync(full).isDirectory() && !slugSet.has(name)) {
+      fs.rmSync(full, { recursive: true });
+    }
+  }
 
   for (const e of entries) {
-    const dir = path.join(WIKI_DIR, e.title);
+    const slug = getSlug(e.title);
+    const dir = path.join(WIKI_DIR, slug);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(e.title, e.htmlContent));
   }
@@ -236,7 +345,7 @@ function generateIndexPage(entries) {
     const linkCount = e.links.length;
     const nodeType = classifyNode(e.title);
     const typeLabel = TYPE_LABELS[nodeType];
-    return `                    <a href="/wiki/${encodeURIComponent(e.title)}/" class="wiki-card" data-title="${escHtml(e.title)}">
+    return `                    <a href="/wiki/${getSlug(e.title)}/" class="wiki-card" data-title="${escHtml(e.title)}">
                         <div class="wiki-card-head">
                             <h3 class="wiki-card-title">${escHtml(e.title)}</h3>
                             <span class="wiki-card-type type-${nodeType}">${typeLabel}</span>
@@ -291,6 +400,11 @@ ${cards}
                     <div class="graph-main" id="graph-main">
                         <canvas id="wiki-graph"></canvas>
                         <div class="graph-tooltip" id="graph-tooltip"></div>
+                        <div class="graph-zoom-controls">
+                            <button class="graph-zoom-btn" id="graph-zoom-in" title="放大">+</button>
+                            <button class="graph-zoom-btn" id="graph-zoom-out" title="缩小">&minus;</button>
+                            <button class="graph-zoom-btn graph-zoom-reset" id="graph-zoom-reset" title="重置">&#8634;</button>
+                        </div>
                     </div>
                     <aside class="graph-detail" id="graph-detail">
                         <button class="graph-detail-close" id="graph-detail-close">&times;</button>
@@ -315,17 +429,17 @@ function generateGraphScript() {
   'use strict';
 
   var COLORS = {
-    nodePerson: '#8B5E3C',
-    nodeCompany: '#8B2D13',
+    nodePerson: '#107792',
+    nodeCompany: '#DE7356',
     nodeInstitution: '#7B6B5D',
-    nodeSelected: '#8B2D13',
-    nodeConnected: '#C45A35',
+    nodeSelected: '#DE7356',
+    nodeConnected: '#E8956F',
     nodeFaded: '#C9C6C1',
     edge: '#D8D2CA',
-    edgeHighlight: '#8B2D13',
+    edgeHighlight: '#DE7356',
     labelDefault: '#1a1a1a',
     labelFaded: '#B0ADA8',
-    labelBg: 'rgba(250,248,244,0.85)'
+    labelBg: 'rgba(255,255,255,0.85)'
   };
 
   var TYPE_COLORS = {
@@ -363,6 +477,7 @@ function generateGraphScript() {
   var ctx = null;
   var animating = false;
   var isMobile = window.innerWidth < 768;
+  var zoom = 1, panX = 0, panY = 0;
 
   viewBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -442,6 +557,7 @@ function generateGraphScript() {
       var spread = Math.min(400, data.nodes.length * 6);
       return {
         id: n.id,
+        slug: n.slug || n.id,
         type: n.type || 'person',
         desc: n.desc || '',
         x: 0, y: 0,
@@ -482,6 +598,23 @@ function generateGraphScript() {
       resizeCanvas();
       wake();
     });
+
+    document.getElementById('graph-zoom-in').addEventListener('click', function() {
+      zoomAt(W / 2, H / 2, 1.3);
+    });
+    document.getElementById('graph-zoom-out').addEventListener('click', function() {
+      zoomAt(W / 2, H / 2, 1 / 1.3);
+    });
+    document.getElementById('graph-zoom-reset').addEventListener('click', function() {
+      zoom = 1; panX = 0; panY = 0; wake();
+    });
+
+    canvas.addEventListener('wheel', function(ev) {
+      ev.preventDefault();
+      var pos = getCanvasPos(ev);
+      var factor = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
+      zoomAt(pos.sx, pos.sy, factor);
+    }, { passive: false });
   }
 
   function resizeCanvas() {
@@ -493,10 +626,23 @@ function generateGraphScript() {
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
     if (ctx) {
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
   }
+
+  function zoomAt(cx, cy, factor) {
+    var newZoom = Math.max(0.3, Math.min(5, zoom * factor));
+    var scale = newZoom / zoom;
+    panX = cx - scale * (cx - panX);
+    panY = cy - scale * (cy - panY);
+    zoom = newZoom;
+    wake();
+  }
+
+  function toScreenX(x) { return x * zoom + panX; }
+  function toScreenY(y) { return y * zoom + panY; }
+  function toWorldX(sx) { return (sx - panX) / zoom; }
+  function toWorldY(sy) { return (sy - panY) / zoom; }
 
   function startAnimation() {
     if (animating) return;
@@ -605,6 +751,9 @@ function generateGraphScript() {
 
   function draw() {
     ctx.clearRect(0, 0, W, H);
+    ctx.save();
+    ctx.translate(panX, panY);
+    ctx.scale(zoom, zoom);
 
     // Draw edges
     for (var i = 0; i < edges.length; i++) {
@@ -618,13 +767,13 @@ function generateGraphScript() {
 
       if (isFaded) {
         ctx.strokeStyle = 'rgba(216,210,202,0.15)';
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth = 0.5 / zoom;
       } else if (isHighEdge || isFocusEdge) {
         ctx.strokeStyle = COLORS.edgeHighlight;
-        ctx.lineWidth = isHighEdge ? 2 : 1.5;
+        ctx.lineWidth = (isHighEdge ? 2 : 1.5) / zoom;
       } else {
         ctx.strokeStyle = COLORS.edge;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1 / zoom;
       }
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
@@ -635,7 +784,7 @@ function generateGraphScript() {
     // Draw nodes
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
-      var r = getRadius(n);
+      var r = getRadius(n) / zoom;
       var isSelected = n === selectedNode;
       var isHovered = n === hoveredNode;
       var isNeighbor = selectedNode && neighborSet.has(n.id) && !isSelected;
@@ -664,8 +813,8 @@ function generateGraphScript() {
 
       if (isSelected || isSearchMatch) {
         ctx.beginPath();
-        ctx.arc(n.x, n.y, r + 6, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(139,45,19,0.12)';
+        ctx.arc(n.x, n.y, r + 6 / zoom, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(222,115,86,0.12)';
         ctx.fill();
       }
 
@@ -677,16 +826,19 @@ function generateGraphScript() {
 
     // Draw labels
     drawLabels();
+    ctx.restore();
   }
 
   function drawLabels() {
-    ctx.font = '12px "Noto Serif SC", serif';
+    var fontSize = 12 / zoom;
+    var boldFontSize = 13 / zoom;
+    ctx.font = fontSize + 'px "Noto Serif SC", serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
 
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
-      var r = getRadius(n);
+      var r = getRadius(n) / zoom;
       var isSelected = n === selectedNode;
       var isHovered = n === hoveredNode;
       var isNeighbor = selectedNode && neighborSet.has(n.id);
@@ -714,17 +866,18 @@ function generateGraphScript() {
                     (searchMatches.size > 0 && !isSearchMatch) ||
                     (!selectedNode && hoveredNode && !isHovered && !isHoverNeighbor);
 
-      var labelY = n.y + r + 4;
+      var labelY = n.y + r + 4 / zoom;
       var text = n.id;
       var textW = ctx.measureText(text).width;
+      var labelH = 16 / zoom;
 
       ctx.fillStyle = COLORS.labelBg;
-      ctx.fillRect(n.x - textW / 2 - 3, labelY - 1, textW + 6, 16);
+      ctx.fillRect(n.x - textW / 2 - 3 / zoom, labelY - 1 / zoom, textW + 6 / zoom, labelH);
 
       ctx.fillStyle = isFaded ? COLORS.labelFaded : COLORS.labelDefault;
-      if (isSelected || isHovered) ctx.font = 'bold 13px "Noto Serif SC", serif';
+      if (isSelected || isHovered) ctx.font = 'bold ' + boldFontSize + 'px "Noto Serif SC", serif';
       ctx.fillText(text, n.x, labelY);
-      if (isSelected || isHovered) ctx.font = '12px "Noto Serif SC", serif';
+      if (isSelected || isHovered) ctx.font = fontSize + 'px "Noto Serif SC", serif';
     }
   }
 
@@ -791,7 +944,7 @@ function generateGraphScript() {
       var pos = getCanvasPos(ev);
       var node = findNodeAt(pos.x, pos.y);
       if (node) {
-        window.location.href = '/wiki/' + encodeURIComponent(node.id) + '/';
+        window.location.href = '/wiki/' + node.slug + '/';
       }
     });
 
@@ -842,12 +995,14 @@ function generateGraphScript() {
 
   function getCanvasPos(ev) {
     var rect = canvas.getBoundingClientRect();
-    return { x: ev.clientX - rect.left, y: ev.clientY - rect.top };
+    var sx = ev.clientX - rect.left, sy = ev.clientY - rect.top;
+    return { x: toWorldX(sx), y: toWorldY(sy), sx: sx, sy: sy };
   }
 
   function getTouchPos(touch) {
     var rect = canvas.getBoundingClientRect();
-    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+    var sx = touch.clientX - rect.left, sy = touch.clientY - rect.top;
+    return { x: toWorldX(sx), y: toWorldY(sy), sx: sx, sy: sy };
   }
 
   function findNodeAt(mx, my) {
@@ -855,7 +1010,7 @@ function generateGraphScript() {
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       var dist = Math.hypot(n.x - mx, n.y - my);
-      var hitR = getRadius(n) + 4;
+      var hitR = (getRadius(n) + 4) / zoom;
       if (dist < hitR && dist < closestDist) {
         closest = n;
         closestDist = dist;
@@ -895,7 +1050,7 @@ function generateGraphScript() {
       html += '</div></div>';
     }
 
-    html += '<a href="/wiki/' + encodeURIComponent(node.id) + '/" class="detail-visit-btn">查看完整页面 &rarr;</a>';
+    html += '<a href="/wiki/' + node.slug + '/" class="detail-visit-btn">查看完整页面 &rarr;</a>';
 
     detailBody.innerHTML = html;
     detailPanel.classList.add('visible');
@@ -1024,13 +1179,13 @@ function generateWikiCSS() {
 }
 
 .wiki-card-type.type-person {
-    background: #f5ede6;
-    color: #8B5E3C;
+    background: #e6f2f5;
+    color: #107792;
 }
 
 .wiki-card-type.type-company {
-    background: #fce8e2;
-    color: #8B2D13;
+    background: #fceee8;
+    color: #DE7356;
 }
 
 .wiki-card-type.type-institution {
@@ -1072,12 +1227,49 @@ function generateWikiCSS() {
     border: 1px solid #E8E1D8;
     border-radius: 12px;
     overflow: hidden;
-    background: #FAF8F4;
+    background: #ffffff;
 }
 
 #wiki-graph {
     display: block;
     width: 100%;
+}
+
+.graph-zoom-controls {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 10;
+}
+
+.graph-zoom-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #E8E1D8;
+    border-radius: 8px;
+    background: #fff;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 0;
+    line-height: 1;
+}
+
+.graph-zoom-btn:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.graph-zoom-reset {
+    font-size: 14px;
 }
 
 .graph-tooltip {
@@ -1164,13 +1356,13 @@ function generateWikiCSS() {
 }
 
 .detail-type-badge.type-person {
-    background: #f5ede6;
-    color: #8B5E3C;
+    background: #e6f2f5;
+    color: #107792;
 }
 
 .detail-type-badge.type-company {
-    background: #fce8e2;
-    color: #8B2D13;
+    background: #fceee8;
+    color: #DE7356;
 }
 
 .detail-type-badge.type-institution {
@@ -1234,8 +1426,8 @@ function generateWikiCSS() {
     flex-shrink: 0;
 }
 
-.detail-nb-dot.type-person { background: #8B5E3C; }
-.detail-nb-dot.type-company { background: #8B2D13; }
+.detail-nb-dot.type-person { background: #107792; }
+.detail-nb-dot.type-company { background: #DE7356; }
 .detail-nb-dot.type-institution { background: #7B6B5D; }
 
 .detail-nb-name {
