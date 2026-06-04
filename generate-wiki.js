@@ -153,15 +153,13 @@ function classifyNode(title) {
     '万科', '万物云', '新鸿基', '普洛斯', '比亚迪', '深基地B', '美的集团',
     '绿景地产', '雅戈尔', '长江电力', '龙湖集团', '中国平安', '中国建筑',
     '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展',
-    '招商局集团'
+    '招商局集团', '中投公司', '中金公司', '深圳地铁'
   ];
-  const institutions = ['中投公司', '中金公司', '深圳地铁'];
   if (companies.includes(title)) return 'company';
-  if (institutions.includes(title)) return 'institution';
   return 'person';
 }
 
-const TYPE_LABELS = { person: '人物', company: '公司', institution: '机构' };
+const TYPE_LABELS = { person: '人物', company: '公司' };
 
 const NAV_HTML = `    <header class="header">
         <nav class="nav container">
@@ -429,9 +427,8 @@ function generateGraphScript() {
   'use strict';
 
   var COLORS = {
-    nodePerson: '#107792',
-    nodeCompany: '#DE7356',
-    nodeInstitution: '#7B6B5D',
+    nodePerson: '#1a1a1a',
+    nodeCompany: '#8b2500',
     nodeSelected: '#DE7356',
     nodeConnected: '#E8956F',
     nodeFaded: '#C9C6C1',
@@ -444,11 +441,10 @@ function generateGraphScript() {
 
   var TYPE_COLORS = {
     person: COLORS.nodePerson,
-    company: COLORS.nodeCompany,
-    institution: COLORS.nodeInstitution
+    company: COLORS.nodeCompany
   };
 
-  var TYPE_LABELS = { person: '人物', company: '公司', institution: '机构' };
+  var TYPE_LABELS = { person: '人物', company: '公司' };
 
   var searchInput = document.getElementById('wiki-search');
   var listSection = document.getElementById('wiki-list');
@@ -1179,18 +1175,13 @@ function generateWikiCSS() {
 }
 
 .wiki-card-type.type-person {
-    background: #e6f2f5;
-    color: #107792;
+    background: #f0f0f0;
+    color: #1a1a1a;
 }
 
 .wiki-card-type.type-company {
-    background: #fceee8;
-    color: #DE7356;
-}
-
-.wiki-card-type.type-institution {
-    background: #eeecea;
-    color: #7B6B5D;
+    background: #fbe8e4;
+    color: #8b2500;
 }
 
 .wiki-card-excerpt {
@@ -1356,18 +1347,13 @@ function generateWikiCSS() {
 }
 
 .detail-type-badge.type-person {
-    background: #e6f2f5;
-    color: #107792;
+    background: #f0f0f0;
+    color: #1a1a1a;
 }
 
 .detail-type-badge.type-company {
-    background: #fceee8;
-    color: #DE7356;
-}
-
-.detail-type-badge.type-institution {
-    background: #eeecea;
-    color: #7B6B5D;
+    background: #fbe8e4;
+    color: #8b2500;
 }
 
 .detail-name {
@@ -1426,9 +1412,8 @@ function generateWikiCSS() {
     flex-shrink: 0;
 }
 
-.detail-nb-dot.type-person { background: #107792; }
-.detail-nb-dot.type-company { background: #DE7356; }
-.detail-nb-dot.type-institution { background: #7B6B5D; }
+.detail-nb-dot.type-person { background: #1a1a1a; }
+.detail-nb-dot.type-company { background: #8b2500; }
 
 .detail-nb-name {
     flex: 1;
