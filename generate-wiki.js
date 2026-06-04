@@ -908,17 +908,10 @@ function generateGraphScript() {
         if (nodeMap[nid]) focusOnNode(nodeMap[nid]);
       });
     });
-
-    if (!isMobile) {
-      setTimeout(function() { resizeCanvas(); wake(); }, 50);
-    }
   }
 
   function hideDetailPanel() {
     detailPanel.classList.remove('visible');
-    if (!isMobile) {
-      setTimeout(function() { resizeCanvas(); wake(); }, 50);
-    }
   }
 
   function escH(s) {
@@ -1068,16 +1061,13 @@ function generateWikiCSS() {
     padding-bottom: 72px;
 }
 
-/* Graph layout: main + detail side-by-side */
+/* Graph layout: main with overlay detail */
 .graph-layout {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
+    position: relative;
 }
 
 .graph-main {
-    flex: 1;
-    min-width: 0;
+    width: 100%;
     position: relative;
     border: 1px solid #E8E1D8;
     border-radius: 12px;
@@ -1108,26 +1098,30 @@ function generateWikiCSS() {
     text-overflow: ellipsis;
 }
 
-/* Detail panel */
+/* Detail panel - overlays graph */
 .graph-detail {
-    width: 0;
-    flex-shrink: 0;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 300px;
     background: var(--color-card-bg);
     border: 1px solid #E8E1D8;
     border-radius: 12px;
-    overflow: hidden;
-    opacity: 0;
-    padding: 0;
-    transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
-    max-height: 640px;
     overflow-y: auto;
-    position: relative;
+    max-height: calc(100% - 24px);
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .graph-detail.visible {
-    width: 300px;
     opacity: 1;
-    padding: 20px;
+    pointer-events: auto;
+    transform: translateX(0);
 }
 
 .graph-detail-close {
@@ -1305,16 +1299,9 @@ function generateWikiCSS() {
         grid-template-columns: 1fr;
     }
 
-    .graph-layout {
-        flex-direction: column;
-    }
-
     .graph-detail {
-        max-height: none;
-    }
-
-    .graph-detail.visible {
-        width: 100%;
+        left: 12px;
+        width: calc(100% - 24px);
     }
 }
 
