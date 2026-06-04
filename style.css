@@ -401,7 +401,12 @@ body {
 /* Responsive */
 @media (max-width: 600px) {
     .nav-links {
-        gap: 20px;
+        gap: 12px;
+    }
+
+    .nav-links a {
+        padding: 6px 8px;
+        font-size: 13px;
     }
 
     .hero {
@@ -452,10 +457,11 @@ body {
 
 @media (max-width: 420px) {
     .nav-links {
-        gap: 16px;
+        gap: 8px;
     }
 
     .nav-links a {
-        font-size: 13px;
+        padding: 6px 6px;
+        font-size: 12px;
     }
 }
