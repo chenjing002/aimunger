@@ -39,7 +39,6 @@ function extractLinks(body) {
 }
 
 function markdownToHtml(text, wikiNames) {
-  // Replace [[links]] with internal wiki links
   let html = text.replace(/\[\[([^\]]+)\]\]/g, (_, name) => {
     if (wikiNames.has(name)) {
       return `<a href="/wiki/${encodeURIComponent(name)}/" class="wiki-link">${escHtml(name)}</a>`;
@@ -47,25 +46,18 @@ function markdownToHtml(text, wikiNames) {
     return `<span class="wiki-link-broken">${escHtml(name)}</span>`;
   });
 
-  // Headers
   html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
   html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-
-  // Bold and italic
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-  // List items
   html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
   html = html.replace(/(<li>[\s\S]*?<\/li>)/g, (match) => {
     if (!match.startsWith('<ul>')) return '<ul>' + match + '</ul>';
     return match;
   });
-  // Merge adjacent <ul> tags
   html = html.replace(/<\/ul>\s*<ul>/g, '');
 
-  // Paragraphs - wrap remaining text blocks
   html = html.split('\n\n').map(block => {
     block = block.trim();
     if (!block) return '';
@@ -87,6 +79,20 @@ function stripMarkdown(text) {
     .replace(/\n+/g, ' ')
     .trim();
 }
+
+function classifyNode(title) {
+  const companies = [
+    '万科', '万物云', '新鸿基', '普洛斯', '比亚迪', '深基地B', '美的集团',
+    '绿景地产', '雅戈尔', '长江电力', '龙湖集团', '中国平安', '中国建筑',
+    '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展'
+  ];
+  const institutions = ['中投公司', '中金公司', '深圳地铁'];
+  if (companies.includes(title)) return 'company';
+  if (institutions.includes(title)) return 'institution';
+  return 'person';
+}
+
+const TYPE_LABELS = { person: '人物', company: '公司', institution: '机构' };
 
 const NAV_HTML = `    <header class="header">
         <nav class="nav container">
@@ -165,7 +171,6 @@ function run() {
     return;
   }
 
-  // Parse all files
   const wikiNames = new Set(files.map(f => f.replace('.md', '')));
   const entries = [];
 
@@ -181,21 +186,27 @@ function run() {
     entries.push({ title, meta, links, htmlContent, plainText });
   }
 
-  // Build graph data
-  const nodes = entries.map(e => ({ id: e.title }));
-  const edgeSet = new Set();
-  const edges = [];
+  // Build graph data with types and descriptions
+  const nodes = entries.map(e => ({
+    id: e.title,
+    type: classifyNode(e.title),
+    desc: e.plainText.slice(0, 200)
+  }));
+
+  const edgeMap = {};
   for (const e of entries) {
     for (const link of e.links) {
       const key = [e.title, link].sort().join('|||');
-      if (!edgeSet.has(key)) {
-        edgeSet.add(key);
-        edges.push({ source: e.title, target: link });
+      if (!edgeMap[key]) {
+        edgeMap[key] = { source: e.title, target: link, refs: [] };
+      }
+      if (!edgeMap[key].refs.includes(e.title)) {
+        edgeMap[key].refs.push(e.title);
       }
     }
   }
+  const edges = Object.values(edgeMap);
 
-  // Build search index
   const searchData = entries.map(e => ({
     title: e.title,
     text: e.plainText.slice(0, 500),
@@ -204,21 +215,15 @@ function run() {
   // Write output
   fs.mkdirSync(WIKI_DIR, { recursive: true });
 
-  // Write individual pages
   for (const e of entries) {
     const dir = path.join(WIKI_DIR, e.title);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(e.title, e.htmlContent));
   }
 
-  // Write data JSON for search and graph
   const wikiData = { nodes, edges, search: searchData };
   fs.writeFileSync(path.join(WIKI_DIR, 'data.json'), JSON.stringify(wikiData));
-
-  // Write wiki index page
   fs.writeFileSync(path.join(WIKI_DIR, 'index.html'), generateIndexPage(entries));
-
-  // Write wiki CSS
   fs.writeFileSync(path.join(WIKI_DIR, 'wiki.css'), generateWikiCSS());
 
   console.log(`Generated ${entries.length} wiki pages`);
@@ -229,8 +234,13 @@ function generateIndexPage(entries) {
   const cards = sorted.map(e => {
     const excerpt = e.plainText.slice(0, 100);
     const linkCount = e.links.length;
+    const nodeType = classifyNode(e.title);
+    const typeLabel = TYPE_LABELS[nodeType];
     return `                    <a href="/wiki/${encodeURIComponent(e.title)}/" class="wiki-card" data-title="${escHtml(e.title)}">
-                        <h3 class="wiki-card-title">${escHtml(e.title)}</h3>
+                        <div class="wiki-card-head">
+                            <h3 class="wiki-card-title">${escHtml(e.title)}</h3>
+                            <span class="wiki-card-type type-${nodeType}">${typeLabel}</span>
+                        </div>
                         <p class="wiki-card-excerpt">${escHtml(excerpt)}</p>
                         ${linkCount > 0 ? `<span class="wiki-card-links">${linkCount} 个关联</span>` : ''}
                     </a>`;
@@ -277,7 +287,29 @@ ${cards}
             </section>
 
             <section class="wiki-graph-section" id="wiki-graph-section" style="display:none">
-                <canvas id="wiki-graph"></canvas>
+                <div class="graph-toolbar">
+                    <div class="graph-type-filters">
+                        <button class="graph-type-btn active" data-type="all">全部</button>
+                        <button class="graph-type-btn" data-type="person">人物</button>
+                        <button class="graph-type-btn" data-type="company">公司</button>
+                        <button class="graph-type-btn" data-type="institution">机构</button>
+                    </div>
+                    <div class="graph-actions">
+                        <label class="graph-checkbox-label"><input type="checkbox" id="graph-hide-isolated"> 隐藏孤立</label>
+                        <button class="graph-reset-btn" id="graph-reset">重置视图</button>
+                    </div>
+                </div>
+                <div class="graph-layout">
+                    <div class="graph-main" id="graph-main">
+                        <canvas id="wiki-graph"></canvas>
+                        <div class="graph-tooltip" id="graph-tooltip"></div>
+                        <div class="graph-hint" id="graph-hint">点击节点进入聚焦模式</div>
+                    </div>
+                    <aside class="graph-detail" id="graph-detail">
+                        <button class="graph-detail-close" id="graph-detail-close">&times;</button>
+                        <div id="graph-detail-body"></div>
+                    </aside>
+                </div>
             </section>
         </div>
     </main>
@@ -285,289 +317,779 @@ ${cards}
 ${FOOTER_HTML}
 
     <script>
-    (function() {
-      var searchInput = document.getElementById('wiki-search');
-      var listSection = document.getElementById('wiki-list');
-      var graphSection = document.getElementById('wiki-graph-section');
-      var cards = document.querySelectorAll('.wiki-card');
-      var viewBtns = document.querySelectorAll('.wiki-view-btn');
-      var graphData = null;
-      var graphInited = false;
-
-      // Search
-      searchInput.addEventListener('input', function() {
-        var q = this.value.trim().toLowerCase();
-        cards.forEach(function(card) {
-          var title = card.getAttribute('data-title').toLowerCase();
-          var excerpt = card.querySelector('.wiki-card-excerpt').textContent.toLowerCase();
-          card.style.display = (title.includes(q) || excerpt.includes(q)) ? '' : 'none';
-        });
-      });
-
-      // View toggle
-      viewBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var view = this.getAttribute('data-view');
-          viewBtns.forEach(function(b) { b.classList.remove('active'); });
-          this.classList.add('active');
-          if (view === 'list') {
-            listSection.style.display = '';
-            graphSection.style.display = 'none';
-          } else {
-            listSection.style.display = 'none';
-            graphSection.style.display = '';
-            if (!graphInited) initGraph();
-          }
-        });
-      });
-
-      function initGraph() {
-        graphInited = true;
-        fetch('/wiki/data.json')
-          .then(function(r) { return r.json(); })
-          .then(function(data) { graphData = data; renderGraph(data); });
-      }
-
-      function renderGraph(data) {
-        var canvas = document.getElementById('wiki-graph');
-        var container = canvas.parentElement;
-        var dpr = window.devicePixelRatio || 1;
-        var W = container.clientWidth;
-        var H = Math.max(500, Math.min(W, 700));
-        canvas.width = W * dpr;
-        canvas.height = H * dpr;
-        canvas.style.width = W + 'px';
-        canvas.style.height = H + 'px';
-        var ctx = canvas.getContext('2d');
-        ctx.scale(dpr, dpr);
-
-        var nodes = data.nodes.map(function(n, i) {
-          var angle = (2 * Math.PI * i) / data.nodes.length;
-          var r = Math.min(W, H) * 0.35;
-          return {
-            id: n.id,
-            x: W / 2 + r * Math.cos(angle) + (Math.random() - 0.5) * 40,
-            y: H / 2 + r * Math.sin(angle) + (Math.random() - 0.5) * 40,
-            vx: 0, vy: 0
-          };
-        });
-
-        var nodeMap = {};
-        nodes.forEach(function(n) { nodeMap[n.id] = n; });
-
-        var edges = data.edges.filter(function(e) {
-          return nodeMap[e.source] && nodeMap[e.target];
-        });
-
-        // Compute degree for node sizing
-        var degree = {};
-        nodes.forEach(function(n) { degree[n.id] = 0; });
-        edges.forEach(function(e) {
-          degree[e.source] = (degree[e.source] || 0) + 1;
-          degree[e.target] = (degree[e.target] || 0) + 1;
-        });
-
-        var dragging = null;
-        var offsetX = 0, offsetY = 0;
-        var hoveredNode = null;
-
-        canvas.addEventListener('mousedown', function(ev) {
-          var rect = canvas.getBoundingClientRect();
-          var mx = ev.clientX - rect.left;
-          var my = ev.clientY - rect.top;
-          for (var i = nodes.length - 1; i >= 0; i--) {
-            var n = nodes[i];
-            if (Math.hypot(n.x - mx, n.y - my) < getRadius(n) + 4) {
-              dragging = n;
-              offsetX = n.x - mx;
-              offsetY = n.y - my;
-              break;
-            }
-          }
-        });
-
-        canvas.addEventListener('mousemove', function(ev) {
-          var rect = canvas.getBoundingClientRect();
-          var mx = ev.clientX - rect.left;
-          var my = ev.clientY - rect.top;
-          if (dragging) {
-            dragging.x = mx + offsetX;
-            dragging.y = my + offsetY;
-            dragging.vx = 0;
-            dragging.vy = 0;
-          }
-          hoveredNode = null;
-          for (var i = nodes.length - 1; i >= 0; i--) {
-            var n = nodes[i];
-            if (Math.hypot(n.x - mx, n.y - my) < getRadius(n) + 4) {
-              hoveredNode = n;
-              break;
-            }
-          }
-          canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
-        });
-
-        canvas.addEventListener('mouseup', function() { dragging = null; });
-        canvas.addEventListener('mouseleave', function() { dragging = null; hoveredNode = null; });
-
-        canvas.addEventListener('click', function(ev) {
-          if (dragging) return;
-          var rect = canvas.getBoundingClientRect();
-          var mx = ev.clientX - rect.left;
-          var my = ev.clientY - rect.top;
-          for (var i = nodes.length - 1; i >= 0; i--) {
-            var n = nodes[i];
-            if (Math.hypot(n.x - mx, n.y - my) < getRadius(n) + 4) {
-              window.location.href = '/wiki/' + encodeURIComponent(n.id) + '/';
-              break;
-            }
-          }
-        });
-
-        // Touch support
-        canvas.addEventListener('touchstart', function(ev) {
-          var touch = ev.touches[0];
-          var rect = canvas.getBoundingClientRect();
-          var mx = touch.clientX - rect.left;
-          var my = touch.clientY - rect.top;
-          for (var i = nodes.length - 1; i >= 0; i--) {
-            var n = nodes[i];
-            if (Math.hypot(n.x - mx, n.y - my) < getRadius(n) + 8) {
-              dragging = n;
-              offsetX = n.x - mx;
-              offsetY = n.y - my;
-              ev.preventDefault();
-              break;
-            }
-          }
-        }, { passive: false });
-
-        canvas.addEventListener('touchmove', function(ev) {
-          if (dragging) {
-            var touch = ev.touches[0];
-            var rect = canvas.getBoundingClientRect();
-            dragging.x = touch.clientX - rect.left + offsetX;
-            dragging.y = touch.clientY - rect.top + offsetY;
-            dragging.vx = 0;
-            dragging.vy = 0;
-            ev.preventDefault();
-          }
-        }, { passive: false });
-
-        canvas.addEventListener('touchend', function() { dragging = null; });
-
-        function getRadius(n) {
-          return 4 + Math.min((degree[n.id] || 0) * 1.5, 10);
-        }
-
-        function tick() {
-          // Force simulation
-          // Repulsion
-          for (var i = 0; i < nodes.length; i++) {
-            for (var j = i + 1; j < nodes.length; j++) {
-              var a = nodes[i], b = nodes[j];
-              var dx = b.x - a.x, dy = b.y - a.y;
-              var d = Math.max(Math.hypot(dx, dy), 1);
-              var force = 800 / (d * d);
-              var fx = (dx / d) * force, fy = (dy / d) * force;
-              if (a !== dragging) { a.vx -= fx; a.vy -= fy; }
-              if (b !== dragging) { b.vx += fx; b.vy += fy; }
-            }
-          }
-          // Attraction along edges
-          for (var i = 0; i < edges.length; i++) {
-            var a = nodeMap[edges[i].source], b = nodeMap[edges[i].target];
-            if (!a || !b) continue;
-            var dx = b.x - a.x, dy = b.y - a.y;
-            var d = Math.max(Math.hypot(dx, dy), 1);
-            var force = (d - 100) * 0.01;
-            var fx = (dx / d) * force, fy = (dy / d) * force;
-            if (a !== dragging) { a.vx += fx; a.vy += fy; }
-            if (b !== dragging) { b.vx -= fx; b.vy -= fy; }
-          }
-          // Center gravity
-          for (var i = 0; i < nodes.length; i++) {
-            var n = nodes[i];
-            if (n === dragging) continue;
-            n.vx += (W / 2 - n.x) * 0.002;
-            n.vy += (H / 2 - n.y) * 0.002;
-            n.vx *= 0.85;
-            n.vy *= 0.85;
-            n.x += n.vx;
-            n.y += n.vy;
-            n.x = Math.max(20, Math.min(W - 20, n.x));
-            n.y = Math.max(20, Math.min(H - 20, n.y));
-          }
-
-          // Draw
-          ctx.clearRect(0, 0, W, H);
-
-          // Edges
-          ctx.strokeStyle = '#d4cfc8';
-          ctx.lineWidth = 1;
-          for (var i = 0; i < edges.length; i++) {
-            var a = nodeMap[edges[i].source], b = nodeMap[edges[i].target];
-            if (!a || !b) continue;
-            var isHighlight = hoveredNode && (a === hoveredNode || b === hoveredNode);
-            ctx.strokeStyle = isHighlight ? '#8b2500' : '#d4cfc8';
-            ctx.lineWidth = isHighlight ? 2 : 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-
-          // Nodes
-          for (var i = 0; i < nodes.length; i++) {
-            var n = nodes[i];
-            var r = getRadius(n);
-            var isHovered = n === hoveredNode;
-            var isConnected = hoveredNode && edges.some(function(e) {
-              return (nodeMap[e.source] === hoveredNode && nodeMap[e.target] === n) ||
-                     (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
-            });
-
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-            if (isHovered) {
-              ctx.fillStyle = '#8b2500';
-            } else if (isConnected) {
-              ctx.fillStyle = '#c45a3c';
-            } else if (hoveredNode) {
-              ctx.fillStyle = '#ccc';
-            } else {
-              ctx.fillStyle = '#8b2500';
-            }
-            ctx.fill();
-
-            // Labels
-            ctx.font = '12px "Noto Serif SC", serif';
-            ctx.textAlign = 'center';
-            ctx.fillStyle = (hoveredNode && !isHovered && !isConnected) ? '#bbb' : '#1a1a1a';
-            ctx.fillText(n.id, n.x, n.y + r + 14);
-          }
-
-          requestAnimationFrame(tick);
-        }
-
-        tick();
-
-        // Handle resize
-        window.addEventListener('resize', function() {
-          W = container.clientWidth;
-          H = Math.max(500, Math.min(W, 700));
-          canvas.width = W * dpr;
-          canvas.height = H * dpr;
-          canvas.style.width = W + 'px';
-          canvas.style.height = H + 'px';
-          ctx.setTransform(1, 0, 0, 1, 0, 0);
-          ctx.scale(dpr, dpr);
-        });
-      }
-    })();
+${generateGraphScript()}
     </script>
 </body>
 </html>`;
+}
+
+function generateGraphScript() {
+  return `(function() {
+  'use strict';
+
+  // === Color palette ===
+  var COLORS = {
+    bgPage: '#FAF8F4',
+    nodePerson: '#8B5E3C',
+    nodeCompany: '#8B2D13',
+    nodeInstitution: '#7B6B5D',
+    nodeSelected: '#8B2D13',
+    nodeConnected: '#C45A35',
+    nodeFaded: '#C9C6C1',
+    edge: '#D8D2CA',
+    edgeHighlight: '#8B2D13',
+    labelDefault: '#1a1a1a',
+    labelFaded: '#B0ADA8',
+    labelBg: 'rgba(250,248,244,0.85)'
+  };
+
+  var TYPE_COLORS = {
+    person: COLORS.nodePerson,
+    company: COLORS.nodeCompany,
+    institution: COLORS.nodeInstitution
+  };
+
+  var TYPE_LABELS = { person: '人物', company: '公司', institution: '机构' };
+
+  // === DOM ===
+  var searchInput = document.getElementById('wiki-search');
+  var listSection = document.getElementById('wiki-list');
+  var graphSection = document.getElementById('wiki-graph-section');
+  var listCards = document.querySelectorAll('.wiki-card');
+  var viewBtns = document.querySelectorAll('.wiki-view-btn');
+  var canvas = document.getElementById('wiki-graph');
+  var graphMain = document.getElementById('graph-main');
+  var tooltip = document.getElementById('graph-tooltip');
+  var hint = document.getElementById('graph-hint');
+  var detailPanel = document.getElementById('graph-detail');
+  var detailBody = document.getElementById('graph-detail-body');
+  var detailClose = document.getElementById('graph-detail-close');
+  var resetBtn = document.getElementById('graph-reset');
+  var hideIsolatedCb = document.getElementById('graph-hide-isolated');
+  var typeFilterBtns = document.querySelectorAll('.graph-type-btn');
+
+  // === State ===
+  var currentView = 'list';
+  var graphInited = false;
+  var graphData = null;
+  var nodes = [], nodeMap = {}, edges = [], degree = {};
+  var selectedNode = null;
+  var hoveredNode = null;
+  var hoveredEdge = null;
+  var dragging = null;
+  var dragMoved = false;
+  var offsetX = 0, offsetY = 0;
+  var activeTypeFilter = 'all';
+  var hideIsolated = false;
+  var searchMatches = new Set();
+  var neighborSet = new Set();
+  var neighborEdgeSet = new Set();
+  var W = 0, H = 0, dpr = 1;
+  var ctx = null;
+  var animating = false;
+  var isMobile = window.innerWidth < 768;
+
+  // === View toggle ===
+  viewBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var view = this.getAttribute('data-view');
+      currentView = view;
+      viewBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      if (view === 'list') {
+        listSection.style.display = '';
+        graphSection.style.display = 'none';
+        applyListSearch(searchInput.value);
+      } else {
+        listSection.style.display = 'none';
+        graphSection.style.display = '';
+        if (!graphInited) initGraph();
+        else applyGraphSearch(searchInput.value);
+      }
+    });
+  });
+
+  // === Search ===
+  searchInput.addEventListener('input', function() {
+    var q = this.value.trim();
+    if (currentView === 'list') {
+      applyListSearch(q);
+    } else {
+      applyGraphSearch(q);
+    }
+  });
+
+  searchInput.addEventListener('keydown', function(ev) {
+    if (ev.key === 'Enter' && currentView === 'graph' && searchMatches.size > 0) {
+      var firstMatch = null;
+      for (var i = 0; i < nodes.length; i++) {
+        if (searchMatches.has(nodes[i].id)) { firstMatch = nodes[i]; break; }
+      }
+      if (firstMatch) focusOnNode(firstMatch);
+    }
+  });
+
+  function applyListSearch(q) {
+    q = q.toLowerCase();
+    listCards.forEach(function(card) {
+      var title = card.getAttribute('data-title').toLowerCase();
+      var excerpt = card.querySelector('.wiki-card-excerpt').textContent.toLowerCase();
+      card.style.display = (title.includes(q) || excerpt.includes(q)) ? '' : 'none';
+    });
+  }
+
+  function applyGraphSearch(q) {
+    searchMatches = new Set();
+    if (!q) return;
+    q = q.toLowerCase();
+    nodes.forEach(function(n) {
+      if (n.id.toLowerCase().includes(q)) searchMatches.add(n.id);
+    });
+    if (searchMatches.size === 1) {
+      var match = nodes.find(function(n) { return searchMatches.has(n.id); });
+      if (match) focusOnNode(match);
+    }
+  }
+
+  // === Graph init ===
+  function initGraph() {
+    graphInited = true;
+    fetch('/wiki/data.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        graphData = data;
+        setupGraph(data);
+        applyGraphSearch(searchInput.value);
+      });
+  }
+
+  function setupGraph(data) {
+    dpr = window.devicePixelRatio || 1;
+    ctx = canvas.getContext('2d');
+
+    nodes = data.nodes.map(function(n, i) {
+      var angle = (2 * Math.PI * i) / data.nodes.length;
+      var spread = Math.min(400, data.nodes.length * 6);
+      return {
+        id: n.id,
+        type: n.type || 'person',
+        desc: n.desc || '',
+        x: 0, y: 0,
+        vx: 0, vy: 0,
+        tx: Math.cos(angle) * spread + (Math.random() - 0.5) * 30,
+        ty: Math.sin(angle) * spread + (Math.random() - 0.5) * 30
+      };
+    });
+
+    nodeMap = {};
+    nodes.forEach(function(n) { nodeMap[n.id] = n; });
+
+    edges = data.edges.filter(function(e) {
+      return nodeMap[e.source] && nodeMap[e.target];
+    }).map(function(e) {
+      return { source: e.source, target: e.target, refs: e.refs || [] };
+    });
+
+    degree = {};
+    nodes.forEach(function(n) { degree[n.id] = 0; });
+    edges.forEach(function(e) {
+      degree[e.source] = (degree[e.source] || 0) + 1;
+      degree[e.target] = (degree[e.target] || 0) + 1;
+    });
+
+    resizeCanvas();
+    nodes.forEach(function(n) {
+      n.x = W / 2 + n.tx;
+      n.y = H / 2 + n.ty;
+    });
+
+    attachCanvasEvents();
+    attachControlEvents();
+    startAnimation();
+
+    window.addEventListener('resize', function() {
+      isMobile = window.innerWidth < 768;
+      resizeCanvas();
+    });
+  }
+
+  function resizeCanvas() {
+    var rect = graphMain.getBoundingClientRect();
+    W = rect.width;
+    H = isMobile ? Math.max(350, W * 0.6) : Math.max(550, Math.min(W * 0.7, 680));
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    if (ctx) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+  }
+
+  // === Animation ===
+  function startAnimation() {
+    if (animating) return;
+    animating = true;
+    tick();
+  }
+
+  var stableFrames = 0;
+
+  function tick() {
+    if (!animating) return;
+    simulate();
+    draw();
+
+    var totalV = 0;
+    nodes.forEach(function(n) { totalV += Math.abs(n.vx) + Math.abs(n.vy); });
+    if (totalV < 0.5 && !dragging) {
+      stableFrames++;
+      if (stableFrames > 60) { animating = false; return; }
+    } else {
+      stableFrames = 0;
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  function wake() {
+    stableFrames = 0;
+    startAnimation();
+  }
+
+  // === Simulation ===
+  function simulate() {
+    var visNodes = getVisibleNodes();
+    var visSet = new Set(visNodes.map(function(n) { return n.id; }));
+
+    // Repulsion
+    for (var i = 0; i < visNodes.length; i++) {
+      for (var j = i + 1; j < visNodes.length; j++) {
+        var a = visNodes[i], b = visNodes[j];
+        var dx = b.x - a.x, dy = b.y - a.y;
+        var d = Math.max(Math.hypot(dx, dy), 1);
+        var force = 1200 / (d * d);
+        var fx = (dx / d) * force, fy = (dy / d) * force;
+        if (a !== dragging) { a.vx -= fx; a.vy -= fy; }
+        if (b !== dragging) { b.vx += fx; b.vy += fy; }
+      }
+    }
+
+    // Attraction along edges
+    for (var i = 0; i < edges.length; i++) {
+      var a = nodeMap[edges[i].source], b = nodeMap[edges[i].target];
+      if (!a || !b || !visSet.has(a.id) || !visSet.has(b.id)) continue;
+      var dx = b.x - a.x, dy = b.y - a.y;
+      var d = Math.max(Math.hypot(dx, dy), 1);
+      var idealLen = selectedNode ? 120 : 100;
+      var force = (d - idealLen) * 0.008;
+      var fx = (dx / d) * force, fy = (dy / d) * force;
+      if (a !== dragging) { a.vx += fx; a.vy += fy; }
+      if (b !== dragging) { b.vx -= fx; b.vy -= fy; }
+    }
+
+    // Center gravity
+    for (var i = 0; i < visNodes.length; i++) {
+      var n = visNodes[i];
+      if (n === dragging) continue;
+      var cx = W / 2, cy = H / 2;
+      if (selectedNode && n === selectedNode) {
+        cx = detailPanel.classList.contains('visible') && !isMobile ? (W / 2 - 40) : W / 2;
+        cy = H / 2;
+        n.vx += (cx - n.x) * 0.015;
+        n.vy += (cy - n.y) * 0.015;
+      } else {
+        n.vx += (cx - n.x) * 0.002;
+        n.vy += (cy - n.y) * 0.002;
+      }
+      n.vx *= 0.82;
+      n.vy *= 0.82;
+      n.x += n.vx;
+      n.y += n.vy;
+      n.x = Math.max(30, Math.min(W - 30, n.x));
+      n.y = Math.max(30, Math.min(H - 30, n.y));
+    }
+  }
+
+  // === Visibility ===
+  function getVisibleNodes() {
+    return nodes.filter(function(n) {
+      if (activeTypeFilter !== 'all' && n.type !== activeTypeFilter) return false;
+      if (hideIsolated && (degree[n.id] || 0) === 0) return false;
+      return true;
+    });
+  }
+
+  function isNodeVisible(n) {
+    if (activeTypeFilter !== 'all' && n.type !== activeTypeFilter) return false;
+    if (hideIsolated && (degree[n.id] || 0) === 0) return false;
+    return true;
+  }
+
+  function getNeighborIds(nodeId, hops) {
+    var visited = new Set([nodeId]);
+    var frontier = [nodeId];
+    for (var h = 0; h < hops; h++) {
+      var next = [];
+      frontier.forEach(function(id) {
+        edges.forEach(function(e) {
+          if (e.source === id && !visited.has(e.target)) { visited.add(e.target); next.push(e.target); }
+          if (e.target === id && !visited.has(e.source)) { visited.add(e.source); next.push(e.source); }
+        });
+      });
+      frontier = next;
+    }
+    return visited;
+  }
+
+  function getConnectedEdges(nodeIds) {
+    var s = new Set();
+    edges.forEach(function(e, i) {
+      if (nodeIds.has(e.source) && nodeIds.has(e.target)) s.add(i);
+    });
+    return s;
+  }
+
+  // === Focus mode ===
+  function focusOnNode(node) {
+    selectedNode = node;
+    neighborSet = getNeighborIds(node.id, 1);
+    neighborEdgeSet = getConnectedEdges(neighborSet);
+    showDetailPanel(node);
+    hint.style.display = 'none';
+    wake();
+  }
+
+  function resetView() {
+    selectedNode = null;
+    neighborSet = new Set();
+    neighborEdgeSet = new Set();
+    searchMatches = new Set();
+    searchInput.value = '';
+    hideDetailPanel();
+    hint.style.display = '';
+    wake();
+  }
+
+  // === Draw ===
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    var visibleSet = new Set(getVisibleNodes().map(function(n) { return n.id; }));
+
+    // Draw edges
+    for (var i = 0; i < edges.length; i++) {
+      var e = edges[i];
+      var a = nodeMap[e.source], b = nodeMap[e.target];
+      if (!a || !b) continue;
+      if (!visibleSet.has(a.id) || !visibleSet.has(b.id)) continue;
+
+      var isHighEdge = hoveredNode && (a === hoveredNode || b === hoveredNode);
+      var isFocusEdge = selectedNode && neighborEdgeSet.has(i);
+      var isFaded = selectedNode && !isFocusEdge;
+
+      if (isFaded) {
+        ctx.strokeStyle = 'rgba(216,210,202,0.15)';
+        ctx.lineWidth = 0.5;
+      } else if (isHighEdge || isFocusEdge) {
+        ctx.strokeStyle = COLORS.edgeHighlight;
+        ctx.lineWidth = isHighEdge ? 2 : 1.5;
+      } else {
+        ctx.strokeStyle = COLORS.edge;
+        ctx.lineWidth = 1;
+      }
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+
+    // Draw nodes
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (!visibleSet.has(n.id)) continue;
+
+      var r = getRadius(n);
+      var isSelected = n === selectedNode;
+      var isHovered = n === hoveredNode;
+      var isNeighbor = selectedNode && neighborSet.has(n.id) && !isSelected;
+      var isSearchMatch = searchMatches.size > 0 && searchMatches.has(n.id);
+      var isFaded = (selectedNode && !neighborSet.has(n.id)) ||
+                    (searchMatches.size > 0 && !searchMatches.has(n.id));
+      var isHoverNeighbor = !selectedNode && hoveredNode && hoveredNode !== n &&
+        edges.some(function(e) {
+          return (nodeMap[e.source] === hoveredNode && nodeMap[e.target] === n) ||
+                 (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
+        });
+      var isHoverFaded = !selectedNode && hoveredNode && !isHovered && !isHoverNeighbor;
+
+      // Node fill color
+      var fillColor;
+      if (isSelected) {
+        fillColor = COLORS.nodeSelected;
+      } else if (isHovered) {
+        fillColor = COLORS.nodeSelected;
+      } else if (isNeighbor || isHoverNeighbor) {
+        fillColor = COLORS.nodeConnected;
+      } else if (isFaded || isHoverFaded) {
+        fillColor = COLORS.nodeFaded;
+      } else if (isSearchMatch) {
+        fillColor = COLORS.nodeSelected;
+      } else {
+        fillColor = TYPE_COLORS[n.type] || COLORS.nodePerson;
+      }
+
+      // Draw glow for selected/search match
+      if (isSelected || isSearchMatch) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r + 6, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(139,45,19,0.12)';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Node circle
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = fillColor;
+      ctx.fill();
+
+      // Type indicator: company gets a thin white inner ring, institution gets a dot
+      if (n.type === 'company' && r > 5) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r - 2, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      } else if (n.type === 'institution' && r > 5) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fill();
+      }
+    }
+
+    // Draw labels
+    drawLabels(visibleSet);
+  }
+
+  function drawLabels(visibleSet) {
+    ctx.font = '12px "Noto Serif SC", serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (!visibleSet.has(n.id)) continue;
+
+      var r = getRadius(n);
+      var isSelected = n === selectedNode;
+      var isHovered = n === hoveredNode;
+      var isNeighbor = selectedNode && neighborSet.has(n.id);
+      var isSearchMatch = searchMatches.size > 0 && searchMatches.has(n.id);
+      var isHoverNeighbor = !selectedNode && hoveredNode && hoveredNode !== n &&
+        edges.some(function(e) {
+          return (nodeMap[e.source] === hoveredNode && nodeMap[e.target] === n) ||
+                 (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
+        });
+
+      // Determine if label should show
+      var showLabel = false;
+      if (selectedNode) {
+        showLabel = isSelected || isNeighbor;
+      } else if (hoveredNode) {
+        showLabel = isHovered || isHoverNeighbor;
+      } else if (searchMatches.size > 0) {
+        showLabel = isSearchMatch;
+      } else {
+        showLabel = (degree[n.id] || 0) >= 3 || nodes.length <= 20;
+      }
+
+      if (!showLabel) continue;
+
+      var isFaded = (selectedNode && !isNeighbor) ||
+                    (searchMatches.size > 0 && !isSearchMatch) ||
+                    (!selectedNode && hoveredNode && !isHovered && !isHoverNeighbor);
+
+      var labelY = n.y + r + 4;
+      var text = n.id;
+      var textW = ctx.measureText(text).width;
+
+      // Background for readability
+      ctx.fillStyle = COLORS.labelBg;
+      ctx.fillRect(n.x - textW / 2 - 3, labelY - 1, textW + 6, 16);
+
+      ctx.fillStyle = isFaded ? COLORS.labelFaded : COLORS.labelDefault;
+      if (isSelected || isHovered) ctx.font = 'bold 13px "Noto Serif SC", serif';
+      ctx.fillText(text, n.x, labelY);
+      if (isSelected || isHovered) ctx.font = '12px "Noto Serif SC", serif';
+    }
+  }
+
+  function getRadius(n) {
+    var d = degree[n.id] || 0;
+    var base = 4 + Math.min(d * 1.8, 14);
+    if (n === selectedNode) base += 3;
+    if (n === hoveredNode && n !== selectedNode) base += 2;
+    return base;
+  }
+
+  // === Edge hover detection ===
+  function findEdgeNear(mx, my, threshold) {
+    threshold = threshold || 6;
+    for (var i = 0; i < edges.length; i++) {
+      var a = nodeMap[edges[i].source], b = nodeMap[edges[i].target];
+      if (!a || !b) continue;
+      var dx = b.x - a.x, dy = b.y - a.y;
+      var lenSq = dx * dx + dy * dy;
+      if (lenSq === 0) continue;
+      var t = Math.max(0, Math.min(1, ((mx - a.x) * dx + (my - a.y) * dy) / lenSq));
+      var px = a.x + t * dx, py = a.y + t * dy;
+      if (Math.hypot(mx - px, my - py) < threshold) return edges[i];
+    }
+    return null;
+  }
+
+  // === Canvas events ===
+  function attachCanvasEvents() {
+    canvas.addEventListener('mousedown', function(ev) {
+      var pos = getCanvasPos(ev);
+      var node = findNodeAt(pos.x, pos.y);
+      if (node) {
+        dragging = node;
+        dragMoved = false;
+        offsetX = node.x - pos.x;
+        offsetY = node.y - pos.y;
+      }
+    });
+
+    canvas.addEventListener('mousemove', function(ev) {
+      var pos = getCanvasPos(ev);
+      if (dragging) {
+        dragging.x = pos.x + offsetX;
+        dragging.y = pos.y + offsetY;
+        dragging.vx = 0;
+        dragging.vy = 0;
+        dragMoved = true;
+        wake();
+        return;
+      }
+
+      var prevHovered = hoveredNode;
+      hoveredNode = findNodeAt(pos.x, pos.y);
+
+      if (!hoveredNode) {
+        var edge = findEdgeNear(pos.x, pos.y);
+        if (edge !== hoveredEdge) {
+          hoveredEdge = edge;
+          if (edge) {
+            var refs = edge.refs && edge.refs.length > 0 ? edge.refs.join(', ') : edge.source;
+            tooltip.textContent = '关联来源: ' + refs;
+            tooltip.style.left = pos.x + 12 + 'px';
+            tooltip.style.top = pos.y - 8 + 'px';
+            tooltip.style.display = 'block';
+          } else {
+            tooltip.style.display = 'none';
+          }
+        }
+      } else {
+        hoveredEdge = null;
+        tooltip.style.display = 'none';
+      }
+
+      canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
+      if (prevHovered !== hoveredNode) wake();
+    });
+
+    canvas.addEventListener('mouseup', function() {
+      if (dragging && !dragMoved) {
+        focusOnNode(dragging);
+      }
+      dragging = null;
+    });
+
+    canvas.addEventListener('mouseleave', function() {
+      dragging = null;
+      hoveredNode = null;
+      hoveredEdge = null;
+      tooltip.style.display = 'none';
+      canvas.style.cursor = 'default';
+      wake();
+    });
+
+    canvas.addEventListener('dblclick', function(ev) {
+      var pos = getCanvasPos(ev);
+      var node = findNodeAt(pos.x, pos.y);
+      if (node) {
+        window.location.href = '/wiki/' + encodeURIComponent(node.id) + '/';
+      }
+    });
+
+    canvas.addEventListener('click', function(ev) {
+      if (dragMoved) return;
+      var pos = getCanvasPos(ev);
+      var node = findNodeAt(pos.x, pos.y);
+      if (!node && selectedNode) {
+        resetView();
+      }
+    });
+
+    // Touch
+    var touchStartTime = 0;
+    canvas.addEventListener('touchstart', function(ev) {
+      var touch = ev.touches[0];
+      var pos = getTouchPos(touch);
+      var node = findNodeAt(pos.x, pos.y);
+      if (node) {
+        dragging = node;
+        dragMoved = false;
+        offsetX = node.x - pos.x;
+        offsetY = node.y - pos.y;
+        touchStartTime = Date.now();
+        ev.preventDefault();
+      }
+    }, { passive: false });
+
+    canvas.addEventListener('touchmove', function(ev) {
+      if (dragging) {
+        var touch = ev.touches[0];
+        var pos = getTouchPos(touch);
+        dragging.x = pos.x + offsetX;
+        dragging.y = pos.y + offsetY;
+        dragging.vx = 0;
+        dragging.vy = 0;
+        dragMoved = true;
+        wake();
+        ev.preventDefault();
+      }
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', function(ev) {
+      if (dragging && !dragMoved) {
+        focusOnNode(dragging);
+      }
+      dragging = null;
+    });
+  }
+
+  function getCanvasPos(ev) {
+    var rect = canvas.getBoundingClientRect();
+    return { x: ev.clientX - rect.left, y: ev.clientY - rect.top };
+  }
+
+  function getTouchPos(touch) {
+    var rect = canvas.getBoundingClientRect();
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  }
+
+  function findNodeAt(mx, my) {
+    for (var i = nodes.length - 1; i >= 0; i--) {
+      var n = nodes[i];
+      if (!isNodeVisible(n)) continue;
+      if (Math.hypot(n.x - mx, n.y - my) < getRadius(n) + 4) return n;
+    }
+    return null;
+  }
+
+  // === Control events ===
+  function attachControlEvents() {
+    typeFilterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        typeFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        activeTypeFilter = this.getAttribute('data-type');
+        wake();
+      });
+    });
+
+    hideIsolatedCb.addEventListener('change', function() {
+      hideIsolated = this.checked;
+      wake();
+    });
+
+    resetBtn.addEventListener('click', function() {
+      resetView();
+      activeTypeFilter = 'all';
+      typeFilterBtns.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-type') === 'all');
+      });
+      hideIsolated = false;
+      hideIsolatedCb.checked = false;
+    });
+
+    detailClose.addEventListener('click', function() {
+      resetView();
+    });
+  }
+
+  // === Detail panel ===
+  function showDetailPanel(node) {
+    var neighbors = [];
+    edges.forEach(function(e) {
+      if (e.source === node.id && nodeMap[e.target]) neighbors.push(nodeMap[e.target]);
+      if (e.target === node.id && nodeMap[e.source]) neighbors.push(nodeMap[e.source]);
+    });
+    // Sort neighbors by degree
+    neighbors.sort(function(a, b) { return (degree[b.id] || 0) - (degree[a.id] || 0); });
+
+    var typeLabel = TYPE_LABELS[node.type] || '未知';
+    var html = '<div class="detail-header">' +
+      '<span class="detail-type-badge type-' + node.type + '">' + escH(typeLabel) + '</span>' +
+      '<h3 class="detail-name">' + escH(node.id) + '</h3>' +
+      '</div>';
+
+    if (node.desc) {
+      html += '<p class="detail-desc">' + escH(node.desc) + '</p>';
+    }
+
+    if (neighbors.length > 0) {
+      html += '<div class="detail-section"><h4>关联节点 (' + neighbors.length + ')</h4><div class="detail-neighbors">';
+      neighbors.forEach(function(nb) {
+        var nbType = TYPE_LABELS[nb.type] || '';
+        html += '<a class="detail-neighbor-item" data-node="' + escH(nb.id) + '" href="javascript:void(0)">' +
+          '<span class="detail-nb-dot type-' + nb.type + '"></span>' +
+          '<span class="detail-nb-name">' + escH(nb.id) + '</span>' +
+          '<span class="detail-nb-type">' + escH(nbType) + '</span>' +
+          '</a>';
+      });
+      html += '</div></div>';
+    }
+
+    html += '<a href="/wiki/' + encodeURIComponent(node.id) + '/" class="detail-visit-btn">查看完整页面 &rarr;</a>';
+
+    detailBody.innerHTML = html;
+    detailPanel.classList.add('visible');
+
+    // Bind neighbor clicks
+    var nbItems = detailBody.querySelectorAll('.detail-neighbor-item');
+    nbItems.forEach(function(item) {
+      item.addEventListener('click', function(ev) {
+        ev.preventDefault();
+        var nid = this.getAttribute('data-node');
+        if (nodeMap[nid]) focusOnNode(nodeMap[nid]);
+      });
+    });
+
+    // Resize canvas since detail panel takes space
+    if (!isMobile) {
+      setTimeout(function() { resizeCanvas(); wake(); }, 50);
+    }
+  }
+
+  function hideDetailPanel() {
+    detailPanel.classList.remove('visible');
+    if (!isMobile) {
+      setTimeout(function() { resizeCanvas(); wake(); }, 50);
+    }
+  }
+
+  function escH(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+})();`;
 }
 
 function generateWikiCSS() {
@@ -627,6 +1149,7 @@ function generateWikiCSS() {
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
+/* Wiki grid & cards */
 .wiki-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -650,11 +1173,40 @@ function generateWikiCSS() {
     transform: translateY(-1px);
 }
 
+.wiki-card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
 .wiki-card-title {
     font-family: var(--font-serif);
     font-size: 17px;
     font-weight: 700;
-    margin-bottom: 8px;
+}
+
+.wiki-card-type {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.wiki-card-type.type-person {
+    background: #f5ede6;
+    color: #8B5E3C;
+}
+
+.wiki-card-type.type-company {
+    background: #fce8e2;
+    color: #8B2D13;
+}
+
+.wiki-card-type.type-institution {
+    background: #eeecea;
+    color: #7B6B5D;
 }
 
 .wiki-card-excerpt {
@@ -675,15 +1227,303 @@ function generateWikiCSS() {
     font-weight: 500;
 }
 
+/* === Graph Section === */
 .wiki-graph-section {
     padding-bottom: 72px;
 }
 
-#wiki-graph {
-    width: 100%;
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
+/* Toolbar */
+.graph-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.graph-type-filters {
+    display: flex;
+    gap: 4px;
+    background: var(--color-surface);
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.graph-type-btn {
+    padding: 5px 12px;
+    font-family: var(--font-serif);
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.graph-type-btn.active {
     background: var(--color-card-bg);
+    color: var(--color-text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.graph-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.graph-checkbox-label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.graph-checkbox-label input {
+    cursor: pointer;
+}
+
+.graph-reset-btn {
+    padding: 5px 12px;
+    font-family: var(--font-serif);
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-card-bg);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.graph-reset-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+/* Graph layout: main + detail side-by-side */
+.graph-layout {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.graph-main {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    border: 1px solid #E8E1D8;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #FAF8F4;
+}
+
+#wiki-graph {
+    display: block;
+    width: 100%;
+}
+
+.graph-hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    background: rgba(255,255,255,0.85);
+    padding: 4px 14px;
+    border-radius: 20px;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.graph-tooltip {
+    position: absolute;
+    display: none;
+    font-size: 12px;
+    color: var(--color-text);
+    background: #fff;
+    border: 1px solid #E8E1D8;
+    border-radius: 6px;
+    padding: 5px 10px;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    z-index: 10;
+    white-space: nowrap;
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Detail panel */
+.graph-detail {
+    width: 0;
+    flex-shrink: 0;
+    background: var(--color-card-bg);
+    border: 1px solid #E8E1D8;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+    transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    max-height: 640px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.graph-detail.visible {
+    width: 300px;
+    opacity: 1;
+    padding: 20px;
+}
+
+.graph-detail-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: var(--color-surface);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.graph-detail-close:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+}
+
+/* Detail panel content */
+.detail-header {
+    margin-bottom: 16px;
+    padding-right: 32px;
+}
+
+.detail-type-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.detail-type-badge.type-person {
+    background: #f5ede6;
+    color: #8B5E3C;
+}
+
+.detail-type-badge.type-company {
+    background: #fce8e2;
+    color: #8B2D13;
+}
+
+.detail-type-badge.type-institution {
+    background: #eeecea;
+    color: #7B6B5D;
+}
+
+.detail-name {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.detail-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+.detail-section {
+    margin-bottom: 16px;
+}
+
+.detail-section h4 {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+}
+
+.detail-neighbors {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-neighbor-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 13px;
+    transition: background 0.15s ease;
+    cursor: pointer;
+}
+
+.detail-neighbor-item:hover {
+    background: var(--color-surface);
+}
+
+.detail-nb-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.detail-nb-dot.type-person { background: #8B5E3C; }
+.detail-nb-dot.type-company { background: #8B2D13; }
+.detail-nb-dot.type-institution { background: #7B6B5D; }
+
+.detail-nb-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.detail-nb-type {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+}
+
+.detail-visit-btn {
+    display: block;
+    text-align: center;
+    padding: 10px 16px;
+    margin-top: 16px;
+    background: var(--color-accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+.detail-visit-btn:hover {
+    opacity: 0.85;
 }
 
 /* Wiki body */
@@ -703,7 +1543,8 @@ function generateWikiCSS() {
     font-style: italic;
 }
 
-@media (max-width: 600px) {
+/* === Responsive === */
+@media (max-width: 768px) {
     .wiki-controls {
         flex-direction: column;
         align-items: stretch;
@@ -715,6 +1556,29 @@ function generateWikiCSS() {
 
     .wiki-grid {
         grid-template-columns: 1fr;
+    }
+
+    .graph-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .graph-layout {
+        flex-direction: column;
+    }
+
+    .graph-detail {
+        max-height: none;
+    }
+
+    .graph-detail.visible {
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px) {
+    .graph-type-filters {
+        flex-wrap: wrap;
     }
 }
 `;
