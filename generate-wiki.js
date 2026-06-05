@@ -403,6 +403,10 @@ ${cards}
                             <button class="graph-zoom-btn" id="graph-zoom-out" title="缩小">&minus;</button>
                             <button class="graph-zoom-btn graph-zoom-reset" id="graph-zoom-reset" title="重置">&#8634;</button>
                         </div>
+                        <div class="graph-legend">
+                            <span class="graph-legend-item"><span class="graph-legend-dot legend-person"></span>人物</span>
+                            <span class="graph-legend-item"><span class="graph-legend-dot legend-company"></span>公司</span>
+                        </div>
                     </div>
                     <aside class="graph-detail" id="graph-detail">
                         <button class="graph-detail-close" id="graph-detail-close">&times;</button>
@@ -474,6 +478,8 @@ function generateGraphScript() {
   var animating = false;
   var isMobile = window.innerWidth < 768;
   var zoom = 1, panX = 0, panY = 0;
+  var isPanning = false, panStartX = 0, panStartY = 0, panStartPanX = 0, panStartPanY = 0;
+  var animTarget = null;
 
   viewBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -602,14 +608,21 @@ function generateGraphScript() {
       zoomAt(W / 2, H / 2, 1 / 1.3);
     });
     document.getElementById('graph-zoom-reset').addEventListener('click', function() {
-      zoom = 1; panX = 0; panY = 0; wake();
+      animTarget = { panX: 0, panY: 0, zoom: 1 }; wake();
     });
 
     canvas.addEventListener('wheel', function(ev) {
       ev.preventDefault();
-      var pos = getCanvasPos(ev);
-      var factor = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
-      zoomAt(pos.sx, pos.sy, factor);
+      if (ev.ctrlKey) {
+        var pos = getCanvasPos(ev);
+        var factor = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
+        zoomAt(pos.sx, pos.sy, factor);
+      } else {
+        panX -= ev.deltaX;
+        panY -= ev.deltaY;
+        animTarget = null;
+        wake();
+      }
     }, { passive: false });
   }
 
@@ -650,12 +663,27 @@ function generateGraphScript() {
 
   function tick() {
     if (!animating) return;
+
+    if (animTarget) {
+      panX += (animTarget.panX - panX) * 0.15;
+      panY += (animTarget.panY - panY) * 0.15;
+      zoom += (animTarget.zoom - zoom) * 0.15;
+      if (Math.abs(panX - animTarget.panX) < 0.5 &&
+          Math.abs(panY - animTarget.panY) < 0.5 &&
+          Math.abs(zoom - animTarget.zoom) < 0.001) {
+        panX = animTarget.panX;
+        panY = animTarget.panY;
+        zoom = animTarget.zoom;
+        animTarget = null;
+      }
+    }
+
     simulate();
     draw();
 
     var totalV = 0;
     nodes.forEach(function(n) { totalV += Math.abs(n.vx) + Math.abs(n.vy); });
-    if (totalV < 0.5 && !dragging) {
+    if (totalV < 0.5 && !dragging && !animTarget) {
       stableFrames++;
       if (stableFrames > 60) { animating = false; return; }
     } else {
@@ -707,8 +735,6 @@ function generateGraphScript() {
       n.vy *= 0.82;
       n.x += n.vx;
       n.y += n.vy;
-      n.x = Math.max(30, Math.min(W - 30, n.x));
-      n.y = Math.max(30, Math.min(H - 30, n.y));
     }
   }
 
@@ -734,6 +760,10 @@ function generateGraphScript() {
     neighborSet = getNeighborIds(node.id);
     neighborEdgeSet = getConnectedEdges(neighborSet);
     showDetailPanel(node);
+    var targetZoom = Math.max(zoom, 1.2);
+    var targetPanX = W / 2 - node.x * targetZoom;
+    var targetPanY = H / 2 - node.y * targetZoom;
+    animTarget = { panX: targetPanX, panY: targetPanY, zoom: targetZoom };
     wake();
   }
 
@@ -742,6 +772,7 @@ function generateGraphScript() {
     neighborSet = new Set();
     neighborEdgeSet = new Set();
     hideDetailPanel();
+    animTarget = { panX: 0, panY: 0, zoom: 1 };
     wake();
   }
 
@@ -759,7 +790,8 @@ function generateGraphScript() {
 
       var isHighEdge = hoveredNode && (a === hoveredNode || b === hoveredNode);
       var isFocusEdge = selectedNode && neighborEdgeSet.has(i);
-      var isFaded = selectedNode && !isFocusEdge;
+      var isFaded = (selectedNode && !isFocusEdge) ||
+                    (!selectedNode && hoveredNode && !isHighEdge);
 
       if (isFaded) {
         ctx.strokeStyle = 'rgba(216,210,202,0.15)';
@@ -832,6 +864,9 @@ function generateGraphScript() {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
 
+    var padX = 3 / zoom, padY = 1 / zoom, labelH = 16 / zoom, gap = 4 / zoom;
+    var candidates = [];
+
     for (var i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       var r = getRadius(n) / zoom;
@@ -845,35 +880,59 @@ function generateGraphScript() {
                  (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
         });
 
-      var showLabel = false;
-      if (selectedNode) {
-        showLabel = isSelected || isNeighbor;
-      } else if (hoveredNode) {
-        showLabel = isHovered || isHoverNeighbor;
-      } else if (searchMatches.size > 0) {
-        showLabel = isSearchMatch;
-      } else {
-        showLabel = (degree[n.id] || 0) >= 3 || nodes.length <= 20;
-      }
+      var priority;
+      if (isSelected || isHovered) priority = 100;
+      else if (isSearchMatch) priority = 90;
+      else if (isNeighbor || isHoverNeighbor) priority = 80;
+      else if (selectedNode && !isNeighbor) priority = -1;
+      else if (searchMatches.size > 0 && !isSearchMatch) priority = -1;
+      else if (!selectedNode && hoveredNode && !isHovered && !isHoverNeighbor) priority = -1;
+      else priority = degree[n.id] || 0;
 
-      if (!showLabel) continue;
+      if (priority < 0) continue;
 
       var isFaded = (selectedNode && !isNeighbor) ||
                     (searchMatches.size > 0 && !isSearchMatch) ||
                     (!selectedNode && hoveredNode && !isHovered && !isHoverNeighbor);
 
-      var labelY = n.y + r + 4 / zoom;
       var text = n.id;
       var textW = ctx.measureText(text).width;
-      var labelH = 16 / zoom;
+      var ly = n.y + r + gap;
+
+      candidates.push({
+        text: text, cx: n.x, cy: ly,
+        x: n.x - textW / 2 - padX, y: ly - padY,
+        w: textW + padX * 2, h: labelH,
+        priority: priority,
+        isSelected: isSelected, isHovered: isHovered, isFaded: isFaded
+      });
+    }
+
+    candidates.sort(function(a, b) { return b.priority - a.priority; });
+
+    var placed = [];
+    for (var i = 0; i < candidates.length; i++) {
+      var c = candidates[i];
+      if (c.priority < 50) {
+        var dominated = false;
+        for (var j = 0; j < placed.length; j++) {
+          var p = placed[j];
+          if (c.x < p.x + p.w && c.x + c.w > p.x &&
+              c.y < p.y + p.h && c.y + c.h > p.y) {
+            dominated = true;
+            break;
+          }
+        }
+        if (dominated) continue;
+      }
+      placed.push({ x: c.x, y: c.y, w: c.w, h: c.h });
 
       ctx.fillStyle = COLORS.labelBg;
-      ctx.fillRect(n.x - textW / 2 - 3 / zoom, labelY - 1 / zoom, textW + 6 / zoom, labelH);
-
-      ctx.fillStyle = isFaded ? COLORS.labelFaded : COLORS.labelDefault;
-      if (isSelected || isHovered) ctx.font = 'bold ' + boldFontSize + 'px "Noto Serif SC", serif';
-      ctx.fillText(text, n.x, labelY);
-      if (isSelected || isHovered) ctx.font = fontSize + 'px "Noto Serif SC", serif';
+      ctx.fillRect(c.x, c.y, c.w, c.h);
+      ctx.fillStyle = c.isFaded ? COLORS.labelFaded : COLORS.labelDefault;
+      if (c.isSelected || c.isHovered) ctx.font = 'bold ' + boldFontSize + 'px "Noto Serif SC", serif';
+      ctx.fillText(c.text, c.cx, c.cy);
+      if (c.isSelected || c.isHovered) ctx.font = fontSize + 'px "Noto Serif SC", serif';
     }
   }
 
@@ -894,8 +953,16 @@ function generateGraphScript() {
         dragMoved = false;
         offsetX = node.x - pos.x;
         offsetY = node.y - pos.y;
-        ev.preventDefault();
+      } else {
+        isPanning = true;
+        panStartX = pos.sx;
+        panStartY = pos.sy;
+        panStartPanX = panX;
+        panStartPanY = panY;
+        animTarget = null;
+        canvas.style.cursor = 'grabbing';
       }
+      ev.preventDefault();
     });
 
     canvas.addEventListener('mousemove', function(ev) {
@@ -909,15 +976,28 @@ function generateGraphScript() {
         wake();
         return;
       }
+      if (isPanning) {
+        panX = panStartPanX + (pos.sx - panStartX);
+        panY = panStartPanY + (pos.sy - panStartY);
+        wake();
+        return;
+      }
 
       var prevHovered = hoveredNode;
       hoveredNode = findNodeAt(pos.x, pos.y);
 
       if (hoveredNode) {
+        var d = degree[hoveredNode.id] || 0;
+        var typeLabel = TYPE_LABELS[hoveredNode.type] || '';
+        tooltip.textContent = hoveredNode.id + ' \\u00B7 ' + typeLabel + ' \\u00B7 ' + d + ' \\u4E2A\\u5173\\u8054';
+        tooltip.style.display = 'block';
+        tooltip.style.left = Math.min(pos.sx + 12, W - 180) + 'px';
+        tooltip.style.top = Math.max(pos.sy - 32, 0) + 'px';
+      } else {
         tooltip.style.display = 'none';
       }
 
-      canvas.style.cursor = hoveredNode ? 'pointer' : 'default';
+      canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
       if (prevHovered !== hoveredNode) wake();
     });
 
@@ -926,13 +1006,18 @@ function generateGraphScript() {
         focusOnNode(dragging);
       }
       dragging = null;
+      if (isPanning) {
+        isPanning = false;
+      }
+      canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
     });
 
     canvas.addEventListener('mouseleave', function() {
       if (dragging) dragging = null;
+      isPanning = false;
       hoveredNode = null;
       tooltip.style.display = 'none';
-      canvas.style.cursor = 'default';
+      canvas.style.cursor = 'grab';
       wake();
     });
 
@@ -963,22 +1048,33 @@ function generateGraphScript() {
         dragMoved = false;
         offsetX = node.x - pos.x;
         offsetY = node.y - pos.y;
-        ev.preventDefault();
+      } else {
+        isPanning = true;
+        panStartX = pos.sx;
+        panStartY = pos.sy;
+        panStartPanX = panX;
+        panStartPanY = panY;
+        animTarget = null;
       }
+      ev.preventDefault();
     }, { passive: false });
 
     canvas.addEventListener('touchmove', function(ev) {
+      var touch = ev.touches[0];
+      var pos = getTouchPos(touch);
       if (dragging) {
-        var touch = ev.touches[0];
-        var pos = getTouchPos(touch);
         dragging.x = pos.x + offsetX;
         dragging.y = pos.y + offsetY;
         dragging.vx = 0;
         dragging.vy = 0;
         dragMoved = true;
         wake();
-        ev.preventDefault();
+      } else if (isPanning) {
+        panX = panStartPanX + (pos.sx - panStartX);
+        panY = panStartPanY + (pos.sy - panStartY);
+        wake();
       }
+      ev.preventDefault();
     }, { passive: false });
 
     canvas.addEventListener('touchend', function() {
@@ -986,6 +1082,7 @@ function generateGraphScript() {
         focusOnNode(dragging);
       }
       dragging = null;
+      isPanning = false;
     });
   }
 
@@ -1224,6 +1321,7 @@ function generateWikiCSS() {
 #wiki-graph {
     display: block;
     width: 100%;
+    cursor: grab;
 }
 
 .graph-zoom-controls {
@@ -1262,6 +1360,38 @@ function generateWikiCSS() {
 .graph-zoom-reset {
     font-size: 14px;
 }
+
+.graph-legend {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    gap: 12px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid #E8E1D8;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #555;
+    z-index: 10;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.graph-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.graph-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.graph-legend-dot.legend-person { background: #1a1a1a; }
+.graph-legend-dot.legend-company { background: #8b2500; }
 
 .graph-tooltip {
     position: absolute;

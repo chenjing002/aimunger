@@ -870,9 +870,8 @@
     for (i = 0; i < nodes.length; i++) {
       var n = nodes[i];
       if (n === dragging) continue;
-      var cx = toWorldX(W / 2), cy = toWorldY(H / 2);
-      n.vx += (cx - n.x) * 0.002;
-      n.vy += (cy - n.y) * 0.002;
+      n.vx += (W / 2 - n.x) * 0.002;
+      n.vy += (H / 2 - n.y) * 0.002;
       n.vx *= 0.82;
       n.vy *= 0.82;
       n.x += n.vx;
