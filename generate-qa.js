@@ -127,6 +127,7 @@ function generateArticlePage(article) {
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
                 <li><a href="/qa/" class="active">问答</a></li>
+                <li><a href="/data/">数据</a></li>
                 <li><a href="/about/">关于</a></li>
             </ul>
         </nav>
@@ -204,6 +205,7 @@ function generateListingPage(articles) {
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
                 <li><a href="/qa/" class="active">问答</a></li>
+                <li><a href="/data/">数据</a></li>
                 <li><a href="/about/">关于</a></li>
             </ul>
         </nav>
