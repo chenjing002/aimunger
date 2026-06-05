@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据可视化 - aimunger</title>
+    <meta name="description" content="中国上市公司财务数据可视化，基于 ECharts 的交互式图表展示。">
+    <link rel="canonical" href="https://aimunger.com/data/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <style>
+        .chart-section {
+            margin-bottom: 56px;
+        }
+        .chart-title {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+        .chart-meta {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .chart-table-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        .chart-table-toggle button {
+            background: none;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-family: var(--font-serif);
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chart-table-toggle button:hover {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+        .data-table-wrapper {
+            display: none;
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+        .data-table-wrapper.visible {
+            display: block;
+        }
+        .data-table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+        }
+        .data-table th,
+        .data-table td {
+            border: 1px solid var(--color-border);
+            padding: 6px 10px;
+            text-align: right;
+            white-space: nowrap;
+        }
+        .data-table th {
+            background: var(--color-surface);
+            font-weight: 600;
+            text-align: center;
+        }
+        .data-table td:first-child,
+        .data-table th:first-child {
+            text-align: center;
+        }
+        .no-config {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .chart-container {
+                height: 320px;
+            }
+            .chart-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo">
+                <span class="logo-icon">M</span>
+                <span class="logo-text">aimunger</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/resources/">资料库</a></li>
+                <li><a href="/wiki/">Wiki</a></li>
+                <li><a href="/qa/">问答</a></li>
+                <li><a href="/data/" class="active">数据</a></li>
+                <li><a href="/about/">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h1 class="hero-title">数据可视化</h1>
+                <p class="hero-desc">中国上市公司财务数据的交互式图表展示。</p>
+            </section>
+
+            <div id="charts-root"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
+                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
+                <a href="https://aimunger.com/sitemap.xml">sitemap</a>
+            </div>
+            <p>&copy; 2026 aimunger</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="chart-configs.js"></script>
+    <script>
+    (function() {
+        var root = document.getElementById('charts-root');
+
+        fetch('data.json')
+            .then(function(res) { return res.json(); })
+            .then(function(allData) {
+                var names = Object.keys(allData);
+                if (names.length === 0) {
+                    root.innerHTML = '<p style="color:#999;text-align:center;padding:40px 0;">暂无数据。</p>';
+                    return;
+                }
+
+                var charts = [];
+
+                names.forEach(function(name) {
+                    var entry = allData[name];
+                    var section = document.createElement('div');
+                    section.className = 'chart-section';
+
+                    // Title
+                    var title = document.createElement('h2');
+                    title.className = 'chart-title';
+                    title.textContent = name;
+                    section.appendChild(title);
+
+                    // Meta
+                    if (entry.meta && entry.meta.created) {
+                        var meta = document.createElement('p');
+                        meta.className = 'chart-meta';
+                        meta.textContent = '数据更新: ' + entry.meta.created.split(' ')[0];
+                        section.appendChild(meta);
+                    }
+
+                    // Chart container
+                    var chartDiv = document.createElement('div');
+                    chartDiv.className = 'chart-container';
+                    section.appendChild(chartDiv);
+
+                    // Toggle button + table
+                    var toggleWrap = document.createElement('div');
+                    toggleWrap.className = 'chart-table-toggle';
+                    var btn = document.createElement('button');
+                    btn.textContent = '显示数据表';
+                    toggleWrap.appendChild(btn);
+                    section.appendChild(toggleWrap);
+
+                    var tableWrapper = document.createElement('div');
+                    tableWrapper.className = 'data-table-wrapper';
+                    tableWrapper.innerHTML = buildTable(entry.headers, entry.rows);
+                    section.appendChild(tableWrapper);
+
+                    btn.addEventListener('click', function() {
+                        var visible = tableWrapper.classList.toggle('visible');
+                        btn.textContent = visible ? '隐藏数据表' : '显示数据表';
+                    });
+
+                    root.appendChild(section);
+
+                    // Initialize chart
+                    if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[name]) {
+                        var chart = echarts.init(chartDiv);
+                        var option = CHART_CONFIGS[name](entry);
+                        chart.setOption(option);
+                        charts.push(chart);
+                    } else {
+                        chartDiv.innerHTML = '<div class="no-config">该数据文件暂无图表配置</div>';
+                    }
+                });
+
+                // Responsive resize
+                window.addEventListener('resize', function() {
+                    charts.forEach(function(c) { c.resize(); });
+                });
+            })
+            .catch(function(err) {
+                root.innerHTML = '<p style="color:#c00;text-align:center;padding:40px 0;">加载数据失败: ' + err.message + '</p>';
+            });
+
+        function buildTable(headers, rows) {
+            var html = '<table class="data-table"><thead><tr>';
+            headers.forEach(function(h) {
+                html += '<th>' + escapeHtml(h) + '</th>';
+            });
+            html += '</tr></thead><tbody>';
+            rows.forEach(function(row) {
+                html += '<tr>';
+                row.forEach(function(cell, i) {
+                    var display = cell;
+                    if (typeof cell === 'number') {
+                        // Check if the header suggests percentage
+                        if (headers[i] && (headers[i].includes('比例') || headers[i].includes('占比'))) {
+                            display = cell + '%';
+                        } else {
+                            display = cell.toLocaleString();
+                        }
+                    }
+                    html += '<td>' + escapeHtml(String(display)) + '</td>';
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            return html;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+    })();
+    </script>
+</body>
+</html>
