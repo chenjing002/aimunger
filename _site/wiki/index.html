@@ -11,6 +11,21 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/wiki/wiki.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+        "react-dom": "https://esm.sh/react-dom@18.3.1",
+        "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+        "three": "https://esm.sh/three@0.160.1",
+        "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.17.10?external=react,react-dom,three",
+        "@react-three/drei": "https://esm.sh/@react-three/drei@9.114.3?external=react,react-dom,three,@react-three/fiber",
+        "gsap": "https://esm.sh/gsap@3.12.5",
+        "htm": "https://esm.sh/htm@3.1.1"
+      }
+    }
+    </script>
 </head>
 <body>
     <header class="header">
@@ -23,6 +38,7 @@
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/" class="active">Wiki</a></li>
                 <li><a href="/qa/">问答</a></li>
+                <li><a href="/data/">数据</a></li>
                 <li><a href="/about/">关于</a></li>
             </ul>
         </nav>
@@ -530,27 +546,6 @@
                 </div>
             </section>
 
-            <section class="wiki-graph-section" id="wiki-graph-section" style="display:none">
-                <div class="graph-layout">
-                    <div class="graph-main" id="graph-main">
-                        <canvas id="wiki-graph"></canvas>
-                        <div class="graph-tooltip" id="graph-tooltip"></div>
-                        <div class="graph-zoom-controls">
-                            <button class="graph-zoom-btn" id="graph-zoom-in" title="放大">+</button>
-                            <button class="graph-zoom-btn" id="graph-zoom-out" title="缩小">&minus;</button>
-                            <button class="graph-zoom-btn graph-zoom-reset" id="graph-zoom-reset" title="重置">&#8634;</button>
-                        </div>
-                        <div class="graph-legend">
-                            <span class="graph-legend-item"><span class="graph-legend-dot legend-person"></span>人物</span>
-                            <span class="graph-legend-item"><span class="graph-legend-dot legend-company"></span>公司</span>
-                        </div>
-                    </div>
-                    <aside class="graph-detail" id="graph-detail">
-                        <button class="graph-detail-close" id="graph-detail-close">&times;</button>
-                        <div id="graph-detail-body"></div>
-                    </aside>
-                </div>
-            </section>
         </div>
     </main>
 
@@ -567,746 +562,90 @@
         </div>
     </footer>
 
+    <section class="wiki-graph-section" id="wiki-graph-section">
+        <button class="wiki-graph-close" id="wiki-graph-close" title="关闭图谱">&times;</button>
+        <div id="wiki-graph-root" class="wiki-graph-root">
+            <div class="wiki-graph-loading">正在加载图谱…</div>
+        </div>
+    </section>
+
     <script>
 (function() {
   'use strict';
 
-  var COLORS = {
-    nodePerson: '#1a1a1a',
-    nodeCompany: '#8b2500',
-    nodeSelected: '#DE7356',
-    nodeConnected: '#E8956F',
-    nodeFaded: '#C9C6C1',
-    edge: '#D8D2CA',
-    edgeHighlight: '#DE7356',
-    labelDefault: '#1a1a1a',
-    labelFaded: '#B0ADA8',
-    labelBg: 'rgba(255,255,255,0.85)'
-  };
-
-  var TYPE_COLORS = {
-    person: COLORS.nodePerson,
-    company: COLORS.nodeCompany
-  };
-
-  var TYPE_LABELS = { person: '人物', company: '公司' };
-
   var searchInput = document.getElementById('wiki-search');
-  var listSection = document.getElementById('wiki-list');
   var graphSection = document.getElementById('wiki-graph-section');
+  var graphRoot = document.getElementById('wiki-graph-root');
+  var graphClose = document.getElementById('wiki-graph-close');
   var listCards = document.querySelectorAll('.wiki-card');
   var viewBtns = document.querySelectorAll('.wiki-view-btn');
-  var canvas = document.getElementById('wiki-graph');
-  var graphMain = document.getElementById('graph-main');
-  var tooltip = document.getElementById('graph-tooltip');
-  var detailPanel = document.getElementById('graph-detail');
-  var detailBody = document.getElementById('graph-detail-body');
-  var detailClose = document.getElementById('graph-detail-close');
+  var graphMounted = false;
 
-  var currentView = 'list';
-  var graphInited = false;
-  var nodes = [], nodeMap = {}, edges = [], degree = {};
-  var selectedNode = null;
-  var hoveredNode = null;
-  var dragging = null;
-  var dragMoved = false;
-  var offsetX = 0, offsetY = 0;
-  var searchMatches = new Set();
-  var neighborSet = new Set();
-  var neighborEdgeSet = new Set();
-  var W = 0, H = 0, dpr = 1;
-  var ctx = null;
-  var animating = false;
-  var isMobile = window.innerWidth < 768;
-  var zoom = 1, panX = 0, panY = 0;
-  var isPanning = false, panStartX = 0, panStartY = 0, panStartPanX = 0, panStartPanY = 0;
-  var animTarget = null;
+  function applyListSearch(q) {
+    q = (q || '').toLowerCase();
+    listCards.forEach(function(card) {
+      var title = card.getAttribute('data-title').toLowerCase();
+      var ex = card.querySelector('.wiki-card-excerpt').textContent.toLowerCase();
+      card.style.display = (title.includes(q) || ex.includes(q)) ? '' : 'none';
+    });
+  }
+
+  function mountGraph() {
+    if (graphMounted) return;
+    graphMounted = true;
+    import('/wiki/wiki-graph.js')
+      .then(function(m) { m.mountWikiGraph(graphRoot); })
+      .catch(function(err) {
+        graphRoot.innerHTML = '<div class="wiki-graph-loading">图谱加载失败：' + (err && err.message) + '</div>';
+      });
+  }
+
+  function openGraph() {
+    graphSection.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    mountGraph();
+  }
+
+  function closeGraph() {
+    graphSection.classList.remove('is-open');
+    document.body.style.overflow = '';
+    viewBtns.forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-view') === 'list');
+    });
+  }
 
   viewBtns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       var view = this.getAttribute('data-view');
-      currentView = view;
       viewBtns.forEach(function(b) { b.classList.remove('active'); });
       this.classList.add('active');
-      if (view === 'list') {
-        listSection.style.display = '';
-        graphSection.style.display = 'none';
-        applyListSearch(searchInput.value);
+      if (view === 'graph') {
+        openGraph();
       } else {
-        listSection.style.display = 'none';
-        graphSection.style.display = '';
-        if (!graphInited) initGraph();
-        else applyGraphSearch(searchInput.value);
+        closeGraph();
       }
     });
   });
 
-  searchInput.addEventListener('input', function() {
-    var q = this.value.trim();
-    if (currentView === 'list') applyListSearch(q);
-    else applyGraphSearch(q);
-  });
+  graphClose.addEventListener('click', closeGraph);
 
-  searchInput.addEventListener('keydown', function(ev) {
-    if (ev.key === 'Enter' && currentView === 'graph' && searchMatches.size > 0) {
-      var firstMatch = null;
-      for (var i = 0; i < nodes.length; i++) {
-        if (searchMatches.has(nodes[i].id)) { firstMatch = nodes[i]; break; }
-      }
-      if (firstMatch) focusOnNode(firstMatch);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && graphSection.classList.contains('is-open')) {
+      closeGraph();
     }
   });
 
-  function applyListSearch(q) {
-    q = q.toLowerCase();
-    listCards.forEach(function(card) {
-      var title = card.getAttribute('data-title').toLowerCase();
-      var excerpt = card.querySelector('.wiki-card-excerpt').textContent.toLowerCase();
-      card.style.display = (title.includes(q) || excerpt.includes(q)) ? '' : 'none';
-    });
+  searchInput.addEventListener('input', function() { applyListSearch(this.value.trim()); });
+
+  // Prefetch graph module and all dependencies during idle time
+  function prefetchGraph() {
+    import('/wiki/wiki-graph.js').catch(function() {});
   }
-
-  function applyGraphSearch(q) {
-    searchMatches = new Set();
-    if (!q) { wake(); return; }
-    q = q.toLowerCase();
-    nodes.forEach(function(n) {
-      if (n.id.toLowerCase().includes(q)) searchMatches.add(n.id);
-    });
-    if (searchMatches.size === 1) {
-      var match = nodes.find(function(n) { return searchMatches.has(n.id); });
-      if (match) focusOnNode(match);
-    } else {
-      wake();
-    }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(prefetchGraph);
+  } else {
+    setTimeout(prefetchGraph, 2000);
   }
-
-  function initGraph() {
-    graphInited = true;
-    fetch('/wiki/data.json')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        setupGraph(data);
-        applyGraphSearch(searchInput.value);
-      });
-  }
-
-  function setupGraph(data) {
-    dpr = window.devicePixelRatio || 1;
-    ctx = canvas.getContext('2d');
-
-    nodes = data.nodes.map(function(n, i) {
-      var angle = (2 * Math.PI * i) / data.nodes.length;
-      var spread = Math.min(400, data.nodes.length * 6);
-      return {
-        id: n.id,
-        slug: n.slug || n.id,
-        type: n.type || 'person',
-        desc: n.desc || '',
-        x: 0, y: 0,
-        vx: 0, vy: 0,
-        tx: Math.cos(angle) * spread + (Math.random() - 0.5) * 30,
-        ty: Math.sin(angle) * spread + (Math.random() - 0.5) * 30
-      };
-    });
-
-    nodeMap = {};
-    nodes.forEach(function(n) { nodeMap[n.id] = n; });
-
-    edges = data.edges.filter(function(e) {
-      return nodeMap[e.source] && nodeMap[e.target];
-    }).map(function(e) {
-      return { source: e.source, target: e.target, refs: e.refs || [] };
-    });
-
-    degree = {};
-    nodes.forEach(function(n) { degree[n.id] = 0; });
-    edges.forEach(function(e) {
-      degree[e.source] = (degree[e.source] || 0) + 1;
-      degree[e.target] = (degree[e.target] || 0) + 1;
-    });
-
-    resizeCanvas();
-    nodes.forEach(function(n) {
-      n.x = W / 2 + n.tx;
-      n.y = H / 2 + n.ty;
-    });
-
-    attachCanvasEvents();
-    detailClose.addEventListener('click', function() { resetView(); });
-    startAnimation();
-
-    window.addEventListener('resize', function() {
-      isMobile = window.innerWidth < 768;
-      resizeCanvas();
-      wake();
-    });
-
-    document.getElementById('graph-zoom-in').addEventListener('click', function() {
-      zoomAt(W / 2, H / 2, 1.3);
-    });
-    document.getElementById('graph-zoom-out').addEventListener('click', function() {
-      zoomAt(W / 2, H / 2, 1 / 1.3);
-    });
-    document.getElementById('graph-zoom-reset').addEventListener('click', function() {
-      animTarget = { panX: 0, panY: 0, zoom: 1 }; wake();
-    });
-
-    canvas.addEventListener('wheel', function(ev) {
-      ev.preventDefault();
-      if (ev.ctrlKey) {
-        var pos = getCanvasPos(ev);
-        var factor = ev.deltaY < 0 ? 1.1 : 1 / 1.1;
-        zoomAt(pos.sx, pos.sy, factor);
-      } else {
-        panX -= ev.deltaX;
-        panY -= ev.deltaY;
-        animTarget = null;
-        wake();
-      }
-    }, { passive: false });
-  }
-
-  function resizeCanvas() {
-    var rect = graphMain.getBoundingClientRect();
-    W = rect.width;
-    H = isMobile ? Math.max(350, W * 0.6) : Math.max(550, Math.min(W * 0.7, 680));
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    if (ctx) {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-  }
-
-  function zoomAt(cx, cy, factor) {
-    var newZoom = Math.max(0.3, Math.min(5, zoom * factor));
-    var scale = newZoom / zoom;
-    panX = cx - scale * (cx - panX);
-    panY = cy - scale * (cy - panY);
-    zoom = newZoom;
-    wake();
-  }
-
-  function toScreenX(x) { return x * zoom + panX; }
-  function toScreenY(y) { return y * zoom + panY; }
-  function toWorldX(sx) { return (sx - panX) / zoom; }
-  function toWorldY(sy) { return (sy - panY) / zoom; }
-
-  function startAnimation() {
-    if (animating) return;
-    animating = true;
-    tick();
-  }
-
-  var stableFrames = 0;
-
-  function tick() {
-    if (!animating) return;
-
-    if (animTarget) {
-      panX += (animTarget.panX - panX) * 0.15;
-      panY += (animTarget.panY - panY) * 0.15;
-      zoom += (animTarget.zoom - zoom) * 0.15;
-      if (Math.abs(panX - animTarget.panX) < 0.5 &&
-          Math.abs(panY - animTarget.panY) < 0.5 &&
-          Math.abs(zoom - animTarget.zoom) < 0.001) {
-        panX = animTarget.panX;
-        panY = animTarget.panY;
-        zoom = animTarget.zoom;
-        animTarget = null;
-      }
-    }
-
-    simulate();
-    draw();
-
-    var totalV = 0;
-    nodes.forEach(function(n) { totalV += Math.abs(n.vx) + Math.abs(n.vy); });
-    if (totalV < 0.5 && !dragging && !animTarget) {
-      stableFrames++;
-      if (stableFrames > 60) { animating = false; return; }
-    } else {
-      stableFrames = 0;
-    }
-    requestAnimationFrame(tick);
-  }
-
-  function wake() {
-    stableFrames = 0;
-    startAnimation();
-  }
-
-  function simulate() {
-    var i, j, a, b, dx, dy, d, force, fx, fy;
-
-    // Repulsion
-    for (i = 0; i < nodes.length; i++) {
-      for (j = i + 1; j < nodes.length; j++) {
-        a = nodes[i]; b = nodes[j];
-        dx = b.x - a.x; dy = b.y - a.y;
-        d = Math.max(Math.hypot(dx, dy), 1);
-        force = 1200 / (d * d);
-        fx = (dx / d) * force; fy = (dy / d) * force;
-        if (a !== dragging) { a.vx -= fx; a.vy -= fy; }
-        if (b !== dragging) { b.vx += fx; b.vy += fy; }
-      }
-    }
-
-    // Attraction along edges
-    for (i = 0; i < edges.length; i++) {
-      a = nodeMap[edges[i].source]; b = nodeMap[edges[i].target];
-      if (!a || !b) continue;
-      dx = b.x - a.x; dy = b.y - a.y;
-      d = Math.max(Math.hypot(dx, dy), 1);
-      force = (d - 100) * 0.008;
-      fx = (dx / d) * force; fy = (dy / d) * force;
-      if (a !== dragging) { a.vx += fx; a.vy += fy; }
-      if (b !== dragging) { b.vx -= fx; b.vy -= fy; }
-    }
-
-    // Center gravity + damping
-    for (i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      if (n === dragging) continue;
-      n.vx += (W / 2 - n.x) * 0.002;
-      n.vy += (H / 2 - n.y) * 0.002;
-      n.vx *= 0.82;
-      n.vy *= 0.82;
-      n.x += n.vx;
-      n.y += n.vy;
-    }
-  }
-
-  function getNeighborIds(nodeId) {
-    var visited = new Set([nodeId]);
-    edges.forEach(function(e) {
-      if (e.source === nodeId) visited.add(e.target);
-      if (e.target === nodeId) visited.add(e.source);
-    });
-    return visited;
-  }
-
-  function getConnectedEdges(nodeIds) {
-    var s = new Set();
-    edges.forEach(function(e, i) {
-      if (nodeIds.has(e.source) && nodeIds.has(e.target)) s.add(i);
-    });
-    return s;
-  }
-
-  function focusOnNode(node) {
-    selectedNode = node;
-    neighborSet = getNeighborIds(node.id);
-    neighborEdgeSet = getConnectedEdges(neighborSet);
-    showDetailPanel(node);
-    var targetZoom = Math.max(zoom, 1.2);
-    var targetPanX = W / 2 - node.x * targetZoom;
-    var targetPanY = H / 2 - node.y * targetZoom;
-    animTarget = { panX: targetPanX, panY: targetPanY, zoom: targetZoom };
-    wake();
-  }
-
-  function resetView() {
-    selectedNode = null;
-    neighborSet = new Set();
-    neighborEdgeSet = new Set();
-    hideDetailPanel();
-    animTarget = { panX: 0, panY: 0, zoom: 1 };
-    wake();
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.save();
-    ctx.translate(panX, panY);
-    ctx.scale(zoom, zoom);
-
-    // Draw edges
-    for (var i = 0; i < edges.length; i++) {
-      var e = edges[i];
-      var a = nodeMap[e.source], b = nodeMap[e.target];
-      if (!a || !b) continue;
-
-      var isHighEdge = hoveredNode && (a === hoveredNode || b === hoveredNode);
-      var isFocusEdge = selectedNode && neighborEdgeSet.has(i);
-      var isFaded = (selectedNode && !isFocusEdge) ||
-                    (!selectedNode && hoveredNode && !isHighEdge);
-
-      if (isFaded) {
-        ctx.strokeStyle = 'rgba(216,210,202,0.15)';
-        ctx.lineWidth = 0.5 / zoom;
-      } else if (isHighEdge || isFocusEdge) {
-        ctx.strokeStyle = COLORS.edgeHighlight;
-        ctx.lineWidth = (isHighEdge ? 2 : 1.5) / zoom;
-      } else {
-        ctx.strokeStyle = COLORS.edge;
-        ctx.lineWidth = 1 / zoom;
-      }
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.stroke();
-    }
-
-    // Draw nodes
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      var r = getRadius(n) / zoom;
-      var isSelected = n === selectedNode;
-      var isHovered = n === hoveredNode;
-      var isNeighbor = selectedNode && neighborSet.has(n.id) && !isSelected;
-      var isSearchMatch = searchMatches.size > 0 && searchMatches.has(n.id);
-      var isFaded = (selectedNode && !neighborSet.has(n.id)) ||
-                    (searchMatches.size > 0 && !searchMatches.has(n.id));
-      var isHoverNeighbor = !selectedNode && hoveredNode && hoveredNode !== n &&
-        edges.some(function(e) {
-          return (nodeMap[e.source] === hoveredNode && nodeMap[e.target] === n) ||
-                 (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
-        });
-      var isHoverFaded = !selectedNode && hoveredNode && !isHovered && !isHoverNeighbor;
-
-      var fillColor;
-      if (isSelected || isHovered) {
-        fillColor = COLORS.nodeSelected;
-      } else if (isNeighbor || isHoverNeighbor) {
-        fillColor = COLORS.nodeConnected;
-      } else if (isFaded || isHoverFaded) {
-        fillColor = COLORS.nodeFaded;
-      } else if (isSearchMatch) {
-        fillColor = COLORS.nodeSelected;
-      } else {
-        fillColor = TYPE_COLORS[n.type] || COLORS.nodePerson;
-      }
-
-      if (isSelected || isSearchMatch) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r + 6 / zoom, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(222,115,86,0.12)';
-        ctx.fill();
-      }
-
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-      ctx.fillStyle = fillColor;
-      ctx.fill();
-    }
-
-    // Draw labels
-    drawLabels();
-    ctx.restore();
-  }
-
-  function drawLabels() {
-    var fontSize = 12 / zoom;
-    var boldFontSize = 13 / zoom;
-    ctx.font = fontSize + 'px "Noto Serif SC", serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-
-    var padX = 3 / zoom, padY = 1 / zoom, labelH = 16 / zoom, gap = 4 / zoom;
-    var candidates = [];
-
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      var r = getRadius(n) / zoom;
-      var isSelected = n === selectedNode;
-      var isHovered = n === hoveredNode;
-      var isNeighbor = selectedNode && neighborSet.has(n.id);
-      var isSearchMatch = searchMatches.size > 0 && searchMatches.has(n.id);
-      var isHoverNeighbor = !selectedNode && hoveredNode && hoveredNode !== n &&
-        edges.some(function(e) {
-          return (nodeMap[e.source] === hoveredNode && nodeMap[e.target] === n) ||
-                 (nodeMap[e.target] === hoveredNode && nodeMap[e.source] === n);
-        });
-
-      var priority;
-      if (isSelected || isHovered) priority = 100;
-      else if (isSearchMatch) priority = 90;
-      else if (isNeighbor || isHoverNeighbor) priority = 80;
-      else if (selectedNode && !isNeighbor) priority = -1;
-      else if (searchMatches.size > 0 && !isSearchMatch) priority = -1;
-      else if (!selectedNode && hoveredNode && !isHovered && !isHoverNeighbor) priority = -1;
-      else priority = degree[n.id] || 0;
-
-      if (priority < 0) continue;
-
-      var isFaded = (selectedNode && !isNeighbor) ||
-                    (searchMatches.size > 0 && !isSearchMatch) ||
-                    (!selectedNode && hoveredNode && !isHovered && !isHoverNeighbor);
-
-      var text = n.id;
-      var textW = ctx.measureText(text).width;
-      var ly = n.y + r + gap;
-
-      candidates.push({
-        text: text, cx: n.x, cy: ly,
-        x: n.x - textW / 2 - padX, y: ly - padY,
-        w: textW + padX * 2, h: labelH,
-        priority: priority,
-        isSelected: isSelected, isHovered: isHovered, isFaded: isFaded
-      });
-    }
-
-    candidates.sort(function(a, b) { return b.priority - a.priority; });
-
-    var placed = [];
-    for (var i = 0; i < candidates.length; i++) {
-      var c = candidates[i];
-      if (c.priority < 50) {
-        var dominated = false;
-        for (var j = 0; j < placed.length; j++) {
-          var p = placed[j];
-          if (c.x < p.x + p.w && c.x + c.w > p.x &&
-              c.y < p.y + p.h && c.y + c.h > p.y) {
-            dominated = true;
-            break;
-          }
-        }
-        if (dominated) continue;
-      }
-      placed.push({ x: c.x, y: c.y, w: c.w, h: c.h });
-
-      ctx.fillStyle = COLORS.labelBg;
-      ctx.fillRect(c.x, c.y, c.w, c.h);
-      ctx.fillStyle = c.isFaded ? COLORS.labelFaded : COLORS.labelDefault;
-      if (c.isSelected || c.isHovered) ctx.font = 'bold ' + boldFontSize + 'px "Noto Serif SC", serif';
-      ctx.fillText(c.text, c.cx, c.cy);
-      if (c.isSelected || c.isHovered) ctx.font = fontSize + 'px "Noto Serif SC", serif';
-    }
-  }
-
-  function getRadius(n) {
-    var d = degree[n.id] || 0;
-    var base = 4 + Math.min(d * 1.8, 14);
-    if (n === selectedNode) base += 3;
-    if (n === hoveredNode && n !== selectedNode) base += 2;
-    return base;
-  }
-
-  function attachCanvasEvents() {
-    canvas.addEventListener('mousedown', function(ev) {
-      var pos = getCanvasPos(ev);
-      var node = findNodeAt(pos.x, pos.y);
-      if (node) {
-        dragging = node;
-        dragMoved = false;
-        offsetX = node.x - pos.x;
-        offsetY = node.y - pos.y;
-      } else {
-        isPanning = true;
-        panStartX = pos.sx;
-        panStartY = pos.sy;
-        panStartPanX = panX;
-        panStartPanY = panY;
-        animTarget = null;
-        canvas.style.cursor = 'grabbing';
-      }
-      ev.preventDefault();
-    });
-
-    canvas.addEventListener('mousemove', function(ev) {
-      var pos = getCanvasPos(ev);
-      if (dragging) {
-        dragging.x = pos.x + offsetX;
-        dragging.y = pos.y + offsetY;
-        dragging.vx = 0;
-        dragging.vy = 0;
-        dragMoved = true;
-        wake();
-        return;
-      }
-      if (isPanning) {
-        panX = panStartPanX + (pos.sx - panStartX);
-        panY = panStartPanY + (pos.sy - panStartY);
-        wake();
-        return;
-      }
-
-      var prevHovered = hoveredNode;
-      hoveredNode = findNodeAt(pos.x, pos.y);
-
-      if (hoveredNode) {
-        var d = degree[hoveredNode.id] || 0;
-        var typeLabel = TYPE_LABELS[hoveredNode.type] || '';
-        tooltip.textContent = hoveredNode.id + ' \u00B7 ' + typeLabel + ' \u00B7 ' + d + ' \u4E2A\u5173\u8054';
-        tooltip.style.display = 'block';
-        tooltip.style.left = Math.min(pos.sx + 12, W - 180) + 'px';
-        tooltip.style.top = Math.max(pos.sy - 32, 0) + 'px';
-      } else {
-        tooltip.style.display = 'none';
-      }
-
-      canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
-      if (prevHovered !== hoveredNode) wake();
-    });
-
-    canvas.addEventListener('mouseup', function() {
-      if (dragging && !dragMoved) {
-        focusOnNode(dragging);
-      }
-      dragging = null;
-      if (isPanning) {
-        isPanning = false;
-      }
-      canvas.style.cursor = hoveredNode ? 'pointer' : 'grab';
-    });
-
-    canvas.addEventListener('mouseleave', function() {
-      if (dragging) dragging = null;
-      isPanning = false;
-      hoveredNode = null;
-      tooltip.style.display = 'none';
-      canvas.style.cursor = 'grab';
-      wake();
-    });
-
-    canvas.addEventListener('dblclick', function(ev) {
-      var pos = getCanvasPos(ev);
-      var node = findNodeAt(pos.x, pos.y);
-      if (node) {
-        window.location.href = '/wiki/' + node.slug + '/';
-      }
-    });
-
-    canvas.addEventListener('click', function(ev) {
-      if (dragMoved) { dragMoved = false; return; }
-      var pos = getCanvasPos(ev);
-      var node = findNodeAt(pos.x, pos.y);
-      if (!node && selectedNode) {
-        resetView();
-      }
-    });
-
-    // Touch support
-    canvas.addEventListener('touchstart', function(ev) {
-      var touch = ev.touches[0];
-      var pos = getTouchPos(touch);
-      var node = findNodeAt(pos.x, pos.y);
-      if (node) {
-        dragging = node;
-        dragMoved = false;
-        offsetX = node.x - pos.x;
-        offsetY = node.y - pos.y;
-      } else {
-        isPanning = true;
-        panStartX = pos.sx;
-        panStartY = pos.sy;
-        panStartPanX = panX;
-        panStartPanY = panY;
-        animTarget = null;
-      }
-      ev.preventDefault();
-    }, { passive: false });
-
-    canvas.addEventListener('touchmove', function(ev) {
-      var touch = ev.touches[0];
-      var pos = getTouchPos(touch);
-      if (dragging) {
-        dragging.x = pos.x + offsetX;
-        dragging.y = pos.y + offsetY;
-        dragging.vx = 0;
-        dragging.vy = 0;
-        dragMoved = true;
-        wake();
-      } else if (isPanning) {
-        panX = panStartPanX + (pos.sx - panStartX);
-        panY = panStartPanY + (pos.sy - panStartY);
-        wake();
-      }
-      ev.preventDefault();
-    }, { passive: false });
-
-    canvas.addEventListener('touchend', function() {
-      if (dragging && !dragMoved) {
-        focusOnNode(dragging);
-      }
-      dragging = null;
-      isPanning = false;
-    });
-  }
-
-  function getCanvasPos(ev) {
-    var rect = canvas.getBoundingClientRect();
-    var sx = ev.clientX - rect.left, sy = ev.clientY - rect.top;
-    return { x: toWorldX(sx), y: toWorldY(sy), sx: sx, sy: sy };
-  }
-
-  function getTouchPos(touch) {
-    var rect = canvas.getBoundingClientRect();
-    var sx = touch.clientX - rect.left, sy = touch.clientY - rect.top;
-    return { x: toWorldX(sx), y: toWorldY(sy), sx: sx, sy: sy };
-  }
-
-  function findNodeAt(mx, my) {
-    var closest = null, closestDist = Infinity;
-    for (var i = 0; i < nodes.length; i++) {
-      var n = nodes[i];
-      var dist = Math.hypot(n.x - mx, n.y - my);
-      var hitR = (getRadius(n) + 4) / zoom;
-      if (dist < hitR && dist < closestDist) {
-        closest = n;
-        closestDist = dist;
-      }
-    }
-    return closest;
-  }
-
-  function showDetailPanel(node) {
-    var neighbors = [];
-    edges.forEach(function(e) {
-      if (e.source === node.id && nodeMap[e.target]) neighbors.push(nodeMap[e.target]);
-      if (e.target === node.id && nodeMap[e.source]) neighbors.push(nodeMap[e.source]);
-    });
-    neighbors.sort(function(a, b) { return (degree[b.id] || 0) - (degree[a.id] || 0); });
-
-    var typeLabel = TYPE_LABELS[node.type] || '';
-    var html = '<div class="detail-header">' +
-      '<span class="detail-type-badge type-' + node.type + '">' + escH(typeLabel) + '</span>' +
-      '<h3 class="detail-name">' + escH(node.id) + '</h3>' +
-      '</div>';
-
-    if (node.desc) {
-      html += '<p class="detail-desc">' + escH(node.desc) + '</p>';
-    }
-
-    if (neighbors.length > 0) {
-      html += '<div class="detail-section"><h4>关联节点 (' + neighbors.length + ')</h4><div class="detail-neighbors">';
-      neighbors.forEach(function(nb) {
-        var nbType = TYPE_LABELS[nb.type] || '';
-        html += '<a class="detail-neighbor-item" data-node="' + escH(nb.id) + '" href="javascript:void(0)">' +
-          '<span class="detail-nb-dot type-' + nb.type + '"></span>' +
-          '<span class="detail-nb-name">' + escH(nb.id) + '</span>' +
-          '<span class="detail-nb-type">' + escH(nbType) + '</span>' +
-          '</a>';
-      });
-      html += '</div></div>';
-    }
-
-    html += '<a href="/wiki/' + node.slug + '/" class="detail-visit-btn">查看完整页面 &rarr;</a>';
-
-    detailBody.innerHTML = html;
-    detailPanel.classList.add('visible');
-
-    var nbItems = detailBody.querySelectorAll('.detail-neighbor-item');
-    nbItems.forEach(function(item) {
-      item.addEventListener('click', function(ev) {
-        ev.preventDefault();
-        var nid = this.getAttribute('data-node');
-        if (nodeMap[nid]) focusOnNode(nodeMap[nid]);
-      });
-    });
-  }
-
-  function hideDetailPanel() {
-    detailPanel.classList.remove('visible');
-  }
-
-  function escH(s) {
-    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
 })();
     </script>
 </body>
