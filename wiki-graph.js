@@ -678,10 +678,6 @@ function DetailPanel({ node, data, degree, neighborsList, index, total, onPick, 
   if (!node) return null;
   return html`
     <div key=${node.id} class=${'g-panel-inner'}>
-        <div class="g-eyebrow">
-          <span>${typeLabels[node.type] || ''} · 关联知识</span>
-          <span class="g-count">${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}</span>
-        </div>
         <h2 class="g-title">${node.id}</h2>
         <p class="g-desc">${cleanDesc(node.desc, node.id)}</p>
 

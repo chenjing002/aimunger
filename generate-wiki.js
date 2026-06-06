@@ -818,7 +818,7 @@ function generateWikiCSS() {
     height: 100%;
     box-sizing: border-box;
     padding: 40px 36px 26px;
-    background: #ebe8e2;
+    background: #ffffff;
     border-left: 1px solid rgba(58, 54, 46, 0.13);
     display: flex;
     flex-direction: column;
@@ -872,7 +872,7 @@ function generateWikiCSS() {
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 .g-search-input:focus {
-    border-color: rgba(58, 54, 46, 0.4);
+    border-color: #8b2500;
     background: rgba(255, 255, 255, 0.85);
 }
 .g-search-results {
