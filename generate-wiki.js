@@ -126,11 +126,14 @@ function markdownToHtml(text, wikiNames) {
   });
   html = html.replace(/<\/ul>\s*<ul>/g, '');
 
+  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+  html = html.replace(/<\/blockquote>\n<blockquote>/g, '\n');
+
   html = html.split('\n\n').map(block => {
     block = block.trim();
     if (!block) return '';
     if (block.startsWith('<h') || block.startsWith('<ul') || block.startsWith('<blockquote')) return block;
-    if (!block.startsWith('<')) return '<p>' + block + '</p>';
+    if (!/^<(h[1-6]|ul|ol|blockquote|div|table|pre|hr)/i.test(block)) return '<p>' + block + '</p>';
     return block;
   }).join('\n');
 
@@ -558,7 +561,7 @@ function generateGraphScript() {
     import('/wiki/wiki-graph.js')
       .then(function(m) { m.mountWikiGraph(graphRoot); })
       .catch(function(err) {
-        graphRoot.innerHTML = '<div class="wiki-graph-loading">图谱加载失败：' + (err && err.message) + '</div>';
+        graphRoot.innerHTML = '<div class="wiki-graph-loading">图谱加载失败：' + String(err && err.message).replace(/</g, '&lt;') + '</div>';
       });
   }
 

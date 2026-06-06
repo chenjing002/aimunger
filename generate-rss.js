@@ -109,6 +109,7 @@ function collectLlmReaderItems() {
           items.push({
             title: qa.question || `LLM Reader 问答 ${qa.id}`,
             link: `${SITE}/llm-reader/qa.html`,
+            guid: `${SITE}/llm-reader/qa.html#qa-${qa.id}`,
             date: (qa.created_at || '').slice(0, 10),
             description: excerpt(qa.answer),
             section: 'LLM Reader',
@@ -126,15 +127,16 @@ function collectLlmReaderItems() {
     if (match) {
       try {
         const data = JSON.parse(match[1]);
-        for (const ins of data) {
+        data.forEach((ins, idx) => {
           items.push({
             title: `洞察: ${excerpt(ins.content, 60)}`,
             link: `${SITE}/llm-reader/insights.html`,
+            guid: `${SITE}/llm-reader/insights.html#insight-${idx}`,
             date: (ins.created_at || '').slice(0, 10),
             description: excerpt(ins.content),
             section: 'LLM Reader',
           });
-        }
+        });
       } catch {}
     }
   }
@@ -155,9 +157,9 @@ allItems.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 const rssItems = allItems.map(item => `    <item>
       <title>${escXml(item.title)}</title>
       <link>${item.link}</link>
-      <guid>${item.link}</guid>
+      <guid>${item.guid || item.link}</guid>
       <description>${escXml(item.description)}</description>
-      <category>${escXml(item.section)}</category>${item.date ? `
+      <category>${escXml(item.section)}</category>${item.date && !isNaN(new Date(item.date).getTime()) ? `
       <pubDate>${new Date(item.date).toUTCString()}</pubDate>` : ''}
     </item>`).join('\n');
 

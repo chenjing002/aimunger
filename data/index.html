@@ -135,7 +135,9 @@
             <div class="footer-links">
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
                 <a href="https://aimunger.com/llm-reader/">llm-reader</a>
+                <a href="https://aimunger.com/llm.txt">llm.txt</a>
                 <a href="https://aimunger.com/sitemap.xml">sitemap</a>
+                <a href="https://aimunger.com/rss.xml">rss</a>
             </div>
             <p>&copy; 2026 aimunger</p>
         </div>
@@ -219,7 +221,7 @@
                 });
             })
             .catch(function(err) {
-                root.innerHTML = '<p style="color:#c00;text-align:center;padding:40px 0;">加载数据失败: ' + err.message + '</p>';
+                root.innerHTML = '<p style="color:#c00;text-align:center;padding:40px 0;">加载数据失败: ' + String(err.message).replace(/</g, '&lt;') + '</p>';
             });
 
         function buildTable(headers, rows) {
