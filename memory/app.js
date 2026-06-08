@@ -4,7 +4,6 @@
 // Configuration
 // ============================================================
 
-// Will be set after deploy — the workers.dev URL for the API
 const API_BASE = 'https://aimunger-memory.chenjingluote.workers.dev/api/memory';
 const TOKEN_KEY = 'mem_token';
 
@@ -212,7 +211,6 @@ function parseImportText(text) {
     let title = '';
     let body = content;
 
-    // Extract title if present
     const firstQ = body.search(/Q[.．]\s/);
     if (firstQ > 0) {
         const before = body.substring(0, firstQ).trim();
@@ -220,7 +218,6 @@ function parseImportText(text) {
         body = body.substring(firstQ);
     }
 
-    // Split by Q. markers
     const segments = body.split(/Q[.．]\s+/).filter(s => s.trim());
     const cards = [];
 
@@ -263,15 +260,12 @@ function getRoute() {
 async function handleRoute() {
     const route = getRoute();
 
-    // Handle OAuth callback: #/auth/JWT_TOKEN
     if (route.parts[0] === 'auth' && route.parts[1]) {
         localStorage.setItem(TOKEN_KEY, route.parts[1]);
-        // Verify the token
         const user = await apiGet('/auth/me');
         if (user && user.id) {
             currentUser = user;
         }
-        // Clean the URL
         window.location.hash = '/';
         return;
     }
@@ -402,9 +396,9 @@ function renderDeckList() {
                     <div class="mem-deck-meta">
                         ${stats.total} 张卡片
                         ${paused ? '<span class="mem-deck-paused-badge">已暂停</span>' : ''}
-                        ${!paused && stats.due > 0 ? `<span class="mem-deck-due">${stats.due} 张待复习</span>` : ''}
                     </div>
-                    ${!paused && stats.nextReview ? `<div class="mem-deck-meta">${dueLabel(stats.nextReview)}</div>` : ''}
+                    ${!paused && stats.due > 0 ? `<div class="mem-deck-due">${stats.due} 张待复习</div>` : ''}
+                    ${!paused && stats.due === 0 && stats.nextReview ? `<div class="mem-deck-next">${dueLabel(stats.nextReview)}</div>` : ''}
                     <div class="mem-stage-bar">
                         ${stats.stageCounts.map((count, i) =>
                             count > 0 ? `<div class="mem-stage-bar-seg" style="width:${(count / stats.total * 100)}%;background:${STAGES[i].color}"></div>` : ''
@@ -430,34 +424,27 @@ function renderDeckDetail(deck) {
     const cards = deck.cards || [];
 
     let html = `
-        <button class="mem-back" data-action="go-home">&larr; 返回记忆库</button>
-        <div class="mem-page-header">
-            <h1 class="mem-detail-title">${escHtml(deck.title)}</h1>
-        </div>
+        <button class="mem-back" data-action="go-home">&larr; 返回</button>
+        <h1 class="mem-detail-title">${escHtml(deck.title)}</h1>
+        <div class="mem-detail-status">${stats.total} 张卡片${paused ? ' · 已暂停' : ''}</div>
         <div class="mem-stats">
-            <div class="mem-stat">
-                <div class="mem-stat-value">${stats.total}</div>
-                <div class="mem-stat-label">总卡片</div>
-            </div>
             <div class="mem-stat">
                 <div class="mem-stat-value">${stats.due}</div>
                 <div class="mem-stat-label">待复习</div>
             </div>
             <div class="mem-stat">
+                <div class="mem-stat-value">${stats.completed}</div>
+                <div class="mem-stat-label">已掌握</div>
+            </div>
+            <div class="mem-stat">
                 <div class="mem-stat-value">${stats.progress}%</div>
                 <div class="mem-stat-label">完成度</div>
             </div>
-            ${stats.nextReview ? `
-            <div class="mem-stat">
-                <div class="mem-stat-value">${dueLabel(stats.nextReview)}</div>
-                <div class="mem-stat-label">下次复习</div>
-            </div>
-            ` : ''}
         </div>
         <div class="mem-stage-bar" style="height:8px;border-radius:4px;margin:0 0 8px">
-            ${stats.stageCounts.map((count, i) =>
+            ${stats.total > 0 ? stats.stageCounts.map((count, i) =>
                 count > 0 ? `<div class="mem-stage-bar-seg" style="width:${(count / stats.total * 100)}%;background:${STAGES[i].color}"></div>` : ''
-            ).join('')}
+            ).join('') : ''}
         </div>
         <div class="mem-stage-legend">
             ${STAGES.map((s, i) => stats.stageCounts[i] > 0 ? `
@@ -468,12 +455,16 @@ function renderDeckDetail(deck) {
             ` : '').join('')}
         </div>
         <div class="mem-detail-actions">
-            ${stats.due > 0 && !paused ? `<button class="mem-btn mem-btn-primary" data-action="start-review" data-id="${deck.id}">开始复习 (${stats.due})</button>` : ''}
-            <button class="mem-btn mem-btn-sm" data-action="show-add-card" data-id="${deck.id}">+ 添加卡片</button>
-            <button class="mem-btn mem-btn-sm" data-action="show-bulk-add" data-id="${deck.id}">批量添加</button>
-            <button class="mem-btn mem-btn-sm" data-action="toggle-status" data-id="${deck.id}">${paused ? '恢复' : '暂停'}</button>
-            <button class="mem-btn mem-btn-sm" data-action="show-reset-confirm" data-id="${deck.id}">重置</button>
-            <button class="mem-btn mem-btn-sm mem-btn-danger" data-action="show-delete-confirm" data-id="${deck.id}">删除</button>
+            <div class="mem-detail-actions-primary">
+                ${stats.due > 0 && !paused ? `<button class="mem-btn mem-btn-primary" data-action="start-review" data-id="${deck.id}">开始复习 (${stats.due})</button>` : ''}
+                <button class="mem-btn" data-action="show-add-card" data-id="${deck.id}">添加卡片</button>
+                <button class="mem-btn" data-action="show-bulk-add" data-id="${deck.id}">批量添加</button>
+            </div>
+            <div class="mem-detail-actions-secondary">
+                <button class="mem-btn mem-btn-sm mem-btn-ghost" data-action="toggle-status" data-id="${deck.id}">${paused ? '恢复' : '暂停'}</button>
+                <button class="mem-btn mem-btn-sm mem-btn-ghost" data-action="show-reset-confirm" data-id="${deck.id}">重置</button>
+                <button class="mem-btn mem-btn-sm mem-btn-ghost mem-btn-danger-text" data-action="show-delete-confirm" data-id="${deck.id}">删除</button>
+            </div>
         </div>
     `;
 
@@ -504,12 +495,12 @@ function renderDeckDetail(deck) {
                         <div class="mem-card-info">
                             <span class="mem-stage-badge mem-stage-${card.stage}">${STAGES[card.stage].name}</span>
                             <span>${dateInfo}</span>
-                            ${card.reviewHistory && card.reviewHistory.length > 0 ? `<span>已复习 ${card.reviewHistory.length} 次</span>` : ''}
+                            ${card.reviewHistory && card.reviewHistory.length > 0 ? `<span>复习 ${card.reviewHistory.length} 次</span>` : ''}
                         </div>
                     </div>
                     <div class="mem-card-actions-inline">
                         <button class="mem-icon-btn" data-action="show-edit-card" data-deck-id="${deck.id}" data-card-id="${card.id}" title="编辑">&#9998;</button>
-                        <button class="mem-icon-btn" data-action="delete-card" data-deck-id="${deck.id}" data-card-id="${card.id}" title="删除">&times;</button>
+                        <button class="mem-icon-btn" data-action="show-delete-card-confirm" data-deck-id="${deck.id}" data-card-id="${card.id}" title="删除">&times;</button>
                     </div>
                 </div>
             `;
@@ -531,7 +522,6 @@ function startReview(deck) {
         navigate('/deck/' + deck.id);
         return;
     }
-    // Shuffle cards
     for (let i = dueCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [dueCards[i], dueCards[j]] = [dueCards[j], dueCards[i]];
@@ -564,7 +554,7 @@ function renderReviewCard() {
     let html = `
         <div class="mem-review">
             <div class="mem-review-header">
-                <button class="mem-back" data-action="exit-review" data-id="${s.deck.id}">&larr; 退出复习</button>
+                <button class="mem-back" data-action="exit-review" data-id="${s.deck.id}" style="margin-top:0">&larr; 退出复习</button>
                 <span class="mem-review-count">${current} / ${total}</span>
             </div>
             <div class="mem-review-progress">
@@ -574,24 +564,28 @@ function renderReviewCard() {
                 <div class="mem-review-stage">
                     <span class="mem-stage-badge mem-stage-${card.stage}">${STAGES[card.stage].name}</span>
                 </div>
-                <div class="mem-review-q-label">Q</div>
                 <div class="mem-review-question">${escHtml(card.question)}</div>
     `;
 
     if (s.showAnswer) {
         html += `
                 <hr class="mem-review-divider">
-                <div class="mem-review-a-label">A</div>
                 <div class="mem-review-answer">${escHtml(card.answer)}</div>
                 <div class="mem-review-actions">
-                    <button class="mem-btn mem-btn-danger mem-btn-lg" data-action="review-fail">再看看</button>
-                    <button class="mem-btn mem-btn-success mem-btn-lg" data-action="review-pass">记住了</button>
+                    <button class="mem-btn mem-review-btn-fail" data-action="review-fail">
+                        <span class="mem-review-btn-label">再看看</span>
+                        <span class="mem-review-btn-key">← / 1</span>
+                    </button>
+                    <button class="mem-btn mem-review-btn-pass" data-action="review-pass">
+                        <span class="mem-review-btn-label">记住了</span>
+                        <span class="mem-review-btn-key">→ / 2</span>
+                    </button>
                 </div>
         `;
     } else {
         html += `
                 <div class="mem-review-show">
-                    <button class="mem-btn mem-btn-lg" data-action="show-answer">显示答案</button>
+                    <button class="mem-btn mem-review-btn-show" data-action="show-answer">显示答案</button>
                 </div>
                 <div class="mem-review-hint">按空格键显示答案</div>
         `;
@@ -608,11 +602,13 @@ function renderReviewCard() {
 function renderReviewSummary() {
     const app = document.getElementById('app');
     const s = reviewSession;
+    const rate = s.cards.length > 0 ? Math.round(s.passCount / s.cards.length * 100) : 0;
 
     app.innerHTML = `
         <div class="mem-review">
             <div class="mem-review-summary">
                 <div class="mem-review-summary-title">复习完成</div>
+                <div class="mem-review-summary-rate">${rate}% 正确率</div>
                 <div class="mem-review-summary-stats">
                     <div>
                         <div class="mem-summary-stat-value pass">${s.passCount}</div>
@@ -716,7 +712,6 @@ async function doImport() {
     const deckId = route.parts[1] || null;
 
     if (deckId) {
-        // Add cards to existing deck
         const deck = await loadDeck(deckId);
         if (!deck) { showToast('记忆组不存在'); return; }
         deck.cards = (deck.cards || []).concat(result.cards);
@@ -724,7 +719,6 @@ async function doImport() {
         showToast(`已添加 ${result.cards.length} 张卡片`);
         navigate('/deck/' + deckId);
     } else {
-        // Create new deck
         const titleInput = document.getElementById('import-title');
         const title = (titleInput && titleInput.value.trim()) || result.title || '未命名记忆组';
         const deck = {
@@ -881,11 +875,22 @@ async function saveEditCard(deckId, cardId) {
     renderDeckDetail(deck);
 }
 
+function showDeleteCardConfirm(deckId, cardId) {
+    showModal(
+        '删除卡片',
+        `<div class="mem-confirm-text">确定要删除这张卡片吗？</div>
+         <div class="mem-confirm-sub">删除后不可恢复。</div>`,
+        `<button class="mem-btn mem-btn-ghost" data-action="close-modal">取消</button>
+         <button class="mem-btn mem-btn-danger" data-action="confirm-delete-card" data-deck-id="${deckId}" data-card-id="${cardId}">删除</button>`
+    );
+}
+
 async function deleteCard(deckId, cardId) {
     const deck = await loadDeck(deckId);
     if (!deck) return;
     deck.cards = (deck.cards || []).filter(c => c.id !== cardId);
     await saveDeck(deck);
+    closeModal();
     showToast('已删除');
     renderDeckDetail(deck);
 }
@@ -957,7 +962,6 @@ async function handleReviewPass() {
     if (!card.reviewHistory) card.reviewHistory = [];
     card.reviewHistory.push({ date: Date.now(), from: oldStage, to: card.stage, result: 'pass' });
 
-    // Update in deck
     const deck = s.deck;
     const idx = deck.cards.findIndex(c => c.id === card.id);
     if (idx >= 0) deck.cards[idx] = card;
@@ -1054,7 +1058,10 @@ function handleAction(action, dataset) {
         case 'save-edit-card':
             saveEditCard(dataset.deckId, dataset.cardId);
             break;
-        case 'delete-card':
+        case 'show-delete-card-confirm':
+            showDeleteCardConfirm(dataset.deckId, dataset.cardId);
+            break;
+        case 'confirm-delete-card':
             deleteCard(dataset.deckId, dataset.cardId);
             break;
         case 'show-delete-confirm':
@@ -1093,7 +1100,6 @@ function handleAction(action, dataset) {
 document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-action]');
     if (el) {
-        // For overlay, only close if click was directly on the overlay background
         if (el.classList.contains('mem-modal-overlay') && e.target !== el) return;
         e.preventDefault();
         handleAction(el.dataset.action, el.dataset);
@@ -1138,7 +1144,6 @@ document.addEventListener('keydown', (e) => {
 // ============================================================
 
 async function init() {
-    // Check for existing token in localStorage
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
         try {
