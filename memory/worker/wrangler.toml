@@ -1,0 +1,17 @@
+name = "aimunger-memory"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+workers_dev = true
+
+# Route will work once DNS is proxied (orange cloud) in Cloudflare dashboard
+# routes = [
+#   { pattern = "aimunger.com/api/memory/*", zone_name = "aimunger.com" }
+# ]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aimunger-memory"
+database_id = "878c1db1-45d4-494b-a7a0-e36bca08a4da"
+
+[vars]
+SITE_URL = "https://aimunger.com"

@@ -1,0 +1,15 @@
+{
+  "name": "aimunger-memory",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create aimunger-memory",
+    "db:init": "wrangler d1 execute aimunger-memory --file=schema.sql --remote",
+    "db:init-local": "wrangler d1 execute aimunger-memory --file=schema.sql --local"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
