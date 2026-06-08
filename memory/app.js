@@ -746,7 +746,7 @@ function showModal(title, bodyHtml, footerHtml) {
     const root = document.getElementById('modal-root');
     root.innerHTML = `
         <div class="mem-modal-overlay" data-action="close-modal">
-            <div class="mem-modal" onclick="event.stopPropagation()">
+            <div class="mem-modal">
                 <div class="mem-modal-header">
                     <span class="mem-modal-title">${title}</span>
                     <button class="mem-modal-close" data-action="close-modal">&times;</button>
@@ -1093,6 +1093,8 @@ function handleAction(action, dataset) {
 document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-action]');
     if (el) {
+        // For overlay, only close if click was directly on the overlay background
+        if (el.classList.contains('mem-modal-overlay') && e.target !== el) return;
         e.preventDefault();
         handleAction(el.dataset.action, el.dataset);
     }
