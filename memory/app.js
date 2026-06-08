@@ -185,8 +185,14 @@ async function loadDeck(id) {
     return apiGet('/decks/' + id);
 }
 
+function invalidateDueCache() {
+    localStorage.removeItem('mem_due_count');
+    localStorage.removeItem('mem_due_ts');
+}
+
 async function saveDeck(deck) {
     const { id, ...data } = deck;
+    invalidateDueCache();
     if (id) {
         await apiPut('/decks/' + id, data);
         return id;
@@ -197,6 +203,7 @@ async function saveDeck(deck) {
 }
 
 async function deleteDeckById(id) {
+    invalidateDueCache();
     await apiDelete('/decks/' + id);
 }
 
