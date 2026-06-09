@@ -53,7 +53,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp index.html style.css favicon.svg CNAME llm.txt _site/
+          cp index.html style.css favicon.svg CNAME llm.txt memory-notify.js _site/
           cp -r about resources data memory _site/
           rm -rf _site/memory/worker
           cp -r _build/letters/dist/ _site/letters/
