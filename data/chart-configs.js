@@ -18,28 +18,25 @@
  */
 
 /**
- * Palette derived from site chartTheme
+ * Palette
  *
- * Neutrals:
+ * Neutrals (from site chartTheme):
  *   bg:      #fbf7f2  (page background)
  *   surface: #ffffff
  *   tx1:     #1a1a1a  (primary text)
  *   tx2:     #6f625b  (muted text)
  *   tx3:     #b9b0aa  (context / very muted)
- *   grid:    #e8ded6  (grid lines)
- *   axis:    #b8aaa1  (axis lines)
+ *   grid:    #e8ded6
+ *   axis:    #b8aaa1
  *   border:  #ddd0c7
  *
  * Categorical (6 hues):
- *   [0] red:    #8b2500  (brand accent)
- *   [1] teal:   #2f5d62
- *   [2] gold:   #b8860b
- *   [3] purple: #5a4e8a
- *   [4] olive:  #6f7d3c
- *   [5] sienna: #a0522d
- *
- * Sequential (light → dark red):
- *   #f7e6dc → #e7bca4 → #cf8054 → #a94416 → #6b1d00
+ *   purple:  #774FA0  rgb(119,  79, 160)
+ *   amber:   #EFB743  rgb(239, 183,  67)
+ *   orange:  #D44627  rgb(212,  70,  39)
+ *   crimson: #E72F52  rgb(231,  47,  82)
+ *   blue:    #0D95D0  rgb( 13, 149, 208)
+ *   green:   #7DC462  rgb(125, 196,  98)
  */
 var PALETTE = {
     bg:      '#fbf7f2',
@@ -51,23 +48,15 @@ var PALETTE = {
     axis:    '#b8aaa1',
     border:  '#ddd0c7',
 
-    red:     '#8b2500',
-    teal:    '#2f5d62',
-    gold:    '#b8860b',
-    purple:  '#5a4e8a',
-    olive:   '#6f7d3c',
-    sienna:  '#a0522d',
+    purple:  '#774FA0',
+    amber:   '#EFB743',
+    orange:  '#D44627',
+    crimson: '#E72F52',
+    blue:    '#0D95D0',
+    green:   '#7DC462',
 
-    seq0: '#f7e6dc',
-    seq1: '#e7bca4',
-    seq2: '#cf8054',
-    seq3: '#a94416',
-    seq4: '#6b1d00',
-
-    // Derived: short-term bar — lighter terracotta, clearly distinct from red
-    shortTerm: '#c9673a',
-    // Derived: teal with slight opacity for line label legibility
-    tealDim:   '#3d7a80'
+    // site brand red (kept for non-categorical use)
+    red:     '#8b2500'
 };
 
 const CHART_CONFIGS = {
@@ -180,7 +169,7 @@ const CHART_CONFIGS = {
                     type: 'bar',
                     stack: 'debt',
                     data: shortTerm,
-                    itemStyle: { color: PALETTE.shortTerm, borderRadius: 0 },
+                    itemStyle: { color: PALETTE.amber, borderRadius: 0 },
                     barMaxWidth: 40
                 },
                 {
@@ -188,7 +177,7 @@ const CHART_CONFIGS = {
                     type: 'bar',
                     stack: 'debt',
                     data: longTerm,
-                    itemStyle: { color: PALETTE.red, borderRadius: [3, 3, 0, 0] },
+                    itemStyle: { color: PALETTE.orange, borderRadius: [3, 3, 0, 0] },
                     barMaxWidth: 40
                 },
                 {
@@ -197,15 +186,22 @@ const CHART_CONFIGS = {
                     yAxisIndex: 1,
                     data: assetRatio,
                     symbol: 'circle',
-                    symbolSize: 7,
-                    lineStyle: { width: 2, color: PALETTE.teal },
-                    itemStyle: { color: PALETTE.surface, borderColor: PALETTE.teal, borderWidth: 2 },
+                    symbolSize: 8,
+                    lineStyle: { width: 2.5, color: PALETTE.blue },
+                    itemStyle: { color: PALETTE.blue, borderColor: PALETTE.surface, borderWidth: 2 },
                     label: {
                         show: true,
+                        position: 'top',
+                        distance: 6,
                         formatter: '{c}%',
                         fontSize: 11,
-                        color: PALETTE.tealDim,
-                        fontWeight: 500
+                        color: PALETTE.blue,
+                        fontWeight: 600,
+                        backgroundColor: PALETTE.surface,
+                        borderColor: PALETTE.blue,
+                        borderWidth: 1,
+                        borderRadius: 3,
+                        padding: [2, 5]
                     }
                 }
             ]
