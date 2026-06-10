@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE_DIR = path.join(__dirname, '_site');
-const QA_HTML_PATH = path.join(SITE_DIR, 'llm-reader', 'qa.html');
+const QA_HTML_PATH = path.join(__dirname, '..', 'LLM-reader', 'publish', 'qa.html');
 const ARTICLES_DIR = path.join(SITE_DIR, 'qa');
 const INDEX_PATH = path.join(__dirname, 'index.html');
 
