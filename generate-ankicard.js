@@ -60,7 +60,7 @@ function run() {
     .filter(f => f.endsWith('.md'))
     .sort((a, b) => {
       const na = parseInt(a) || 0, nb = parseInt(b) || 0;
-      return na - nb || a.localeCompare(b);
+      return nb - na || b.localeCompare(a);
     });
 
   if (!files.length) {
