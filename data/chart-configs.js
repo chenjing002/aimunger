@@ -18,37 +18,51 @@
  */
 
 /**
- * Flexoki-inspired palette, anchored to site colors #8b2500 and #1a1a1a
+ * Palette derived from site chartTheme
  *
- * Neutrals (Flexoki base scale):
- *   tx-1 (primary text):  #1C1B1A  (≈ site #1a1a1a)
- *   tx-2 (secondary):     #6F6E69  (base-600)
- *   tx-3 (muted):         #878580  (base-500)
- *   ui-1 (borders):       #E6E4D9  (base-100)
- *   ui-2 (subtle bg):     #F2F0E5  (base-50)
- *   bg:                   #FFFCF0  (paper)
+ * Neutrals:
+ *   bg:      #fbf7f2  (page background)
+ *   surface: #ffffff
+ *   tx1:     #1a1a1a  (primary text)
+ *   tx2:     #6f625b  (muted text)
+ *   tx3:     #b9b0aa  (context / very muted)
+ *   grid:    #e8ded6  (grid lines)
+ *   axis:    #b8aaa1  (axis lines)
+ *   border:  #ddd0c7
  *
- * Accents:
- *   red (site accent):    #8b2500  (site brand)
- *   red-light:            #AF3029  (Flexoki red-600)
- *   orange:               #DA702C  (Flexoki orange-400)
- *   orange-dark:          #BC5215  (Flexoki orange-600)
- *   yellow:               #AD8301  (Flexoki yellow-600)
- *   yellow-light:         #D0A215  (Flexoki yellow-400)
+ * Categorical (6 hues):
+ *   [0] red:    #8b2500  (brand accent)
+ *   [1] teal:   #2f5d62
+ *   [2] gold:   #b8860b
+ *   [3] purple: #5a4e8a
+ *   [4] olive:  #6f7d3c
+ *   [5] sienna: #a0522d
+ *
+ * Sequential (light → dark red):
+ *   #f7e6dc → #e7bca4 → #cf8054 → #a94416 → #6b1d00
  */
 var PALETTE = {
-    tx1: '#1C1B1A',
-    tx2: '#6F6E69',
-    tx3: '#878580',
-    ui1: '#E6E4D9',
-    ui2: '#F2F0E5',
-    bg:  '#FFFCF0',
-    red:         '#8b2500',
-    redLight:    '#AF3029',
-    orange:      '#DA702C',
-    orangeDark:  '#BC5215',
-    yellow:      '#AD8301',
-    yellowLight: '#D0A215'
+    bg:      '#fbf7f2',
+    surface: '#ffffff',
+    tx1:     '#1a1a1a',
+    tx2:     '#6f625b',
+    tx3:     '#b9b0aa',
+    grid:    '#e8ded6',
+    axis:    '#b8aaa1',
+    border:  '#ddd0c7',
+
+    red:     '#8b2500',
+    teal:    '#2f5d62',
+    gold:    '#b8860b',
+    purple:  '#5a4e8a',
+    olive:   '#6f7d3c',
+    sienna:  '#a0522d',
+
+    seq0: '#f7e6dc',
+    seq1: '#e7bca4',
+    seq2: '#cf8054',
+    seq3: '#a94416',
+    seq4: '#6b1d00'
 };
 
 const CHART_CONFIGS = {
@@ -79,10 +93,10 @@ const CHART_CONFIGS = {
                 axisPointer: {
                     type: 'cross',
                     crossStyle: { color: PALETTE.tx3 },
-                    lineStyle: { color: PALETTE.ui1 }
+                    lineStyle: { color: PALETTE.grid }
                 },
-                backgroundColor: PALETTE.bg,
-                borderColor: PALETTE.ui1,
+                backgroundColor: PALETTE.surface,
+                borderColor: PALETTE.border,
                 textStyle: { color: PALETTE.tx1, fontSize: 13 },
                 formatter: function(params) {
                     let tip = '<b style="color:' + PALETTE.tx1 + '">' + params[0].axisValue + '</b><br/>';
@@ -124,8 +138,8 @@ const CHART_CONFIGS = {
                 type: 'category',
                 data: years,
                 axisLabel: { fontSize: 12, color: PALETTE.tx2 },
-                axisLine: { lineStyle: { color: PALETTE.ui1 } },
-                axisTick: { lineStyle: { color: PALETTE.ui1 } }
+                axisLine: { lineStyle: { color: PALETTE.grid } },
+                axisTick: { lineStyle: { color: PALETTE.grid } }
             },
             yAxis: [
                 {
@@ -139,7 +153,7 @@ const CHART_CONFIGS = {
                     },
                     axisLine: { show: false },
                     axisTick: { show: false },
-                    splitLine: { lineStyle: { color: PALETTE.ui1 } }
+                    splitLine: { lineStyle: { color: PALETTE.grid } }
                 },
                 {
                     type: 'value',
@@ -161,7 +175,7 @@ const CHART_CONFIGS = {
                     type: 'bar',
                     stack: 'debt',
                     data: shortTerm,
-                    itemStyle: { color: PALETTE.orange, borderRadius: 0 },
+                    itemStyle: { color: PALETTE.sienna, borderRadius: 0 },
                     barMaxWidth: 40
                 },
                 {
@@ -179,13 +193,13 @@ const CHART_CONFIGS = {
                     data: assetRatio,
                     symbol: 'circle',
                     symbolSize: 6,
-                    lineStyle: { width: 2, color: PALETTE.yellowLight },
-                    itemStyle: { color: PALETTE.yellowLight, borderColor: PALETTE.bg, borderWidth: 1.5 },
+                    lineStyle: { width: 2, color: PALETTE.gold },
+                    itemStyle: { color: PALETTE.gold, borderColor: PALETTE.surface, borderWidth: 1.5 },
                     label: {
                         show: true,
                         formatter: '{c}%',
                         fontSize: 11,
-                        color: PALETTE.yellow
+                        color: PALETTE.gold
                     }
                 }
             ]
