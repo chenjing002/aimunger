@@ -62,7 +62,12 @@ var PALETTE = {
     seq1: '#e7bca4',
     seq2: '#cf8054',
     seq3: '#a94416',
-    seq4: '#6b1d00'
+    seq4: '#6b1d00',
+
+    // Derived: short-term bar — lighter terracotta, clearly distinct from red
+    shortTerm: '#c9673a',
+    // Derived: teal with slight opacity for line label legibility
+    tealDim:   '#3d7a80'
 };
 
 const CHART_CONFIGS = {
@@ -175,7 +180,7 @@ const CHART_CONFIGS = {
                     type: 'bar',
                     stack: 'debt',
                     data: shortTerm,
-                    itemStyle: { color: PALETTE.sienna, borderRadius: 0 },
+                    itemStyle: { color: PALETTE.shortTerm, borderRadius: 0 },
                     barMaxWidth: 40
                 },
                 {
@@ -192,14 +197,15 @@ const CHART_CONFIGS = {
                     yAxisIndex: 1,
                     data: assetRatio,
                     symbol: 'circle',
-                    symbolSize: 6,
-                    lineStyle: { width: 2, color: PALETTE.gold },
-                    itemStyle: { color: PALETTE.gold, borderColor: PALETTE.surface, borderWidth: 1.5 },
+                    symbolSize: 7,
+                    lineStyle: { width: 2, color: PALETTE.teal },
+                    itemStyle: { color: PALETTE.surface, borderColor: PALETTE.teal, borderWidth: 2 },
                     label: {
                         show: true,
                         formatter: '{c}%',
                         fontSize: 11,
-                        color: PALETTE.gold
+                        color: PALETTE.tealDim,
+                        fontWeight: 500
                     }
                 }
             ]
