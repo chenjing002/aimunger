@@ -8,7 +8,7 @@
     var token = localStorage.getItem(TOKEN_KEY);
     if (!token) return;
 
-    var link = document.querySelector('a[href="/memory/"]');
+    var link = document.querySelector('a[href="/memory/"]') || document.querySelector('a[href="/ankicard/"]');
     if (!link) return;
 
     function showDot(count) {
