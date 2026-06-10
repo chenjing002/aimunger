@@ -1,86 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-const CARDS_DIR = path.join(__dirname, 'ankicards');
-const SITE_DIR = path.join(__dirname, '_site');
-const OUT_DIR = path.join(SITE_DIR, 'ankicard');
-const INDEX_PATH = path.join(__dirname, 'index.html');
-
-function escHtml(s) {
-  return String(s || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function parseFile(content) {
-  const lines = content.split('\n');
-  let title = '';
-  let body = '';
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    if (!title && /^title[：:]/.test(line)) {
-      title = line.replace(/^title[：:]\s*/, '');
-      body = lines.slice(i + 1).join('\n');
-      break;
-    }
-  }
-
-  if (!title) {
-    title = '未命名';
-    body = content;
-  }
-
-  // Split by --- separators, parse Q:/A: pairs
-  const blocks = body.split(/^---$/m);
-  const cards = [];
-  for (const block of blocks) {
-    const trimmed = block.trim();
-    if (!trimmed) continue;
-    const qMatch = trimmed.match(/^Q[：:]\s*(.*)/m);
-    const aMatch = trimmed.match(/^A[：:]\s*(.*)/m);
-    if (qMatch && aMatch) {
-      cards.push({ q: qMatch[1].trim(), a: aMatch[1].trim() });
-    }
-  }
-
-  return { title, cards };
-}
-
-function run() {
-  if (!fs.existsSync(CARDS_DIR)) {
-    console.log('ankicards/ directory not found, skipping');
-    return;
-  }
-
-  const files = fs.readdirSync(CARDS_DIR)
-    .filter(f => f.endsWith('.md'))
-    .sort((a, b) => {
-      const na = parseInt(a) || 0, nb = parseInt(b) || 0;
-      return na - nb || a.localeCompare(b);
-    });
-
-  if (!files.length) {
-    console.log('No .md files in ankicards/, skipping');
-    return;
-  }
-
-  const decks = [];
-  for (const file of files) {
-    const content = fs.readFileSync(path.join(CARDS_DIR, file), 'utf-8');
-    const deck = parseFile(content);
-    if (deck.cards.length > 0) {
-      deck.file = file;
-      decks.push(deck);
-    }
-  }
-
-  const cardsJson = JSON.stringify(decks).replace(/<\//g, '<\\/');
-
-  const html = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -641,7 +559,7 @@ function run() {
     </footer>
 
     <script>
-    var DECKS = ${cardsJson};
+    var DECKS = [{"title":"恒隆地产 2019 中期报告董事长致股东函","cards":[{"q":"恒隆把高端商业地产成功的五个先决条件称作什么？这个称呼暗示了什么性质？","a":"“地产业基因”。暗示项目一旦“诞生”便无法更改——对错都已定型（如矮个子进不了顶级篮球联赛）。"},{"q":"五个地产业基因，按次序：地点、规模、___、设计、施工？","a":"发展大纲（政府制定的发展条款；陈启宗视其为决定项目成败的关键）。"},{"q":"“硬件比软件更重要”在恒隆业务里具体意味着什么？（硬件、软件各指什么）","a":"硬件＝五个基因；软件＝租户与商品组合。基因有缺陷的项目无竞争时尚可，一旦遇上良好基因的对手便吃苦甚至倒闭；软件无法弥补硬件缺陷。"},{"q":"龙头地位什么时候是脆弱的，什么时候才相对稳固？","a":"若领先只因首个进场、或因对手基因弱，则脆弱，遇强基因对手会被取代；唯有自身基因优良，龙头地位才相对易守。"},{"q":"恒隆物业的“灵活性”建立在哪一种不对称上？举一例。","a":"高档可降级、低档不能升级。例：五星商场可改成二三星，反之不行；商场结构可改成百货公司，但百货公司结构改不回商场。"},{"q":"为什么恒隆认为电商对它的威胁较小？","a":"它专营奢侈品；商品单价越高越难在网上成交——高级时装、珠宝、名表都要到实体店检视后才购买。"},{"q":"在优越地段开实体旗舰店，对在线起家的品牌有什么可量化的好处？","a":"提升品牌信誉，可令产品单价提高达 20%；因此这类品牌常以恒隆物业为首选落户点。"},{"q":"这模式“概念简单、执行极难”，最难的究竟是什么？用杭州的例子说明。","a":"难在纪律与耐性（长远眼光）。杭州地块自 1990 年代初物色，一直等到 2018 年才出手；手握现金时，“忍住不买”比买更难。"},{"q":"上海两个项目落成约十年后，非杠杆混合总租金回报（相对原始成本）大约是多少？","a":"略超 30%（资产优化期间一度逾 45%；零售回报远高于办公楼）。"},{"q":"为什么这套长线策略特别适合家族控股的上市公司？","a":"管理层基本不会被撤换，能放眼长远，不必为刺激短期股价而牺牲长期前景。（陈启宗：若非控股股东代表，公众投资者未必给他十年时间扭转公司）"},{"q":"据陈启宗（2019 中期），为何香港社会动荡对恒隆零售业务的冲击相对较小？","a":"因其香港租户主要供应本地市民日常所需，而非依赖访港旅客的奢侈品消费。"}],"file":"1.md"}];
 
     var grid = document.getElementById('groups-grid');
     var overlay = document.getElementById('overlay');
@@ -862,53 +780,6 @@ function run() {
             closeDeck();
         }
     });
-    <\/script>
+    </script>
 </body>
-</html>`;
-
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(path.join(OUT_DIR, 'index.html'), html);
-  // Also write to project root ankicard/ for local dev server
-  const ROOT_OUT_DIR = path.join(__dirname, 'ankicard');
-  fs.mkdirSync(ROOT_OUT_DIR, { recursive: true });
-  fs.writeFileSync(path.join(ROOT_OUT_DIR, 'index.html'), html);
-  console.log(`Generated ankicard page: ${decks.length} decks, ${decks.reduce((s, d) => s + d.cards.length, 0)} cards`);
-
-  // Inject latest 2 decks into root index.html
-  if (decks.length > 0 && fs.existsSync(INDEX_PATH)) {
-    const latestDecks = decks.slice(-2).reverse();
-    const deckCards = latestDecks.map(deck => {
-      const firstQ = deck.cards[0].q;
-      const excerpt = escHtml(firstQ.length > 80 ? firstQ.slice(0, 80) + '...' : firstQ);
-      return `                    <a href="/ankicard/" class="project-card">
-                        <div class="project-card-inner">
-                            <span class="project-label">记忆卡</span>
-                            <h3 class="project-title">${escHtml(deck.title)}</h3>
-                            <p class="project-desc">${excerpt}</p>
-                            <span class="project-arrow">&rarr;</span>
-                        </div>
-                    </a>`;
-    }).join('\n');
-
-    const sectionContent = `
-            <section class="projects">
-                <h2 class="section-title">最新记忆卡</h2>
-                <div class="projects-grid">
-${deckCards}
-                </div>
-            </section>`;
-
-    let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
-    const startMarker = '<!-- ANKICARDS_SECTION_START -->';
-    const endMarker = '<!-- ANKICARDS_SECTION_END -->';
-    const start = indexHtml.indexOf(startMarker);
-    const end = indexHtml.indexOf(endMarker);
-    if (start !== -1 && end !== -1) {
-      indexHtml = indexHtml.slice(0, start) + startMarker + sectionContent + '\n            ' + endMarker + indexHtml.slice(end + endMarker.length);
-      fs.writeFileSync(INDEX_PATH, indexHtml);
-      console.log(`Injected ${latestDecks.length} latest decks into index.html`);
-    }
-  }
-}
-
-run();
+</html>

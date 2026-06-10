@@ -204,7 +204,7 @@ function generateArticlePage(title, htmlContent) {
     <meta name="description" content="${escHtml(title)} - aimunger Wiki">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/wiki/wiki.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -470,7 +470,7 @@ function generateIndexPage(entries) {
     <meta name="description" content="aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/wiki/wiki.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">

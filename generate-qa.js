@@ -4,7 +4,7 @@ const path = require('path');
 const SITE_DIR = path.join(__dirname, '_site');
 const QA_HTML_PATH = path.join(SITE_DIR, 'llm-reader', 'qa.html');
 const ARTICLES_DIR = path.join(SITE_DIR, 'qa');
-const INDEX_PATH = path.join(SITE_DIR, 'index.html');
+const INDEX_PATH = path.join(__dirname, 'index.html');
 
 // Pinyin mapping for Chinese name characters
 const PINYIN = {
@@ -111,7 +111,7 @@ function generateArticlePage(article) {
     <meta name="description" content="${escHtml(getExcerpt(article.answer, 160))}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.4/marked.min.js"></script>
@@ -191,7 +191,7 @@ function generateListingPage(articles) {
     <meta name="description" content="深度研究备忘录与投资观察。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
@@ -282,8 +282,8 @@ function run() {
     fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(article));
   }
 
-  // Inject latest 5 posts into index.html
-  const latest = articles.slice(0, 5);
+  // Inject latest 3 posts into index.html
+  const latest = articles.slice(0, 3);
   if (latest.length > 0 && fs.existsSync(INDEX_PATH)) {
     const latestCards = latest.map(a => {
       const dateStr = (a.created_at || '').slice(0, 10);
@@ -298,7 +298,8 @@ function run() {
                     </a>`;
     }).join('\n');
 
-    const latestSection = `            <section class="projects">
+    const sectionContent = `
+            <section class="projects">
                 <h2 class="section-title">最新问答</h2>
                 <div class="articles-list">
 ${latestCards}
@@ -306,9 +307,15 @@ ${latestCards}
             </section>`;
 
     let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
-    indexHtml = indexHtml.replace('<!-- LATEST_POSTS_PLACEHOLDER -->', latestSection);
-    fs.writeFileSync(INDEX_PATH, indexHtml);
-    console.log(`Injected ${latest.length} latest posts into index.html`);
+    const startMarker = '<!-- POSTS_SECTION_START -->';
+    const endMarker = '<!-- POSTS_SECTION_END -->';
+    const start = indexHtml.indexOf(startMarker);
+    const end = indexHtml.indexOf(endMarker);
+    if (start !== -1 && end !== -1) {
+      indexHtml = indexHtml.slice(0, start) + startMarker + sectionContent + '\n            ' + endMarker + indexHtml.slice(end + endMarker.length);
+      fs.writeFileSync(INDEX_PATH, indexHtml);
+      console.log(`Injected ${latest.length} latest posts into index.html`);
+    }
   }
 
   console.log(`Generated ${articles.length} article pages`);

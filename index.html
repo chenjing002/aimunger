@@ -23,7 +23,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="llm-txt" href="/llm.txt">
@@ -75,7 +75,11 @@ AI 辅助阅读笔记，挖掘重要段落与洞察。</p>
                 </div>
             </section>
 
-            <!-- LATEST_POSTS_PLACEHOLDER -->
+            <div id="index-charts-section"></div>
+
+            <!-- ANKICARDS_SECTION_START --><!-- ANKICARDS_SECTION_END -->
+
+            <!-- POSTS_SECTION_START --><!-- POSTS_SECTION_END -->
         </div>
     </main>
 
@@ -91,6 +95,62 @@ AI 辅助阅读笔记，挖掘重要段落与洞察。</p>
             <p>&copy; 2026 aimunger</p>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="/data/chart-configs.js"></script>
+    <script>
+    (function() {
+        fetch('/data/data.json')
+            .then(function(r) { return r.json(); })
+            .then(function(allData) {
+                var names = Object.keys(allData);
+                if (names.length <= 2) return;
+                names.sort(function(a, b) {
+                    var da = (allData[a].meta && allData[a].meta.created) || '';
+                    var db = (allData[b].meta && allData[b].meta.created) || '';
+                    return db.localeCompare(da);
+                });
+                var latest = names.slice(0, 2);
+                var section = document.getElementById('index-charts-section');
+                var wrapper = document.createElement('section');
+                wrapper.className = 'projects';
+                wrapper.style.paddingBottom = '0';
+                var heading = document.createElement('h2');
+                heading.className = 'section-title';
+                heading.textContent = '最新数据';
+                wrapper.appendChild(heading);
+                var chartInstances = [];
+                latest.forEach(function(name) {
+                    var entry = allData[name];
+                    var chartBlock = document.createElement('div');
+                    chartBlock.style.marginBottom = '40px';
+                    var chartTitle = document.createElement('h3');
+                    chartTitle.style.cssText = 'font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:12px;color:var(--color-text)';
+                    chartTitle.textContent = name;
+                    var chartDiv = document.createElement('div');
+                    chartDiv.style.cssText = 'width:100%;height:280px;background:var(--color-card-bg);border:1px solid var(--color-border);border-radius:12px;overflow:hidden';
+                    chartBlock.appendChild(chartTitle);
+                    chartBlock.appendChild(chartDiv);
+                    wrapper.appendChild(chartBlock);
+                    if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[name]) {
+                        var chart = echarts.init(chartDiv);
+                        chart.setOption(CHART_CONFIGS[name](entry));
+                        chartInstances.push(chart);
+                    } else {
+                        chartDiv.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--color-text-secondary);font-size:14px">暂无图表配置</div>';
+                    }
+                });
+                var viewAll = document.createElement('div');
+                viewAll.style.cssText = 'text-align:right;margin-top:-16px;margin-bottom:56px';
+                viewAll.innerHTML = '<a href="/data/" style="font-size:13px;color:var(--color-accent)">查看所有数据 &rarr;</a>';
+                wrapper.appendChild(viewAll);
+                section.appendChild(wrapper);
+                window.addEventListener('resize', function() {
+                    chartInstances.forEach(function(c) { c.resize(); });
+                });
+            })
+            .catch(function() {});
+    })();
+    </script>
     <script src="/memory-notify.js"></script>
 </body>
 </html>
