@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE_DIR = path.join(__dirname, '_site');
-const QA_HTML_PATH = path.join(__dirname, '..', 'LLM-reader', 'publish', 'qa.html');
+const CI_QA_PATH = path.join(__dirname, '_build', 'llm-reader', 'qa.html');
+const LOCAL_QA_PATH = path.join(__dirname, '..', 'LLM-reader', 'publish', 'qa.html');
+const QA_HTML_PATH = fs.existsSync(CI_QA_PATH) ? CI_QA_PATH : LOCAL_QA_PATH;
 const ARTICLES_DIR = path.join(SITE_DIR, 'qa');
 const INDEX_PATH = path.join(__dirname, 'index.html');
 
