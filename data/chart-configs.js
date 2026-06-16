@@ -75,6 +75,80 @@ const CHART_CONFIGS = {
      *   5: 一年以上有息负债（亿元）
      *   6: 一年以上占比 (%)
      */
+    /**
+     * 万科A 合同负债
+     *
+     * Visualization: Bar chart showing contract liabilities trend
+     *
+     * Columns:
+     *   0: 年份
+     *   1: 合同负债（亿元）
+     */
+    '万科A 合同负债': function(data) {
+        // Data in file is newest-first; reverse for chronological display
+        const rows = data.rows.slice().reverse();
+        const years = rows.map(r => String(r[0]));
+        const values = rows.map(r => r[1]);
+
+        return {
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: PALETTE.surface,
+                borderColor: PALETTE.border,
+                textStyle: { color: PALETTE.tx1, fontSize: 13 },
+                formatter: function(params) {
+                    const p = params[0];
+                    return '<b style="color:' + PALETTE.tx1 + '">' + p.axisValue + '</b><br/>'
+                        + p.marker + ' 合同负债: ' + p.value.toLocaleString() + ' 亿元';
+                }
+            },
+            grid: {
+                top: 36,
+                left: 10,
+                right: 10,
+                bottom: 10,
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: years,
+                axisLabel: { fontSize: 12, color: PALETTE.tx2 },
+                axisLine: { lineStyle: { color: PALETTE.grid } },
+                axisTick: { lineStyle: { color: PALETTE.grid } }
+            },
+            yAxis: {
+                type: 'value',
+                name: '亿元',
+                nameTextStyle: { fontSize: 11, color: PALETTE.tx3 },
+                axisLabel: {
+                    fontSize: 11,
+                    color: PALETTE.tx2,
+                    formatter: function(v) { return v.toLocaleString(); }
+                },
+                axisLine: { show: false },
+                axisTick: { show: false },
+                splitLine: { lineStyle: { color: PALETTE.grid } }
+            },
+            series: [
+                {
+                    name: '合同负债',
+                    type: 'bar',
+                    data: values,
+                    itemStyle: { color: PALETTE.blue, borderRadius: [3, 3, 0, 0] },
+                    barMaxWidth: 40,
+                    label: {
+                        show: true,
+                        position: 'top',
+                        distance: 5,
+                        formatter: function(p) { return p.value.toLocaleString(); },
+                        fontSize: 11,
+                        color: PALETTE.tx2
+                    }
+                }
+            ]
+        };
+    },
+
     '万科 A 有息负债及结构': function(data) {
         const years = data.rows.map(r => String(r[0]));
         const shortTerm = data.rows.map(r => r[3]);  // 一年内到期
