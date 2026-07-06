@@ -1,7 +1,7 @@
 ---
 title: "十年私募股权（PE），十条硬核教训"
 date: 2025-01-01
-slug: shi-nian-si-mu-gu-quan-pe-shi-tiao-ying-he-jiao-xun
+slug: 10-years-private-equity-lessons
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/aXwTgJHJi5K4ItNSLM2A9g>

@@ -1,7 +1,7 @@
 ---
 title: "护城河如何转化为长期超额收益：Morningstar 的实证框架"
 date: 2025-01-01
-slug: hu-cheng-he-ru-he-zhuan-hua-wei-zhang-qi-chao-e-shou-yi-morningstar-de-shi-zheng-kuang-jia
+slug: morningstar-moats-excess-returns
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/2PGvAH6erpgg4N1SztrGBg>

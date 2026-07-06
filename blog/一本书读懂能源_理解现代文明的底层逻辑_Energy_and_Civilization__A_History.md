@@ -1,7 +1,7 @@
 ---
 title: "一本书读懂能源，理解现代文明的底层逻辑 Energy and Civilization: A History"
 date: 2025-01-01
-slug: yi-ben-shu-du-dong-neng-yuan-li-jie-xian-dai-wen-ming-de-di-ceng-luo-ji-energy-and-civiliz
+slug: energy-and-civilization
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/gL1oX5eTmhYBtuNBd4FzAw>

@@ -1,7 +1,7 @@
 ---
 title: "Kanbrick 推荐阅读书单：由巴菲特前助理 Tracy Britt Cool 创办的长期投资机构"
 date: 2025-01-01
-slug: kanbrick-tui-jian-yue-du-shu-dan-you-ba-fei-te-qian-zhu-li-tracy-britt-cool-chuang-ban-de
+slug: kanbrick-reading-list
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/7KSMKJ6X-4-7uDhe_JTGBg>

@@ -1,7 +1,7 @@
 ---
 title: "打破常规的投资心法, The Motley Fool 联合创始人2025 年新作 Rule Breaker Investing"
 date: 2025-01-01
-slug: da-po-chang-gui-de-tou-zi-xin-fa-the-motley-fool-lian-he-chuang-shi-ren-2025-nian-xin-zuo
+slug: rule-breaker-investing-motley-fool
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/ifZ1UCPvTaKdPgzWAEbLEQ>

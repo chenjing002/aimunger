@@ -1,7 +1,7 @@
 ---
 title: "Pat Grady 谈红杉资本“守护者文化”的起源，以及它如何在代际传承中得以延续"
 date: 2025-01-01
-slug: pat-grady-tan-hong-shan-zi-ben-shou-hu-zhe-wen-hua-de-qi-yuan-yi-ji-ta-ru-he-zai-dai-ji-ch
+slug: pat-grady-sequoia-stewardship
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/EeUKGAzJq33fye2_Uci1qg>

@@ -1,7 +1,7 @@
 ---
 title: "红杉资本与 Don Valentine｜在复杂中拧出简单"
 date: 2025-01-01
-slug: hong-shan-zi-ben-yu-don-valentine-zai-fu-za-zhong-ning-chu-jian-dan
+slug: don-valentine-sequoia
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/4zyZQc5hY-5N2fvdpIO2vg>

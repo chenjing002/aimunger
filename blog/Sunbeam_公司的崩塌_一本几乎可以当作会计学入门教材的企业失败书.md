@@ -1,7 +1,7 @@
 ---
 title: "Sunbeam 公司的崩塌：一本几乎可以当作会计学入门教材的企业失败书"
 date: 2025-01-01
-slug: sunbeam-gong-si-de-beng-ta-yi-ben-ji-hu-ke-yi-dang-zuo-hui-ji-xue-ru-men-jiao-cai-de-qi-ye
+slug: sunbeam-collapse-accounting
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/G6DFMCQSLREfRnA1xXcEeg>

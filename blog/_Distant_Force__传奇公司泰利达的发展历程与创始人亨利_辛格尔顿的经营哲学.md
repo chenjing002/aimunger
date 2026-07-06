@@ -1,7 +1,7 @@
 ---
 title: "《Distant Force》：传奇公司泰利达的发展历程与创始人亨利·辛格尔顿的经营哲学"
 date: 2025-01-01
-slug: distant-force-chuan-qi-gong-si-tai-li-da-de-fa-zhan-li-cheng-yu-chuang-shi-ren-heng-li-xin
+slug: distant-force-teledyne-singleton
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/i1Y5jc2GHsVlW2-B-CbU5w>

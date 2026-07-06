@@ -1,7 +1,7 @@
 ---
 title: "主动投资的十个半真相 10½ Lessons from Experience"
 date: 2025-01-01
-slug: zhu-dong-tou-zi-de-shi-ge-ban-zhen-xiang-10-lessons-from-experience
+slug: 10-lessons-from-experience
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/iBKGcb1E1XX4kiGgTS4ENA>

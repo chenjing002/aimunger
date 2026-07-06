@@ -1,7 +1,7 @@
 ---
 title: "High Growth Handbook 把“增长”转化为可复制的组织系统"
 date: 2025-01-01
-slug: high-growth-handbook-ba-zeng-zhang-zhuan-hua-wei-ke-fu-zhi-de-zu-zhi-xi-tong
+slug: high-growth-handbook
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/QKwNoBviRsefz1iJoDXulQ>

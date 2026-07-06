@@ -1,7 +1,7 @@
 ---
 title: "《The Lords of Creation》1890 至 1930 年美国资本整合与市场起落"
 date: 1930-01-01
-slug: the-lords-of-creation-1890-zhi-1930-nian-mei-guo-zi-ben-zheng-he-yu-shi-chang-qi-luo
+slug: lords-of-creation-1890-1930
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/GEcfZWlSHwkLPBwy2bIhRQ>

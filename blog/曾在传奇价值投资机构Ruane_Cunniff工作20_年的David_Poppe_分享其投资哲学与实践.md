@@ -1,7 +1,7 @@
 ---
 title: "曾在传奇价值投资机构Ruane Cunniff工作20 年的David Poppe，分享其投资哲学与实践"
 date: 2025-01-01
-slug: ceng-zai-chuan-qi-jia-zhi-tou-zi-ji-gou-ruane-cunniff-gong-zuo-20-nian-de-david-poppe-fen
+slug: david-poppe-ruane-cunniff
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/CwVBsNbA7pElSmCSw1Fe5A>

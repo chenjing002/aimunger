@@ -1,7 +1,7 @@
 ---
 title: "挪威主权基金Nicolai Tangen追问 IBM CEO：AI 是泡沫吗？"
 date: 2025-01-01
-slug: nuo-wei-zhu-quan-ji-jin-nicolai-tangen-zhui-wen-ibm-ceo-ai-shi-pao-mo-ma
+slug: nicolai-tangen-ibm-ceo-ai
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/_08SPzf2oI7T7Bq1ZQoT5w>

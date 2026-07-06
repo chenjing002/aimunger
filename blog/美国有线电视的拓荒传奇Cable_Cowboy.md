@@ -1,7 +1,7 @@
 ---
 title: "美国有线电视的拓荒传奇Cable Cowboy"
 date: 2025-01-01
-slug: mei-guo-you-xian-dian-shi-de-tuo-huang-chuan-qi-cable-cowboy
+slug: cable-cowboy
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/irc245ojl8qR4kikkQrH-A>

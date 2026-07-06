@@ -1,7 +1,7 @@
 ---
 title: "把“一半利润分给门店员工”，从小镇轮胎店到百亿连锁 Les Schwab 经营秘诀"
 date: 2025-01-01
-slug: ba-yi-ban-li-run-fen-gei-men-dian-yuan-gong-cong-xiao-zhen-lun-tai-dian-dao-bai-yi-lian-su
+slug: les-schwab-profit-sharing
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/ZrGGteh28-ryDOktRGEoqw>

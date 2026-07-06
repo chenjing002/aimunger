@@ -1,7 +1,7 @@
 ---
 title: "很少被谈论的杰出投资人｜Punch Card 资本的 Norbert Lou"
 date: 2004-06-01
-slug: hen-shao-bei-tan-lun-de-jie-chu-tou-zi-ren-punch-card-zi-ben-de-norbert-lou
+slug: norbert-lou-punch-card-capital
 ---
 
 **2004年6月1日**

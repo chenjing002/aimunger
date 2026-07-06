@@ -1,7 +1,7 @@
 ---
 title: "现金为王：商业巨擘劳伦斯·蒂施的投资传奇 The King of Cash"
 date: 2025-01-01
-slug: xian-jin-wei-wang-shang-ye-ju-bai-lao-lun-si-di-shi-de-tou-zi-chuan-qi-the-king-of-cash
+slug: king-of-cash-laurence-tisch
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/3wn5eChQ4ckIdRRXH1VV1g>

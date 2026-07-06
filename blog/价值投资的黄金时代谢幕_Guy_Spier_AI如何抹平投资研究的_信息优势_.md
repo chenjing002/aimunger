@@ -1,7 +1,7 @@
 ---
 title: "价值投资的黄金时代谢幕？Guy Spier：AI如何抹平投资研究的“信息优势”"
 date: 2025-01-01
-slug: jia-zhi-tou-zi-de-huang-jin-shi-dai-xie-mu-guy-spier-ai-ru-he-mo-ping-tou-zi-yan-jiu-de-xi
+slug: guy-spier-ai-value-investing
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/R3tFCEMC-7MNTNVXvhGoDQ>

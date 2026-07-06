@@ -1,7 +1,7 @@
 ---
 title: "从“被解雇”到金融数据帝国：迈克尔·布隆伯格的创业故事 Bloomberg by Bloomberg"
 date: 2025-01-01
-slug: cong-bei-jie-gu-dao-jin-rong-shu-ju-di-guo-mai-ke-er-bu-long-bo-ge-de-chuang-ye-gu-shi-blo
+slug: bloomberg-by-bloomberg
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/5C8PIFk8qjicrasJaHsgxQ>

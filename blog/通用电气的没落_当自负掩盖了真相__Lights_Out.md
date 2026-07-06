@@ -1,7 +1,7 @@
 ---
 title: "通用电气的没落：当自负掩盖了真相 Lights Out"
 date: 2025-01-01
-slug: tong-yong-dian-qi-de-mei-luo-dang-zi-fu-yan-gai-le-zhen-xiang-lights-out
+slug: ge-lights-out
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/zAQ1JZbinMG8pD8UZeSWOQ>

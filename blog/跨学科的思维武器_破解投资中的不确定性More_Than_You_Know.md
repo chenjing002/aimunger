@@ -1,7 +1,7 @@
 ---
 title: "跨学科的思维武器，破解投资中的不确定性More Than You Know"
 date: 2025-01-01
-slug: kua-xue-ke-de-si-wei-wu-qi-po-jie-tou-zi-zhong-de-bu-que-ding-xing-more-than-you-know
+slug: more-than-you-know-mauboussin
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/vxswKJdoqGNIhO8NGKb4qQ>

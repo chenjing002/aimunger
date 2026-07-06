@@ -1,7 +1,7 @@
 ---
 title: "Seeking Wisdom 从达尔文到芒格，如何培养理性思维"
 date: 2025-01-01
-slug: seeking-wisdom-cong-da-er-wen-dao-mang-ge-ru-he-pei-yang-li-xing-si-wei
+slug: seeking-wisdom-darwin-to-munger
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/P0PZU6EBRJvbPGXLDRfqvw>

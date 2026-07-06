@@ -1,7 +1,7 @@
 ---
 title: "福特汽车为何输给日产？一本书看懂美国汽车业的兴衰与制度力量的觉醒 The Reckoning"
 date: 2025-01-01
-slug: fu-te-qi-che-wei-he-shu-gei-ri-chan-yi-ben-shu-kan-dong-mei-guo-qi-che-ye-de-xing-shuai-yu
+slug: ford-vs-nissan-the-reckoning
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/cHX54rNl7rB52nsFq8YROg>

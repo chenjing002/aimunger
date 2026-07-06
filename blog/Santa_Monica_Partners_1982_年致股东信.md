@@ -1,7 +1,7 @@
 ---
 title: "Santa Monica Partners 1982 年致股东信"
 date: 1982-02-01
-slug: santa-monica-partners-1982-nian-zhi-gu-dong-xin
+slug: santa-monica-partners-1982-letter
 ---
 
 **1982年2月1日**

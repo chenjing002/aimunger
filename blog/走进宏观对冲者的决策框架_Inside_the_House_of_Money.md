@@ -1,7 +1,7 @@
 ---
 title: "走进宏观对冲者的决策框架 Inside the House of Money"
 date: 2025-01-01
-slug: zou-jin-hong-guan-dui-chong-zhe-de-jue-ce-kuang-jia-inside-the-house-of-money
+slug: inside-the-house-of-money
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/Tb3VYRLmacb0viZVPwFvpA>

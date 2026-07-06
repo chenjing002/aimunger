@@ -1,7 +1,7 @@
 ---
 title: "《Quality of Earnings》教你如何读懂公司真实的利润"
 date: 2025-01-01
-slug: quality-of-earnings-jiao-ni-ru-he-du-dong-gong-si-zhen-shi-de-li-run
+slug: quality-of-earnings
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/ZjEd1qEv8OmCnUpVtpBFeA>

@@ -1,7 +1,7 @@
 ---
 title: "“印度巴菲特” Mohnish Pabrai：低风险的 Dhandho 投资法"
 date: 2025-01-01
-slug: yin-du-ba-fei-te-mohnish-pabrai-di-feng-xian-de-dhandho-tou-zi-fa
+slug: mohnish-pabrai-dhandho-investor
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/vjhKm3Aw4nDGLeOHP7U7ug>

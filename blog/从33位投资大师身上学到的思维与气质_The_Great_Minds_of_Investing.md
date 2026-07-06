@@ -1,7 +1,7 @@
 ---
 title: "从33位投资大师身上学到的思维与气质 The Great Minds of Investing"
 date: 2025-01-01
-slug: cong-33-wei-tou-zi-da-shi-shen-shang-xue-dao-de-si-wei-yu-qi-zhi-the-great-minds-of-invest
+slug: great-minds-of-investing
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/aHIQ3AhPVwv4rFnXh7Pe-A>

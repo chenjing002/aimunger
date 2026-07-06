@@ -1,7 +1,7 @@
 ---
 title: "在加入伯克希尔之前：被巴菲特选中的投资经理 Ted Weschler 写给 Peninsula 合伙人的最后一封信【万字】"
 date: 2025-01-01
-slug: zai-jia-ru-bo-ke-xi-er-zhi-qian-bei-ba-fei-te-xuan-zhong-de-tou-zi-jing-li-ted-weschler-xi
+slug: ted-weschler-peninsula-final-letter
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/L6QdXc0khTC7HacjTRfuIg>

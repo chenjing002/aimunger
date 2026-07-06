@@ -1,7 +1,7 @@
 ---
 title: "这本很少有人看过的书 James Nisbet：从工程师到企业家，Allvac 的崛起与并入 Teledyne"
 date: 2025-01-01
-slug: zhe-ben-hen-shao-you-ren-kan-guo-de-shu-james-nisbet-cong-gong-cheng-shi-dao-qi-ye-jia-all
+slug: james-nisbet-allvac-teledyne
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/tpmAzG-v-rXGtojG30XP9A>

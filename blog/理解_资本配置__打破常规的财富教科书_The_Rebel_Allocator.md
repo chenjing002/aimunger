@@ -1,7 +1,7 @@
 ---
 title: "理解“资本配置”，打破常规的财富教科书 The Rebel Allocator"
 date: 2025-01-01
-slug: li-jie-zi-ben-pei-zhi-da-po-chang-gui-de-cai-fu-jiao-ke-shu-the-rebel-allocator
+slug: rebel-allocator
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/4Onf1KA2OFLaUalkhrLJxQ>

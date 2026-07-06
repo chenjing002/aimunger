@@ -1,7 +1,7 @@
 ---
 title: "《Risk Game》这本书能引起房地产行业人士的兴趣"
 date: 2008-09-15
-slug: risk-game-zhe-ben-shu-neng-yin-qi-fang-di-chan-xing-ye-ren-shi-de-xing-qu
+slug: risk-game-real-estate
 ---
 
 **2008年9月15日**

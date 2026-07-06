@@ -1,7 +1,7 @@
 ---
 title: "从“最伟大的分析师”到可持续 Alpha：Steve Mandel 与 Lone Pine 的投资哲学"
 date: 2025-01-01
-slug: cong-zui-wei-da-de-fen-xi-shi-dao-ke-chi-xu-alpha-steve-mandel-yu-lone-pine-de-tou-zi-zhe
+slug: steve-mandel-lone-pine
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/UuY5Id_lDzRsuFoHfwFa9w>

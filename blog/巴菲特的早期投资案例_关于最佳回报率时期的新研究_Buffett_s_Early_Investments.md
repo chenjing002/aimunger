@@ -1,7 +1,7 @@
 ---
 title: "巴菲特的早期投资案例：关于最佳回报率时期的新研究 Buffett's Early Investments"
 date: 2025-01-01
-slug: ba-fei-te-de-zao-qi-tou-zi-an-li-guan-yu-zui-jia-hui-bao-lv-shi-qi-de-xin-yan-jiu-buffett
+slug: buffett-early-investments-research
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/cKWsUUBl9dSeD0w5tGnXSw>

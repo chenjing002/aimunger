@@ -1,7 +1,7 @@
 ---
 title: "《超乎常理的款待》：从纽约米其林到世界第一的服务哲学 Unreasonable Hospitality"
 date: 2025-01-01
-slug: chao-hu-chang-li-de-kuan-dai-cong-niu-yue-mi-qi-lin-dao-shi-jie-di-yi-de-fu-wu-zhe-xue-unr
+slug: unreasonable-hospitality
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/V6rwTKiY0mIeBXOAsyyO_g>

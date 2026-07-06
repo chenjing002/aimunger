@@ -1,7 +1,7 @@
 ---
 title: "技术如何驱动金融市场的兴衰Engines That Move Markets"
 date: 2025-01-01
-slug: ji-shu-ru-he-qu-dong-jin-rong-shi-chang-de-xing-shuai-engines-that-move-markets
+slug: engines-that-move-markets
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/dxmjCa14X3gt7tCqfuzYWw>

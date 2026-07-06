@@ -1,7 +1,7 @@
 ---
 title: "美国商业、投资与科技领域最具影响力的人物与机构之一：Josh Kushner 与 Thrive Capital"
 date: 2025-01-01
-slug: mei-guo-shang-ye-tou-zi-yu-ke-ji-ling-yu-zui-ju-ying-xiang-li-de-ren-wu-yu-ji-gou-zhi-yi-j
+slug: josh-kushner-thrive-capital
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/QGROJIXY77arCi-gWbHxjQ>

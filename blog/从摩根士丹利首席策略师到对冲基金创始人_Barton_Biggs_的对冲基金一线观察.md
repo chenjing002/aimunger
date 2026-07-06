@@ -1,7 +1,7 @@
 ---
 title: "从摩根士丹利首席策略师到对冲基金创始人，Barton Biggs 的对冲基金一线观察"
 date: 2025-01-01
-slug: cong-mo-gen-shi-dan-li-shou-xi-ce-lve-shi-dao-dui-chong-ji-jin-chuang-shi-ren-barton-biggs
+slug: barton-biggs-hedge-fund-observations
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/HuJksdGq5gij_a8LByNjpw>

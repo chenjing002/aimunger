@@ -1,7 +1,7 @@
 ---
 title: "熊市剖析：华尔街四大底部的启示 Anatomy of the Bear"
 date: 2025-01-01
-slug: xiong-shi-pou-xi-hua-er-jie-si-da-di-bu-de-qi-shi-anatomy-of-the-bear
+slug: anatomy-of-the-bear
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/Txwm6_c2-FBDJDdE8DtZLQ>

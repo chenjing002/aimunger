@@ -1,7 +1,7 @@
 ---
 title: "伯克希尔正式迈入 Greg Abel 时代：一场深度的人事重塑"
 date: 2026-01-01
-slug: bo-ke-xi-er-zheng-shi-mai-ru-greg-abel-shi-dai-yi-chang-shen-du-de-ren-shi-zhong-su
+slug: berkshire-greg-abel-era
 ---
 
 **2026年1月1日**

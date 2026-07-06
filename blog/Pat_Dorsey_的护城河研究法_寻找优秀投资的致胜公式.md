@@ -1,7 +1,7 @@
 ---
 title: "Pat Dorsey 的护城河研究法，寻找优秀投资的致胜公式"
 date: 2025-01-01
-slug: pat-dorsey-de-hu-cheng-he-yan-jiu-fa-xun-zhao-you-xiu-tou-zi-de-zhi-sheng-gong-shi
+slug: pat-dorsey-moat-research
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/0A4XgD1sN_2zPZdtbgOSCw>

@@ -1,7 +1,7 @@
 ---
 title: "新书解读《The Moneyball Method》：成功不在于你有多聪明，而在于少犯错"
 date: 2025-01-01
-slug: xin-shu-jie-du-the-moneyball-method-cheng-gong-bu-zai-yu-ni-you-duo-cong-ming-er-zai-yu-sh
+slug: moneyball-method
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/dW5ipicrT1hGdCJTb5HypA>

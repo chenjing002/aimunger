@@ -1,7 +1,7 @@
 ---
 title: "《100 Baggers》：如何识别并长期持有能涨一百倍的公司"
 date: 2025-01-01
-slug: 100-baggers-ru-he-shi-bie-bing-zhang-qi-chi-you-neng-zhang-yi-bai-bei-de-gong-si
+slug: 100-baggers
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/1_bqUyieLp--ZJxgpNtaUg>

@@ -1,7 +1,7 @@
 ---
 title: "知名价值投资人游牧基金合伙人 Nicholas Sleep：20年前关于 Costco 的深刻理解——一台“永续增长机器”"
 date: 2025-01-01
-slug: zhi-ming-jia-zhi-tou-zi-ren-you-mu-ji-jin-he-huo-ren-nicholas-sleep-20-nian-qian-guan-yu-c
+slug: nicholas-sleep-costco-analysis
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/oKOKj40YHrsWg7yX2fSyhg>

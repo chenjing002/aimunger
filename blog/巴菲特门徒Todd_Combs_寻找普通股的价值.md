@@ -1,7 +1,7 @@
 ---
 title: "巴菲特门徒Todd Combs：寻找普通股的价值"
 date: 2025-01-01
-slug: ba-fei-te-men-tu-todd-combs-xun-zhao-pu-tong-gu-de-jia-zhi
+slug: todd-combs-value-in-common-stocks
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/GHdfCMokuTm_NGb6pXwyOg>

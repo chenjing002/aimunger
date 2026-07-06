@@ -1,7 +1,7 @@
 ---
 title: "巴菲特眼中的资本配置王者 Henry Singleton，二十世纪最聪明的工程师与企业家之一"
 date: 2025-01-01
-slug: ba-fei-te-yan-zhong-de-zi-ben-pei-zhi-wang-zhe-henry-singleton-er-shi-shi-ji-zui-cong-ming
+slug: henry-singleton-capital-allocator
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/P38uBO8Pd13zYvQ4dgkUzQ>

@@ -1,7 +1,7 @@
 ---
 title: "当巨头迷失方向：从《Big Blues》看IBM如何从巅峰跌落"
 date: 2025-01-01
-slug: dang-ju-tou-mi-shi-fang-xiang-cong-big-blues-kan-ibm-ru-he-cong-dian-feng-die-luo
+slug: big-blues-ibm-decline
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/1eHgKlk89HxSm5eRCut4yg>

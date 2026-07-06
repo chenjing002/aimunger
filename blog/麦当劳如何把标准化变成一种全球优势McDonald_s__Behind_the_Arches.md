@@ -1,7 +1,7 @@
 ---
 title: "麦当劳如何把标准化变成一种全球优势McDonald’s: Behind the Arches"
 date: 2025-01-01
-slug: mai-dang-lao-ru-he-ba-biao-zhun-hua-bian-cheng-yi-zhong-quan-qiu-you-shi-mcdonald-s-behind
+slug: mcdonalds-behind-the-arches
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/t9yUbMsqSZXnrOCsMZGltQ>

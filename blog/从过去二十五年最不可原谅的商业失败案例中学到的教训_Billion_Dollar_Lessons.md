@@ -1,7 +1,7 @@
 ---
 title: "从过去二十五年最不可原谅的商业失败案例中学到的教训 Billion Dollar Lessons"
 date: 2025-01-01
-slug: cong-guo-qu-er-shi-wu-nian-zui-bu-ke-yuan-liang-de-shang-ye-shi-bai-an-li-zhong-xue-dao-de
+slug: billion-dollar-lessons
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/QSK6nDBvRxJ4Z9DpOZaEKQ>

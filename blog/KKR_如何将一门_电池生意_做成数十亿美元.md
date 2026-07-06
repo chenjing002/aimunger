@@ -1,7 +1,7 @@
 ---
 title: "KKR 如何将一门“电池生意”做成数十亿美元"
 date: 2025-01-01
-slug: kkr-ru-he-jiang-yi-men-dian-chi-sheng-yi-zuo-cheng-shu-shi-yi-mei-yuan
+slug: kkr-battery-business
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/YFMz6AEvgy2zzT1sO1RcVQ>

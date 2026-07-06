@@ -1,7 +1,7 @@
 ---
 title: "凌晨三点起床的 Dan Sundheim：D1 资本的投资方法论"
 date: 2025-01-01
-slug: ling-chen-san-dian-qi-chuang-de-dan-sundheim-d1-zi-ben-de-tou-zi-fang-fa-lun
+slug: dan-sundheim-d1-capital
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/is22vrQQdDAU9-iAbpfvyg>

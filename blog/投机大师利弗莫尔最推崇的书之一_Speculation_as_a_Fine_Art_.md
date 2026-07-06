@@ -1,7 +1,7 @@
 ---
 title: "投机大师利弗莫尔最推崇的书之一《Speculation as a Fine Art》"
 date: 2025-01-01
-slug: tou-ji-da-shi-li-fu-mo-er-zui-tui-chong-de-shu-zhi-yi-speculation-as-a-fine-art
+slug: speculation-as-fine-art
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/bpJEkw_8tkCw58nnqR0Yyg>

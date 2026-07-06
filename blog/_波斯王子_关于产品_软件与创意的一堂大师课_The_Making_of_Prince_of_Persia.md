@@ -1,7 +1,7 @@
 ---
 title: "《波斯王子》关于产品、软件与创意的一堂大师课 The Making of Prince of Persia"
 date: 2025-01-01
-slug: bo-si-wang-zi-guan-yu-chan-pin-ruan-jian-yu-chuang-yi-de-yi-tang-da-shi-ke-the-making-of-p
+slug: making-of-prince-of-persia
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/gHt4TAja0ZI2cBRzLJjN1Q>

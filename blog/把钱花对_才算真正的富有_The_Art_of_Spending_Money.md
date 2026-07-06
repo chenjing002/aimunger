@@ -1,7 +1,7 @@
 ---
 title: "把钱花对，才算真正的富有 The Art of Spending Money"
 date: 2025-01-01
-slug: ba-qian-hua-dui-cai-suan-zhen-zheng-de-fu-you-the-art-of-spending-money
+slug: art-of-spending-money
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/b-ZiU5EbmbSnDbesWi9FQQ>

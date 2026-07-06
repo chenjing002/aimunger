@@ -1,7 +1,7 @@
 ---
 title: "Robert Pritzker的滚筒刷投资案例：不到二十年，约100倍回报"
 date: 2025-01-01
-slug: robert-pritzker-de-gun-tong-shua-tou-zi-an-li-bu-dao-er-shi-nian-yue-100-bei-hui-bao
+slug: robert-pritzker-100x-paint-roller
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/epsvKl1P5fjpJVAELhjCpA>

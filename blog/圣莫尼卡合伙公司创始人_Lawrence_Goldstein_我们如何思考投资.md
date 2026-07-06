@@ -1,7 +1,7 @@
 ---
 title: "圣莫尼卡合伙公司创始人 Lawrence Goldstein：我们如何思考投资"
 date: 2025-01-01
-slug: sheng-mo-ni-ka-he-huo-gong-si-chuang-shi-ren-lawrence-goldstein-wo-men-ru-he-si-kao-tou-zi
+slug: lawrence-goldstein-how-we-invest
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/Im93ko7Kgu0ZntovahOGmw>

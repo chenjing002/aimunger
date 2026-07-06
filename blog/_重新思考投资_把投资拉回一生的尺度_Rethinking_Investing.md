@@ -1,7 +1,7 @@
 ---
 title: "《重新思考投资》把投资拉回一生的尺度 Rethinking Investing"
 date: 2025-01-01
-slug: zhong-xin-si-kao-tou-zi-ba-tou-zi-la-hui-yi-sheng-de-chi-du-rethinking-investing
+slug: rethinking-investing
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/dxR51ANFNpFpXnb41cGO0g>

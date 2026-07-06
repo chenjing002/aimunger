@@ -1,7 +1,7 @@
 ---
 title: "对冲基金与新贵的诞生 More Money Than God"
 date: 2025-01-01
-slug: dui-chong-ji-jin-yu-xin-gui-de-dan-sheng-more-money-than-god
+slug: more-money-than-god
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/VIhvasSSsjf5ZieVdMkoeA>

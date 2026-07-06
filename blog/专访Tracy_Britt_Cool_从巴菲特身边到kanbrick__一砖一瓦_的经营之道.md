@@ -1,7 +1,7 @@
 ---
 title: "专访Tracy Britt Cool：从巴菲特身边到kanbrick，“一砖一瓦”的经营之道"
 date: 2025-01-01
-slug: zhuan-fang-tracy-britt-cool-cong-ba-fei-te-shen-bian-dao-kanbrick-yi-zhuan-yi-wa-de-jing-y
+slug: tracy-britt-cool-kanbrick-interview
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/pTVaPUKI_DL916t6HnNCgQ>

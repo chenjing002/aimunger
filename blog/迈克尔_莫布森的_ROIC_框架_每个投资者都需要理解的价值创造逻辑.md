@@ -1,7 +1,7 @@
 ---
 title: "迈克尔·莫布森的 ROIC 框架：每个投资者都需要理解的价值创造逻辑"
 date: 2025-01-01
-slug: mai-ke-er-mo-bu-sen-de-roic-kuang-jia-mei-ge-tou-zi-zhe-dou-xu-yao-li-jie-de-jia-zhi-chuan
+slug: mauboussin-roic-framework
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/oCkFJzjL4u4mQ38a3qoWOw>

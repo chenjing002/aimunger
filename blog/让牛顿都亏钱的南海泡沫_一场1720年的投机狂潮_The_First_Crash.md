@@ -1,7 +1,7 @@
 ---
 title: "让牛顿都亏钱的南海泡沫：一场1720年的投机狂潮 The First Crash"
 date: 2025-01-01
-slug: rang-niu-dun-dou-kui-qian-de-nan-hai-pao-mo-yi-chang-1720-nian-de-tou-ji-kuang-chao-the-fi
+slug: south-sea-bubble-first-crash
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/M9VVGxzT4KOeEolWfE1q8g>

@@ -1,7 +1,7 @@
 ---
 title: "从废铁到黄金：Copart 创业传奇与可复制的方法论 Junk to Gold"
 date: 2025-01-01
-slug: cong-fei-tie-dao-huang-jin-copart-chuang-ye-chuan-qi-yu-ke-fu-zhi-de-fang-fa-lun-junk-to-g
+slug: copart-junk-to-gold
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/muo-uuWxhT6Ek8S_zIvyRA>

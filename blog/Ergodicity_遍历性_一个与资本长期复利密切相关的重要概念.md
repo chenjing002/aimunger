@@ -1,7 +1,7 @@
 ---
 title: "Ergodicity 遍历性：一个与资本长期复利密切相关的重要概念"
 date: 2025-01-01
-slug: ergodicity-bian-li-xing-yi-ge-yu-zi-ben-zhang-qi-fu-li-mi-qie-xiang-guan-de-zhong-yao-gai
+slug: ergodicity-long-term-compounding
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/ZLitkPVruwNYTKTfnmJbMQ>

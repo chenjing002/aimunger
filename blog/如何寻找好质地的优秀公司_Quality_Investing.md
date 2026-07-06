@@ -1,7 +1,7 @@
 ---
 title: "如何寻找好质地的优秀公司 Quality Investing"
 date: 2025-01-01
-slug: ru-he-xun-zhao-hao-zhi-di-de-you-xiu-gong-si-quality-investing
+slug: quality-investing
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/ZkJrtqDUszjNcfj2LIBkEQ>

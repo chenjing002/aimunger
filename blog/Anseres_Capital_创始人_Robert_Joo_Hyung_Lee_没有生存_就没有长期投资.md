@@ -1,7 +1,7 @@
 ---
 title: "Anseres Capital 创始人 Robert Joo-Hyung Lee：没有生存，就没有长期投资"
 date: 2025-01-01
-slug: anseres-capital-chuang-shi-ren-robert-joo-hyung-lee-mei-you-sheng-cun-jiu-mei-you-zhang-qi
+slug: anseres-capital-robert-lee-survival-first
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/QExhO5wfnKj4G49SpTGGlQ>

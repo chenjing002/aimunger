@@ -1,7 +1,7 @@
 ---
 title: "如何从数据中学习统计思维 The Art of Statistics"
 date: 2025-01-01
-slug: ru-he-cong-shu-ju-zhong-xue-xi-tong-ji-si-wei-the-art-of-statistics
+slug: art-of-statistics
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/UUm13o_0tn4HMonrKdwuUw>

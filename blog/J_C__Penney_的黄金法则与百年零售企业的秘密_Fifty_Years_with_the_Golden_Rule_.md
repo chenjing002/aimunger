@@ -1,7 +1,7 @@
 ---
 title: "J.C. Penney 的黄金法则与百年零售企业的秘密《Fifty Years with the Golden Rule》"
 date: 2025-01-01
-slug: j-c-penney-de-huang-jin-fa-ze-yu-bai-nian-ling-shou-qi-ye-de-mi-mi-fifty-years-with-the-go
+slug: jc-penney-golden-rule
 ---
 
 > 原文地址：<https://mp.weixin.qq.com/s/QCNKCEFqwwpmgT50DTHhiQ>
