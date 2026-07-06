@@ -6,6 +6,7 @@ const CI_QA_PATH = path.join(__dirname, '_build', 'llm-reader', 'qa.html');
 const LOCAL_QA_PATH = path.join(__dirname, '..', 'LLM-reader', 'publish', 'qa.html');
 const QA_HTML_PATH = fs.existsSync(CI_QA_PATH) ? CI_QA_PATH : LOCAL_QA_PATH;
 const ARTICLES_DIR = path.join(SITE_DIR, 'qa');
+const BLOG_DIR = path.join(__dirname, 'blog');
 const INDEX_PATH = path.join(__dirname, 'index.html');
 
 // Pinyin mapping for Chinese name characters
@@ -128,7 +129,7 @@ function generateArticlePage(article) {
             <ul class="nav-links">
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
-                <li><a href="/qa/" class="active">问答</a></li>
+                <li><a href="/qa/" class="active">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
                 <li><a href="/about/">关于</a></li>
@@ -140,7 +141,7 @@ function generateArticlePage(article) {
         <div class="container">
             <article class="article">
                 <div class="article-header">
-                    <a href="/qa/" class="article-back">&larr; 所有问答</a>
+                    <a href="/qa/" class="article-back">&larr; 所有文章</a>
                     <h1 class="article-title">${escHtml(article.title)}</h1>
                     <time class="article-date">${escHtml(dateStr)}</time>
                 </div>
@@ -189,7 +190,7 @@ function generateListingPage(articles) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>问答 - aimunger</title>
+    <title>文章 - aimunger</title>
     <meta name="description" content="深度研究备忘录与投资观察。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -207,7 +208,7 @@ function generateListingPage(articles) {
             <ul class="nav-links">
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
-                <li><a href="/qa/" class="active">问答</a></li>
+                <li><a href="/qa/" class="active">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
                 <li><a href="/about/">关于</a></li>
@@ -218,7 +219,7 @@ function generateListingPage(articles) {
     <main class="main">
         <div class="container">
             <section class="hero">
-                <h1 class="hero-title">问答</h1>
+                <h1 class="hero-title">文章</h1>
                 <p class="hero-desc">深度研究备忘录与投资观察。</p>
             </section>
 
@@ -246,25 +247,51 @@ ${cards}
 </html>`;
 }
 
+function loadBlogArticles() {
+  if (!fs.existsSync(BLOG_DIR)) return [];
+  return fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md')).map(f => {
+    const raw = fs.readFileSync(path.join(BLOG_DIR, f), 'utf-8');
+    const fm = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    const meta = {};
+    if (fm) {
+      fm[1].split('\n').forEach(line => {
+        const m = line.match(/^(\w+):\s*(.*)$/);
+        if (m) meta[m[1]] = m[2];
+      });
+    }
+    return {
+      slug: meta.slug || f.replace(/\.md$/, ''),
+      title: meta.title || f.replace(/\.md$/, ''),
+      answer: (fm ? fm[2] : raw).trim(),
+      created_at: meta.date || '',
+    };
+  });
+}
+
 function run() {
-  if (!fs.existsSync(QA_HTML_PATH)) {
-    console.log('qa.html not found, skipping article generation');
+  let articles = [];
+
+  // Load QA-derived articles
+  if (fs.existsSync(QA_HTML_PATH)) {
+    const html = fs.readFileSync(QA_HTML_PATH, 'utf-8');
+    const data = extractData(html);
+    articles = data.map(qa => ({
+      ...qa,
+      slug: generateSlug(qa),
+      title: qa.question || `文章 ${qa.id}`,
+    }));
+  }
+
+  // Load blog markdown articles
+  articles = articles.concat(loadBlogArticles());
+
+  if (!articles.length) {
+    console.log('No articles found');
     return;
   }
 
-  const html = fs.readFileSync(QA_HTML_PATH, 'utf-8');
-  const data = extractData(html);
-
-  if (!data.length) {
-    console.log('No QA data found');
-    return;
-  }
-
-  const articles = data.map(qa => ({
-    ...qa,
-    slug: generateSlug(qa),
-    title: qa.question || `问答 ${qa.id}`,
-  }));
+  // Sort by date descending
+  articles.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
 
   // Deduplicate slugs
   const seen = {};
@@ -302,7 +329,7 @@ function run() {
 
     const sectionContent = `
             <section class="projects">
-                <h2 class="section-title">最新问答</h2>
+                <h2 class="section-title">最新文章</h2>
                 <div class="articles-list">
 ${latestCards}
                 </div>

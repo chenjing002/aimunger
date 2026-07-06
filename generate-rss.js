@@ -54,7 +54,7 @@ function collectQaItems() {
       link: `${SITE}/qa/${entry.name}/`,
       date: dateMatch ? dateMatch[1] : '',
       description: descMatch ? descMatch[1] : '',
-      section: '问答',
+      section: '文章',
     });
   }
 

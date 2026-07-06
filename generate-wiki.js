@@ -173,7 +173,7 @@ const NAV_HTML = `    <header class="header">
             <ul class="nav-links">
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/" class="active">Wiki</a></li>
-                <li><a href="/qa/">问答</a></li>
+                <li><a href="/qa/">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
                 <li><a href="/about/">关于</a></li>
