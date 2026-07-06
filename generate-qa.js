@@ -271,19 +271,8 @@ function loadBlogArticles() {
 function run() {
   let articles = [];
 
-  // Load QA-derived articles
-  if (fs.existsSync(QA_HTML_PATH)) {
-    const html = fs.readFileSync(QA_HTML_PATH, 'utf-8');
-    const data = extractData(html);
-    articles = data.map(qa => ({
-      ...qa,
-      slug: generateSlug(qa),
-      title: qa.question || `文章 ${qa.id}`,
-    }));
-  }
-
-  // Load blog markdown articles
-  articles = articles.concat(loadBlogArticles());
+  // Load blog markdown articles only
+  articles = loadBlogArticles();
 
   if (!articles.length) {
     console.log('No articles found');

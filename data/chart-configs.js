@@ -139,9 +139,72 @@ const CHART_CONFIGS = {
                     label: {
                         show: true,
                         position: 'top',
-                        distance: 5,
-                        formatter: function(p) { return p.value.toLocaleString(); },
-                        fontSize: 11,
+                        distance: 4,
+                        formatter: function(p) { return Math.round(p.value).toLocaleString(); },
+                        fontSize: 10,
+                        color: PALETTE.tx2
+                    }
+                }
+            ]
+        };
+    },
+
+    '中国居民个人住房贷款余额': function(data) {
+        var rows = data.rows.slice().reverse();
+        var years = rows.map(function(r) { return String(r[0]).replace('年', ''); });
+        var values = rows.map(function(r) { return r[1]; });
+
+        return {
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: PALETTE.surface,
+                borderColor: PALETTE.border,
+                textStyle: { color: PALETTE.tx1, fontSize: 13 },
+                formatter: function(params) {
+                    var p = params[0];
+                    return '<b style="color:' + PALETTE.tx1 + '">' + p.axisValue + '</b><br/>'
+                        + p.marker + ' 个人住房贷款余额: ' + p.value + ' 万亿元';
+                }
+            },
+            grid: {
+                top: 36,
+                left: 10,
+                right: 10,
+                bottom: 10,
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: years,
+                axisLabel: { fontSize: 11, color: PALETTE.tx2, interval: 1 },
+                axisLine: { lineStyle: { color: PALETTE.grid } },
+                axisTick: { lineStyle: { color: PALETTE.grid } }
+            },
+            yAxis: {
+                type: 'value',
+                name: '万亿元',
+                nameTextStyle: { fontSize: 11, color: PALETTE.tx3 },
+                axisLabel: {
+                    fontSize: 11,
+                    color: PALETTE.tx2
+                },
+                axisLine: { show: false },
+                axisTick: { show: false },
+                splitLine: { lineStyle: { color: PALETTE.grid } }
+            },
+            series: [
+                {
+                    name: '个人住房贷款余额',
+                    type: 'bar',
+                    data: values,
+                    itemStyle: { color: PALETTE.purple, borderRadius: [3, 3, 0, 0] },
+                    barMaxWidth: 36,
+                    label: {
+                        show: true,
+                        position: 'top',
+                        distance: 4,
+                        formatter: function(p) { return p.value; },
+                        fontSize: 10,
                         color: PALETTE.tx2
                     }
                 }
