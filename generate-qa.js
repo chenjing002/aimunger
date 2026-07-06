@@ -175,14 +175,9 @@ function generateArticlePage(article) {
 function generateListingPage(articles) {
   const cards = articles.map(a => {
     const dateStr = (a.created_at || '').slice(0, 10);
-    const excerpt = escHtml(getExcerpt(a.answer));
-    return `                    <a href="/blog/${a.slug}/" class="project-card">
-                        <div class="project-card-inner">
-                            <time class="article-list-date">${escHtml(dateStr)}</time>
-                            <h3 class="project-title">${escHtml(a.title)}</h3>
-                            <p class="project-desc">${excerpt}</p>
-                            <span class="project-arrow">&rarr;</span>
-                        </div>
+    return `                    <a href="/blog/${a.slug}/" class="blog-link">
+                            <span class="blog-link-title">${escHtml(a.title)}</span>
+                            <time class="blog-link-date">${escHtml(dateStr)}</time>
                     </a>`;
   }).join('\n');
 
@@ -192,7 +187,7 @@ function generateListingPage(articles) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文章 - aimunger</title>
-    <meta name="description" content="深度研究备忘录与投资观察。">
+    <meta name="description" content="博文记录。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -221,7 +216,7 @@ function generateListingPage(articles) {
         <div class="container">
             <section class="hero">
                 <h1 class="hero-title">文章</h1>
-                <p class="hero-desc">深度研究备忘录与投资观察。</p>
+                <p class="hero-desc">博文记录。</p>
             </section>
 
             <section class="projects">
@@ -310,14 +305,9 @@ function run() {
   if (latest.length > 0 && fs.existsSync(INDEX_PATH)) {
     const latestCards = latest.map(a => {
       const dateStr = (a.created_at || '').slice(0, 10);
-      const excerpt = escHtml(getExcerpt(a.answer));
-      return `                    <a href="/blog/${a.slug}/" class="project-card">
-                        <div class="project-card-inner">
-                            <time class="article-list-date">${escHtml(dateStr)}</time>
-                            <h3 class="project-title">${escHtml(a.title)}</h3>
-                            <p class="project-desc">${excerpt}</p>
-                            <span class="project-arrow">&rarr;</span>
-                        </div>
+      return `                    <a href="/blog/${a.slug}/" class="blog-link">
+                            <span class="blog-link-title">${escHtml(a.title)}</span>
+                            <time class="blog-link-date">${escHtml(dateStr)}</time>
                     </a>`;
     }).join('\n');
 

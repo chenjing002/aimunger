@@ -286,18 +286,42 @@ body {
     color: var(--color-accent);
 }
 
-/* QA listing */
+/* Blog listing */
 .articles-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
-.article-list-date {
-    display: block;
+.blog-link {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--color-border);
+    transition: color 0.2s ease;
+}
+
+.blog-link:first-child {
+    border-top: 1px solid var(--color-border);
+}
+
+.blog-link:hover {
+    color: var(--color-accent);
+}
+
+.blog-link-title {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.blog-link-date {
     font-size: 13px;
     color: var(--color-text-secondary);
-    margin-bottom: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* Article page */
@@ -374,6 +398,13 @@ body {
     border: none;
     border-top: 1px solid var(--color-border);
     margin: 32px 0;
+}
+
+.article-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 8px 0;
 }
 
 .article-body strong {
