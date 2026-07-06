@@ -5,7 +5,7 @@ const SITE_DIR = path.join(__dirname, '_site');
 const CI_QA_PATH = path.join(__dirname, '_build', 'llm-reader', 'qa.html');
 const LOCAL_QA_PATH = path.join(__dirname, '..', 'LLM-reader', 'publish', 'qa.html');
 const QA_HTML_PATH = fs.existsSync(CI_QA_PATH) ? CI_QA_PATH : LOCAL_QA_PATH;
-const ARTICLES_DIR = path.join(SITE_DIR, 'qa');
+const ARTICLES_DIR = path.join(SITE_DIR, 'blog');
 const BLOG_DIR = path.join(__dirname, 'blog');
 const INDEX_PATH = path.join(__dirname, 'index.html');
 
@@ -110,6 +110,7 @@ function generateArticlePage(article) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
     <title>${escHtml(article.title)} - aimunger</title>
     <meta name="description" content="${escHtml(getExcerpt(article.answer, 160))}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -129,7 +130,7 @@ function generateArticlePage(article) {
             <ul class="nav-links">
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
-                <li><a href="/qa/" class="active">文章</a></li>
+                <li><a href="/blog/" class="active">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
                 <li><a href="/about/">关于</a></li>
@@ -141,7 +142,7 @@ function generateArticlePage(article) {
         <div class="container">
             <article class="article">
                 <div class="article-header">
-                    <a href="/qa/" class="article-back">&larr; 所有文章</a>
+                    <a href="/blog/" class="article-back">&larr; 所有文章</a>
                     <h1 class="article-title">${escHtml(article.title)}</h1>
                     <time class="article-date">${escHtml(dateStr)}</time>
                 </div>
@@ -175,7 +176,7 @@ function generateListingPage(articles) {
   const cards = articles.map(a => {
     const dateStr = (a.created_at || '').slice(0, 10);
     const excerpt = escHtml(getExcerpt(a.answer));
-    return `                    <a href="/qa/${a.slug}/" class="project-card">
+    return `                    <a href="/blog/${a.slug}/" class="project-card">
                         <div class="project-card-inner">
                             <time class="article-list-date">${escHtml(dateStr)}</time>
                             <h3 class="project-title">${escHtml(a.title)}</h3>
@@ -208,7 +209,7 @@ function generateListingPage(articles) {
             <ul class="nav-links">
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
-                <li><a href="/qa/" class="active">文章</a></li>
+                <li><a href="/blog/" class="active">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
                 <li><a href="/about/">关于</a></li>
@@ -259,10 +260,14 @@ function loadBlogArticles() {
         if (m) meta[m[1]] = m[2];
       });
     }
+    let title = meta.title || f.replace(/\.md$/, '');
+    // Strip surrounding quotes from title
+    title = title.replace(/^"(.*)"$/, '$1');
+    let content = (fm ? fm[2] : raw).trim();
     return {
       slug: meta.slug || f.replace(/\.md$/, ''),
-      title: meta.title || f.replace(/\.md$/, ''),
-      answer: (fm ? fm[2] : raw).trim(),
+      title,
+      answer: content,
       created_at: meta.date || '',
     };
   });
@@ -306,7 +311,7 @@ function run() {
     const latestCards = latest.map(a => {
       const dateStr = (a.created_at || '').slice(0, 10);
       const excerpt = escHtml(getExcerpt(a.answer));
-      return `                    <a href="/qa/${a.slug}/" class="project-card">
+      return `                    <a href="/blog/${a.slug}/" class="project-card">
                         <div class="project-card-inner">
                             <time class="article-list-date">${escHtml(dateStr)}</time>
                             <h3 class="project-title">${escHtml(a.title)}</h3>

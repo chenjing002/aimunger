@@ -5,7 +5,7 @@
 ## Site Structure
 
 - https://aimunger.com/ — 首页
-- https://aimunger.com/qa/ — 问答：基于深度研究的投资问答
+- https://aimunger.com/blog/ — 文章：深度研究备忘录与投资观察
 - https://aimunger.com/resources/ — 资料库：致股东信、AI 辅助阅读工具等
 - https://aimunger.com/letters/ — 中国上市公司历年致股东信收录与整理
 - https://aimunger.com/llm-reader/ — LLM Reader：AI 辅助阅读笔记工具

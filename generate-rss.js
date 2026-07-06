@@ -33,10 +33,10 @@ function excerpt(text, maxLen = 200) {
   return plain.slice(0, maxLen) + '...';
 }
 
-// Collect QA articles from generated _site/qa/ pages
+// Collect QA articles from generated _site/blog/ pages
 function collectQaItems() {
   const items = [];
-  const qaDir = path.join(SITE_DIR, 'qa');
+  const qaDir = path.join(SITE_DIR, 'blog');
   if (!fs.existsSync(qaDir)) return items;
 
   for (const entry of fs.readdirSync(qaDir, { withFileTypes: true })) {
@@ -51,7 +51,7 @@ function collectQaItems() {
 
     items.push({
       title: titleMatch ? titleMatch[1] : entry.name,
-      link: `${SITE}/qa/${entry.name}/`,
+      link: `${SITE}/blog/${entry.name}/`,
       date: dateMatch ? dateMatch[1] : '',
       description: descMatch ? descMatch[1] : '',
       section: '文章',
