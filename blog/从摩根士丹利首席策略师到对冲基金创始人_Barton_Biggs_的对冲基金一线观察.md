@@ -1,0 +1,37 @@
+---
+title: "从摩根士丹利首席策略师到对冲基金创始人，Barton Biggs 的对冲基金一线观察"
+date: 2025-01-01
+slug: cong-mo-gen-shi-dan-li-shou-xi-ce-lve-shi-dao-dui-chong-ji-jin-chuang-shi-ren-barton-biggs
+---
+
+> 原文地址：<https://mp.weixin.qq.com/s/HuJksdGq5gij_a8LByNjpw>
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic766xyNIJenyKZqcL3SvqCyoaMdTF0BBJdxSYQnygMJ9bx2VtL9KGvOTcqur4Q2I3WRuq3EPxS80Q/640?wx_fmt=jpeg&from=appmsg)
+
+一个在华尔街叱咤三十年的策略师，离开体制，自建基金，在募资、建仓、回撤与舆论的夹缝中，如何继续做出判断。《Hedgehogging》值得读，因为它把对冲基金行业从神秘拉回日常，把“胜率、赔率、周期”这些抽象词汇，变成具象的人与事。
+
+作者 Barton Biggs（巴顿·比格斯）长期任职于摩根士丹利（Morgan Stanley），多次在《机构投资者》杂志评选中被列为美国与全球首席策略师。2003 年，他在离开摩根士丹利后与同事共同创立对冲基金 Traxis Partners，开始真正以操盘手的身份面对资金与市场。
+
+《Hedgehogging》写于 Traxis 创立后的头几年。书名来自“hedgehog”（刺猬）与“hedgehogging”的比喻：在作者看来，对冲基金世界吸引了许多强烈、执拗而又古怪的性格，寻找“橡子”（acorns），也就是少见而有利可图的机会，是一种永不停歇的本能。作者在书的引言里坦言，希望读者能从这些第一手经历里得到娱乐与启发。
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic766xyNIJenyKZqcL3SvqCyMuJ6cCwJhicwr64AtBFSbiaAfopLqSbmk9JVExKqskN0BX6OY4VeWb6Q/640?wx_fmt=png&from=appmsg)
+
+Traxis创立后资产迅速突破十亿美元，成为当时体量可观的新基金之一。这既展示了作者的人脉与信誉，也让他不得不在更高的资金压力与业绩波动之间寻找平衡。规模并不自动等于胜率，组织能力与风控才是持续性的关键。
+
+作者在书中复盘了2004年前后做空原油的痛苦经历——研究链条看起来扎实，但趋势与仓位管理并未站在同一边，深度分析反而把团队带入更深的困境。这一案例在同期媒体评论中也被提及，用以说明深究有时会把你带入更深的麻烦（deep analysis can get you in deep trouble）的教训。作者据此反思，宏观交易的胜负往往不止取决于正确与否，而在于胜负比与止损纪律。
+
+1）刺猬与狐狸。书名暗含以赛亚·柏林（Isaiah Berlin）的经典区分：刺猬知道“一件大事”，狐狸知道“许多小事”。作者并不鼓吹单一执念，而是提醒读者在择时、仓位与主题选择上需要在“深入”和“广度”之间反复权衡。首次出现的术语：Global Macro（全球宏观），指以自上而下的宏观判断进行跨资产配置的策略；Long/Short（多空），指同时做多与做空以获取超额收益并控制波动。书中多次展示，过度“刺猬化”的单边押注容易在宏观反转中折损，而完全“狐狸化”的频繁切换又会陷入噪音。
+
+2）“募资与管理是两门不同的手艺”。对冲基金经理在现实中既要向潜在LP讲述可验证的流程与差异化优势，又要在回撤时守住撤资闸门。作者强调，Capacity（容量约束）与Liquidity（流动性）是路演里必须讲明白的关键词；而Drawdown（回撤）发生时，及时沟通与纪律化减仓是维护信任的核心。书中记录了他在2003—2005年间为Traxis筹资、拜访机构投资者的细节，这些段落既现实也颇具反讽。
+
+3）风险控制的第一条是承认不确定性。作者在市场主题选择上常以宏观事件为起点，但强调Position Sizing（仓位控制）与Stop-loss（止损）的纪律。对冲基金的“阿喀琉斯之踵”在于杠杆与自信：小样本成功会放大过度自信，宏观误判又会被杠杆迅速放大。作者提醒，Prime Brokerage（主经纪商）关系与融资条款在压力期会产生连锁反应，这是习惯于“多头长期持有”的公募经理容易忽视的。
+
+初创基金最难的不是选股，而是获得“第一批耐心资本”。作者记录了路演时一次次“热情会面—漫长沉默—委婉拒绝”的循环：资金方更愿意把钱给已经大而胜的团队，导致“强者恒强、弱者更弱”的马太效应。书里坦诚写到，被承诺的软认购在关键时刻未能落实，团队仍要按既定节奏建仓、复盘、纠错。这些细节让读者理解：净值曲线之外，组织与现金流才是生死线。
+
+读完《Hedgehogging》，不妨接着看 Biggs 的《Wealth, War & Wisdom》，从极端历史里理解资产如何自保；再配上 Sebastian Mallaby 的《More Money Than God》，从行业史角度补齐制度与演化；以及 Howard Marks 的《The Most Important Thing》，把“赔率—胜率—生存”的组合，落到更系统的备忘录范式。
+
+真正的优势不是预测正确，而是在正确兑现前，基金依然活着。
+
+* * *
+
+[著名投资家、橡树资本霍华德·马克斯35年投资备忘录](https://mp.weixin.qq.com/s?__biz=Mzk1NzI0MDMzMA==&mid=2247484060&idx=1&sn=4c0fcf392300845a37a0a0c0788ca9ef&scene=21#wechat_redirect)

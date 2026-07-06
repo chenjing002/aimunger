@@ -1,0 +1,102 @@
+---
+title: "伯克希尔正式迈入 Greg Abel 时代：一场深度的人事重塑"
+date: 2026-01-01
+slug: bo-ke-xi-er-zheng-shi-mai-ru-greg-abel-shi-dai-yi-chang-shen-du-de-ren-shi-zhong-su
+---
+
+**2026年1月1日**
+
+> 原文地址：<https://mp.weixin.qq.com/s/3QQeA-PHqv2y7Wbaqhenuw>
+伯克希尔·哈撒韦发布新闻稿，宣布了一系列重大调整，宣告公司将于 2026 年 1 月 1 日正式进入 **Greg Abel 接班时代**。这些变动中既有令人意外的决定，也有随着巴菲特时代落幕而顺理成章的安排。
+
+![Warren Buffett's successor Greg Abel is wooing shareholders](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic4gib4COib666xNsxXWGp0hwaic2KdZHnbnibQZwzZp3U6yZhicJR9AG3icwgzRCUD59wiaC50c5VZNDLwtQ/640?wx_fmt=jpeg&from=appmsg)
+
+### 01\. Todd Combs 离开伯克希尔，加入摩根大通
+
+**![Berkshire Hathaway's Todd Combs, investment lieutenant to Buffett and Geico  CEO, is leaving for JPMorgan](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic4gib4COib666xNsxXWGp0hwa60MvQ8libTRog5icVyJnfvhlXGFv5sd6d1p8wfGVJVY0PFMSBvQIWhpQ/640?wx_fmt=jpeg&from=appmsg)**
+
+**这无疑是最令人惊讶的消息之一。**
+
+Todd Combs 将完全离开伯克希尔，包括卸任 GEICO 首席执行官，以及放弃管理伯克希尔约 150 亿美元的投资组合。他的新去向是摩根大通（JPMorgan Chase），出任一项新的“安全与韧性（Security and Resiliency）计划”的负责人。
+
+Todd 自 2010 年加入伯克希尔后，一直被视为潜在的高层接班梯队成员，他的离开意味着 Greg Abel 对未来投资与管理架构将重新设计。
+
+### 02\. Ted Weschler：成为伯克希尔唯一的投资经理
+
+随着 Todd 的离开，**Ted 将成为伯克希尔唯一的投资经理**。预计他的职责不会发生剧烈变化，但可能会接管更多资本，继续与 Abel 保持密切沟通。
+
+巴菲特此前表示，他认为 Greg Abel 应当负责伯克希尔所有投资，并暗示未来可能延续现行的投资管理体系。
+
+值得一提的是，外界对 Ted 的认知常常只停留在“投资经理”，但实际上他还负责：
+
+*   • 监督德国摩托车零件公司 Detlev Louis；
+
+*   • 参与评估潜在收购项目；
+
+*   • 定期就资本配置问题向高层提供建议。
+
+未来，Ted 很可能成为 Abel 最重要的核心圈成员之一，角色不减反增。
+
+### 03\. CFO Marc Hamburg：开启逐步退休程序
+
+新闻稿中，巴菲特写下了高度评价：
+
+> “他为这家公司所做的贡献，远超大多数股东所知。”
+
+Marc Hamburg 自 1987 年加入伯克希尔以来，参与并监管了公司所有重大收购，并确保伯克希尔的财务体系保持一贯的透明与稳健。此外，他还长期担任 BRK Energy、Pilot 等多家子公司的董事。
+
+根据公告，他将于2026 年 6 月开始培养继任者，并计划于 2027 年 6 月 1 日正式退休。这意味着伯克希尔财务体系将在未来两年逐步完成平稳交接。
+
+### 04\. 新任 CFO：Charles Chang
+
+新 CFO 的任命引发了不少讨论。
+
+Chang 目前是 BRK Energy 的首席财务官（自 2024 年起），此前长期在普华永道（PwC）担任合伙人，拥有超过三十年的并购经验，而“并购能力”正是伯克希尔的核心能力之一。
+
+虽然他在总部层面属于“新面孔”，但可能早在普华永道时期就以某种方式与伯克希尔有深度合作，从而获得 Abel 的信任。值得注意的是，Abel 本人也是会计师出身，对财务与人才的判断能力毋庸置疑。
+
+### 05\. Adam M. Johnson：负责消费品、服务和零售业务板块
+
+Johnson 即刻上任，并继续兼任 NetJets CEO，同时监督伯克希尔旗下 32 家相关企业。
+
+公告中特别强调，他的职责是“支持各业务的优秀 CEO，并维护伯克希尔文化与价值观”，这意味着：
+
+*   • 他的角色更像“经验丰富的观察者与顾问”；
+
+*   • 而不是推行集中化管理的权力中心。
+
+目前，Greg Abel 仍继续直接管理工业制造、BNSF 铁路、BRK Energy、Pilot 和 McLane 等业务。我预计未来这一结构将逐步向 Johnson 等人分散，形成新的管理分层。
+
+从长期看，Abel 需要有人接替他现有的“非保险业务主管”角色，Johnson 的此次任命可能是一次“试验”。
+
+### 06\. Michael J. O’Sullivan：新任总法律顾问
+
+O’Sullivan 将常驻奥马哈，担任伯克希尔总部总法律顾问。
+
+他的履历极具伯克希尔色彩：
+
+*   • 自 2017 年起任 Snap, Inc. 的总法律顾问；
+
+*   • 更关键的是，他曾在 **Munger, Tolles & Olsen** 任职——这是由查理·芒格共同创办、并长期担任伯克希尔外部法律顾问的顶级律所。
+
+他的加入，说明 Abel 继续坚持伯克希尔一贯的法律与合规标准。
+
+### 07\. 伯克希尔的明天已经到来
+
+回头看，这一系列调整既合乎逻辑，也势在必行。
+
+巴菲特已 95 岁，多位长期共事的高管也到了职业生涯的最后阶段。与此同时，伯克希尔规模已远超十年前，甚至五年前：
+
+> 截至 2024 年的十年间，伯克希尔创造了 4090 亿美元的可分配资本——比此前全部历史总和（2400 亿美元）高出 170%。
+
+即便是温和的复利，也需要巨大规模的资本配置；要管理这样一个庞大的帝国，伯克希尔需要在多个层级引入可信赖的人才。
+
+巴菲特已经把未来交给 Greg Abel，而 Abel 显然也在迅速构建属于自己的管理团队。
+
+未来的伯克希尔，正在今天成型。
+
+* * *
+
+相关阅读：
+
+[巴菲特感恩节最后一封致股东告别信：我将“安静退场”，交棒格雷格·阿贝尔](https://mp.weixin.qq.com/s?__biz=Mzk1NzI0MDMzMA==&mid=2247484488&idx=1&sn=a6b8c216785558c422f40c3cea4a7346&scene=21#wechat_redirect)
