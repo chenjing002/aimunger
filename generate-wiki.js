@@ -208,6 +208,8 @@ function generateArticlePage(title, htmlContent) {
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/wiki/wiki.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
+         crossorigin="anonymous"></script>
 </head>
 <body>
 ${NAV_HTML}
@@ -489,6 +491,8 @@ function generateIndexPage(entries) {
       }
     }
     </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
+         crossorigin="anonymous"></script>
 </head>
 <body>
 ${NAV_HTML}
