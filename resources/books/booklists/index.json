@@ -113,6 +113,258 @@
       "title_zh": "工作：研究、采访与写作",
       "authors": ["Robert A. Caro"],
       "cover": "covers/working.jpg"
+    },
+    {
+      "title_en": "The Small-Cap Advantage: How Top Endowments and Foundations Turn Small Stocks into Big Returns",
+      "title_zh": "小盘股优势",
+      "authors": ["Brian Bares"],
+      "cover": "covers/small-cap-advantage.jpg"
+    },
+    {
+      "title_en": "You Can Be a Stock Market Genius: Uncover the Secret Hiding Places of Stock Market Profits",
+      "title_zh": "你也可以成为股市天才",
+      "authors": ["Joel Greenblatt"],
+      "cover": "covers/stock-market-genius.jpg"
+    },
+    {
+      "title_en": "10½ Lessons from Experience: Perspectives on Fund Management",
+      "title_zh": "从经验中学到的十个半教训：基金管理的视角",
+      "authors": ["Paul Marshall"],
+      "cover": "covers/ten-and-a-half-lessons.jpg"
+    },
+    {
+      "title_en": "Better Thinking, Better Results: Case Study and Analysis of an Enterprise-Wide Lean Transformation",
+      "title_zh": "更好的思维，更好的结果",
+      "authors": ["Bob Emiliani", "David Stec", "Lawrence Grasso", "James Stodder"],
+      "cover": "covers/better-thinking-better-results.jpg"
+    },
+    {
+      "title_en": "The Investor's Mind: The Pause Framework for Better Decisions",
+      "title_zh": "投资者的心智：暂停框架与更好的决策",
+      "authors": ["Sajal Kapoor"],
+      "cover": "covers/investors-mind.jpg"
+    },
+    {
+      "title_en": "The Origin of Capitalism: A Longer View",
+      "title_zh": "资本主义的起源",
+      "authors": ["Ellen Meiksins Wood"],
+      "cover": "covers/origin-of-capitalism.jpg"
+    },
+    {
+      "title_en": "Power Failure: The Rise and Fall of an American Icon",
+      "title_zh": "权力的失败：一个美国偶像的崛起与陨落",
+      "authors": ["William D. Cohan"],
+      "cover": "covers/power-failure.jpg"
+    },
+    {
+      "title_en": "The Way It Was: An Oral History of Finance 1967–1987",
+      "title_zh": "往昔岁月：1967—1987年华尔街口述史",
+      "authors": ["Institutional Investor Magazine"],
+      "cover": "covers/way-it-was.jpg"
+    },
+    {
+      "title_en": "Lights Out: Pride, Delusion, and the Fall of General Electric",
+      "title_zh": "熄灯：傲慢、幻觉与通用电气的衰落",
+      "authors": ["Thomas Gryta", "Ted Mann"],
+      "cover": "covers/lights-out.jpg"
+    },
+    {
+      "title_en": "The Smartest Guys in the Room: The Amazing Rise and Scandalous Fall of Enron",
+      "title_zh": "房间里最精明的人：安然的惊天崛起与丑闻式陨落",
+      "authors": ["Bethany McLean", "Peter Elkind"],
+      "cover": "covers/smartest-guys-in-the-room.jpg"
+    },
+    {
+      "title_en": "Beat the Dealer: A Winning Strategy for the Game of Twenty-One",
+      "title_zh": "击败庄家：二十一点的制胜策略",
+      "authors": ["Edward O. Thorp"],
+      "cover": "covers/beat-the-dealer.jpg"
+    },
+    {
+      "title_en": "When Genius Failed: The Rise and Fall of Long-Term Capital Management",
+      "title_zh": "天才的失败：长期资本管理公司的崛起与陨落",
+      "authors": ["Roger Lowenstein"],
+      "cover": "covers/when-genius-failed.jpg"
+    },
+    {
+      "title_en": "Fatal Risk: A Cautionary Tale of AIG's Corporate Suicide",
+      "title_zh": "致命风险：AIG公司自毁的警示录",
+      "authors": ["Roddy Boyd"],
+      "cover": "covers/fatal-risk.jpg"
+    },
+    {
+      "title_en": "Big Bets Gone Bad: Derivatives and Bankruptcy in Orange County",
+      "title_zh": "豪赌失败：橙县的衍生品与破产",
+      "authors": ["Philippe Jorion"],
+      "cover": "covers/big-bets-gone-bad.jpg"
+    },
+    {
+      "title_en": "All the Devils Are Here: The Hidden History of the Financial Crisis",
+      "title_zh": "所有魔鬼都在这里：金融危机的隐秘历史",
+      "authors": ["Bethany McLean", "Joe Nocera"],
+      "cover": "covers/all-the-devils-are-here.jpg"
+    },
+    {
+      "title_en": "Paying with Plastic: The Digital Revolution in Buying and Borrowing",
+      "title_zh": "刷卡消费：购买与借贷的数字革命",
+      "authors": ["David S. Evans", "Richard Schmalensee"],
+      "cover": "covers/paying-with-plastic.jpg"
+    },
+    {
+      "title_en": "The Oligarchs: Wealth and Power in the New Russia",
+      "title_zh": "寡头：新俄罗斯的财富与权力",
+      "authors": ["David E. Hoffman"],
+      "cover": "covers/oligarchs.jpg"
+    },
+    {
+      "title_en": "Cuthbert Heath: The Maker of Modern Lloyd's",
+      "title_zh": "科斯伯特·希思：现代劳合社的缔造者",
+      "authors": ["Antony Brown"],
+      "cover": "covers/cuthbert-heath.jpg"
+    },
+    {
+      "title_en": "The Outsiders: Eight Unconventional CEOs and Their Radically Rational Blueprint for Success",
+      "title_zh": "局外人：八位非传统CEO的理性资本配置之道",
+      "authors": ["William N. Thorndike Jr."],
+      "cover": "covers/outsiders.jpg"
+    },
+    {
+      "title_en": "The Art of War",
+      "title_zh": "孙子兵法",
+      "authors": ["孙武（Sun Tzu）"],
+      "cover": "covers/art-of-war.jpg"
+    },
+    {
+      "title_en": "A Man on the Moon: The Voyages of the Apollo Astronauts",
+      "title_zh": "月球上的人：阿波罗宇航员的航行纪实",
+      "authors": ["Andrew Chaikin"],
+      "cover": "covers/man-on-the-moon.jpg"
+    },
+    {
+      "title_en": "The Warren Buffett Way",
+      "title_zh": "沃伦·巴菲特之道",
+      "authors": ["Robert G. Hagstrom"],
+      "cover": "covers/warren-buffett-way.jpg"
+    },
+    {
+      "title_en": "Investing: The Last Liberal Art",
+      "title_zh": "投资的格栅理论",
+      "authors": ["Robert G. Hagstrom"],
+      "cover": "covers/investing-last-liberal-art.jpg"
+    },
+    {
+      "title_en": "The Infinity Machine: Demis Hassabis, DeepMind, and the Quest for Superintelligence",
+      "title_zh": "无限机器：哈萨比斯、DeepMind与超级智能之战",
+      "authors": ["Sebastian Mallaby"],
+      "cover": "covers/infinity-machine.jpg"
+    },
+    {
+      "title_en": "Runnin' Down a Dream: How to Thrive in a Career You Actually Love",
+      "title_zh": "追梦之路：如何在真正热爱的事业中成就自我",
+      "authors": ["Bill Gurley"],
+      "cover": "covers/runnin-down-a-dream.jpg"
+    },
+    {
+      "title_en": "Poor Charlie's Almanack: The Essential Wit and Wisdom of Charles T. Munger",
+      "title_zh": "穷查理宝典",
+      "authors": ["Charles T. Munger", "Peter D. Kaufman (编)"],
+      "cover": "covers/poor-charlies-almanack.jpg"
+    },
+    {
+      "title_en": "Personal History",
+      "title_zh": "个人历史",
+      "authors": ["Katharine Graham"],
+      "cover": "covers/personal-history.jpg"
+    },
+    {
+      "title_en": "Titan: The Life of John D. Rockefeller, Sr.",
+      "title_zh": "泰坦：洛克菲勒传",
+      "authors": ["Ron Chernow"],
+      "cover": "covers/titan.jpg"
+    },
+    {
+      "title_en": "The House of Morgan: An American Banking Dynasty and the Rise of Modern Finance",
+      "title_zh": "摩根财团",
+      "authors": ["Ron Chernow"],
+      "cover": "covers/house-of-morgan.jpg"
+    },
+    {
+      "title_en": "Tao Te Ching",
+      "title_zh": "道德经",
+      "authors": ["老子"],
+      "cover": "covers/tao-te-ching.jpg"
+    },
+    {
+      "title_en": "Margin of Safety: Risk-Averse Value Investing Strategies for the Thoughtful Investor",
+      "title_zh": "安全边际",
+      "authors": ["Seth A. Klarman"],
+      "cover": "covers/margin-of-safety.jpg"
+    },
+    {
+      "title_en": "The Most Important Thing: Uncommon Sense for the Thoughtful Investor",
+      "title_zh": "投资最重要的事",
+      "authors": ["Howard Marks"],
+      "cover": "covers/most-important-thing.jpg"
+    },
+    {
+      "title_en": "The Essays of Warren Buffett: Lessons for Corporate America",
+      "title_zh": "巴菲特致股东的信",
+      "authors": ["Warren E. Buffett", "Lawrence A. Cunningham"],
+      "cover": "covers/essays-of-warren-buffett.jpg"
+    },
+    {
+      "title_en": "Zen and the Art of Motorcycle Maintenance: An Inquiry into Values",
+      "title_zh": "禅与摩托车维修艺术",
+      "authors": ["Robert M. Pirsig"],
+      "cover": "covers/zen-motorcycle-maintenance.jpg"
+    },
+    {
+      "title_en": "Richer, Wiser, Happier: How the World's Greatest Investors Win in Markets and Life",
+      "title_zh": "更富有、更睿智、更快乐",
+      "authors": ["William Green"],
+      "cover": "covers/richer-wiser-happier.jpg"
+    },
+    {
+      "title_en": "Meditations",
+      "title_zh": "沉思录",
+      "authors": ["Marcus Aurelius"],
+      "cover": "covers/meditations.jpg"
+    },
+    {
+      "title_en": "Letters from a Stoic",
+      "title_zh": "斯多葛书简",
+      "authors": ["Seneca (Lucius Annaeus Seneca)"],
+      "cover": "covers/letters-from-a-stoic.jpg"
+    },
+    {
+      "title_en": "Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets",
+      "title_zh": "随机漫步的傻瓜",
+      "authors": ["Nassim Nicholas Taleb"],
+      "cover": "covers/fooled-by-randomness.jpg"
+    },
+    {
+      "title_en": "Competitive Strategy: Techniques for Analyzing Industries and Competitors",
+      "title_zh": "竞争战略",
+      "authors": ["Michael E. Porter"],
+      "cover": "covers/competitive-strategy.jpg"
+    },
+    {
+      "title_en": "Thinking, Fast and Slow",
+      "title_zh": "思考，快与慢",
+      "authors": ["Daniel Kahneman"],
+      "cover": "covers/thinking-fast-and-slow.jpg"
+    },
+    {
+      "title_en": "Stock Market Maestros: Winning Habits, Strategies and Mindsets of Britain's Best Investors",
+      "title_zh": "股市大师",
+      "authors": ["Lee Freeman-Shor", "Clare Flynn Levy"],
+      "cover": "covers/stock-market-maestros.jpg"
+    },
+    {
+      "title_en": "Stock Picker: A Microcap Investor's Guide to Money, Discipline, and Edge",
+      "title_zh": "选股者",
+      "authors": ["Ian Cassel"],
+      "cover": "covers/stock-picker.jpg"
     }
   ]
 }

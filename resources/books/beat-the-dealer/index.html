@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>击败庄家：二十一点的制胜策略 - aimunger</title>
+    <meta name="description" content="爱德华·索普（Edward O. Thorp）是数学家、量化金融先驱，先后执教于麻省理工学院（MIT）与加州大学欧文分校（UC Irvine）。他在职业早期对赌场游戏产生了浓厚的学术兴趣，发现二十一点（blackjack）的规则中存在数学上可利用的信息优势。...">
+    <link rel="canonical" href="https://aimunger.com/resources/books/beat-the-dealer" />
+    <meta property="og:title" content="击败庄家：二十一点的制胜策略 - aimunger" />
+    <meta property="og:description" content="爱德华·索普（Edward O. Thorp）是数学家、量化金融先驱，先后执教于麻省理工学院（MIT）与加州大学欧文分校（UC Irvine）。他在职业早期对赌场游戏产生了浓厚的学术兴趣，发现二十一点（blackjack）的规则中存在数学上可利用的信息优势。..." />
+    <meta property="og:url" content="https://aimunger.com/resources/books/beat-the-dealer" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="aimunger" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        .book-page-header {
+            padding: 80px 0 40px;
+        }
+        .book-page-back {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            margin-bottom: 28px;
+            transition: color 0.2s ease;
+        }
+        .book-page-back:hover {
+            color: var(--color-accent);
+        }
+        .book-page-top {
+            display: flex;
+            gap: 28px;
+            margin-bottom: 8px;
+        }
+        .book-page-cover {
+            width: 140px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+        .book-page-cover img {
+            width: 100%;
+            display: block;
+        }
+        .book-page-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .book-page-title-zh {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        .book-page-title-en {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .book-page-authors {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+        .book-page-body {
+            padding-bottom: 96px;
+            font-size: 16px;
+            line-height: 2;
+            color: var(--color-text);
+        }
+        .book-page-body p {
+            margin-bottom: 16px;
+        }
+        @media (max-width: 600px) {
+            .book-page-header {
+                padding: 56px 0 32px;
+            }
+            .book-page-top {
+                gap: 20px;
+            }
+            .book-page-cover {
+                width: 100px;
+            }
+            .book-page-title-zh {
+                font-size: 20px;
+            }
+            .book-page-body {
+                font-size: 15px;
+                padding-bottom: 64px;
+            }
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo">
+                <span class="logo-icon">M</span>
+                <span class="logo-text">aimunger</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/resources/" class="active">资料库</a></li>
+                <li><a href="/wiki/">Wiki</a></li>
+                <li><a href="/blog/">文章</a></li>
+                <li><a href="/data/">数据</a></li>
+                <li><a href="/ankicard/">记忆卡</a></li>
+                <li><a href="/about/">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="book-page-header">
+                <a href="/resources/books" class="book-page-back">&larr; 所有书籍</a>
+                <div class="book-page-top">
+                    <div class="book-page-cover">
+                        <img src="../booklists/covers/beat-the-dealer.jpg" alt="击败庄家：二十一点的制胜策略">
+                    </div>
+                    <div class="book-page-meta">
+                        <h1 class="book-page-title-zh">击败庄家：二十一点的制胜策略</h1>
+                        <div class="book-page-title-en">Beat the Dealer: A Winning Strategy for the Game of Twenty-One</div>
+                        <div class="book-page-authors">Edward O. Thorp</div>
+                    </div>
+                </div>
+            </div>
+            <div class="book-page-body">
+                    <p>爱德华·索普（Edward O. Thorp）是数学家、量化金融先驱，先后执教于麻省理工学院（MIT）与加州大学欧文分校（UC Irvine）。他在职业早期对赌场游戏产生了浓厚的学术兴趣，发现二十一点（blackjack）的规则中存在数学上可利用的信息优势。1962年，《击败庄家》（Beat the Dealer）初版问世，1966年修订再版。这本书以严格的概率计算证明了"算牌"（card counting）策略的可行性——通过追踪已发出牌面的构成来动态调整下注金额，玩家可以将原本有利于庄家的概率关系翻转。此书出版后迅速登上《纽约时报》畅销书榜，销量逾百万册，赌场业为此被迫修改规则甚至将索普列入黑名单，其影响之大令人始料未及。</p>
+                    <p>全书的核心贡献不仅在于提供了一套具体的算牌技术，更在于它所示范的思维方式：对一个看似由运气主宰的游戏，用系统化的分析重新发现其中隐藏的确定性边际优势（edge）。索普详细讲解了"十点计数法"（ten-count system）和后来发展出的更简化版本，说明了在不同的牌面状态下如何调整基本策略（basic strategy）以及如何做好资金管理。书中同时揭露了索普亲历的赌场出千行为，以及在实际操作中如何应对赌场的反制措施。索普将严谨的数学带入了一个从未被认真对待过的领域，证明了在有限信息游戏中，勤于计算的人可以系统性地获得优势。</p>
+                    <p>《击败庄家》对量化金融界的影响远超赌博本身。费舍尔·布莱克（Fischer Black）与迈伦·斯科尔斯（Myron Scholes）在发展著名的期权定价公式时，明确受到索普关于权证定价早期研究的启发；斯科尔斯其后凭相关成果获得诺贝尔经济学奖。沃伦·巴菲特（Warren Buffett）与索普有过直接交流，两人均对彼此的方法论表示尊重；巴菲特曾公开谈及索普的工作对理解市场效率边界的启示。索普后来将算牌的核心逻辑迁移至对冲基金管理，其普林斯顿-纽波特合伙公司（Princeton-Newport Partners）在1969年至1988年间几乎没有出现过亏损的年份。</p>
+                    <p>《击败庄家》对今天的投资者的意义，不在于教人打牌，而在于它所呈现的认知框架：即便在一个充满随机性的环境中，只要存在信息优势和纪律化的执行，就有可能构建出正期望值的策略。这与价值投资的底层逻辑一脉相通——寻找市场对某种资产的定价系统性偏离其内在价值的情况，然后耐心等待概率的力量发挥作用。</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
+                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
+                <a href="https://aimunger.com/llm.txt">llm.txt</a>
+                <a href="https://aimunger.com/sitemap.xml">sitemap</a>
+                <a href="https://aimunger.com/rss.xml">rss</a>
+            </div>
+            <p>&copy; 2026 aimunger</p>
+        </div>
+    </footer>
+    <script src="/memory-notify.js"></script>
+</body>
+</html>
