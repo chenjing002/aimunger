@@ -1,0 +1,118 @@
+{
+  "booklists": [
+    {
+      "title_en": "Santa Monica Partners Letters to Partners 1982-2021: 40 Years of \"Pink Sheet\" Investing",
+      "title_zh": "Santa Monica Partners 致合伙人信 1982—2021：粉单投资四十年",
+      "authors": ["Lawrence J. Goldstein", "Joseph K. Raymond"],
+      "cover": "covers/santa-monica-partners.jpg"
+    },
+    {
+      "title_en": "Autopsy of a Merger: Trans Union: The Deal That Rocked the Corporate World",
+      "title_zh": "一场并购的尸检：Trans Union 震动商界的交易",
+      "authors": ["William M. Owen"],
+      "cover": "covers/autopsy-of-a-merger.jpg"
+    },
+    {
+      "title_en": "Catching a Deckload of Dreams: Chuck Bundrant and the Story of Trident Seafoods",
+      "title_zh": "满船梦想：Chuck Bundrant 与 Trident Seafoods 的故事",
+      "authors": ["John van Amerongen"],
+      "cover": "covers/catching-a-deckload-of-dreams.jpg"
+    },
+    {
+      "title_en": "Chapters in My Life",
+      "title_zh": "我生命中的篇章",
+      "authors": ["Frederick Taylor Gates", "Robert Swain Morison"],
+      "cover": "covers/chapters-in-my-life.jpg"
+    },
+    {
+      "title_en": "Dead Companies Walking: How A Hedge Fund Manager Finds Opportunity in Unexpected Places",
+      "title_zh": "行将就木的公司：一位对冲基金经理如何在意想不到之处发现机会",
+      "authors": ["Scott Fearon", "Jesse Powell"],
+      "cover": "covers/dead-companies-walking.jpg"
+    },
+    {
+      "title_en": "From Third World to First: The Singapore Story",
+      "title_zh": "从第三世界到第一世界：新加坡故事",
+      "authors": ["Lee Kuan Yew"],
+      "cover": "covers/from-third-world-to-first.jpg"
+    },
+    {
+      "title_en": "It's Your Ship: Management Techniques from the Best Damn Ship in the Navy",
+      "title_zh": "这是你的船：来自美国海军最佳战舰的管理技巧",
+      "authors": ["D. Michael Abrashoff"],
+      "cover": "covers/its-your-ship.jpg"
+    },
+    {
+      "title_en": "Legacy: A Biography of Moses and Walter Annenberg",
+      "title_zh": "遗产：Moses 与 Walter Annenberg 传",
+      "authors": ["Christopher Ogden"],
+      "cover": "covers/legacy-annenberg.jpg"
+    },
+    {
+      "title_en": "McDonald's: Behind the Arches",
+      "title_zh": "麦当劳：金拱门背后",
+      "authors": ["John F. Love"],
+      "cover": "covers/mcdonalds-behind-the-arches.jpg"
+    },
+    {
+      "title_en": "Mellon: An American Life",
+      "title_zh": "梅隆：一个美国人的一生",
+      "authors": ["David Cannadine"],
+      "cover": "covers/mellon-an-american-life.jpg"
+    },
+    {
+      "title_en": "John D. Rockefeller's Secret Weapon",
+      "title_zh": "约翰·D. 洛克菲勒的秘密武器",
+      "authors": ["Albert Z. Carr"],
+      "cover": "covers/rockefellers-secret-weapon.jpg"
+    },
+    {
+      "title_en": "Plain Talk: Lessons from a Business Maverick",
+      "title_zh": "直言不讳：一位商业异类的经验教训",
+      "authors": ["Ken Iverson", "Tom Varian"],
+      "cover": "covers/plain-talk.jpg"
+    },
+    {
+      "title_en": "Riches Among the Ruins: Adventures in the Dark Corners of the Global Economy",
+      "title_zh": "废墟中的财富：全球经济黑暗角落里的冒险",
+      "authors": ["Robert P. Smith", "Peter Zheutlin"],
+      "cover": "covers/riches-among-the-ruins.jpg"
+    },
+    {
+      "title_en": "The Lessons of History",
+      "title_zh": "历史的教训",
+      "authors": ["Will Durant", "Ariel Durant"],
+      "cover": "covers/lessons-of-history.jpg"
+    },
+    {
+      "title_en": "The Mental Keys to Hitting: A Handbook of Strategies for Performance Enhancement",
+      "title_zh": "击球的心理钥匙：提升表现的策略手册",
+      "authors": ["H. A. Dorfman"],
+      "cover": "covers/mental-keys-to-hitting.jpg"
+    },
+    {
+      "title_en": "The New Financial Capitalists: Kohlberg Kravis Roberts and the Creation of Corporate Value",
+      "title_zh": "新金融资本家：KKR 与企业价值创造",
+      "authors": ["George P. Baker", "George David Smith"],
+      "cover": "covers/new-financial-capitalists.jpg"
+    },
+    {
+      "title_en": "The Sleuth Investor",
+      "title_zh": "侦探型投资者",
+      "authors": ["Avner Mandelman"],
+      "cover": "covers/sleuth-investor.jpg"
+    },
+    {
+      "title_en": "Ubiquity: Why Catastrophes Happen",
+      "title_zh": "无处不在：灾难为何发生",
+      "authors": ["Mark Buchanan"],
+      "cover": "covers/ubiquity.jpg"
+    },
+    {
+      "title_en": "Working: Researching, Interviewing, Writing",
+      "title_zh": "工作：研究、采访与写作",
+      "authors": ["Robert A. Caro"],
+      "cover": "covers/working.jpg"
+    }
+  ]
+}
