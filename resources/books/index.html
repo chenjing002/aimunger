@@ -45,11 +45,11 @@
             border-color: var(--color-accent);
             box-shadow: 0 0 0 3px rgba(139, 37, 0, 0.08);
         }
-        .books-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
+        #books-total-count {
+            color: #8b2500;
+        }
+        #books-match-summary {
+            display: block;
             font-size: 13px;
             color: var(--color-text-secondary);
         }
@@ -108,11 +108,6 @@
             .books-toolbar {
                 margin-bottom: 24px;
             }
-            .books-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
             .books-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px 16px;
@@ -155,13 +150,11 @@
                 <input
                     id="books-search"
                     class="books-search"
-                    type="search"
-                    placeholder="搜索中文书名、英文书名或作者"
-                    autocomplete="off"
+                type="search"
+                placeholder="搜索中文书名、英文书名或作者"
+                autocomplete="off"
                 >
-                <div class="books-meta">
-                    <span id="books-match-summary">正在加载书单...</span>
-                </div>
+                <span id="books-match-summary">正在加载书单...</span>
             </section>
 
             <div class="books-grid" id="books-grid"></div>
