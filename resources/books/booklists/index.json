@@ -455,6 +455,228 @@
       "title_zh": "财务报表分析：理论、应用与解释",
       "authors": ["Leopold A. Bernstein", "John J. Wild"],
       "cover": "covers/financial-statement-analysis-bernstein.jpg"
+    },
+    {
+      "title_en": "100 to 1 in the Stock Market",
+      "title_zh": "股市百倍股",
+      "authors": ["Thomas W. Phelps"],
+      "cover": "covers/100-to-1-in-stock-market.jpg"
+    },
+    {
+      "title_en": "A Concise Guide to Macroeconomics",
+      "title_zh": "简明宏观经济学指南",
+      "authors": ["David A. Moss"],
+      "cover": "covers/concise-guide-macroeconomics.jpg"
+    },
+    {
+      "title_en": "Abundance: The Future Is Better Than You Think",
+      "title_zh": "富足：改变人类未来的4大力量",
+      "authors": ["Peter H. Diamandis", "Steven Kotler"],
+      "cover": "covers/abundance.jpg"
+    },
+    {
+      "title_en": "Americana: A 400-Year History of American Capitalism",
+      "title_zh": "美利坚：美国资本主义四百年",
+      "authors": ["Bhu Srinivasan"],
+      "cover": "covers/americana.jpg"
+    },
+    {
+      "title_en": "An Essay on the Principle of Population",
+      "title_zh": "人口论",
+      "authors": ["Thomas Robert Malthus"],
+      "cover": "covers/essay-principle-population.jpg"
+    },
+    {
+      "title_en": "Antifragile: Things That Gain from Disorder",
+      "title_zh": "反脆弱",
+      "authors": ["Nassim Nicholas Taleb"],
+      "cover": "covers/antifragile.jpg"
+    },
+    {
+      "title_en": "Basic Economics",
+      "title_zh": "经济学的思维方式",
+      "authors": ["Thomas Sowell"],
+      "cover": "covers/basic-economics.jpg"
+    },
+    {
+      "title_en": "Berkshire Hathaway Letters to Shareholders",
+      "title_zh": "伯克希尔·哈撒韦致股东的信",
+      "authors": ["Warren Buffett"],
+      "cover": "covers/berkshire-letters.jpg"
+    },
+    {
+      "title_en": "Buffett: The Making of an American Capitalist",
+      "title_zh": "巴菲特传",
+      "authors": ["Roger Lowenstein"],
+      "cover": "covers/buffett-american-capitalist.jpg"
+    },
+    {
+      "title_en": "Chip War: The Fight for the World's Most Critical Technology",
+      "title_zh": "芯片战争",
+      "authors": ["Chris Miller"],
+      "cover": "covers/chip-war.jpg"
+    },
+    {
+      "title_en": "Common Stocks and Uncommon Profits and Other Writings",
+      "title_zh": "怎样选择成长股",
+      "authors": ["Philip A. Fisher"],
+      "cover": "covers/common-stocks-uncommon-profits.jpg"
+    },
+    {
+      "title_en": "Creative Cash Flow Reporting: Uncovering Sustainable Financial Performance",
+      "title_zh": "创造性现金流报告",
+      "authors": ["Charles W. Mulford", "Eugene E. Comiskey"],
+      "cover": "covers/creative-cash-flow-reporting.jpg"
+    },
+    {
+      "title_en": "Data-Driven Marketing: The 15 Metrics Everyone in Marketing Should Know",
+      "title_zh": "数据驱动营销",
+      "authors": ["Mark Jeffery"],
+      "cover": "covers/data-driven-marketing.jpg"
+    },
+    {
+      "title_en": "Early Retirement Extreme",
+      "title_zh": "极早退休",
+      "authors": ["Jacob Lund Fisker"],
+      "cover": "covers/early-retirement-extreme.jpg"
+    },
+    {
+      "title_en": "Factfulness",
+      "title_zh": "事实",
+      "authors": ["Hans Rosling", "Ola Rosling", "Anna Rosling Rönnlund"],
+      "cover": "covers/factfulness.jpg"
+    },
+    {
+      "title_en": "Financial Warnings: Detecting Earning Surprises, Avoiding Business Troubles, and Implementing Corrective Strategies",
+      "title_zh": "财务预警",
+      "authors": ["Charles W. Mulford", "Eugene E. Comiskey"],
+      "cover": "covers/financial-warnings.jpg"
+    },
+    {
+      "title_en": "Happy Money: The Science of Smarter Spending",
+      "title_zh": "花好钱",
+      "authors": ["Elizabeth Dunn", "Michael Norton"],
+      "cover": "covers/happy-money.jpg"
+    },
+    {
+      "title_en": "High Output Management",
+      "title_zh": "格鲁夫给经理人的第一课",
+      "authors": ["Andrew S. Grove"],
+      "cover": "covers/high-output-management.jpg"
+    },
+    {
+      "title_en": "How the Internet Happened: From Netscape to the iPhone",
+      "title_zh": "互联网是怎样诞生的",
+      "authors": ["Brian McCullough"],
+      "cover": "covers/how-internet-happened.jpg"
+    },
+    {
+      "title_en": "How the World Really Works",
+      "title_zh": "这个世界运作的真相",
+      "authors": ["Vaclav Smil"],
+      "cover": "covers/how-world-really-works.jpg"
+    },
+    {
+      "title_en": "Influence: The Psychology of Persuasion",
+      "title_zh": "影响力",
+      "authors": ["Robert B. Cialdini"],
+      "cover": "covers/influence.jpg"
+    },
+    {
+      "title_en": "Investing Between the Lines",
+      "title_zh": "字里行间的投资",
+      "authors": ["L. J. Rittenhouse"],
+      "cover": "covers/investing-between-the-lines.jpg"
+    },
+    {
+      "title_en": "Naked Statistics",
+      "title_zh": "赤裸裸的统计学",
+      "authors": ["Charles Wheelan"],
+      "cover": "covers/naked-statistics.jpg"
+    },
+    {
+      "title_en": "One Up On Wall Street",
+      "title_zh": "彼得·林奇的成功投资",
+      "authors": ["Peter Lynch", "John Rothchild"],
+      "cover": "covers/one-up-on-wall-street.jpg"
+    },
+    {
+      "title_en": "Principles of Economics",
+      "title_zh": "经济学原理",
+      "authors": ["N. Gregory Mankiw"],
+      "cover": "covers/principles-of-economics.jpg"
+    },
+    {
+      "title_en": "Seeking Wisdom: From Darwin to Munger",
+      "title_zh": "探索智慧：从达尔文到芒格",
+      "authors": ["Peter Bevelin"],
+      "cover": "covers/seeking-wisdom.jpg"
+    },
+    {
+      "title_en": "The Black Swan: The Impact of the Highly Improbable",
+      "title_zh": "黑天鹅",
+      "authors": ["Nassim Nicholas Taleb"],
+      "cover": "covers/black-swan.jpg"
+    },
+    {
+      "title_en": "The Choice: A Fable of Free Trade and Protectionism",
+      "title_zh": "自由的选择：贸易自由与保护主义的寓言",
+      "authors": ["Russell Roberts"],
+      "cover": "covers/choice-free-trade.jpg"
+    },
+    {
+      "title_en": "The Everything Store: Jeff Bezos and the Age of Amazon",
+      "title_zh": "一网打尽",
+      "authors": ["Brad Stone"],
+      "cover": "covers/everything-store.jpg"
+    },
+    {
+      "title_en": "The Goal: A Process of Ongoing Improvement",
+      "title_zh": "目标",
+      "authors": ["Eliyahu M. Goldratt", "Jeff Cox"],
+      "cover": "covers/goal.jpg"
+    },
+    {
+      "title_en": "The Intelligent Investor",
+      "title_zh": "聪明的投资者",
+      "authors": ["Benjamin Graham"],
+      "cover": "covers/intelligent-investor.jpg"
+    },
+    {
+      "title_en": "The Investment Checklist: The Art of In-Depth Research",
+      "title_zh": "投资检查清单",
+      "authors": ["Michael Shearn"],
+      "cover": "covers/investment-checklist.jpg"
+    },
+    {
+      "title_en": "The Little Book That Builds Wealth",
+      "title_zh": "股市真规则",
+      "authors": ["Pat Dorsey"],
+      "cover": "covers/little-book-builds-wealth.jpg"
+    },
+    {
+      "title_en": "The Psychology of Money",
+      "title_zh": "金钱心理学",
+      "authors": ["Morgan Housel"],
+      "cover": "covers/psychology-of-money.jpg"
+    },
+    {
+      "title_en": "The Success Equation: Untangling Skill and Luck in Business, Sports, and Investing",
+      "title_zh": "成功方程式",
+      "authors": ["Michael J. Mauboussin"],
+      "cover": "covers/success-equation.jpg"
+    },
+    {
+      "title_en": "Traffic: Why We Drive the Way We Do (and What It Says About Us)",
+      "title_zh": "开车经济学",
+      "authors": ["Tom Vanderbilt"],
+      "cover": "covers/traffic.jpg"
+    },
+    {
+      "title_en": "Understanding Michael Porter: The Essential Guide to Competition and Strategy",
+      "title_zh": "理解迈克尔·波特",
+      "authors": ["Joan Magretta"],
+      "cover": "covers/understanding-michael-porter.jpg"
     }
   ]
 }
