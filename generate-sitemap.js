@@ -1,9 +1,28 @@
 // Generates a unified sitemap.xml by scanning the assembled _site directory
 const fs = require('fs');
 const path = require('path');
+const { parseSimpleMeta, splitFrontmatter } = require('./site-md-utils');
 
 const SITE = 'https://aimunger.com';
 const SITE_DIR = path.join(__dirname, '_site');
+const BLOG_SOURCE_DIR = path.join(__dirname, 'blog');
+
+// Map blog URLs to their publish dates so lastmod reflects real content age
+// instead of the build date.
+function buildLastmodMap() {
+  const map = new Map();
+  if (!fs.existsSync(BLOG_SOURCE_DIR)) return map;
+  for (const file of fs.readdirSync(BLOG_SOURCE_DIR)) {
+    if (!file.endsWith('.md')) continue;
+    const raw = fs.readFileSync(path.join(BLOG_SOURCE_DIR, file), 'utf-8');
+    const meta = parseSimpleMeta(splitFrontmatter(raw).frontmatter);
+    const slug = meta.slug || file.replace(/\.md$/, '');
+    if (meta.date && /^\d{4}-\d{2}-\d{2}/.test(meta.date)) {
+      map.set(`${SITE}/blog/${slug}/`, meta.date.slice(0, 10));
+    }
+  }
+  return map;
+}
 
 // Collect all HTML pages from the built site
 function collectPages(dir, base = '') {
@@ -77,12 +96,13 @@ function getChangefreq(url) {
 
 // Sort URLs for consistent output
 const sortedUrls = [...allUrls].sort();
+const lastmodMap = buildLastmodMap();
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sortedUrls.map(url => `  <url>
     <loc>${url}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${lastmodMap.get(url) || today}</lastmod>
     <changefreq>${getChangefreq(url)}</changefreq>
     <priority>${getPriority(url)}</priority>
   </url>`).join('\n')}

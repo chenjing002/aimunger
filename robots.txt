@@ -3,4 +3,10 @@ Allow: /
 
 Sitemap: https://aimunger.com/sitemap.xml
 Sitemap: https://aimunger.com/sitemap-md.xml
+
+# Guides for LLMs and AI agents — all AI crawlers are welcome.
+# Standard index: https://aimunger.com/llms.txt
+# Full-text bundle: https://aimunger.com/llms-full.txt
+# Detailed crawl guide: https://aimunger.com/llm.txt
 Llm-Txt: https://aimunger.com/llm.txt
+Llms-Txt: https://aimunger.com/llms.txt

@@ -1,12 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const {
+  buildExcerpt,
+  buildJsonLd,
   buildPublishedMarkdown,
   injectAlternateMarkdownLinkInFile,
+  injectHeadSnippetInFile,
   parseSimpleMeta,
   replaceWikiLinks,
   splitFrontmatter,
-  stripMarkdown,
 } = require('./site-md-utils');
 
 const SITE = 'https://aimunger.com';
@@ -26,9 +28,19 @@ function ensureDir(dir) {
 }
 
 function excerpt(text, maxLen = 140) {
-  const plain = stripMarkdown(text);
-  if (plain.length <= maxLen) return plain;
-  return `${plain.slice(0, maxLen)}...`;
+  return buildExcerpt(text, maxLen);
+}
+
+// Parses a frontmatter value that may be a JSON array, e.g. authors: ["A", "B"].
+function parseListValue(value) {
+  if (!value) return [];
+  if (value.startsWith('[')) {
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) return parsed.map(String);
+    } catch (_) { /* fall through */ }
+  }
+  return [value];
 }
 
 function resolveLettersSourceDir() {
@@ -246,8 +258,34 @@ function collectBookItems() {
       const { frontmatter, body } = splitFrontmatter(raw);
       const meta = parseSimpleMeta(frontmatter);
       const title = meta.title_zh || meta.title_en || slug;
+      const authors = parseListValue(meta.authors);
       const htmlUrl = `${SITE}/resources/books/${slug}`;
       const mdUrl = `${SITE}/resources/books/${slug}.md`;
+      const summary = excerpt(body);
+
+      const bookJsonLd = buildJsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description: summary,
+        url: htmlUrl,
+        mainEntityOfPage: htmlUrl,
+        inLanguage: 'zh-CN',
+        about: {
+          '@type': 'Book',
+          name: meta.title_zh || title,
+          ...(meta.title_en ? { alternateName: meta.title_en } : {}),
+          ...(authors.length
+            ? { author: authors.map(name => ({ '@type': 'Person', name })) }
+            : {}),
+        },
+        publisher: { '@type': 'Organization', name: 'aimunger', url: SITE },
+      });
+      injectHeadSnippetInFile(
+        path.join(BOOKS_PUBLIC_DIR, slug, 'index.html'),
+        bookJsonLd,
+        'application/ld+json'
+      );
 
       writeMarkdownFile(
         path.join(BOOKS_PUBLIC_DIR, `${slug}.md`),
@@ -277,7 +315,7 @@ function collectBookItems() {
         date: '',
         html_url: htmlUrl,
         md_url: mdUrl,
-        summary: excerpt(body),
+        summary,
       };
     })
     .sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
@@ -414,6 +452,8 @@ function writeContentIndexes(sections) {
     '',
     '- JSON 索引：' + `${SITE}/content/index.json`,
     '- Markdown sitemap：' + `${SITE}/sitemap-md.xml`,
+    '- llms.txt：' + `${SITE}/llms.txt`,
+    '- llms-full.txt（文章/Wiki/书籍全文合集）：' + `${SITE}/llms-full.txt`,
     '',
     '## Sections',
     '',
@@ -436,6 +476,76 @@ function writeContentIndexes(sections) {
       body: lines.join('\n'),
     })
   );
+}
+
+function localPathForMdUrl(mdUrl) {
+  return path.join(SITE_DIR, ...mdUrl.slice(SITE.length + 1).split('/'));
+}
+
+// llms.txt following the llmstxt.org convention: H1 + blockquote summary,
+// then H2 sections whose links point at the published Markdown endpoints.
+function writeLlmsTxt(sections) {
+  const lines = [
+    '# aimunger',
+    '',
+    '> 中文的中国股票与长期投资研究资料库：投资长文与案例研究、人物/公司 Wiki、书籍笔记、上市公司致股东信与财务数据。',
+    '',
+    `全站每个内容页都有对应的 Markdown 版本（同路径 \`.md\` 后缀）。抓取指引与站点结构说明见 [llm.txt](${SITE}/llm.txt)；全文合集见 [llms-full.txt](${SITE}/llms-full.txt)。更新日期：${today}。`,
+    '',
+    '## 站点入口',
+    '',
+    `- [首页](${SITE}/): 站点概览与最新文章`,
+    `- [内容索引 JSON](${SITE}/content/index.json): 全站条目的机器可读索引`,
+    `- [内容索引 Markdown](${SITE}/content/index.md): 各栏目索引入口`,
+    `- [Sitemap](${SITE}/sitemap.xml): 全部 HTML 页面`,
+    `- [Markdown Sitemap](${SITE}/sitemap-md.xml): 全部 Markdown 页面`,
+    `- [RSS](${SITE}/rss.xml): 最新内容订阅`,
+  ];
+
+  for (const section of sections) {
+    lines.push('', `## ${section.title}`, '');
+    lines.push(`- [${section.title}索引](${section.md_url})`);
+    for (const item of section.items) {
+      lines.push(`- [${item.title}](${item.md_url})`);
+    }
+  }
+
+  lines.push(
+    '',
+    '## Optional',
+    '',
+    `- [财务数据 JSON](${SITE}/data/data.json): 中国上市公司历史财务数据（/data/ 图表页的底层数据）`,
+    `- [记忆卡](${SITE}/ankicard/): 由学习材料生成的间隔重复记忆卡`,
+    `- [关于](${SITE}/about/): 站点说明与联系方式`,
+    ''
+  );
+
+  fs.writeFileSync(path.join(SITE_DIR, 'llms.txt'), lines.join('\n'));
+}
+
+// llms-full.txt: full text of blog, wiki, and book notes in one file.
+// Letters are excluded to keep the file size reasonable; they are listed in
+// llms.txt and available per-letter as Markdown.
+function writeLlmsFullTxt(sections) {
+  const parts = [
+    '# aimunger llms-full.txt',
+    '',
+    `> 全站文章、Wiki 与书籍笔记的完整 Markdown 合集。生成日期：${today}。`,
+    `> 致股东信未收录于本文件，请通过 ${SITE}/letters/index.md 获取。`,
+    `> 每篇文档以 "<!-- ===== url ===== -->" 分隔，frontmatter 中的 canonical_url 为引用地址。`,
+  ];
+
+  for (const section of sections) {
+    if (section.id === 'letters') continue;
+    for (const item of section.items) {
+      const localPath = localPathForMdUrl(item.md_url);
+      if (!fs.existsSync(localPath)) continue;
+      parts.push('', `<!-- ===== ${item.md_url} ===== -->`, '', fs.readFileSync(localPath, 'utf-8').trim());
+    }
+  }
+
+  parts.push('');
+  fs.writeFileSync(path.join(SITE_DIR, 'llms-full.txt'), parts.join('\n'));
 }
 
 function writeMarkdownSitemap(sections) {
@@ -506,6 +616,8 @@ function run() {
 
   writeContentIndexes(sections);
   writeMarkdownSitemap(sections);
+  writeLlmsTxt(sections);
+  writeLlmsFullTxt(sections);
 
   console.log(`Generated agent-friendly markdown endpoints for ${sections.reduce((sum, section) => sum + section.items.length, 0)} items`);
 }

@@ -1,12 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const {
+  buildExcerpt,
+  buildJsonLd,
   escapeHtml,
   injectAlternateMarkdownLink,
   parseSimpleMeta,
   renderMarkdownToHtml,
   splitFrontmatter,
-  stripMarkdown,
 } = require('./site-md-utils');
 
 const SITE_DIR = path.join(__dirname, '_site');
@@ -83,16 +84,25 @@ function generateSlug(qa) {
   return `post-${qa.id}`;
 }
 
-function getExcerpt(answer, maxLen = 150) {
-  const plain = stripMarkdown(answer);
-  if (plain.length <= maxLen) return plain;
-  return plain.slice(0, maxLen) + '...';
-}
-
 function generateArticlePage(article) {
   const contentHtml = renderMarkdownToHtml(article.answer);
   const dateStr = (article.created_at || '').slice(0, 10);
   const mdHref = `/blog/${article.slug}.md`;
+  const pageUrl = `https://aimunger.com/blog/${article.slug}/`;
+  const description = buildExcerpt(article.answer, 160);
+
+  const jsonLd = buildJsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    ...(dateStr ? { datePublished: dateStr } : {}),
+    inLanguage: 'zh-CN',
+    isPartOf: { '@type': 'Blog', name: 'aimunger 文章', url: 'https://aimunger.com/blog/' },
+    publisher: { '@type': 'Organization', name: 'aimunger', url: 'https://aimunger.com' },
+  });
 
   return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
@@ -102,8 +112,16 @@ function generateArticlePage(article) {
     <meta name="referrer" content="no-referrer">
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>${escapeHtml(article.title)} - aimunger</title>
-    <meta name="description" content="${escapeHtml(getExcerpt(article.answer, 160))}">
-    <link rel="canonical" href="https://aimunger.com/blog/${article.slug}/" />
+    <meta name="description" content="${escapeHtml(description)}">
+    <link rel="canonical" href="${pageUrl}" />
+    <meta property="og:title" content="${escapeHtml(article.title)}" />
+    <meta property="og:description" content="${escapeHtml(description)}" />
+    <meta property="og:url" content="${pageUrl}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="aimunger" />${dateStr ? `
+    <meta property="article:published_time" content="${escapeHtml(dateStr)}" />` : ''}
+    ${jsonLd}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -159,6 +177,8 @@ function generateArticlePage(article) {
 </html>`, mdHref);
 }
 
+const BLOG_INDEX_DESC = '价值投资长文、公司案例研究、投资人访谈与书籍笔记，按发布时间倒序排列。';
+
 function generateListingPage(articles) {
   const cards = articles.map(a => {
     const dateStr = (a.created_at || '').slice(0, 10);
@@ -168,6 +188,25 @@ function generateListingPage(articles) {
                     </a>`;
   }).join('\n');
 
+  const jsonLd = buildJsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'aimunger 文章',
+    description: BLOG_INDEX_DESC,
+    url: 'https://aimunger.com/blog/',
+    inLanguage: 'zh-CN',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: articles.length,
+      itemListElement: articles.slice(0, 100).map((a, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: a.title,
+        url: `https://aimunger.com/blog/${a.slug}/`,
+      })),
+    },
+  });
+
   return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -175,8 +214,15 @@ function generateListingPage(articles) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>文章 - aimunger</title>
-    <meta name="description" content="博文记录。">
+    <meta name="description" content="${escapeHtml(BLOG_INDEX_DESC)}">
     <link rel="canonical" href="https://aimunger.com/blog/" />
+    <meta property="og:title" content="文章 - aimunger" />
+    <meta property="og:description" content="${escapeHtml(BLOG_INDEX_DESC)}" />
+    <meta property="og:url" content="https://aimunger.com/blog/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="aimunger" />
+    ${jsonLd}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -207,7 +253,7 @@ function generateListingPage(articles) {
         <div class="container">
             <section class="hero">
                 <h1 class="hero-title">文章</h1>
-                <p class="hero-desc">博文记录。</p>
+                <p class="hero-desc">${escapeHtml(BLOG_INDEX_DESC)}</p>
             </section>
 
             <section class="projects">
