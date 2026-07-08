@@ -761,6 +761,12 @@
       "title_zh": "为什么聪明人会做蠢事",
       "authors": ["Robert J. Sternberg"],
       "cover": "covers/why-smart-people-stupid.jpg"
+    },
+    {
+      "title_en": "The Joys of Compounding: The Passionate Pursuit of Lifelong Learning",
+      "title_zh": "复利的喜悦",
+      "authors": ["Gautam Baid"],
+      "cover": "covers/joys-of-compounding.jpg"
     }
   ]
 }
