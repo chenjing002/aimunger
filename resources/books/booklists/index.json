@@ -365,6 +365,96 @@
       "title_zh": "选股者",
       "authors": ["Ian Cassel"],
       "cover": "covers/stock-picker.jpg"
+    },
+    {
+      "title_en": "Quality of Earnings: The Investor's Guide to How Much Money A Company Is Really Making",
+      "title_zh": "盈利质量",
+      "authors": ["Thornton L. O'Glove"],
+      "cover": "covers/quality-of-earnings.jpg"
+    },
+    {
+      "title_en": "What's Behind the Numbers?: A Guide to Exposing Financial Chicanery and Avoiding Huge Losses in Your Portfolio",
+      "title_zh": "数字背后的真相",
+      "authors": ["John Del Vecchio", "Tom Jacobs"],
+      "cover": "covers/whats-behind-the-numbers.jpg"
+    },
+    {
+      "title_en": "The Basics of Understanding Financial Statements",
+      "title_zh": "理解财务报表基础",
+      "authors": ["Mariusz Skonieczny"],
+      "cover": "covers/basics-financial-statements.jpg"
+    },
+    {
+      "title_en": "The End of Accounting and the Path Forward for Investors and Managers",
+      "title_zh": "会计的没落与复兴",
+      "authors": ["Baruch Lev", "Feng Gu"],
+      "cover": "covers/end-of-accounting.jpg"
+    },
+    {
+      "title_en": "The CFO Guidebook",
+      "title_zh": "首席财务官指南",
+      "authors": ["Steven M. Bragg"],
+      "cover": "covers/cfo-guidebook.jpg"
+    },
+    {
+      "title_en": "The Accounting Game: Basic Accounting Fresh from the Lemonade Stand",
+      "title_zh": "世界上最简单的会计书",
+      "authors": ["Darrell Mullis", "Judith Orloff"],
+      "cover": "covers/accounting-game.jpg"
+    },
+    {
+      "title_en": "Accounting for Value",
+      "title_zh": "价值会计",
+      "authors": ["Stephen Penman"],
+      "cover": "covers/accounting-for-value.jpg"
+    },
+    {
+      "title_en": "How to Read a Financial Report: Wringing Vital Signs Out of the Numbers",
+      "title_zh": "如何阅读财务报告",
+      "authors": ["John A. Tracy", "Tage C. Tracy"],
+      "cover": "covers/how-to-read-financial-report.jpg"
+    },
+    {
+      "title_en": "The Interpretation of Financial Statements",
+      "title_zh": "财务报表解读",
+      "authors": ["Benjamin Graham", "Spencer B. Meredith"],
+      "cover": "covers/interpretation-financial-statements.jpg"
+    },
+    {
+      "title_en": "Analysis for Financial Management",
+      "title_zh": "财务管理分析",
+      "authors": ["Robert C. Higgins"],
+      "cover": "covers/analysis-financial-management.jpg"
+    },
+    {
+      "title_en": "Financial Statement Analysis and Security Valuation",
+      "title_zh": "财务报表分析与证券估值",
+      "authors": ["Stephen H. Penman"],
+      "cover": "covers/financial-statement-analysis-penman.jpg"
+    },
+    {
+      "title_en": "Financial Shenanigans: How to Detect Accounting Gimmicks & Fraud in Financial Reports",
+      "title_zh": "财务诡计",
+      "authors": ["Howard M. Schilit", "Jeremy Perler", "Yoni Engelhart"],
+      "cover": "covers/financial-shenanigans.jpg"
+    },
+    {
+      "title_en": "Understanding Corporate Reports: A Guide to Financial Statement Analysis",
+      "title_zh": "理解公司报告：财务报表分析指南",
+      "authors": ["Leopold A. Bernstein"],
+      "cover": "covers/understanding-corporate-reports.jpg"
+    },
+    {
+      "title_en": "Advanced Accounting",
+      "title_zh": "高级会计学",
+      "authors": ["Leopold A. Bernstein", "Calvin Engler"],
+      "cover": "covers/advanced-accounting-bernstein.jpg"
+    },
+    {
+      "title_en": "Financial Statement Analysis: Theory, Application, and Interpretation",
+      "title_zh": "财务报表分析：理论、应用与解释",
+      "authors": ["Leopold A. Bernstein", "John J. Wild"],
+      "cover": "covers/financial-statement-analysis-bernstein.jpg"
     }
   ]
 }
