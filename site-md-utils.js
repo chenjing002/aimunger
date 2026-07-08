@@ -95,6 +95,9 @@ function renderInlineMarkdown(text) {
     return `@@CODESPAN_${idx}@@`;
   });
 
+  html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g, (_, alt, src) => {
+    return `<img src="${src}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`;
+  });
   html = html.replace(/&lt;(https?:\/\/[^&]+)&gt;/g, '<a href="$1">$1</a>');
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -119,6 +122,10 @@ function renderMarkdownToHtml(markdown) {
   const htmlBlocks = blocks.map(block => {
     const codeMatch = block.match(/^@@CODEBLOCK_(\d+)@@$/);
     if (codeMatch) return codeBlocks[Number(codeMatch[1])];
+
+    if (/^(?:-{3,}|\*{3,}|(?:\*\s+){2,}\*?)$/.test(block)) {
+      return '<hr>';
+    }
 
     const heading = block.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
