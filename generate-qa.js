@@ -1,5 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const {
+  escapeHtml,
+  injectAlternateMarkdownLink,
+  parseSimpleMeta,
+  renderMarkdownToHtml,
+  splitFrontmatter,
+  stripMarkdown,
+} = require('./site-md-utils');
 
 const SITE_DIR = path.join(__dirname, '_site');
 const CI_QA_PATH = path.join(__dirname, '_build', 'llm-reader', 'qa.html');
@@ -8,6 +16,7 @@ const QA_HTML_PATH = fs.existsSync(CI_QA_PATH) ? CI_QA_PATH : LOCAL_QA_PATH;
 const ARTICLES_DIR = path.join(SITE_DIR, 'blog');
 const BLOG_DIR = path.join(__dirname, 'blog');
 const INDEX_PATH = path.join(__dirname, 'index.html');
+const SITE_INDEX_PATH = path.join(SITE_DIR, 'index.html');
 
 // Pinyin mapping for Chinese name characters
 const PINYIN = {
@@ -74,51 +83,32 @@ function generateSlug(qa) {
   return `post-${qa.id}`;
 }
 
-function stripMarkdown(text) {
-  return (text || '')
-    .replace(/\*\*/g, '')
-    .replace(/\*/g, '')
-    .replace(/#{1,6}\s*/g, '')
-    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .replace(/`[^`]*`/g, '')
-    .replace(/^[-*]\s+/gm, '')
-    .replace(/^\d+\.\s+/gm, '')
-    .replace(/\n+/g, ' ')
-    .trim();
-}
-
 function getExcerpt(answer, maxLen = 150) {
   const plain = stripMarkdown(answer);
   if (plain.length <= maxLen) return plain;
   return plain.slice(0, maxLen) + '...';
 }
 
-function escHtml(s) {
-  return String(s || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 function generateArticlePage(article) {
-  const contentJson = JSON.stringify(article.answer).replace(/<\//g, '<\\/');
+  const contentHtml = renderMarkdownToHtml(article.answer);
   const dateStr = (article.created_at || '').slice(0, 10);
+  const mdHref = `/blog/${article.slug}.md`;
 
-  return `<!DOCTYPE html>
+  return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>${escHtml(article.title)} - aimunger</title>
-    <meta name="description" content="${escHtml(getExcerpt(article.answer, 160))}">
+    <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
+    <title>${escapeHtml(article.title)} - aimunger</title>
+    <meta name="description" content="${escapeHtml(getExcerpt(article.answer, 160))}">
+    <link rel="canonical" href="https://aimunger.com/blog/${article.slug}/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.4/marked.min.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
          crossorigin="anonymous"></script>
 </head>
@@ -145,10 +135,10 @@ function generateArticlePage(article) {
             <article class="article">
                 <div class="article-header">
                     <a href="/blog/" class="article-back">&larr; 所有文章</a>
-                    <h1 class="article-title">${escHtml(article.title)}</h1>
-                    <time class="article-date">${escHtml(dateStr)}</time>
+                    <h1 class="article-title">${escapeHtml(article.title)}</h1>
+                    <time class="article-date">${escapeHtml(dateStr)}</time>
                 </div>
-                <div class="article-body" id="article-content"></div>
+                <div class="article-body">${contentHtml}</div>
             </article>
         </div>
     </main>
@@ -165,31 +155,28 @@ function generateArticlePage(article) {
             <p>&copy; 2026 aimunger</p>
         </div>
     </footer>
-
-    <script>
-    marked.setOptions({breaks:true,gfm:true});
-    document.getElementById('article-content').innerHTML = marked.parse(${contentJson});
-    </script>
 </body>
-</html>`;
+</html>`, mdHref);
 }
 
 function generateListingPage(articles) {
   const cards = articles.map(a => {
     const dateStr = (a.created_at || '').slice(0, 10);
     return `                    <a href="/blog/${a.slug}/" class="blog-link">
-                            <span class="blog-link-title">${escHtml(a.title)}</span>
-                            <time class="blog-link-date">${escHtml(dateStr)}</time>
+                            <span class="blog-link-title">${escapeHtml(a.title)}</span>
+                            <time class="blog-link-date">${escapeHtml(dateStr)}</time>
                     </a>`;
   }).join('\n');
 
-  return `<!DOCTYPE html>
+  return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>文章 - aimunger</title>
     <meta name="description" content="博文记录。">
+    <link rel="canonical" href="https://aimunger.com/blog/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -244,25 +231,19 @@ ${cards}
         </div>
     </footer>
 </body>
-</html>`;
+</html>`, '/blog/index.md');
 }
 
 function loadBlogArticles() {
   if (!fs.existsSync(BLOG_DIR)) return [];
   return fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md')).map(f => {
     const raw = fs.readFileSync(path.join(BLOG_DIR, f), 'utf-8');
-    const fm = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-    const meta = {};
-    if (fm) {
-      fm[1].split('\n').forEach(line => {
-        const m = line.match(/^(\w+):\s*(.*)$/);
-        if (m) meta[m[1]] = m[2];
-      });
-    }
+    const { frontmatter, body } = splitFrontmatter(raw);
+    const meta = parseSimpleMeta(frontmatter);
     let title = meta.title || f.replace(/\.md$/, '');
     // Strip surrounding quotes from title
     title = title.replace(/^"(.*)"$/, '$1');
-    let content = (fm ? fm[2] : raw).trim();
+    const content = body.trim();
     return {
       slug: meta.slug || f.replace(/\.md$/, ''),
       title,
@@ -310,8 +291,8 @@ function run() {
     const latestCards = latest.map(a => {
       const dateStr = (a.created_at || '').slice(0, 10);
       return `                    <a href="/blog/${a.slug}/" class="blog-link">
-                            <span class="blog-link-title">${escHtml(a.title)}</span>
-                            <time class="blog-link-date">${escHtml(dateStr)}</time>
+                            <span class="blog-link-title">${escapeHtml(a.title)}</span>
+                            <time class="blog-link-date">${escapeHtml(dateStr)}</time>
                     </a>`;
     }).join('\n');
 
@@ -323,16 +304,19 @@ ${latestCards}
                 </div>
             </section>`;
 
-    let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
-    const startMarker = '<!-- POSTS_SECTION_START -->';
-    const endMarker = '<!-- POSTS_SECTION_END -->';
-    const start = indexHtml.indexOf(startMarker);
-    const end = indexHtml.indexOf(endMarker);
-    if (start !== -1 && end !== -1) {
-      indexHtml = indexHtml.slice(0, start) + startMarker + sectionContent + '\n            ' + endMarker + indexHtml.slice(end + endMarker.length);
-      fs.writeFileSync(INDEX_PATH, indexHtml);
-      console.log(`Injected ${latest.length} latest posts into index.html`);
+    for (const targetPath of [INDEX_PATH, SITE_INDEX_PATH]) {
+      if (!fs.existsSync(targetPath)) continue;
+      let indexHtml = fs.readFileSync(targetPath, 'utf-8');
+      const startMarker = '<!-- POSTS_SECTION_START -->';
+      const endMarker = '<!-- POSTS_SECTION_END -->';
+      const start = indexHtml.indexOf(startMarker);
+      const end = indexHtml.indexOf(endMarker);
+      if (start !== -1 && end !== -1) {
+        indexHtml = indexHtml.slice(0, start) + startMarker + sectionContent + '\n            ' + endMarker + indexHtml.slice(end + endMarker.length);
+        fs.writeFileSync(targetPath, indexHtml);
+      }
     }
+    console.log(`Injected ${latest.length} latest posts into home page`);
   }
 
   console.log(`Generated ${articles.length} article pages`);

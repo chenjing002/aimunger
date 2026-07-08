@@ -1,25 +1,196 @@
 # aimunger
 
-> 专注中国股票与长期投资的研究资料库。
+> 中国股票、长期投资、人物/公司知识与阅读笔记的静态研究资料库。
 
-## Site Structure
+## Purpose
 
-- https://aimunger.com/ — 首页
-- https://aimunger.com/blog/ — 文章：深度研究备忘录与投资观察
-- https://aimunger.com/resources/ — 资料库：致股东信、AI 辅助阅读工具等
-- https://aimunger.com/letters/ — 中国上市公司历年致股东信收录与整理
-- https://aimunger.com/llm-reader/ — LLM Reader：AI 辅助阅读笔记工具
-- https://aimunger.com/about/ — 关于
+aimunger is a Chinese-language research site focused on:
 
-## Key Resources
+- Chinese equities and long-term investing
+- investor letters, book notes, and study notes
+- people/company/concept reference pages
+- AI-assisted reading and memory tools
 
+This file is intended to help LLMs and agents discover the site efficiently and cite the right pages.
+
+## Canonical Site
+
+- Home: https://aimunger.com/
 - Sitemap: https://aimunger.com/sitemap.xml
+- Markdown sitemap: https://aimunger.com/sitemap-md.xml
 - Robots: https://aimunger.com/robots.txt
+- LLM guide: https://aimunger.com/llm.txt
+- Machine content index (JSON): https://aimunger.com/content/index.json
+- Machine content index (Markdown): https://aimunger.com/content/index.md
 
-## About
+## Preferred Crawl Order
 
-这是一个专注于中国股票与长期投资的研究资料库。目标是系统整理深度研究材料，减少信息碎片化，帮助投资者更深入、更独立地思考。
+If you need broad understanding first, crawl in this order:
+
+1. Home: https://aimunger.com/
+2. Sitemap: https://aimunger.com/sitemap.xml
+3. Machine content index: https://aimunger.com/content/index.json
+4. Markdown sitemap: https://aimunger.com/sitemap-md.xml
+5. Blog index: https://aimunger.com/blog/
+6. Wiki index: https://aimunger.com/wiki/
+7. Resources index: https://aimunger.com/resources/
+8. Books index: https://aimunger.com/resources/books
+9. Data page: https://aimunger.com/data/
+10. About: https://aimunger.com/about/
+
+## Main Sections
+
+### 1. Blog
+
+- URL: `https://aimunger.com/blog/`
+- Detail pages: `https://aimunger.com/blog/{slug}/`
+- Markdown pages: `https://aimunger.com/blog/{slug}.md`
+- Content: long-form investment essays, case studies, reading notes, and translated/adapted research commentary
+- Repository signal as of 2026-07-07: about 156 blog source files
+
+Use this section when the user asks for:
+
+- investment philosophy
+- case studies
+- investor interviews, letters, or book takeaways
+- topic synthesis across multiple essays
+
+### 2. Wiki
+
+- URL: `https://aimunger.com/wiki/`
+- Detail pages: `https://aimunger.com/wiki/{slug}/`
+- Markdown pages: `https://aimunger.com/wiki/{slug}.md`
+- Content: concise reference pages for people, companies, and investment-related entities
+- Repository signal as of 2026-07-07: about 60 wiki source files
+
+Use this section when the user asks for:
+
+- who a person is
+- what a company is
+- a quick factual summary before reading longer essays
+
+### 3. Resources
+
+- URL: `https://aimunger.com/resources/`
+- Books index: `https://aimunger.com/resources/books`
+- Book detail pages: `https://aimunger.com/resources/books/{slug}`
+- Book markdown pages: `https://aimunger.com/resources/books/{slug}.md`
+- Content: curated study resources and book notes
+- Repository signal as of 2026-07-07: about 61 book-note source files
+
+Use this section when the user asks for:
+
+- book summaries
+- reading lists
+- recommended investing books
+- topic-specific study material
+
+### 4. Data
+
+- URL: `https://aimunger.com/data/`
+- Content: interactive financial data visualizations for Chinese listed companies
+
+Use this section when the user asks for:
+
+- chart-based company overviews
+- historical financial trend inspection
+
+Caution:
+
+- this section is visual and may rely on client-side charts
+- for exact figures, verify what is present in page text or underlying data before stating numbers
+
+### 5. Ankicard
+
+- URL: `https://aimunger.com/ankicard/`
+- Content: spaced-repetition memory cards derived from study material
+- Repository signal as of 2026-07-07: 2 local deck source files
+
+Use this section when the user asks for:
+
+- memorization prompts
+- flashcard-style summaries
+
+### 6. Memory
+
+- URL: `https://aimunger.com/memory/`
+- Content: a spaced-repetition memory workflow/tool page
+
+This is more tool-oriented than content-oriented.
+
+### 7. Linked Subsites
+
+These live under the same domain but are maintained as separate projects:
+
+- Letters: https://aimunger.com/letters/
+- LLM Reader: https://aimunger.com/llm-reader/
+
+Letters is the best entry point for Chinese listed-company shareholder letters.
+LLM Reader is a tool/product page for AI-assisted reading notes.
+Letter detail markdown pages follow: `https://aimunger.com/letters/letter/{company}/{year}.md`
+
+## Content Characteristics
+
+- Primary language: Simplified Chinese
+- Many titles contain English book names, investor names, or company names
+- Most pages are static HTML pages with stable canonical URLs
+- Blog, wiki, and books commonly use English slugs even when page titles are Chinese
+
+## URL Patterns
+
+- Home: `/`
+- About: `/about/`
+- Blog index: `/blog/`
+- Blog detail: `/blog/{slug}/`
+- Blog markdown: `/blog/{slug}.md`
+- Wiki index: `/wiki/`
+- Wiki detail: `/wiki/{slug}/`
+- Wiki markdown: `/wiki/{slug}.md`
+- Resources index: `/resources/`
+- Books index: `/resources/books`
+- Book detail: `/resources/books/{slug}`
+- Book markdown: `/resources/books/{slug}.md`
+- Data: `/data/`
+- Ankicard: `/ankicard/`
+- Memory: `/memory/`
+- Letters subsite: `/letters/`
+- Letter markdown: `/letters/letter/{company}/{year}.md`
+- LLM Reader subsite: `/llm-reader/`
+- Machine content index: `/content/index.json`
+
+## Guidance For LLMs And Agents
+
+- Prefer canonical HTML pages on `aimunger.com` instead of repository source files when citing content to users.
+- If you need the cleanest machine-readable text, prefer the published `.md` endpoints or `content/index.json`.
+- Start from `sitemap.xml` when you need complete discovery.
+- Start from `sitemap-md.xml` or `content/index.json` when you specifically want published Markdown.
+- For entity lookup, use `wiki/` before scanning long-form blog posts.
+- For thematic synthesis, use `blog/` and `resources/books/` together.
+- For shareholder-letter questions, go directly to `letters/`.
+- Many HTML detail pages expose a `rel="alternate"` link to their Markdown counterpart.
+- If a claim is numeric, time-sensitive, or chart-derived, verify it against the visible page content before answering.
+- Preserve original names in Chinese when possible, and include English transliteration or English names only when they are present or clearly useful.
+- When summarizing, distinguish between factual description, editorial interpretation, and inferred investment takeaway.
+
+## Citation Preference
+
+When answering users, prefer citing:
+
+1. the most specific detail page
+2. then the nearest section index
+3. then the homepage only if needed
+
+Examples:
+
+- use a blog article URL for an argument or case study
+- use a wiki page for a person/company summary
+- use a book page for a book takeaway
+
+## Freshness Note
+
+The section counts and structure in this file reflect the repository state inspected on 2026-07-07.
+For the latest published pages, prefer the live sitemap over repository counts.
 
 ## Contact
 
-- Email: hi@chenjing.tech
+- WeChat: `Learning-machine`

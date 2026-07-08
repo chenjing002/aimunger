@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { injectAlternateMarkdownLink } = require('./site-md-utils');
 
 const IR_LOG_WIKI = path.join(__dirname, '..', 'IR-log', 'wiki');
 const WIKI_SOURCE = path.join(__dirname, 'wiki-source');
@@ -195,13 +196,15 @@ const FOOTER_HTML = `    <footer class="footer">
     </footer>`;
 
 function generateArticlePage(title, htmlContent) {
-  return `<!DOCTYPE html>
+  return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>${escHtml(title)} - Wiki - aimunger</title>
     <meta name="description" content="${escHtml(title)} - aimunger Wiki">
+    <link rel="canonical" href="https://aimunger.com/wiki/${getSlug(title)}/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -230,7 +233,7 @@ ${NAV_HTML}
 
 ${FOOTER_HTML}
 </body>
-</html>`;
+</html>`, `/wiki/${getSlug(title)}.md`);
 }
 
 function syncFromIRLog() {
@@ -463,13 +466,15 @@ function generateIndexPage(entries) {
                     </a>`;
   }).join('\n');
 
-  return `<!DOCTYPE html>
+  return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>Wiki - aimunger</title>
     <meta name="description" content="aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱">
+    <link rel="canonical" href="https://aimunger.com/wiki/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -536,7 +541,7 @@ ${FOOTER_HTML}
 ${generateGraphScript()}
     </script>
 </body>
-</html>`;
+</html>`, '/wiki/index.md');
 }
 
 function generateGraphScript() {
