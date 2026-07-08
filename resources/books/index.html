@@ -24,6 +24,41 @@
             gap: 28px 24px;
             padding-bottom: 72px;
         }
+        .books-toolbar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .books-search {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            background: var(--color-card-bg);
+            color: var(--color-text);
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .books-search:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(139, 37, 0, 0.08);
+        }
+        .books-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+        .books-empty {
+            display: none;
+            padding: 28px 0 72px;
+            color: var(--color-text-secondary);
+            font-size: 14px;
+        }
         .book-card {
             text-decoration: none;
             color: inherit;
@@ -70,6 +105,14 @@
             line-height: 1.5;
         }
         @media (max-width: 600px) {
+            .books-toolbar {
+                margin-bottom: 24px;
+            }
+            .books-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
             .books-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px 16px;
@@ -105,10 +148,24 @@
         <div class="container">
             <section class="hero">
                 <h1 class="hero-title">书籍推荐</h1>
-                <p class="hero-desc">精选投资、商业与长期思维相关的经典读物。</p>
+                <p class="hero-desc">精选投资、商业与长期思维相关的经典读物，共 <span id="books-total-count">0</span> 本。</p>
+            </section>
+
+            <section class="books-toolbar" aria-label="书籍搜索">
+                <input
+                    id="books-search"
+                    class="books-search"
+                    type="search"
+                    placeholder="搜索中文书名、英文书名或作者"
+                    autocomplete="off"
+                >
+                <div class="books-meta">
+                    <span id="books-match-summary">正在加载书单...</span>
+                </div>
             </section>
 
             <div class="books-grid" id="books-grid"></div>
+            <div class="books-empty" id="books-empty">没有找到匹配的书籍，请尝试其他关键词。</div>
         </div>
     </main>
 
@@ -128,6 +185,10 @@
     <script>
     (function() {
         var grid = document.getElementById('books-grid');
+        var searchInput = document.getElementById('books-search');
+        var totalCount = document.getElementById('books-total-count');
+        var matchSummary = document.getElementById('books-match-summary');
+        var emptyState = document.getElementById('books-empty');
         var slugMap = {
             'Santa Monica Partners Letters to Partners 1982-2021: 40 Years of "Pink Sheet" Investing': 'santa-monica-partners',
             'Autopsy of a Merger: Trans Union: The Deal That Rocked the Corporate World': 'autopsy-of-a-merger',
@@ -189,31 +250,91 @@
             'Competitive Strategy: Techniques for Analyzing Industries and Competitors': 'competitive-strategy',
             'Thinking, Fast and Slow': 'thinking-fast-and-slow',
             "Stock Market Maestros: Winning Habits, Strategies and Mindsets of Britain's Best Investors": 'stock-market-maestros',
-            "Stock Picker: A Microcap Investor's Guide to Money, Discipline, and Edge": 'stock-picker'
+            "Stock Picker: A Microcap Investor's Guide to Money, Discipline, and Edge": 'stock-picker',
+            'Quality of Earnings: The Investor\'s Guide to How Much Money A Company Is Really Making': 'quality-of-earnings',
+            "What's Behind the Numbers?: A Guide to Exposing Financial Chicanery and Avoiding Huge Losses in Your Portfolio": 'whats-behind-the-numbers',
+            'The Basics of Understanding Financial Statements': 'basics-financial-statements',
+            'The End of Accounting and the Path Forward for Investors and Managers': 'end-of-accounting',
+            'The CFO Guidebook': 'cfo-guidebook',
+            'The Accounting Game: Basic Accounting Fresh from the Lemonade Stand': 'accounting-game',
+            'Accounting for Value': 'accounting-for-value',
+            'How to Read a Financial Report: Wringing Vital Signs Out of the Numbers': 'how-to-read-financial-report',
+            'The Interpretation of Financial Statements': 'interpretation-financial-statements',
+            'Analysis for Financial Management': 'analysis-financial-management',
+            'Financial Statement Analysis and Security Valuation': 'financial-statement-analysis-penman',
+            'Financial Shenanigans: How to Detect Accounting Gimmicks & Fraud in Financial Reports': 'financial-shenanigans',
+            'Understanding Corporate Reports: A Guide to Financial Statement Analysis': 'understanding-corporate-reports',
+            'Advanced Accounting': 'advanced-accounting-bernstein',
+            'Financial Statement Analysis: Theory, Application, and Interpretation': 'financial-statement-analysis-bernstein'
         };
+        var books = [];
 
         fetch('booklists/index.json')
             .then(function(r) { return r.json(); })
             .then(function(data) {
-                data.booklists.forEach(function(book) {
-                    var slug = slugMap[book.title_en] || '';
-                    var card = document.createElement('a');
-                    card.className = 'book-card';
-                    card.href = '/resources/books/' + slug;
-                    card.innerHTML =
-                        '<div class="book-cover-wrap">' +
-                            '<img src="booklists/' + esc(book.cover) + '" alt="' + esc(book.title_zh) + '" loading="lazy">' +
-                        '</div>' +
-                        '<div class="book-info">' +
-                            '<div class="book-title-zh">' + esc(book.title_zh) + '</div>' +
-                            '<div class="book-authors">' + esc(book.authors.join(', ')) + '</div>' +
-                        '</div>';
-                    grid.appendChild(card);
+                books = data.booklists.map(function(book) {
+                    return {
+                        title_zh: book.title_zh,
+                        title_en: book.title_en,
+                        authors: book.authors || [],
+                        cover: book.cover,
+                        slug: slugMap[book.title_en] || '',
+                        searchable: normalize([
+                            book.title_zh,
+                            book.title_en,
+                            (book.authors || []).join(' ')
+                        ].join(' '))
+                    };
                 });
+                totalCount.textContent = String(books.length);
+                renderBooks('');
+            })
+            .catch(function() {
+                matchSummary.textContent = '书单加载失败，请稍后重试。';
+                emptyState.style.display = 'block';
             });
 
+        searchInput.addEventListener('input', function(e) {
+            renderBooks(e.target.value || '');
+        });
+
+        function renderBooks(query) {
+            var normalizedQuery = normalize(query);
+            var filtered = books.filter(function(book) {
+                return !normalizedQuery || book.searchable.indexOf(normalizedQuery) !== -1;
+            });
+
+            grid.innerHTML = '';
+            filtered.forEach(function(book) {
+                var card = document.createElement('a');
+                card.className = 'book-card';
+                card.href = '/resources/books/' + book.slug;
+                card.innerHTML =
+                    '<div class="book-cover-wrap">' +
+                        '<img src="booklists/' + esc(book.cover) + '" alt="' + esc(book.title_zh) + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="book-info">' +
+                        '<div class="book-title-zh">' + esc(book.title_zh) + '</div>' +
+                        '<div class="book-authors">' + esc(book.authors.join(', ')) + '</div>' +
+                    '</div>';
+                grid.appendChild(card);
+            });
+
+            if (normalizedQuery) {
+                matchSummary.textContent = '共 ' + books.length + ' 本，当前匹配 ' + filtered.length + ' 本';
+            } else {
+                matchSummary.textContent = '可按中文书名、英文书名或作者搜索';
+            }
+
+            emptyState.style.display = filtered.length ? 'none' : 'block';
+        }
+
+        function normalize(s) {
+            return String(s || '').toLowerCase().trim();
+        }
+
         function esc(s) {
-            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
     })();
     </script>
