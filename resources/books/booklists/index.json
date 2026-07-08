@@ -677,6 +677,90 @@
       "title_zh": "理解迈克尔·波特",
       "authors": ["Joan Magretta"],
       "cover": "covers/understanding-michael-porter.jpg"
+    },
+    {
+      "title_en": "The Uncertainty Solution: How to Invest with Confidence in the Face of the Unknown",
+      "title_zh": "不确定性的解法：在未知中建立投资信心",
+      "authors": ["John M. Jennings"],
+      "cover": "covers/uncertainty-solution.jpg"
+    },
+    {
+      "title_en": "Business Analysis and Valuation Using Financial Statements: Text and Cases",
+      "title_zh": "经营分析与估值：基于财务报表",
+      "authors": ["Krishna G. Palepu", "Paul M. Healy"],
+      "cover": "covers/business-analysis-valuation.jpg"
+    },
+    {
+      "title_en": "Buffett and Munger Unscripted: Three Decades of Investment and Business Insights from the Berkshire Hathaway Annual Shareholder Meetings",
+      "title_zh": "巴菲特与芒格即席问答：伯克希尔哈撒韦股东大会三十年投资智慧",
+      "authors": ["Alex W. Morris"],
+      "cover": "covers/buffett-munger-unscripted.jpg"
+    },
+    {
+      "title_en": "Valuegrowth Investing: How to Become a Disciplined Investor",
+      "title_zh": "价值成长投资：如何成为纪律严明的投资者",
+      "authors": ["Glen Arnold"],
+      "cover": "covers/valuegrowth-investing.jpg"
+    },
+    {
+      "title_en": "Triumph of the Optimists: 101 Years of Global Investment Returns",
+      "title_zh": "乐观主义者的胜利：101年全球投资回报",
+      "authors": ["Elroy Dimson", "Paul Marsh", "Mike Staunton"],
+      "cover": "covers/triumph-of-optimists.jpg"
+    },
+    {
+      "title_en": "Dance of the Money Bees: A Professional Speaks Frankly on Investing",
+      "title_zh": "金钱蜜蜂之舞：一位专业人士坦诚谈投资",
+      "authors": ["John Train"],
+      "cover": "covers/dance-of-money-bees.jpg"
+    },
+    {
+      "title_en": "Value Investing: A Balanced Approach",
+      "title_zh": "价值投资：一种均衡的方法",
+      "authors": ["Martin J. Whitman"],
+      "cover": "covers/value-investing-balanced-approach.jpg"
+    },
+    {
+      "title_en": "CFROI Valuation: A Total System Approach to Valuing the Firm",
+      "title_zh": "CFROI估值：企业价值评估的完整体系",
+      "authors": ["Bartley J. Madden"],
+      "cover": "covers/cfroi-valuation.jpg"
+    },
+    {
+      "title_en": "Blueprint to a Billion: 7 Essentials to Achieve Exponential Growth",
+      "title_zh": "十亿蓝图：实现指数级增长的七大要素",
+      "authors": ["David G. Thomson"],
+      "cover": "covers/blueprint-to-a-billion.jpg"
+    },
+    {
+      "title_en": "Outstanding Investor Digest",
+      "title_zh": "杰出投资者文摘",
+      "authors": ["Henry Emerson"],
+      "cover": "covers/outstanding-investor-digest.jpg"
+    },
+    {
+      "title_en": "John Neff on Investing",
+      "title_zh": "约翰·聂夫的成功投资",
+      "authors": ["John Neff", "S. L. Mintz"],
+      "cover": "covers/john-neff-on-investing.jpg"
+    },
+    {
+      "title_en": "Money Masters of Our Time",
+      "title_zh": "投资大师",
+      "authors": ["John Train"],
+      "cover": "covers/money-masters-of-our-time.jpg"
+    },
+    {
+      "title_en": "Expectations Investing: Reading Stock Prices for Better Returns",
+      "title_zh": "预期投资：解读股票价格以获取更佳回报",
+      "authors": ["Alfred Rappaport", "Michael J. Mauboussin"],
+      "cover": "covers/expectations-investing.jpg"
+    },
+    {
+      "title_en": "Why Smart People Can Be So Stupid",
+      "title_zh": "为什么聪明人会做蠢事",
+      "authors": ["Robert J. Sternberg"],
+      "cover": "covers/why-smart-people-stupid.jpg"
     }
   ]
 }
