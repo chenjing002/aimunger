@@ -31,14 +31,20 @@
             margin-bottom: 32px;
         }
         .books-search {
-            width: 100%;
+            width: min(100%, 420px);
+            max-width: 100%;
             padding: 14px 16px;
             border: 1px solid var(--color-border);
             border-radius: 12px;
             background: var(--color-card-bg);
             color: var(--color-text);
-            font-size: 14px;
+            font-family: var(--font-serif);
+            font-size: 15px;
             line-height: 1.4;
+        }
+        .books-search::placeholder {
+            color: #8a8179;
+            opacity: 1;
         }
         .books-search:focus {
             outline: none;
@@ -47,11 +53,6 @@
         }
         #books-total-count {
             color: #8b2500;
-        }
-        #books-match-summary {
-            display: block;
-            font-size: 13px;
-            color: var(--color-text-secondary);
         }
         .books-empty {
             display: none;
@@ -150,11 +151,10 @@
                 <input
                     id="books-search"
                     class="books-search"
-                type="search"
-                placeholder="搜索中文书名、英文书名或作者"
-                autocomplete="off"
+                    type="search"
+                    placeholder="搜索中文书名、英文书名或作者"
+                    autocomplete="off"
                 >
-                <span id="books-match-summary">正在加载书单...</span>
             </section>
 
             <div class="books-grid" id="books-grid"></div>
@@ -180,7 +180,6 @@
         var grid = document.getElementById('books-grid');
         var searchInput = document.getElementById('books-search');
         var totalCount = document.getElementById('books-total-count');
-        var matchSummary = document.getElementById('books-match-summary');
         var emptyState = document.getElementById('books-empty');
         var slugMap = {
             'Santa Monica Partners Letters to Partners 1982-2021: 40 Years of "Pink Sheet" Investing': 'santa-monica-partners',
@@ -283,7 +282,7 @@
                 renderBooks('');
             })
             .catch(function() {
-                matchSummary.textContent = '书单加载失败，请稍后重试。';
+                emptyState.textContent = '书单加载失败，请稍后重试。';
                 emptyState.style.display = 'block';
             });
 
@@ -313,12 +312,7 @@
                 grid.appendChild(card);
             });
 
-            if (normalizedQuery) {
-                matchSummary.textContent = '共 ' + books.length + ' 本，当前匹配 ' + filtered.length + ' 本';
-            } else {
-                matchSummary.textContent = '可按中文书名、英文书名或作者搜索';
-            }
-
+            emptyState.textContent = '没有找到匹配的书籍，请尝试其他关键词。';
             emptyState.style.display = filtered.length ? 'none' : 'block';
         }
 
