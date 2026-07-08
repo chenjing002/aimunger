@@ -211,6 +211,14 @@ function collectWikiItems() {
     .filter(Boolean)
     .sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
 
+  const validMarkdownFiles = new Set(['index.md', ...items.map(item => `${item.slug}.md`)]);
+  for (const entry of fs.readdirSync(WIKI_PUBLIC_DIR, { withFileTypes: true })) {
+    if (!entry.isFile()) continue;
+    if (!entry.name.endsWith('.md')) continue;
+    if (validMarkdownFiles.has(entry.name)) continue;
+    fs.unlinkSync(path.join(WIKI_PUBLIC_DIR, entry.name));
+  }
+
   writeMarkdownFile(
     path.join(WIKI_PUBLIC_DIR, 'index.md'),
     buildSectionIndexMarkdown({

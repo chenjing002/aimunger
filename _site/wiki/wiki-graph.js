@@ -883,6 +883,6 @@ export function mountWikiGraph(el) {
       el.__mounted = true;
     })
     .catch((err) => {
-      el.innerHTML = '<div style="padding:48px;color:#6f6a60;font-size:14px">图谱加载失败：' + (err && err.message) + '</div>';
+      el.innerHTML = '<div style="padding:48px;color:#6f6a60;font-size:14px">图谱加载失败：' + String(err && err.message).replace(/</g, '&lt;') + '</div>';
     });
 }

@@ -28,7 +28,9 @@ const SLUG_MAP = {
   '周小川': 'zhouxiaochuan',
   '孔庆平': 'kongqingping',
   '孙文杰': 'sunwenjie',
+  '孙宏斌': 'sun-hongbin',
   '巴菲特': 'warren-buffett',
+  '宋卫平': 'song-weiping',
   '新鸿基': 'shkp',
   '方洪波': 'fanghongbo',
   '普洛斯': 'glp',
@@ -41,6 +43,7 @@ const SLUG_MAP = {
   '潘樟良': 'panzhangliang',
   '缪建民': 'miaojianmin',
   '蔡曼莉': 'caimanli',
+  '张瑞敏': 'zhang-ruimin',
   '赵燕菁': 'zhaoyanjing',
   '郝建民': 'haojianmin',
   '陈启宗': 'ronnie-chan',
@@ -50,7 +53,9 @@ const SLUG_MAP = {
   '颜建国': 'yanjianguo',
   '马明哲': 'mamingzhe',
   '高西庆': 'gaoxiqing',
+  '海尔': 'haier',
   '黄奇帆': 'huangqifan',
+  '黄峥': 'huang-zheng',
   '深基地B': 'shenzhen-chiwan-base',
   '中国平安': 'ping-an',
   '中国建筑': 'cscec',
@@ -58,6 +63,7 @@ const SLUG_MAP = {
   '中海发展': 'china-overseas-land',
   '中金公司': 'cicc',
   '华润置地': 'cr-land',
+  '融创中国': 'sunac-china',
   '南山控股': 'nanshan-holdings',
   '恒隆地产': 'hang-lung',
   '招商蛇口': 'cmsk',
@@ -68,6 +74,7 @@ const SLUG_MAP = {
   '长江电力': 'yangtze-power',
   '龙湖集团': 'longfor',
   '招商局集团': 'cmg',
+  '豫园股份': 'yuyuan-shares',
 };
 
 function getSlug(title) {
@@ -157,7 +164,7 @@ function classifyNode(title) {
     '万科', '万物云', '新鸿基', '普洛斯', '比亚迪', '深基地B', '美的集团',
     '绿景地产', '雅戈尔', '长江电力', '龙湖集团', '中国平安', '中国建筑',
     '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展',
-    '招商局集团', '中投公司', '中金公司', '深圳地铁'
+    '招商局集团', '中投公司', '中金公司', '深圳地铁', '海尔', '融创中国', '豫园股份'
   ];
   if (companies.includes(title)) return 'company';
   return 'person';
