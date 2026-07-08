@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { injectAlternateMarkdownLink } = require('./site-md-utils');
+const { buildJsonLd, injectAlternateMarkdownLink } = require('./site-md-utils');
 
 const IR_LOG_WIKI = path.join(__dirname, '..', 'IR-log', 'wiki');
 const WIKI_SOURCE = path.join(__dirname, 'wiki-source');
@@ -202,7 +202,39 @@ const FOOTER_HTML = `    <footer class="footer">
         </div>
     </footer>`;
 
-function generateArticlePage(title, htmlContent) {
+// Extracts the 简介 section as a plain-text page description; falls back to
+// the beginning of the whole entry text.
+function extractDescription(entry) {
+  const match = entry.rawBody && entry.rawBody.match(/##\s*简介\s*\n+([\s\S]*?)(?=\n##\s|\s*$)/);
+  const source = match ? match[1] : entry.plainText;
+  const plain = stripMarkdown(source);
+  const text = plain.length > 160 ? `${plain.slice(0, 160)}...` : plain;
+  return text || `${entry.title} - aimunger Wiki`;
+}
+
+function generateArticlePage(entry) {
+  const { title, htmlContent } = entry;
+  const pageUrl = `https://aimunger.com/wiki/${getSlug(title)}/`;
+  const description = extractDescription(entry);
+  const nodeType = classifyNode(title);
+
+  const jsonLd = buildJsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    inLanguage: 'zh-CN',
+    about: {
+      '@type': nodeType === 'company' ? 'Organization' : 'Person',
+      name: title,
+      description,
+    },
+    isPartOf: { '@type': 'WebSite', name: 'aimunger Wiki', url: 'https://aimunger.com/wiki/' },
+    publisher: { '@type': 'Organization', name: 'aimunger', url: 'https://aimunger.com' },
+  });
+
   return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -210,8 +242,15 @@ function generateArticlePage(title, htmlContent) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>${escHtml(title)} - Wiki - aimunger</title>
-    <meta name="description" content="${escHtml(title)} - aimunger Wiki">
-    <link rel="canonical" href="https://aimunger.com/wiki/${getSlug(title)}/" />
+    <meta name="description" content="${escHtml(description)}">
+    <link rel="canonical" href="${pageUrl}" />
+    <meta property="og:title" content="${escHtml(title)} - Wiki - aimunger" />
+    <meta property="og:description" content="${escHtml(description)}" />
+    <meta property="og:url" content="${pageUrl}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="aimunger" />
+    ${jsonLd}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -397,7 +436,7 @@ function run() {
     const htmlContent = markdownToHtml(cleaned, wikiNames);
     const plainText = stripMarkdown(cleaned);
 
-    entries.push({ title, meta, links, htmlContent, plainText });
+    entries.push({ title, meta, links, htmlContent, plainText, rawBody: cleaned });
   }
 
   // Build graph data with types and descriptions
@@ -443,7 +482,7 @@ function run() {
     const slug = getSlug(e.title);
     const dir = path.join(WIKI_DIR, slug);
     fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(e.title, e.htmlContent));
+    fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(e));
   }
 
   const layout = computeBuildLayout(nodes, edges);
@@ -482,6 +521,30 @@ function generateIndexPage(entries) {
     <title>Wiki - aimunger</title>
     <meta name="description" content="aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱">
     <link rel="canonical" href="https://aimunger.com/wiki/" />
+    <meta property="og:title" content="Wiki - aimunger" />
+    <meta property="og:description" content="aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱" />
+    <meta property="og:url" content="https://aimunger.com/wiki/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="aimunger" />
+    ${buildJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'aimunger Wiki',
+      description: 'aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱',
+      url: 'https://aimunger.com/wiki/',
+      inLanguage: 'zh-CN',
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: sorted.length,
+        itemListElement: sorted.map((e, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: e.title,
+          url: `https://aimunger.com/wiki/${getSlug(e.title)}/`,
+        })),
+      },
+    })}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">

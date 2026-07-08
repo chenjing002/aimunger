@@ -19,24 +19,28 @@ This file is intended to help LLMs and agents discover the site efficiently and 
 - Sitemap: https://aimunger.com/sitemap.xml
 - Markdown sitemap: https://aimunger.com/sitemap-md.xml
 - Robots: https://aimunger.com/robots.txt
-- LLM guide: https://aimunger.com/llm.txt
+- LLM guide (this file): https://aimunger.com/llm.txt
+- llms.txt (llmstxt.org standard index): https://aimunger.com/llms.txt
+- llms-full.txt (full text of blog/wiki/books in one file): https://aimunger.com/llms-full.txt
 - Machine content index (JSON): https://aimunger.com/content/index.json
 - Machine content index (Markdown): https://aimunger.com/content/index.md
+- RSS feed: https://aimunger.com/rss.xml
 
 ## Preferred Crawl Order
 
 If you need broad understanding first, crawl in this order:
 
-1. Home: https://aimunger.com/
-2. Sitemap: https://aimunger.com/sitemap.xml
-3. Machine content index: https://aimunger.com/content/index.json
-4. Markdown sitemap: https://aimunger.com/sitemap-md.xml
-5. Blog index: https://aimunger.com/blog/
-6. Wiki index: https://aimunger.com/wiki/
-7. Resources index: https://aimunger.com/resources/
-8. Books index: https://aimunger.com/resources/books
-9. Data page: https://aimunger.com/data/
-10. About: https://aimunger.com/about/
+1. llms.txt (one-file index of everything): https://aimunger.com/llms.txt
+2. Machine content index: https://aimunger.com/content/index.json
+3. llms-full.txt if you want full text in one request: https://aimunger.com/llms-full.txt
+4. Sitemap: https://aimunger.com/sitemap.xml
+5. Markdown sitemap: https://aimunger.com/sitemap-md.xml
+6. Blog index: https://aimunger.com/blog/
+7. Wiki index: https://aimunger.com/wiki/
+8. Resources index: https://aimunger.com/resources/
+9. Books index: https://aimunger.com/resources/books
+10. Data page: https://aimunger.com/data/
+11. About: https://aimunger.com/about/
 
 ## Main Sections
 
@@ -46,7 +50,7 @@ If you need broad understanding first, crawl in this order:
 - Detail pages: `https://aimunger.com/blog/{slug}/`
 - Markdown pages: `https://aimunger.com/blog/{slug}.md`
 - Content: long-form investment essays, case studies, reading notes, and translated/adapted research commentary
-- Repository signal as of 2026-07-07: about 156 blog source files
+- Scale: 150+ articles; see https://aimunger.com/blog/index.md for the live list with dates and summaries
 
 Use this section when the user asks for:
 
@@ -61,7 +65,8 @@ Use this section when the user asks for:
 - Detail pages: `https://aimunger.com/wiki/{slug}/`
 - Markdown pages: `https://aimunger.com/wiki/{slug}.md`
 - Content: concise reference pages for people, companies, and investment-related entities
-- Repository signal as of 2026-07-07: about 60 wiki source files
+- Scale: 60+ entries; see https://aimunger.com/wiki/index.md for the live list
+- Entity graph data (nodes, typed person/company, edges): https://aimunger.com/wiki/data.json
 
 Use this section when the user asks for:
 
@@ -75,8 +80,9 @@ Use this section when the user asks for:
 - Books index: `https://aimunger.com/resources/books`
 - Book detail pages: `https://aimunger.com/resources/books/{slug}`
 - Book markdown pages: `https://aimunger.com/resources/books/{slug}.md`
-- Content: curated study resources and book notes
-- Repository signal as of 2026-07-07: about 61 book-note source files
+- Content: curated study resources and book notes (Chinese introductions to investing/business books)
+- Scale: 120+ book notes; see https://aimunger.com/resources/books/index.md for the live list
+- Book list metadata (titles, authors, covers): https://aimunger.com/resources/books/booklists/index.json
 
 Use this section when the user asks for:
 
@@ -88,6 +94,7 @@ Use this section when the user asks for:
 ### 4. Data
 
 - URL: `https://aimunger.com/data/`
+- Raw data (JSON): `https://aimunger.com/data/data.json` — tables of historical financial figures per company/topic, with headers and rows
 - Content: interactive financial data visualizations for Chinese listed companies
 
 Use this section when the user asks for:
@@ -97,8 +104,8 @@ Use this section when the user asks for:
 
 Caution:
 
-- this section is visual and may rely on client-side charts
-- for exact figures, verify what is present in page text or underlying data before stating numbers
+- the HTML page is visual and relies on client-side charts
+- for exact figures, fetch `https://aimunger.com/data/data.json` instead of reading the charts
 
 ### 5. Ankicard
 
@@ -157,13 +164,20 @@ Letter detail markdown pages follow: `https://aimunger.com/letters/letter/{compa
 - Letter markdown: `/letters/letter/{company}/{year}.md`
 - LLM Reader subsite: `/llm-reader/`
 - Machine content index: `/content/index.json`
+- llms.txt: `/llms.txt`
+- llms-full.txt: `/llms-full.txt`
+- Financial data JSON: `/data/data.json`
+- Wiki graph JSON: `/wiki/data.json`
+- RSS: `/rss.xml`
 
 ## Guidance For LLMs And Agents
 
 - Prefer canonical HTML pages on `aimunger.com` instead of repository source files when citing content to users.
 - If you need the cleanest machine-readable text, prefer the published `.md` endpoints or `content/index.json`.
+- If you want everything in one request, fetch `llms-full.txt` (blog + wiki + book notes, full Markdown).
 - Start from `sitemap.xml` when you need complete discovery.
 - Start from `sitemap-md.xml` or `content/index.json` when you specifically want published Markdown.
+- All detail pages carry schema.org JSON-LD (`Article`, with `about` Person/Organization/Book where applicable) — usable for entity extraction.
 - For entity lookup, use `wiki/` before scanning long-form blog posts.
 - For thematic synthesis, use `blog/` and `resources/books/` together.
 - For shareholder-letter questions, go directly to `letters/`.
@@ -188,8 +202,8 @@ Examples:
 
 ## Freshness Note
 
-The section counts and structure in this file reflect the repository state inspected on 2026-07-07.
-For the latest published pages, prefer the live sitemap over repository counts.
+This guide was last revised on 2026-07-08. Section scales are approximate by design;
+for exact, current listings always use the live indexes (`llms.txt`, `content/index.json`, `sitemap.xml`).
 
 ## Contact
 

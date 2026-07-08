@@ -80,6 +80,43 @@ function stripMarkdown(text) {
     .trim();
 }
 
+// Builds a clean excerpt for meta descriptions and index summaries.
+// Skips boilerplate lines (standalone images, bold date headers, source-URL lines)
+// so the excerpt starts with real content.
+function buildExcerpt(text, maxLen = 160) {
+  const cleaned = normalizeNewlines(text)
+    .split('\n')
+    .filter(line => {
+      const trimmed = line.trim();
+      if (/^!\[[^\]]*\]\([^)]*\)$/.test(trimmed)) return false;
+      if (/^\*\*[\d年月日\s.\-/]+\*\*$/.test(trimmed)) return false;
+      if (/^(>\s*)?(原文地址|原文链接|来源)[:：]/.test(trimmed) && /https?:\/\//.test(trimmed)) return false;
+      return true;
+    })
+    .join('\n');
+  const plain = stripMarkdown(cleaned);
+  if (plain.length <= maxLen) return plain;
+  return `${plain.slice(0, maxLen)}...`;
+}
+
+// Serializes an object as a JSON-LD <script> block, escaping "</" so the
+// payload cannot terminate the script element early.
+function buildJsonLd(data) {
+  const json = JSON.stringify(data, null, 2).replace(/<\//g, '<\\/');
+  return `<script type="application/ld+json">\n${json}\n    </script>`;
+}
+
+// Injects an arbitrary snippet right before </head>. Idempotent via marker.
+function injectHeadSnippetInFile(filePath, snippet, marker) {
+  if (!filePath || !snippet || !fs.existsSync(filePath)) return false;
+  const original = fs.readFileSync(filePath, 'utf-8');
+  if (marker && original.includes(marker)) return false;
+  if (!/<\/head>/i.test(original)) return false;
+  const updated = original.replace(/<\/head>/i, `    ${snippet}\n</head>`);
+  fs.writeFileSync(filePath, updated);
+  return true;
+}
+
 function replaceWikiLinks(text, slugForTitle) {
   return normalizeNewlines(text).replace(/\[\[([^\]]+)\]\]/g, (_, title) => {
     const slug = slugForTitle(title);
@@ -185,10 +222,13 @@ function injectAlternateMarkdownLinkInFile(filePath, href) {
 }
 
 module.exports = {
+  buildExcerpt,
+  buildJsonLd,
   buildPublishedMarkdown,
   escapeHtml,
   injectAlternateMarkdownLink,
   injectAlternateMarkdownLinkInFile,
+  injectHeadSnippetInFile,
   parseSimpleMeta,
   renderMarkdownToHtml,
   replaceWikiLinks,

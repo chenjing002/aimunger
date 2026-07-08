@@ -10,6 +10,22 @@ aimunger.com/              ← 本仓库（静态主页）
 └── /llm-reader/           ← llm-reader（AI 辅助阅读笔记）
 ```
 
+## AI Agent 端点
+
+站点面向 AI 爬虫/Agent 提供机器可读端点，均由构建时生成（`generate-agent-content.js`）：
+
+| 端点 | 说明 |
+|------|------|
+| `/llms.txt` | llmstxt.org 标准索引：全站内容的 Markdown 链接清单 |
+| `/llms-full.txt` | 文章 + Wiki + 书籍笔记的全文 Markdown 合集（单文件） |
+| `/llm.txt` | 详细抓取指引（手工维护，见仓库根目录） |
+| `/content/index.json` | 全站条目的 JSON 索引（标题、URL、摘要、日期） |
+| `/sitemap-md.xml` | 全部 Markdown 页面的 sitemap |
+| `/{section}/{slug}.md` | 每个内容页对应的 Markdown 版本 |
+| `/data/data.json` | 财务数据原始 JSON |
+
+所有详情页内嵌 schema.org JSON-LD（文章为 `Article`，Wiki 附 `Person`/`Organization`，书籍附 `Book`），并通过 `rel="alternate" type="text/markdown"` 指向其 Markdown 版本。
+
 ## 部署流程
 
 ```
