@@ -767,6 +767,336 @@
       "title_zh": "复利的喜悦",
       "authors": ["Gautam Baid"],
       "cover": "covers/joys-of-compounding.jpg"
+    },
+    {
+      "title_en": "7 Powers: The Foundations of Business Strategy",
+      "title_zh": "七种力量",
+      "authors": ["Hamilton Helmer"],
+      "cover": "covers/7-powers.jpg"
+    },
+    {
+      "title_en": "Adaptive Markets: Financial Evolution at the Speed of Thought",
+      "title_zh": "适应性市场",
+      "authors": ["Andrew W. Lo"],
+      "cover": "covers/adaptive-markets.jpg"
+    },
+    {
+      "title_en": "Against the Gods: The Remarkable Story of Risk",
+      "title_zh": "与天为敌",
+      "authors": ["Peter L. Bernstein"],
+      "cover": "covers/against-the-gods.jpg"
+    },
+    {
+      "title_en": "The Alchemy of Finance: Reading the Mind of the Market",
+      "title_zh": "金融炼金术",
+      "authors": ["George Soros"],
+      "cover": "covers/alchemy-of-finance.jpg"
+    },
+    {
+      "title_en": "Amazon Unbound: Jeff Bezos and the Invention of a Global Empire",
+      "title_zh": "亚马逊无界",
+      "authors": ["Brad Stone"],
+      "cover": "covers/amazon-unbound.jpg"
+    },
+    {
+      "title_en": "Barbarians at the Gate: The Fall of RJR Nabisco",
+      "title_zh": "门口的野蛮人",
+      "authors": ["Bryan Burrough", "John Helyar"],
+      "cover": "covers/barbarians-at-the-gate.jpg"
+    },
+    {
+      "title_en": "Blue Ocean Strategy: How to Create Uncontested Market Space and Make Competition Irrelevant",
+      "title_zh": "蓝海战略",
+      "authors": ["W. Chan Kim", "Renée Mauborgne"],
+      "cover": "covers/blue-ocean-strategy.jpg"
+    },
+    {
+      "title_en": "Built to Last: Successful Habits of Visionary Companies",
+      "title_zh": "基业长青",
+      "authors": ["Jim Collins", "Jerry I. Porras"],
+      "cover": "covers/built-to-last.jpg"
+    },
+    {
+      "title_en": "Cable Cowboy: John Malone and the Rise of the Modern Cable Business",
+      "title_zh": "有线牛仔",
+      "authors": ["Mark Robichaux"],
+      "cover": "covers/cable-cowboy.jpg"
+    },
+    {
+      "title_en": "Capitalism Without Capital: The Rise of the Intangible Economy",
+      "title_zh": "没有资本的资本主义",
+      "authors": ["Jonathan Haskel", "Stian Westlake"],
+      "cover": "covers/capitalism-without-capital.jpg"
+    },
+    {
+      "title_en": "Competing Against Luck: The Story of Innovation and Customer Choice",
+      "title_zh": "与运气竞争",
+      "authors": ["Clayton M. Christensen"],
+      "cover": "covers/competing-against-luck.jpg"
+    },
+    {
+      "title_en": "Complexity: The Emerging Science at the Edge of Order and Chaos",
+      "title_zh": "复杂",
+      "authors": ["M. Mitchell Waldrop"],
+      "cover": "covers/complexity.jpg"
+    },
+    {
+      "title_en": "Creating Shareholder Value: A Guide for Managers and Investors",
+      "title_zh": "创造股东价值",
+      "authors": ["Alfred Rappaport"],
+      "cover": "covers/creating-shareholder-value.jpg"
+    },
+    {
+      "title_en": "Creative Selection: Inside Apple's Design Process During the Golden Age of Steve Jobs",
+      "title_zh": "创意选择",
+      "authors": ["Ken Kocienda"],
+      "cover": "covers/creative-selection.jpg"
+    },
+    {
+      "title_en": "Creativity, Inc.: Overcoming the Unseen Forces That Stand in the Way of True Inspiration",
+      "title_zh": "创新公司",
+      "authors": ["Ed Catmull", "Amy Wallace"],
+      "cover": "covers/creativity-inc.jpg"
+    },
+    {
+      "title_en": "Crossing the Chasm: Marketing and Selling Disruptive Products to Mainstream Customers",
+      "title_zh": "跨越鸿沟",
+      "authors": ["Geoffrey A. Moore"],
+      "cover": "covers/crossing-the-chasm.jpg"
+    },
+    {
+      "title_en": "Dear Chairman: Boardroom Battles and the Rise of Shareholder Activism",
+      "title_zh": "亲爱的股东",
+      "authors": ["Jeff Gramm"],
+      "cover": "covers/dear-chairman.jpg"
+    },
+    {
+      "title_en": "Deep Thinking: Where Machine Intelligence Ends and Human Creativity Begins",
+      "title_zh": "深度思考",
+      "authors": ["Garry Kasparov"],
+      "cover": "covers/deep-thinking.jpg"
+    },
+    {
+      "title_en": "Diffusion of Innovations",
+      "title_zh": "创新的扩散",
+      "authors": ["Everett M. Rogers"],
+      "cover": "covers/diffusion-of-innovations.jpg"
+    },
+    {
+      "title_en": "Double Your Profits in Six Months or Less",
+      "title_zh": "六个月内利润翻番",
+      "authors": ["Bob Fifer"],
+      "cover": "covers/double-your-profits.jpg"
+    },
+    {
+      "title_en": "Flash Boys: A Wall Street Revolt",
+      "title_zh": "快闪大对决",
+      "authors": ["Michael Lewis"],
+      "cover": "covers/flash-boys.jpg"
+    },
+    {
+      "title_en": "Founder vs. Investor: The Honest Truth About Venture Capital from Startup to IPO",
+      "title_zh": "创始人与投资人",
+      "authors": ["Elizabeth Zalman", "Jerry Neumann"],
+      "cover": "covers/founder-vs-investor.jpg"
+    },
+    {
+      "title_en": "Freakonomics: A Rogue Economist Explores the Hidden Side of Everything",
+      "title_zh": "魔鬼经济学",
+      "authors": ["Steven D. Levitt", "Stephen J. Dubner"],
+      "cover": "covers/freakonomics.jpg"
+    },
+    {
+      "title_en": "Good to Great: Why Some Companies Make the Leap... and Others Don't",
+      "title_zh": "从优秀到卓越",
+      "authors": ["Jim Collins"],
+      "cover": "covers/good-to-great.jpg"
+    },
+    {
+      "title_en": "The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers",
+      "title_zh": "创业维艰",
+      "authors": ["Ben Horowitz"],
+      "cover": "covers/hard-thing-about-hard-things.jpg"
+    },
+    {
+      "title_en": "The Innovation Stack: Building an Indestructible Idea",
+      "title_zh": "创新叠加",
+      "authors": ["Jim McKelvey"],
+      "cover": "covers/innovation-stacking.jpg"
+    },
+    {
+      "title_en": "The Innovator's Dilemma: When New Technologies Cause Great Firms to Fail",
+      "title_zh": "创新者的窘境",
+      "authors": ["Clayton M. Christensen"],
+      "cover": "covers/innovators-dilemma.jpg"
+    },
+    {
+      "title_en": "Inside the Tornado: Strategies for Developing, Leveraging, and Surviving Hypergrowth Markets",
+      "title_zh": "龙卷风暴",
+      "authors": ["Geoffrey A. Moore"],
+      "cover": "covers/inside-the-tornado.jpg"
+    },
+    {
+      "title_en": "The Lean Startup: How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses",
+      "title_zh": "精益创业",
+      "authors": ["Eric Ries"],
+      "cover": "covers/lean-startup.jpg"
+    },
+    {
+      "title_en": "Lessons from the Titans: What Companies in the New Economy Can Learn from the Great Industrial Giants to Drive Sustainable Success",
+      "title_zh": "向巨人学习",
+      "authors": ["Scott Davis", "Carter Copeland", "Rob Wertheimer"],
+      "cover": "covers/lessons-from-the-titans.jpg"
+    },
+    {
+      "title_en": "Let My People Go Surfing: The Education of a Reluctant Businessman",
+      "title_zh": "让我的员工去冲浪",
+      "authors": ["Yvon Chouinard"],
+      "cover": "covers/let-my-people-go-surfing.jpg"
+    },
+    {
+      "title_en": "Liar's Poker",
+      "title_zh": "说谎者的扑克牌",
+      "authors": ["Michael Lewis"],
+      "cover": "covers/liars-poker.jpg"
+    },
+    {
+      "title_en": "Living on the Fault Line: Managing for Shareholder Value in Any Economy",
+      "title_zh": "断层线上的管理",
+      "authors": ["Geoffrey A. Moore"],
+      "cover": "covers/living-on-the-fault-line.jpg"
+    },
+    {
+      "title_en": "Lords of Finance: The Bankers Who Broke the World",
+      "title_zh": "金融之王",
+      "authors": ["Liaquat Ahamed"],
+      "cover": "covers/lords-of-finance.jpg"
+    },
+    {
+      "title_en": "Measure What Matters: How Google, Bono, and the Gates Foundation Rock the World with OKRs",
+      "title_zh": "衡量什么重要",
+      "authors": ["John Doerr"],
+      "cover": "covers/measure-what-matters.jpg"
+    },
+    {
+      "title_en": "Millennial Money: How Young Investors Can Build a Fortune",
+      "title_zh": "千禧一代的投资",
+      "authors": ["Patrick O'Shaughnessy"],
+      "cover": "covers/millennial-money.jpg"
+    },
+    {
+      "title_en": "Modern Monopolies: What It Takes to Dominate the 21st Century Economy",
+      "title_zh": "现代垄断",
+      "authors": ["Alex Moazed", "Nicholas L. Johnson"],
+      "cover": "covers/modern-monopolies.jpg"
+    },
+    {
+      "title_en": "Moneyball: The Art of Winning an Unfair Game",
+      "title_zh": "魔球",
+      "authors": ["Michael Lewis"],
+      "cover": "covers/moneyball.jpg"
+    },
+    {
+      "title_en": "The Nature of Value: How to Invest in the Adaptive Economy",
+      "title_zh": "价值的本质",
+      "authors": ["Nick Gogerty"],
+      "cover": "covers/nature-of-value.jpg"
+    },
+    {
+      "title_en": "Only the Paranoid Survive: How to Exploit the Crisis Points That Challenge Every Company",
+      "title_zh": "只有偏执狂才能生存",
+      "authors": ["Andrew S. Grove"],
+      "cover": "covers/only-the-paranoid-survive.jpg"
+    },
+    {
+      "title_en": "Pioneering Portfolio Management: An Unconventional Approach to Institutional Investment",
+      "title_zh": "机构投资的创新之路",
+      "authors": ["David F. Swensen"],
+      "cover": "covers/pioneering-portfolio-management.jpg"
+    },
+    {
+      "title_en": "Platform Revolution: How Networked Markets Are Transforming the Economy and How to Make Them Work for You",
+      "title_zh": "平台革命",
+      "authors": ["Geoffrey G. Parker", "Marshall W. Van Alstyne", "Sangeet Paul Choudary"],
+      "cover": "covers/platform-revolution.jpg"
+    },
+    {
+      "title_en": "The Power Law: Venture Capital and the Making of the New Future",
+      "title_zh": "风险投资史",
+      "authors": ["Sebastian Mallaby"],
+      "cover": "covers/power-law.jpg"
+    },
+    {
+      "title_en": "The Quants: How a New Breed of Math Whizzes Conquered Wall Street and Nearly Destroyed It",
+      "title_zh": "宽客",
+      "authors": ["Scott Patterson"],
+      "cover": "covers/quants.jpg"
+    },
+    {
+      "title_en": "A Random Walk Down Wall Street: The Time-Tested Strategy for Successful Investing",
+      "title_zh": "漫步华尔街",
+      "authors": ["Burton G. Malkiel"],
+      "cover": "covers/random-walk-wall-street.jpg"
+    },
+    {
+      "title_en": "The Regis Touch: New Marketing Strategies for Uncertain Times",
+      "title_zh": "里吉斯之道",
+      "authors": ["Regis McKenna"],
+      "cover": "covers/regis-touch.jpg"
+    },
+    {
+      "title_en": "Reminiscences of a Stock Operator",
+      "title_zh": "股票作手回忆录",
+      "authors": ["Edwin Lefèvre"],
+      "cover": "covers/reminiscences-stock-operator.jpg"
+    },
+    {
+      "title_en": "Rework",
+      "title_zh": "重来",
+      "authors": ["Jason Fried", "David Heinemeier Hansson"],
+      "cover": "covers/rework.jpg"
+    },
+    {
+      "title_en": "Security Analysis: Principles and Technique",
+      "title_zh": "证券分析",
+      "authors": ["Benjamin Graham", "David L. Dodd"],
+      "cover": "covers/security-analysis.jpg"
+    },
+    {
+      "title_en": "So You Want to Start a Hedge Fund: Lessons for Managers and Allocators",
+      "title_zh": "所以你想开一家对冲基金",
+      "authors": ["Ted Seides"],
+      "cover": "covers/start-a-hedge-fund.jpg"
+    },
+    {
+      "title_en": "Think Twice: Harnessing the Power of Counterintuition",
+      "title_zh": "再想一想",
+      "authors": ["Michael J. Mauboussin"],
+      "cover": "covers/think-twice.jpg"
+    },
+    {
+      "title_en": "Too Big to Fail: The Inside Story of How Wall Street and Washington Fought to Save the Financial System—and Themselves",
+      "title_zh": "大而不倒",
+      "authors": ["Andrew Ross Sorkin"],
+      "cover": "covers/too-big-to-fail.jpg"
+    },
+    {
+      "title_en": "Venture Deals: Be Smarter Than Your Lawyer and Venture Capitalist",
+      "title_zh": "风险投资交易",
+      "authors": ["Brad Feld", "Jason Mendelson"],
+      "cover": "covers/venture-deals.jpg"
+    },
+    {
+      "title_en": "What Works on Wall Street: The Classic Guide to the Best-Performing Investment Strategies of All Time",
+      "title_zh": "华尔街的有效策略",
+      "authors": ["James P. O'Shaughnessy"],
+      "cover": "covers/what-works-on-wall-street.jpg"
+    },
+    {
+      "title_en": "Zero to One: Notes on Startups, or How to Build the Future",
+      "title_zh": "从零到一",
+      "authors": ["Peter Thiel", "Blake Masters"],
+      "cover": "covers/zero-to-one.jpg"
     }
   ]
 }
