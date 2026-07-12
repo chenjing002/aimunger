@@ -85,15 +85,14 @@
         .books-list-table tr:last-child td {
             border-bottom: none;
         }
+        .books-list-table .col-en {
+            width: 45%;
+            font-weight: 600;
+        }
         .books-list-table .col-zh {
             width: 30%;
             font-family: var(--font-serif);
-            font-weight: 600;
-        }
-        .books-list-table .col-en {
-            width: 45%;
             color: var(--color-text-secondary);
-            font-style: italic;
         }
         .books-list-table .col-author {
             width: 25%;
@@ -109,10 +108,10 @@
             color: var(--color-accent);
         }
         @media (max-width: 600px) {
-            .books-list-table .col-en {
+            .books-list-table .col-zh {
                 display: none;
             }
-            .books-list-table .col-zh {
+            .books-list-table .col-en {
                 width: 55%;
             }
             .books-list-table .col-author {
@@ -257,8 +256,8 @@
                 <table class="books-list-table">
                     <thead>
                         <tr>
-                            <th class="col-zh">中文书名</th>
                             <th class="col-en">英文书名</th>
+                            <th class="col-zh">中文书名</th>
                             <th class="col-author">作者</th>
                         </tr>
                     </thead>
@@ -549,8 +548,8 @@
                 filtered.forEach(function(book) {
                     var tr = document.createElement('tr');
                     tr.innerHTML =
-                        '<td class="col-zh"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_zh) + '</a></td>' +
                         '<td class="col-en"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_en) + '</a></td>' +
+                        '<td class="col-zh"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_zh) + '</a></td>' +
                         '<td class="col-author">' + esc(book.authors.join(', ')) + '</td>';
                     listBody.appendChild(tr);
                 });
