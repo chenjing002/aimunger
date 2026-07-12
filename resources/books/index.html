@@ -30,6 +30,95 @@
             gap: 12px;
             margin-bottom: 32px;
         }
+        .books-toolbar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .view-toggle-btn {
+            padding: 8px 14px;
+            font-size: 13px;
+            border: none;
+            background: var(--color-card-bg);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            line-height: 1;
+        }
+        .view-toggle-btn:not(:last-child) {
+            border-right: 1px solid var(--color-border);
+        }
+        .view-toggle-btn.active {
+            background: var(--color-accent);
+            color: #fff;
+        }
+        .books-list {
+            display: none;
+            padding-bottom: 72px;
+        }
+        .books-list-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .books-list-table th {
+            text-align: left;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            padding: 0 0 10px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .books-list-table td {
+            padding: 10px 12px 10px 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: 14px;
+            line-height: 1.5;
+            vertical-align: top;
+        }
+        .books-list-table tr:last-child td {
+            border-bottom: none;
+        }
+        .books-list-table .col-zh {
+            width: 30%;
+            font-family: var(--font-serif);
+            font-weight: 600;
+        }
+        .books-list-table .col-en {
+            width: 45%;
+            color: var(--color-text-secondary);
+            font-style: italic;
+        }
+        .books-list-table .col-author {
+            width: 25%;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+        }
+        .books-list-table a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+        .books-list-table a:hover {
+            color: var(--color-accent);
+        }
+        @media (max-width: 600px) {
+            .books-list-table .col-en {
+                display: none;
+            }
+            .books-list-table .col-zh {
+                width: 55%;
+            }
+            .books-list-table .col-author {
+                width: 45%;
+            }
+        }
         .books-search {
             width: min(100%, 420px);
             max-width: 100%;
@@ -148,16 +237,34 @@
             </section>
 
             <section class="books-toolbar" aria-label="书籍搜索">
-                <input
-                    id="books-search"
-                    class="books-search"
-                    type="search"
-                    placeholder="搜索中文书名、英文书名或作者"
-                    autocomplete="off"
-                >
+                <div class="books-toolbar-row">
+                    <input
+                        id="books-search"
+                        class="books-search"
+                        type="search"
+                        placeholder="搜索中文书名、英文书名或作者"
+                        autocomplete="off"
+                    >
+                    <div class="view-toggle">
+                        <button class="view-toggle-btn active" data-view="cover">封面</button>
+                        <button class="view-toggle-btn" data-view="list">列表</button>
+                    </div>
+                </div>
             </section>
 
             <div class="books-grid" id="books-grid"></div>
+            <div class="books-list" id="books-list">
+                <table class="books-list-table">
+                    <thead>
+                        <tr>
+                            <th class="col-zh">中文书名</th>
+                            <th class="col-en">英文书名</th>
+                            <th class="col-author">作者</th>
+                        </tr>
+                    </thead>
+                    <tbody id="books-list-body"></tbody>
+                </table>
+            </div>
             <div class="books-empty" id="books-empty">没有找到匹配的书籍，请尝试其他关键词。</div>
         </div>
     </main>
@@ -178,9 +285,13 @@
     <script>
     (function() {
         var grid = document.getElementById('books-grid');
+        var listBody = document.getElementById('books-list-body');
+        var listContainer = document.getElementById('books-list');
         var searchInput = document.getElementById('books-search');
         var totalCount = document.getElementById('books-total-count');
         var emptyState = document.getElementById('books-empty');
+        var currentView = 'cover';
+        var toggleBtns = document.querySelectorAll('.view-toggle-btn');
         var slugMap = {
             'Santa Monica Partners Letters to Partners 1982-2021: 40 Years of "Pink Sheet" Investing': 'santa-monica-partners',
             'Autopsy of a Merger: Trans Union: The Deal That Rocked the Corporate World': 'autopsy-of-a-merger',
@@ -397,6 +508,15 @@
             renderBooks(e.target.value || '');
         });
 
+        toggleBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                currentView = btn.getAttribute('data-view');
+                toggleBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                renderBooks(searchInput.value || '');
+            });
+        });
+
         function renderBooks(query) {
             var normalizedQuery = normalize(query);
             var filtered = books.filter(function(book) {
@@ -404,20 +524,37 @@
             });
 
             grid.innerHTML = '';
-            filtered.forEach(function(book) {
-                var card = document.createElement('a');
-                card.className = 'book-card';
-                card.href = '/resources/books/' + book.slug;
-                card.innerHTML =
-                    '<div class="book-cover-wrap">' +
-                        '<img src="booklists/' + esc(book.cover) + '" alt="' + esc(book.title_zh) + '" loading="lazy">' +
-                    '</div>' +
-                    '<div class="book-info">' +
-                        '<div class="book-title-zh">' + esc(book.title_zh) + '</div>' +
-                        '<div class="book-authors">' + esc(book.authors.join(', ')) + '</div>' +
-                    '</div>';
-                grid.appendChild(card);
-            });
+            listBody.innerHTML = '';
+
+            if (currentView === 'cover') {
+                grid.style.display = '';
+                listContainer.style.display = 'none';
+                filtered.forEach(function(book) {
+                    var card = document.createElement('a');
+                    card.className = 'book-card';
+                    card.href = '/resources/books/' + book.slug;
+                    card.innerHTML =
+                        '<div class="book-cover-wrap">' +
+                            '<img src="booklists/' + esc(book.cover) + '" alt="' + esc(book.title_zh) + '" loading="lazy">' +
+                        '</div>' +
+                        '<div class="book-info">' +
+                            '<div class="book-title-zh">' + esc(book.title_zh) + '</div>' +
+                            '<div class="book-authors">' + esc(book.authors.join(', ')) + '</div>' +
+                        '</div>';
+                    grid.appendChild(card);
+                });
+            } else {
+                grid.style.display = 'none';
+                listContainer.style.display = '';
+                filtered.forEach(function(book) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML =
+                        '<td class="col-zh"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_zh) + '</a></td>' +
+                        '<td class="col-en"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_en) + '</a></td>' +
+                        '<td class="col-author">' + esc(book.authors.join(', ')) + '</td>';
+                    listBody.appendChild(tr);
+                });
+            }
 
             emptyState.textContent = '没有找到匹配的书籍，请尝试其他关键词。';
             emptyState.style.display = filtered.length ? 'none' : 'block';
