@@ -81,7 +81,7 @@ Use this section when the user asks for:
 - Book detail pages: `https://aimunger.com/resources/books/{slug}`
 - Book markdown pages: `https://aimunger.com/resources/books/{slug}.md`
 - Content: curated study resources and book notes (Chinese introductions to investing/business books)
-- Scale: 120+ book notes; see https://aimunger.com/resources/books/index.md for the live list
+- Scale: 180+ book notes; see https://aimunger.com/resources/books/index.md for the live list
 - Book list metadata (titles, authors, covers): https://aimunger.com/resources/books/booklists/index.json
 
 Use this section when the user asks for:
