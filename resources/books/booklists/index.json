@@ -1097,6 +1097,60 @@
       "title_zh": "从零到一",
       "authors": ["Peter Thiel", "Blake Masters"],
       "cover": "covers/zero-to-one.jpg"
+    },
+    {
+      "title_en": "Common Sense on Mutual Funds: New Imperatives for the Intelligent Investor",
+      "title_zh": "共同基金常识",
+      "authors": ["John C. Bogle"],
+      "cover": "covers/common-sense-mutual-funds.jpg"
+    },
+    {
+      "title_en": "Global Investing: The Professional's Guide to the World Capital Markets",
+      "title_zh": "全球投资",
+      "authors": ["Roger G. Ibbotson", "Gary P. Brinson"],
+      "cover": "covers/global-investing.jpg"
+    },
+    {
+      "title_en": "The New Finance: The Case Against Efficient Markets",
+      "title_zh": "新金融学：有效市场的反例",
+      "authors": ["Robert A. Haugen"],
+      "cover": "covers/new-finance.jpg"
+    },
+    {
+      "title_en": "What Has Worked in Investing",
+      "title_zh": "投资中什么有效",
+      "authors": ["Tweedy, Browne Company LLC"],
+      "cover": "covers/what-has-worked-in-investing.jpg"
+    },
+    {
+      "title_en": "Value Averaging: The Safe and Easy Strategy for Higher Investment Returns",
+      "title_zh": "价值平均策略",
+      "authors": ["Michael E. Edleson"],
+      "cover": "covers/value-averaging.jpg"
+    },
+    {
+      "title_en": "Devil Take the Hindmost: A History of Financial Speculation",
+      "title_zh": "金融投机史",
+      "authors": ["Edward Chancellor"],
+      "cover": "covers/devil-take-hindmost.jpg"
+    },
+    {
+      "title_en": "The Millionaire Next Door: The Surprising Secrets of America's Wealthy",
+      "title_zh": "邻家的百万富翁",
+      "authors": ["Thomas J. Stanley", "William D. Danko"],
+      "cover": "covers/millionaire-next-door.jpg"
+    },
+    {
+      "title_en": "Asset Allocation: Balancing Financial Risk",
+      "title_zh": "资产配置",
+      "authors": ["Roger C. Gibson"],
+      "cover": "covers/asset-allocation.jpg"
+    },
+    {
+      "title_en": "Where Are the Customers' Yachts? or A Good Hard Look at Wall Street",
+      "title_zh": "客户的游艇在哪里",
+      "authors": ["Fred Schwed Jr."],
+      "cover": "covers/customers-yachts.jpg"
     }
   ]
 }
