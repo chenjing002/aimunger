@@ -362,13 +362,25 @@ body {
 .article-back {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 7px;
     font-size: 14px;
     color: var(--color-text-secondary);
     text-decoration: none;
     margin-bottom: 24px;
     transition: color 0.2s ease;
-    letter-spacing: 0.02em;
+}
+
+.article-back::before {
+    content: '';
+    display: inline-block;
+    flex-shrink: 0;
+    width: 18px;
+    height: 12px;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M18 6H4M9 1l-5 5 5 5' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M18 6H4M9 1l-5 5 5 5' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 .article-back:hover {
@@ -460,6 +472,26 @@ body {
 .article-body th {
     background: var(--color-surface);
     font-weight: 600;
+}
+
+/* Book page back link — override inline <style> using higher specificity */
+.main .book-page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.main .book-page-back::before {
+    content: '';
+    display: inline-block;
+    flex-shrink: 0;
+    width: 18px;
+    height: 12px;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M18 6H4M9 1l-5 5 5 5' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 12'%3E%3Cpath d='M18 6H4M9 1l-5 5 5 5' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 /* Responsive */

@@ -152,7 +152,7 @@ function generateArticlePage(article) {
         <div class="container">
             <article class="article">
                 <div class="article-header">
-                    <a href="/blog/" class="article-back">‹ 所有文章</a>
+                    <a href="/blog/" class="article-back">所有文章</a>
                     <h1 class="article-title">${escapeHtml(article.title)}</h1>
                     <time class="article-date">${escapeHtml(dateStr)}</time>
                 </div>
