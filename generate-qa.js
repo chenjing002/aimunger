@@ -177,7 +177,7 @@ function generateArticlePage(article) {
 </html>`, mdHref);
 }
 
-const BLOG_INDEX_DESC = '价值投资长文、公司案例研究、投资人访谈与书籍笔记，按发布时间倒序排列。';
+const BLOG_INDEX_DESC = '优质长文、公司案例研究、投资人访谈与书籍笔记。';
 
 function generateListingPage(articles) {
   const cards = articles.map(a => {
