@@ -243,6 +243,29 @@ body {
     margin-bottom: 12px;
 }
 
+.contact-list {
+    list-style: none;
+    padding: 0;
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 2;
+}
+
+.contact-list strong {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.contact-list a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.contact-list a:hover {
+    opacity: 0.75;
+}
+
 .contact-email {
     color: var(--color-accent);
     text-decoration: none;
