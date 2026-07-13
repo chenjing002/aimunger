@@ -1151,6 +1151,12 @@
       "title_zh": "客户的游艇在哪里",
       "authors": ["Fred Schwed Jr."],
       "cover": "covers/customers-yachts.jpg"
+    },
+    {
+      "title_en": "The Only Investment Guide You'll Ever Need",
+      "title_zh": "你唯一需要的投资指南",
+      "authors": ["Andrew Tobias"],
+      "cover": "covers/only-investment-guide.jpg"
     }
   ]
 }
