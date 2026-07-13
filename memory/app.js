@@ -431,7 +431,7 @@ function renderDeckDetail(deck) {
     const cards = deck.cards || [];
 
     let html = `
-        <button class="mem-back" data-action="go-home">&larr; 返回</button>
+        <button class="mem-back" data-action="go-home">‹ 返回</button>
         <h1 class="mem-detail-title">${escHtml(deck.title)}</h1>
         <div class="mem-detail-status">${stats.total} 张卡片${paused ? ' · 已暂停' : ''}</div>
         <div class="mem-stats">
@@ -561,7 +561,7 @@ function renderReviewCard() {
     let html = `
         <div class="mem-review">
             <div class="mem-review-header">
-                <button class="mem-back" data-action="exit-review" data-id="${s.deck.id}" style="margin-top:0">&larr; 退出复习</button>
+                <button class="mem-back" data-action="exit-review" data-id="${s.deck.id}" style="margin-top:0">‹ 退出复习</button>
                 <span class="mem-review-count">${current} / ${total}</span>
             </div>
             <div class="mem-review-progress">
@@ -647,7 +647,7 @@ function renderReviewSummary() {
 function renderImport(deckId) {
     const app = document.getElementById('app');
     app.innerHTML = `
-        <button class="mem-back" data-action="${deckId ? 'open-deck-nav' : 'go-home'}" data-id="${deckId || ''}">&larr; 返回</button>
+        <button class="mem-back" data-action="${deckId ? 'open-deck-nav' : 'go-home'}" data-id="${deckId || ''}">‹ 返回</button>
         <div class="mem-page-header">
             <h1 class="mem-page-title">${deckId ? '批量添加卡片' : '批量导入'}</h1>
         </div>
