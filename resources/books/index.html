@@ -85,17 +85,23 @@
         .books-list-table tr:last-child td {
             border-bottom: none;
         }
+        .books-list-table .col-index {
+            width: 36px;
+            color: var(--color-text-secondary);
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+        }
         .books-list-table .col-en {
-            width: 45%;
+            width: 43%;
             font-weight: 600;
         }
         .books-list-table .col-zh {
-            width: 30%;
+            width: 28%;
             font-family: var(--font-serif);
             color: var(--color-text-secondary);
         }
         .books-list-table .col-author {
-            width: 25%;
+            width: auto;
             color: var(--color-text-secondary);
             font-size: 13px;
         }
@@ -272,6 +278,7 @@
                 <table class="books-list-table">
                     <thead>
                         <tr>
+                            <th class="col-index">#</th>
                             <th class="col-en">英文书名</th>
                             <th class="col-zh">中文书名</th>
                             <th class="col-author">作者</th>
@@ -570,9 +577,10 @@
             } else {
                 grid.style.display = 'none';
                 listContainer.style.display = 'block';
-                filtered.forEach(function(book) {
+                filtered.forEach(function(book, i) {
                     var tr = document.createElement('tr');
                     tr.innerHTML =
+                        '<td class="col-index">' + (i + 1) + '</td>' +
                         '<td class="col-en"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_en) + '</a></td>' +
                         '<td class="col-zh"><a href="/resources/books/' + esc(book.slug) + '">' + esc(book.title_zh) + '</a></td>' +
                         '<td class="col-author">' + esc(book.authors.join(', ')) + '</td>';
