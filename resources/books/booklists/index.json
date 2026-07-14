@@ -1157,6 +1157,36 @@
       "title_zh": "你唯一需要的投资指南",
       "authors": ["Andrew Tobias"],
       "cover": "covers/only-investment-guide.jpg"
+    },
+    {
+      "title_en": "Monkey Business: Swinging Through the Wall Street Jungle",
+      "title_zh": "猴子把戏：闯荡华尔街丛林",
+      "authors": ["John Rolfe", "Peter Troob"],
+      "cover": "covers/monkey-business.jpg"
+    },
+    {
+      "title_en": "F Wall Street: Joe Ponzio's No-Nonsense Approach to Value Investing for the Rest of Us",
+      "title_zh": "去你的华尔街：普通人的直白价值投资指南",
+      "authors": ["Joe Ponzio"],
+      "cover": "covers/f-wall-street.jpg"
+    },
+    {
+      "title_en": "How to Make the Stock Market Make Money for You",
+      "title_zh": "让股市为你赚钱",
+      "authors": ["Ted Warren"],
+      "cover": "covers/stock-market-make-money.jpg"
+    },
+    {
+      "title_en": "Finding Winners Among Depressed and Low-Priced Stocks",
+      "title_zh": "在低价股中寻找赢家",
+      "authors": ["Richard L. Evans"],
+      "cover": "covers/finding-winners-depressed-stocks.jpg"
+    },
+    {
+      "title_en": "Free Capital: How 12 Private Investors Made Millions in the Stock Market",
+      "title_zh": "自由资本：12位私人投资者如何在股市积累百万财富",
+      "authors": ["Guy Thomas"],
+      "cover": "covers/free-capital.jpg"
     }
   ]
 }
