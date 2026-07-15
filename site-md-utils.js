@@ -66,6 +66,8 @@ function escapeHtml(value) {
 function stripMarkdown(text) {
   return normalizeNewlines(text)
     .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<[^>]*>/g, '')
     .replace(/`([^`]+)`/g, '$1')
     .replace(/\[\[([^\]]+)\]\]/g, '$1')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
@@ -159,6 +161,8 @@ function renderMarkdownToHtml(markdown) {
   const htmlBlocks = blocks.map(block => {
     const codeMatch = block.match(/^@@CODEBLOCK_(\d+)@@$/);
     if (codeMatch) return codeBlocks[Number(codeMatch[1])];
+
+    if (/^<[a-zA-Z!/]/.test(block)) return block;
 
     if (/^(?:-{3,}|\*{3,}|(?:\*\s+){2,}\*?)$/.test(block)) {
       return '<hr>';
