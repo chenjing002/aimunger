@@ -199,6 +199,35 @@ function renderMarkdownToHtml(markdown) {
       return `<ol>${items}</ol>`;
     }
 
+    // Table: all lines start with |, second line is a separator row
+    if (
+      lines.length >= 2 &&
+      lines.every(line => /^\|/.test(line.trim())) &&
+      /^\|[\s\-:|]+\|/.test(lines[1].trim())
+    ) {
+      const parseCells = row =>
+        row.trim().replace(/^\||\|$/g, '').split('|').map(cell => cell.trim());
+      const parseAlignments = row =>
+        parseCells(row).map(cell => {
+          if (/^:.*:$/.test(cell.trim())) return 'center';
+          if (/:$/.test(cell.trim())) return 'right';
+          if (/^:/.test(cell.trim())) return 'left';
+          return '';
+        });
+      const renderCell = (cell, align, tag) => {
+        const style = align ? ` style="text-align:${align}"` : '';
+        return `<${tag}${style}>${renderInlineMarkdown(cell)}</${tag}>`;
+      };
+      const headers = parseCells(lines[0]);
+      const alignments = parseAlignments(lines[1]);
+      const headerHtml = `<tr>${headers.map((cell, i) => renderCell(cell, alignments[i], 'th')).join('')}</tr>`;
+      const bodyHtml = lines.slice(2).map(row => {
+        const cells = parseCells(row);
+        return `<tr>${cells.map((cell, i) => renderCell(cell, alignments[i], 'td')).join('')}</tr>`;
+      }).join('');
+      return `<table><thead>${headerHtml}</thead><tbody>${bodyHtml}</tbody></table>`;
+    }
+
     return `<p>${lines.map(line => renderInlineMarkdown(line)).join('<br>')}</p>`;
   });
 
