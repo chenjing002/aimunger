@@ -1,6 +1,6 @@
 ---
 title: "迈克尔·莫布森的 ROIC 框架：每个投资者都需要理解的价值创造逻辑"
-date: 2025-01-01
+date: 2026-05-08
 slug: mauboussin-roic-framework
 ---
 

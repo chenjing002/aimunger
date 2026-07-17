@@ -1,6 +1,6 @@
 ---
 title: "如何寻找好质地的优秀公司 Quality Investing"
-date: 2025-01-01
+date: 2026-01-26
 slug: quality-investing
 ---
 

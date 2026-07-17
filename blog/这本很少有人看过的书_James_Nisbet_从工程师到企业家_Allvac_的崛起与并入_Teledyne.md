@@ -1,6 +1,6 @@
 ---
 title: "这本很少有人看过的书 James Nisbet：从工程师到企业家，Allvac 的崛起与并入 Teledyne"
-date: 2025-01-01
+date: 2025-02-21
 slug: james-nisbet-allvac-teledyne
 ---
 

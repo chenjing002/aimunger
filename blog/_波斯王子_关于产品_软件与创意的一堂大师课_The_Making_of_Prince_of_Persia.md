@@ -1,6 +1,6 @@
 ---
 title: "《波斯王子》关于产品、软件与创意的一堂大师课 The Making of Prince of Persia"
-date: 2025-01-01
+date: 2025-03-28
 slug: making-of-prince-of-persia
 ---
 

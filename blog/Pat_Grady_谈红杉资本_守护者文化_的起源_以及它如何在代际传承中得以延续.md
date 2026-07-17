@@ -1,6 +1,6 @@
 ---
 title: "Pat Grady 谈红杉资本“守护者文化”的起源，以及它如何在代际传承中得以延续"
-date: 2025-01-01
+date: 2025-11-28
 slug: pat-grady-sequoia-stewardship
 ---
 

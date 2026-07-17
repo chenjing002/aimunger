@@ -1,6 +1,6 @@
 ---
 title: "美国商业、投资与科技领域最具影响力的人物与机构之一：Josh Kushner 与 Thrive Capital"
-date: 2025-01-01
+date: 2025-06-23
 slug: josh-kushner-thrive-capital
 ---
 

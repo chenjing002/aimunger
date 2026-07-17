@@ -1,6 +1,6 @@
 ---
 title: "凌晨三点起床的 Dan Sundheim：D1 资本的投资方法论"
-date: 2025-01-01
+date: 2025-02-08
 slug: dan-sundheim-d1-capital
 ---
 

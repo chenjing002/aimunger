@@ -1,6 +1,6 @@
 ---
 title: "Pat Dorsey 的护城河研究法，寻找优秀投资的致胜公式"
-date: 2025-01-01
+date: 2025-09-30
 slug: pat-dorsey-moat-research
 ---
 

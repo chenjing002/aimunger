@@ -1,6 +1,6 @@
 ---
 title: "Sunbeam 公司的崩塌：一本几乎可以当作会计学入门教材的企业失败书"
-date: 2025-01-01
+date: 2025-11-25
 slug: sunbeam-collapse-accounting
 ---
 

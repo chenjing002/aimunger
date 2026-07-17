@@ -1,6 +1,6 @@
 ---
 title: "伯克希尔正式迈入 Greg Abel 时代：一场深度的人事重塑"
-date: 2026-01-01
+date: 2026-01-18
 slug: berkshire-greg-abel-era
 ---
 

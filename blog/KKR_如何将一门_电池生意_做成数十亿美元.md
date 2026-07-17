@@ -1,6 +1,6 @@
 ---
 title: "KKR 如何将一门“电池生意”做成数十亿美元"
-date: 2025-01-01
+date: 2025-06-23
 slug: kkr-battery-business
 ---
 

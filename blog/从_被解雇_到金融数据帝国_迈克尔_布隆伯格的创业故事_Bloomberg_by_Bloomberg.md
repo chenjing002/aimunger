@@ -1,6 +1,6 @@
 ---
 title: "从“被解雇”到金融数据帝国：迈克尔·布隆伯格的创业故事 Bloomberg by Bloomberg"
-date: 2025-01-01
+date: 2026-04-29
 slug: bloomberg-by-bloomberg
 ---
 

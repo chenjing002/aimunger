@@ -1,6 +1,6 @@
 ---
 title: "《Risk Game》这本书能引起房地产行业人士的兴趣"
-date: 2008-09-15
+date: 2025-08-23
 slug: risk-game-real-estate
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "很少被谈论的杰出投资人｜Punch Card 资本的 Norbert Lou"
-date: 2004-06-01
+date: 2025-02-24
 slug: norbert-lou-punch-card-capital
 ---
 

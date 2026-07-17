@@ -1,6 +1,6 @@
 ---
 title: "顶级投资播客 Invest Like the Best 全481期清单"
-date: 2026-07-16
+date: 2025-12-25
 slug: invest-like-the-best-481-episodes
 ---
 

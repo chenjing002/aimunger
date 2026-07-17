@@ -1,6 +1,6 @@
 ---
 title: "价值投资的黄金时代谢幕？Guy Spier：AI如何抹平投资研究的“信息优势”"
-date: 2025-01-01
+date: 2025-12-08
 slug: guy-spier-ai-value-investing
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "当巨头迷失方向：从《Big Blues》看IBM如何从巅峰跌落"
-date: 2025-01-01
+date: 2025-05-27
 slug: big-blues-ibm-decline
 ---
 

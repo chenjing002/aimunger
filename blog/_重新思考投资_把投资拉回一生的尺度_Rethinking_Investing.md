@@ -1,6 +1,6 @@
 ---
 title: "《重新思考投资》把投资拉回一生的尺度 Rethinking Investing"
-date: 2025-01-01
+date: 2026-05-17
 slug: rethinking-investing
 ---
 

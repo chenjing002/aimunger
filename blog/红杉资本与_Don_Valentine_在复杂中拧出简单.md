@@ -1,6 +1,6 @@
 ---
 title: "红杉资本与 Don Valentine｜在复杂中拧出简单"
-date: 2025-01-01
+date: 2025-08-24
 slug: don-valentine-sequoia
 ---
 

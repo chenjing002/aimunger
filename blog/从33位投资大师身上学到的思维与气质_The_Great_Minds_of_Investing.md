@@ -1,6 +1,6 @@
 ---
 title: "从33位投资大师身上学到的思维与气质 The Great Minds of Investing"
-date: 2025-01-01
+date: 2025-08-01
 slug: great-minds-of-investing
 ---
 

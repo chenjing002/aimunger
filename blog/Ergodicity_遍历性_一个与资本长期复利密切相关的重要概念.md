@@ -1,6 +1,6 @@
 ---
 title: "Ergodicity 遍历性：一个与资本长期复利密切相关的重要概念"
-date: 2025-01-01
+date: 2026-01-09
 slug: ergodicity-long-term-compounding
 ---
 

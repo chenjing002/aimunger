@@ -1,6 +1,6 @@
 ---
 title: "High Growth Handbook 把“增长”转化为可复制的组织系统"
-date: 2025-01-01
+date: 2025-06-23
 slug: high-growth-handbook
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "巴菲特门徒Todd Combs：寻找普通股的价值"
-date: 2025-01-01
+date: 2025-05-02
 slug: todd-combs-value-in-common-stocks
 ---
 

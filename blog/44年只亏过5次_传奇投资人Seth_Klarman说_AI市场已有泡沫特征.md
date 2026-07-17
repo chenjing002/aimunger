@@ -1,6 +1,6 @@
 ---
 title: "44年只亏过5次，传奇投资人Seth Klarman说：AI市场已有泡沫特征"
-date: 2025-01-01
+date: 2025-06-12
 slug: seth-klarman-ai-bubble
 ---
 

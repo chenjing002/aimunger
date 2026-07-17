@@ -1,6 +1,6 @@
 ---
 title: "Seeking Wisdom 从达尔文到芒格，如何培养理性思维"
-date: 2025-01-01
+date: 2026-02-03
 slug: seeking-wisdom-darwin-to-munger
 ---
 

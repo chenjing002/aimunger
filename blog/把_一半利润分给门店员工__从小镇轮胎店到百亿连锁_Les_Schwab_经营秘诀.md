@@ -1,6 +1,6 @@
 ---
 title: "把“一半利润分给门店员工”，从小镇轮胎店到百亿连锁 Les Schwab 经营秘诀"
-date: 2025-01-01
+date: 2025-03-16
 slug: les-schwab-profit-sharing
 ---
 

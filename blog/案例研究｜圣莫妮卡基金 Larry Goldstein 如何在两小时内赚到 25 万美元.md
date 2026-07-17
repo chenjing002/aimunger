@@ -1,6 +1,6 @@
 ---
 title: "案例研究｜圣莫妮卡基金 Larry Goldstein 如何在两小时内赚到 25 万美元"
-date: 2026-07-15
+date: 2025-10-02
 slug: how-larry-goldstein-made-250000-in-2-hours
 ---
 

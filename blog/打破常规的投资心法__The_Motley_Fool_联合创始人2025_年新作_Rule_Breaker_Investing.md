@@ -1,6 +1,6 @@
 ---
 title: "打破常规的投资心法, The Motley Fool 联合创始人2025 年新作 Rule Breaker Investing"
-date: 2025-01-01
+date: 2026-02-25
 slug: rule-breaker-investing-motley-fool
 ---
 

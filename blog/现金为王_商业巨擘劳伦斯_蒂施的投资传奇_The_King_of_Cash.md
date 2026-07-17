@@ -1,6 +1,6 @@
 ---
 title: "现金为王：商业巨擘劳伦斯·蒂施的投资传奇 The King of Cash"
-date: 2025-01-01
+date: 2026-03-12
 slug: king-of-cash-laurence-tisch
 ---
 
