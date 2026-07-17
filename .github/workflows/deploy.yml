@@ -57,8 +57,8 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp index.html style.css favicon.svg CNAME llm.txt memory-notify.js _site/
-          cp -r about resources data memory blog _site/
+          cp index.html style.css favicon.svg CNAME llm.txt memory-notify.js ads.txt _site/
+          cp -r about privacy disclaimer resources data memory blog _site/
           rm -rf _site/memory/worker
           cp -r _build/letters/dist/ _site/letters/
           mkdir -p _site/llm-reader
