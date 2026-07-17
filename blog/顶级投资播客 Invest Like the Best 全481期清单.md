@@ -7,7 +7,7 @@ slug: invest-like-the-best-481-episodes
 
 | 播客期号 | 英文标题 | 中文标题 |
 | --- | --- | --- |
-| 001 | Activist Investing | Jeff Gramm：股东积极主义的兴起 |
+| 001 | Activist Investing | [Jeff Gramm：股东积极主义的兴起](/blog/jeff-gramm-activist-investing/) |
 | 002 | Active Asset Management | Michael Mauboussin：主动资产管理的现状 |
 | 003 | The Power of Serendipity | Jason Zweig：意外机缘与人生智慧 |
 | 004 | Walking and Thinking | Morgan Housel：私募与公开市场投资的边走边想 |
