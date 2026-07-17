@@ -5,7 +5,7 @@ slug: "shkp"
 canonical_url: "https://aimunger.com/wiki/shkp/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-27 00:00:00"
 tags: []
 description: "新鸿基地产：香港大型综合地产开发商，郭氏家族创办"

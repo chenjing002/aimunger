@@ -5,7 +5,7 @@ slug: "shenzhen-chiwan-base"
 canonical_url: "https://aimunger.com/wiki/shenzhen-chiwan-base/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 tags: []
 description: "南山控股吸并前的物流仓储上市公司，核心资产为宝湾物流"
 created: "2026-05-17 20:13:31"

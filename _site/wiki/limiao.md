@@ -5,7 +5,7 @@ slug: "limiao"
 canonical_url: "https://aimunger.com/wiki/limiao/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-24 00:00:00"
 tags: []
 description: "深铁集团董事、财务总监，万科监事"

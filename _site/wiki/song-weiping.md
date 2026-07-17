@@ -5,7 +5,7 @@ slug: "song-weiping"
 canonical_url: "https://aimunger.com/wiki/song-weiping/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-06-24 13:50:23"
 tags: []
 description: "绿城中国创始人，2014 年向融创出让控制权"

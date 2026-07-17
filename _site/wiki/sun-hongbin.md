@@ -5,7 +5,7 @@ slug: "sun-hongbin"
 canonical_url: "https://aimunger.com/wiki/sun-hongbin/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-06-24 13:50:23"
 tags: []
 description: "融创中国创始人、控股股东，2014 年入主绿城"

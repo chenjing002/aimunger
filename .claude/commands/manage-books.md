@@ -81,10 +81,10 @@ Use this exact template (substitute values for `{TITLE_ZH}`, `{TITLE_EN}`, `{AUT
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{TITLE_ZH} - aimunger</title>
     <meta name="description" content="{META_DESC}">
-    <link rel="canonical" href="https://aimunger.com/resources/books/{SLUG}" />
+    <link rel="canonical" href="https://aimunger.com/resources/books/{SLUG}/" />
     <meta property="og:title" content="{TITLE_ZH} - aimunger" />
     <meta property="og:description" content="{META_DESC}" />
-    <meta property="og:url" content="https://aimunger.com/resources/books/{SLUG}" />
+    <meta property="og:url" content="https://aimunger.com/resources/books/{SLUG}/" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:site_name" content="aimunger" />
@@ -200,7 +200,7 @@ Use this exact template (substitute values for `{TITLE_ZH}`, `{TITLE_EN}`, `{AUT
     <main class="main">
         <div class="container">
             <div class="book-page-header">
-                <a href="/resources/books" class="book-page-back">&larr; 所有书籍</a>
+                <a href="/resources/books/" class="book-page-back">&larr; 所有书籍</a>
                 <div class="book-page-top">
                     <div class="book-page-cover">
                         <img src="../booklists/covers/{SLUG}.jpg" alt="{TITLE_ZH}">

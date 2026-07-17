@@ -5,7 +5,7 @@ slug: "cscec"
 canonical_url: "https://aimunger.com/wiki/cscec/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 06:25:00"
 tags: []
 description: "中国建筑（601668.SH）：央企建筑工程与基建总承包龙头，中海发展母公司"

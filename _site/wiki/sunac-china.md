@@ -5,7 +5,7 @@ slug: "sunac-china"
 canonical_url: "https://aimunger.com/wiki/sunac-china/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-06-24 13:50:23"
 tags: []
 description: "孙宏斌创办并控股的港股民营房企，2014 年入主绿城"

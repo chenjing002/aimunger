@@ -5,7 +5,7 @@ slug: "loujiwei"
 canonical_url: "https://aimunger.com/wiki/loujiwei/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 07:00:00"
 tags: []
 description: "楼继伟：中国财政部原部长，曾任中投公司董事长"

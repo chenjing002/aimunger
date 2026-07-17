@@ -5,7 +5,7 @@ slug: "sunwenjie"
 canonical_url: "https://aimunger.com/wiki/sunwenjie/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 07:00:00"
 tags: []
 description: "孙文杰（孫文傑）：中海发展早期主席，奠定内地扩张基础"

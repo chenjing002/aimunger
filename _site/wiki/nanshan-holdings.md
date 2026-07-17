@@ -5,7 +5,7 @@ slug: "nanshan-holdings"
 canonical_url: "https://aimunger.com/wiki/nanshan-holdings/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 tags: []
 description: "招商局体系旗下房地产与物流地产双核上市平台"
 created: "2026-05-17 20:13:27"

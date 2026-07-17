@@ -22,6 +22,10 @@ jobs:
     steps:
       - name: Checkout aimunger
         uses: actions/checkout@v4
+        with:
+          # Full history so generators can derive real publish/modified dates
+          # from git (archival posts carry historical dates in frontmatter).
+          fetch-depth: 0
 
       - name: Checkout letters-to-shareholders
         uses: actions/checkout@v4

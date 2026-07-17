@@ -5,7 +5,7 @@ slug: "yuexiu-property"
 canonical_url: "https://aimunger.com/wiki/yuexiu-property/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 06:25:00"
 tags: []
 description: "越秀地产（00123.HK）：广州国资背景港股房地产开发商"

@@ -7,6 +7,8 @@ const {
   injectAlternateMarkdownLink,
   parseSimpleMeta,
   renderMarkdownToHtml,
+  resolveGitDate,
+  resolvePublishDate,
   splitFrontmatter,
 } = require('./site-md-utils');
 
@@ -90,6 +92,10 @@ function generateArticlePage(article) {
   const mdHref = `/blog/${article.slug}.md`;
   const pageUrl = `https://aimunger.com/blog/${article.slug}/`;
   const description = buildExcerpt(article.answer, 160);
+  // Machine-readable dates: archival posts carry the original document's
+  // date in frontmatter, so publish/modified dates come from git instead.
+  const publishedDate = article.filePath ? resolvePublishDate(article.filePath, article.created_at) : dateStr;
+  const modifiedDate = (article.filePath && resolveGitDate(article.filePath)) || publishedDate;
 
   const jsonLd = buildJsonLd({
     '@context': 'https://schema.org',
@@ -98,7 +104,8 @@ function generateArticlePage(article) {
     description,
     url: pageUrl,
     mainEntityOfPage: pageUrl,
-    ...(dateStr ? { datePublished: dateStr } : {}),
+    ...(publishedDate ? { datePublished: publishedDate } : {}),
+    ...(modifiedDate ? { dateModified: modifiedDate } : {}),
     inLanguage: 'zh-CN',
     isPartOf: { '@type': 'Blog', name: 'aimunger 文章', url: 'https://aimunger.com/blog/' },
     publisher: { '@type': 'Organization', name: 'aimunger', url: 'https://aimunger.com' },
@@ -119,8 +126,9 @@ function generateArticlePage(article) {
     <meta property="og:url" content="${pageUrl}" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="zh_CN" />
-    <meta property="og:site_name" content="aimunger" />${dateStr ? `
-    <meta property="article:published_time" content="${escapeHtml(dateStr)}" />` : ''}
+    <meta property="og:site_name" content="aimunger" />${publishedDate ? `
+    <meta property="article:published_time" content="${escapeHtml(publishedDate)}" />` : ''}${modifiedDate ? `
+    <meta property="article:modified_time" content="${escapeHtml(modifiedDate)}" />` : ''}
     ${jsonLd}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -283,7 +291,8 @@ ${cards}
 function loadBlogArticles() {
   if (!fs.existsSync(BLOG_DIR)) return [];
   return fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md')).map(f => {
-    const raw = fs.readFileSync(path.join(BLOG_DIR, f), 'utf-8');
+    const filePath = path.join(BLOG_DIR, f);
+    const raw = fs.readFileSync(filePath, 'utf-8');
     const { frontmatter, body } = splitFrontmatter(raw);
     const meta = parseSimpleMeta(frontmatter);
     let title = meta.title || f.replace(/\.md$/, '');
@@ -295,6 +304,7 @@ function loadBlogArticles() {
       title,
       answer: content,
       created_at: meta.date || '',
+      filePath,
     };
   });
 }

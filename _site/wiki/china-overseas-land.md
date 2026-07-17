@@ -5,7 +5,7 @@ slug: "china-overseas-land"
 canonical_url: "https://aimunger.com/wiki/china-overseas-land/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-05 10:05:00"
 tags: []
 description: "中海发展（中国海外发展，0688.HK）：中建系港股房地产开发龙头"

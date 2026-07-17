@@ -5,7 +5,7 @@ slug: "huang-zheng"
 canonical_url: "https://aimunger.com/wiki/huang-zheng/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-06-23 00:00:00"
 tags: []
 description: "黄峥：拼多多创始人，中国电商领域代表性企业家"
