@@ -1,6 +1,6 @@
 ---
 title: "把钱花对，才算真正的富有 The Art of Spending Money"
-date: 2025-01-01
+date: 2025-01-24
 slug: art-of-spending-money
 ---
 

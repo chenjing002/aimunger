@@ -1,6 +1,6 @@
 ---
 title: "《The Lords of Creation》1890 至 1930 年美国资本整合与市场起落"
-date: 1930-01-01
+date: 2025-03-11
 slug: lords-of-creation-1890-1930
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "圣莫尼卡合伙公司创始人 Lawrence Goldstein：我们如何思考投资"
-date: 2025-01-01
+date: 2025-07-18
 slug: lawrence-goldstein-how-we-invest
 ---
 

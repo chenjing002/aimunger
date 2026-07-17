@@ -1,6 +1,6 @@
 ---
 title: "新书解读《The Moneyball Method》：成功不在于你有多聪明，而在于少犯错"
-date: 2025-01-01
+date: 2026-07-10
 slug: moneyball-method
 ---
 

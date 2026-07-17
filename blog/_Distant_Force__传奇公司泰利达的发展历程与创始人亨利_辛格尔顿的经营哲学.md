@@ -1,6 +1,6 @@
 ---
 title: "《Distant Force》：传奇公司泰利达的发展历程与创始人亨利·辛格尔顿的经营哲学"
-date: 2025-01-01
+date: 2026-02-10
 slug: distant-force-teledyne-singleton
 ---
 

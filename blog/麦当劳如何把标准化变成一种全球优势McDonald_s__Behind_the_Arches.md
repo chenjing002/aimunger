@@ -1,6 +1,6 @@
 ---
 title: "麦当劳如何把标准化变成一种全球优势McDonald’s: Behind the Arches"
-date: 2025-01-01
+date: 2026-07-07
 slug: mcdonalds-behind-the-arches
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "巴菲特的早期投资案例：关于最佳回报率时期的新研究 Buffett's Early Investments"
-date: 2025-01-01
+date: 2026-02-07
 slug: buffett-early-investments-research
 ---
 

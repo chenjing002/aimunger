@@ -1,6 +1,6 @@
 ---
 title: "从“最伟大的分析师”到可持续 Alpha：Steve Mandel 与 Lone Pine 的投资哲学"
-date: 2025-01-01
+date: 2025-09-28
 slug: steve-mandel-lone-pine
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "投机大师利弗莫尔最推崇的书之一《Speculation as a Fine Art》"
-date: 2025-01-01
+date: 2025-02-19
 slug: speculation-as-fine-art
 ---
 

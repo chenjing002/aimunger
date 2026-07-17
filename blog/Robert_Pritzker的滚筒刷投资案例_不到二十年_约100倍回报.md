@@ -1,6 +1,6 @@
 ---
 title: "Robert Pritzker的滚筒刷投资案例：不到二十年，约100倍回报"
-date: 2025-01-01
+date: 2026-03-24
 slug: robert-pritzker-100x-paint-roller
 ---
 

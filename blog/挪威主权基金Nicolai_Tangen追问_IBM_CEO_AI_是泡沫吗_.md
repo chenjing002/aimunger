@@ -1,6 +1,6 @@
 ---
 title: "挪威主权基金Nicolai Tangen追问 IBM CEO：AI 是泡沫吗？"
-date: 2025-01-01
+date: 2026-07-17
 slug: nicolai-tangen-ibm-ceo-ai
 ---
 

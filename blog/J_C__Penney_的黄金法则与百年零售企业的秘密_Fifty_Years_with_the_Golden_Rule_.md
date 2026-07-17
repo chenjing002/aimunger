@@ -1,6 +1,6 @@
 ---
 title: "J.C. Penney 的黄金法则与百年零售企业的秘密《Fifty Years with the Golden Rule》"
-date: 2025-01-01
+date: 2025-10-10
 slug: jc-penney-golden-rule
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "一篇极其值得反复研读的经典案例：Norbert Lou 2001 年 VIC 上的 NVR 公司投资分析"
-date: 2001-01-01
+date: 2025-12-12
 slug: norbert-lou-nvr-2001-vic
 ---
 

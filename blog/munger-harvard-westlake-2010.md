@@ -1,6 +1,6 @@
 ---
 title: 查理·芒格（Charlie Munger）在哈佛西湖学校的演讲
-date: 2010-01-19
+date: 2025-12-11
 slug: munger-harvard-westlake-2010
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "理解“资本配置”，打破常规的财富教科书 The Rebel Allocator"
-date: 2025-01-01
+date: 2025-05-27
 slug: rebel-allocator
 ---
 

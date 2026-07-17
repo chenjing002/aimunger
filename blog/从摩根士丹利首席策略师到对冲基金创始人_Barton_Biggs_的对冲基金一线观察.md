@@ -1,6 +1,6 @@
 ---
 title: "从摩根士丹利首席策略师到对冲基金创始人，Barton Biggs 的对冲基金一线观察"
-date: 2025-01-01
+date: 2025-07-23
 slug: barton-biggs-hedge-fund-observations
 ---
 

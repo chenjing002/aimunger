@@ -1,6 +1,6 @@
 ---
 title: "熊市剖析：华尔街四大底部的启示 Anatomy of the Bear"
-date: 2025-01-01
+date: 2026-01-11
 slug: anatomy-of-the-bear
 ---
 

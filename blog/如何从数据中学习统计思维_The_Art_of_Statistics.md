@@ -1,6 +1,6 @@
 ---
 title: "如何从数据中学习统计思维 The Art of Statistics"
-date: 2025-01-01
+date: 2025-04-02
 slug: art-of-statistics
 ---
 

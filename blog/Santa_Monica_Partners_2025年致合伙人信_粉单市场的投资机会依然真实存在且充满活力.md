@@ -1,6 +1,6 @@
 ---
 title: "Santa Monica Partners 2025年致合伙人信：粉单市场的投资机会依然真实存在且充满活力"
-date: 2025-01-01
+date: 2026-02-26
 slug: santa-monica-partners-2025-letter
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "跨学科的思维武器，破解投资中的不确定性More Than You Know"
-date: 2025-01-01
+date: 2025-10-03
 slug: more-than-you-know-mauboussin
 ---
 

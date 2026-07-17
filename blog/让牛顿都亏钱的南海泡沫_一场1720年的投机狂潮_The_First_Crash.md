@@ -1,6 +1,6 @@
 ---
 title: "让牛顿都亏钱的南海泡沫：一场1720年的投机狂潮 The First Crash"
-date: 2025-01-01
+date: 2026-05-30
 slug: south-sea-bubble-first-crash
 ---
 

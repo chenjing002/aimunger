@@ -1,6 +1,6 @@
 ---
 title: "专访Tracy Britt Cool：从巴菲特身边到kanbrick，“一砖一瓦”的经营之道"
-date: 2025-01-01
+date: 2025-02-15
 slug: tracy-britt-cool-kanbrick-interview
 ---
 

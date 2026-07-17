@@ -1,6 +1,6 @@
 ---
 title: "“印度巴菲特” Mohnish Pabrai：做一个“无耻模仿者”的快乐——2025 格雷厄姆欧洲价值投资大会炉边对谈"
-date: 2025-10-14
+date: 2025-06-21
 slug: mohnish-pabrai-shameless-cloner-2025
 ---
 

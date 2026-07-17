@@ -1,6 +1,6 @@
 ---
 title: "在加入伯克希尔之前：被巴菲特选中的投资经理 Ted Weschler 写给 Peninsula 合伙人的最后一封信【万字】"
-date: 2025-01-01
+date: 2025-06-07
 slug: ted-weschler-peninsula-final-letter
 ---
 
