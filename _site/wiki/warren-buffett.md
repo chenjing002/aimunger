@@ -5,7 +5,7 @@ slug: "warren-buffett"
 canonical_url: "https://aimunger.com/wiki/warren-buffett/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-17 21:50:49"
 tags: []
 description: ""

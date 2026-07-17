@@ -5,7 +5,7 @@ slug: "yanjianguo"
 canonical_url: "https://aimunger.com/wiki/yanjianguo/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-05 10:05:00"
 tags: []
 description: "颜建国：中海发展（0688.HK）现任主席兼行政总裁"

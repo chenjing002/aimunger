@@ -259,7 +259,7 @@ function collectBookItems() {
       const meta = parseSimpleMeta(frontmatter);
       const title = meta.title_zh || meta.title_en || slug;
       const authors = parseListValue(meta.authors);
-      const htmlUrl = `${SITE}/resources/books/${slug}`;
+      const htmlUrl = `${SITE}/resources/books/${slug}/`;
       const mdUrl = `${SITE}/resources/books/${slug}.md`;
       const summary = excerpt(body);
 
@@ -325,7 +325,7 @@ function collectBookItems() {
     buildSectionIndexMarkdown({
       title: 'aimunger 书籍资料索引',
       section: 'resources/books',
-      canonicalUrl: `${SITE}/resources/books`,
+      canonicalUrl: `${SITE}/resources/books/`,
       description: '书摘、书评与学习笔记索引。优先使用对应图书详情页 Markdown 获取正文。',
       items,
     })

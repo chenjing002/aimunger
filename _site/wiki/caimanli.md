@@ -5,7 +5,7 @@ slug: "caimanli"
 canonical_url: "https://aimunger.com/wiki/caimanli/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-06-04 07:00:00"
 tags: []
 description: "金杜律师事务所高级顾问，曾任证监会并购重组监管处长"

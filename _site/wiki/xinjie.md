@@ -5,7 +5,7 @@ slug: "xinjie"
 canonical_url: "https://aimunger.com/wiki/xinjie/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-06 10:00:00"
 tags: []
 description: "曾任深圳地铁董事长，2025年接管万科后失联被查"

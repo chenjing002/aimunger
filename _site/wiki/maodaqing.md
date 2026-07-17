@@ -5,7 +5,7 @@ slug: "maodaqing"
 canonical_url: "https://aimunger.com/wiki/maodaqing/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-06 10:00:00"
 tags: []
 description: "万科前执行副总裁，优客工场创始人"

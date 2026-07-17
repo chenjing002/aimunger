@@ -5,7 +5,7 @@ slug: "zhang-ruimin"
 canonical_url: "https://aimunger.com/wiki/zhang-ruimin/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-06-04 00:00:00"
 tags: []
 description: "张瑞敏：海尔集团创始人、董事局名誉主席，人单合一管理模式创始人"

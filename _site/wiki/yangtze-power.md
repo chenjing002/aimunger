@@ -5,7 +5,7 @@ slug: "yangtze-power"
 canonical_url: "https://aimunger.com/wiki/yangtze-power/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-06 10:00:00"
 tags: []
 description: "三峡集团旗下大型水电运营平台"

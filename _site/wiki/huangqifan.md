@@ -5,7 +5,7 @@ slug: "huangqifan"
 canonical_url: "https://aimunger.com/wiki/huangqifan/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 06:25:00"
 tags: []
 description: "黄奇帆：重庆市原市长，对中国房地产周期与政策有深度判断"

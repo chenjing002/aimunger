@@ -5,7 +5,7 @@ slug: "shenzhen-metro"
 canonical_url: "https://aimunger.com/wiki/shenzhen-metro/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-06 10:00:00"
 tags: []
 description: "深圳国资委直管大型国企，万科第一大股东"

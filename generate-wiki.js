@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { buildJsonLd, injectAlternateMarkdownLink } = require('./site-md-utils');
+const { buildJsonLd, injectAlternateMarkdownLink, resolveGitDate } = require('./site-md-utils');
 
 const IR_LOG_WIKI = path.join(__dirname, '..', 'IR-log', 'wiki');
 const WIKI_SOURCE = path.join(__dirname, 'wiki-source');
@@ -38,6 +38,7 @@ const SLUG_MAP = {
   '李如成': 'lirucheng',
   '梅志明': 'meizhiming',
   '楼继伟': 'loujiwei',
+  '梁海山': 'liang-haishan',
   '比亚迪': 'byd',
   '毛大庆': 'maodaqing',
   '潘樟良': 'panzhangliang',
@@ -48,6 +49,7 @@ const SLUG_MAP = {
   '郝建民': 'haojianmin',
   '陈启宗': 'ronnie-chan',
   '陈序平': 'chenxuping',
+  '陈东升': 'chen-dongsheng',
   '陈曾熙': 'chan-tseng-hsi',
   '雅戈尔': 'youngor',
   '颜建国': 'yanjianguo',
@@ -80,6 +82,59 @@ const SLUG_MAP = {
 function getSlug(title) {
   return SLUG_MAP[title] || encodeURIComponent(title);
 }
+
+// Traditional-character variants for entries whose names differ between
+// simplified and traditional Chinese. Used as alternateName in structured
+// data so zh-Hant queries (HK/TW/Macau — about a third of impressions)
+// match these pages.
+const TRADITIONAL_NAMES = {
+  '缪建民': '繆建民',
+  '陈启宗': '陳啟宗',
+  '陈曾熙': '陳曾熙',
+  '陈序平': '陳序平',
+  '恒隆地产': '恒隆地產',
+  '万科': '萬科',
+  '万物云': '萬物雲',
+  '美的集团': '美的集團',
+  '中国平安': '中國平安',
+  '中国建筑': '中國建築',
+  '中海发展': '中海發展',
+  '华润置地': '華潤置地',
+  '融创中国': '融創中國',
+  '深圳地铁': '深圳地鐵',
+  '绿景地产': '綠景地產',
+  '越秀地产': '越秀地產',
+  '长江电力': '長江電力',
+  '龙湖集团': '龍湖集團',
+  '招商局集团': '招商局集團',
+  '豫园股份': '豫園股份',
+  '新鸿基': '新鴻基',
+  '比亚迪': '比亞迪',
+  '雅戈尔': '雅戈爾',
+  '海尔': '海爾',
+  '张旭': '張旭',
+  '张瑞敏': '張瑞敏',
+  '李录': '李錄',
+  '孙宏斌': '孫宏斌',
+  '孙文杰': '孫文傑',
+  '吴亚军': '吳亞軍',
+  '赵燕菁': '趙燕菁',
+  '单伟建': '單偉建',
+  '颜建国': '顏建國',
+  '马明哲': '馬明哲',
+  '黄奇帆': '黃奇帆',
+  '黄峥': '黃崢',
+  '华生': '華生',
+  '刘元生': '劉元生',
+  '郭钧': '郭鈞',
+  '高西庆': '高西慶',
+  '宋卫平': '宋衛平',
+  '毛大庆': '毛大慶',
+  '孔庆平': '孔慶平',
+  '傅育宁': '傅育寧',
+  '楼继伟': '樓繼偉',
+  '辛杰': '辛傑',
+};
 
 function escHtml(s) {
   return String(s || '')
@@ -203,20 +258,55 @@ const FOOTER_HTML = `    <footer class="footer">
     </footer>`;
 
 // Extracts the 简介 section as a plain-text page description; falls back to
-// the beginning of the whole entry text.
+// the beginning of the whole entry text. Appends the site's angle when there
+// is room, so the snippet tells searchers what this page adds over a
+// generic encyclopedia entry.
 function extractDescription(entry) {
   const match = entry.rawBody && entry.rawBody.match(/##\s*简介\s*\n+([\s\S]*?)(?=\n##\s|\s*$)/);
   const source = match ? match[1] : entry.plainText;
-  const plain = stripMarkdown(source);
-  const text = plain.length > 160 ? `${plain.slice(0, 160)}...` : plain;
-  return text || `${entry.title} - aimunger Wiki`;
+  let plain = stripMarkdown(source);
+  if (!plain) return `${entry.title} - aimunger Wiki`;
+  const suffix = classifyNode(entry.title) === 'company'
+    ? '本页从投资者视角整理其发展沿革、关键数据与最新动态。'
+    : '本页从投资与资本配置视角整理其履历、关键决策与最新动态。';
+  if (plain.length + suffix.length <= 155 && !plain.includes('视角整理')) {
+    plain = `${plain.replace(/[。；;]$/, '')}。${suffix}`;
+  }
+  return plain.length > 160 ? `${plain.slice(0, 160)}...` : plain;
+}
+
+// Builds a differentiated <title>: "名字：身份角色 | 履历、决策与最新动态 - aimunger".
+// The role clause comes from the frontmatter description or the 简介 text.
+function buildPageTitle(entry) {
+  const nodeType = classifyNode(entry.title);
+  const descSource = (entry.meta && entry.meta.description) || '';
+  const introMatch = entry.rawBody && entry.rawBody.match(/##\s*简介\s*\n+([\s\S]*?)(?=\n##\s|\s*$)/);
+  const fallback = introMatch ? stripMarkdown(introMatch[1]) : '';
+  let roleText = stripMarkdown(descSource) || fallback;
+  // Descriptions often lead with the entry's own name ("恒隆地产（Hang Lung
+  // Properties）：港资…"); strip that prefix so the role clause survives.
+  if (roleText.startsWith(entry.title)) {
+    roleText = roleText.slice(entry.title.length).replace(/^（[^）]*）/, '').replace(/^[：:，,、\s]+/, '');
+  }
+  // First clause, trimmed of trailing punctuation; skip if too long or empty.
+  const role = roleText.split(/[，,。：:；;（(]/)[0].trim();
+  const promise = nodeType === 'company' ? '公司沿革、数据与股东信' : '履历、决策与最新动态';
+  if (role && role.length >= 4 && role.length <= 22 && role !== entry.title) {
+    return `${entry.title}：${role}｜${promise} - aimunger`;
+  }
+  return `${entry.title}｜${promise} - aimunger Wiki`;
 }
 
 function generateArticlePage(entry) {
   const { title, htmlContent } = entry;
   const pageUrl = `https://aimunger.com/wiki/${getSlug(title)}/`;
   const description = extractDescription(entry);
+  const pageTitle = buildPageTitle(entry);
   const nodeType = classifyNode(title);
+  const traditional = TRADITIONAL_NAMES[title];
+  const createdDate = ((entry.meta && entry.meta.created) || '').slice(0, 10);
+  const datePublished = /^\d{4}-\d{2}-\d{2}$/.test(createdDate) ? createdDate : null;
+  const dateModified = (entry.sourcePath && resolveGitDate(entry.sourcePath)) || datePublished;
 
   const jsonLd = buildJsonLd({
     '@context': 'https://schema.org',
@@ -225,14 +315,27 @@ function generateArticlePage(entry) {
     description,
     url: pageUrl,
     mainEntityOfPage: pageUrl,
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : {}),
     inLanguage: 'zh-CN',
     about: {
       '@type': nodeType === 'company' ? 'Organization' : 'Person',
       name: title,
+      ...(traditional ? { alternateName: traditional } : {}),
       description,
     },
     isPartOf: { '@type': 'WebSite', name: 'aimunger Wiki', url: 'https://aimunger.com/wiki/' },
     publisher: { '@type': 'Organization', name: 'aimunger', url: 'https://aimunger.com' },
+  });
+
+  const breadcrumbLd = buildJsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'aimunger', item: 'https://aimunger.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Wiki', item: 'https://aimunger.com/wiki/' },
+      { '@type': 'ListItem', position: 3, name: title, item: pageUrl },
+    ],
   });
 
   return injectAlternateMarkdownLink(`<!DOCTYPE html>
@@ -241,16 +344,17 @@ function generateArticlePage(entry) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
-    <title>${escHtml(title)} - Wiki - aimunger</title>
+    <title>${escHtml(pageTitle)}</title>
     <meta name="description" content="${escHtml(description)}">
     <link rel="canonical" href="${pageUrl}" />
-    <meta property="og:title" content="${escHtml(title)} - Wiki - aimunger" />
+    <meta property="og:title" content="${escHtml(pageTitle)}" />
     <meta property="og:description" content="${escHtml(description)}" />
     <meta property="og:url" content="${pageUrl}" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:site_name" content="aimunger" />
     ${jsonLd}
+    ${breadcrumbLd}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
@@ -428,15 +532,19 @@ function run() {
   const entries = [];
 
   for (const file of files) {
-    const raw = fs.readFileSync(path.join(WIKI_SOURCE, file), 'utf-8');
+    const sourcePath = path.join(WIKI_SOURCE, file);
+    const raw = fs.readFileSync(sourcePath, 'utf-8');
     const { meta, body } = parseFrontmatter(raw);
     const title = file.replace('.md', '');
-    const cleaned = removeAtomicNotesSection(body);
+    let cleaned = removeAtomicNotesSection(body);
+    // The page template already renders the title as <h1>; drop the
+    // markdown's own leading h1 so pages keep a single h1.
+    cleaned = cleaned.replace(/^#\s+.+\n+/, '');
     const links = extractLinks(cleaned).filter(name => wikiNames.has(name));
     const htmlContent = markdownToHtml(cleaned, wikiNames);
     const plainText = stripMarkdown(cleaned);
 
-    entries.push({ title, meta, links, htmlContent, plainText, rawBody: cleaned });
+    entries.push({ title, meta, links, htmlContent, plainText, rawBody: cleaned, sourcePath });
   }
 
   // Build graph data with types and descriptions

@@ -5,7 +5,7 @@ slug: "zhaoyanjing"
 canonical_url: "https://aimunger.com/wiki/zhaoyanjing/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-24 00:00:00"
 tags: []
 description: "厦门大学教授，城市规划学会副理事长，专注土地财政与房地产宏观研究"

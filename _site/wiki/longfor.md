@@ -5,7 +5,7 @@ slug: "longfor"
 canonical_url: "https://aimunger.com/wiki/longfor/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-04-19 08:31:28"
 tags: []
 description: ""

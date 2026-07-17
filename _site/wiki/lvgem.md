@@ -5,7 +5,7 @@ slug: "lvgem"
 canonical_url: "https://aimunger.com/wiki/lvgem/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-22 10:00:00"
 tags: []
 description: "绿景地产：深圳本土民营房地产开发商"

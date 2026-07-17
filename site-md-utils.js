@@ -1,4 +1,42 @@
 const fs = require('fs');
+const { execSync } = require('child_process');
+
+// Returns the git commit date (YYYY-MM-DD) for a file: first commit that
+// added it when { first: true }, otherwise the most recent commit. Returns
+// null when the file has no git history (new file, shallow clone, no repo).
+const gitDateCache = new Map();
+function resolveGitDate(filePath, { first = false } = {}) {
+  const key = `${first ? 'first' : 'last'}:${filePath}`;
+  if (gitDateCache.has(key)) return gitDateCache.get(key);
+  let date = null;
+  try {
+    const args = first
+      ? `log --follow --diff-filter=A --format=%cs -- "${filePath}"`
+      : `log -1 --format=%cs -- "${filePath}"`;
+    const out = execSync(`git ${args}`, {
+      cwd: require('path').dirname(filePath),
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    const lines = out.split('\n').filter(Boolean);
+    const picked = first ? lines[lines.length - 1] : lines[0];
+    if (picked && /^\d{4}-\d{2}-\d{2}$/.test(picked)) date = picked;
+  } catch (_) { /* not in git or shallow history */ }
+  gitDateCache.set(key, date);
+  return date;
+}
+
+// Blog posts date archival reprints by the original document's date (e.g.
+// 1944-09-30), which is correct for display but wrong as a publish date in
+// structured data and sitemaps. Treat frontmatter dates before 2020 as
+// display-only and fall back to the git add date for machine-readable dates.
+function resolvePublishDate(filePath, metaDate) {
+  const frontmatterDate = (metaDate || '').slice(0, 10);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(frontmatterDate) && frontmatterDate >= '2020-01-01') {
+    return frontmatterDate;
+  }
+  return resolveGitDate(filePath, { first: true });
+}
 
 function normalizeNewlines(text) {
   return String(text || '').replace(/\r\n/g, '\n');
@@ -75,6 +113,9 @@ function stripMarkdown(text) {
     .replace(/\*\*(.+?)\*\*/g, '$1')
     .replace(/\*(.+?)\*/g, '$1')
     .replace(/^#{1,6}\s*/gm, '')
+    .replace(/^\s*={2,}\s*$/gm, '')
+    .replace(/^\s*-{3,}\s*$/gm, '')
+    .replace(/^\s*\*{3,}\s*$/gm, '')
     .replace(/^\s*>\s?/gm, '')
     .replace(/^\s*[-*+]\s+/gm, '')
     .replace(/^\s*\d+\.\s+/gm, '')
@@ -93,6 +134,8 @@ function buildExcerpt(text, maxLen = 160) {
       if (/^!\[[^\]]*\]\([^)]*\)$/.test(trimmed)) return false;
       if (/^\*\*[\d年月日\s.\-/]+\*\*$/.test(trimmed)) return false;
       if (/^(>\s*)?(原文地址|原文链接|来源)[:：]/.test(trimmed) && /https?:\/\//.test(trimmed)) return false;
+      if (/^={2,}$/.test(trimmed)) return false; // setext heading underline
+      if (/^(导读|引言|前言|摘要)$/.test(trimmed)) return false; // section label, not content
       return true;
     })
     .join('\n');
@@ -170,8 +213,16 @@ function renderMarkdownToHtml(markdown) {
 
     const heading = block.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
-      const level = heading[1].length;
+      // Body h1s are demoted to h2 — the page template owns the single h1.
+      const level = Math.max(heading[1].length, 2);
       return `<h${level}>${renderInlineMarkdown(heading[2].trim())}</h${level}>`;
+    }
+
+    // Setext heading ("标题\n====") — rendered as h2 since the page template
+    // already provides the single h1.
+    const setext = block.match(/^([^\n]+)\n={2,}\s*$/);
+    if (setext) {
+      return `<h2>${renderInlineMarkdown(setext[1].trim())}</h2>`;
     }
 
     const lines = block.split('\n').map(line => line.trimEnd());
@@ -265,6 +316,8 @@ module.exports = {
   parseSimpleMeta,
   renderMarkdownToHtml,
   replaceWikiLinks,
+  resolveGitDate,
+  resolvePublishDate,
   splitFrontmatter,
   stripMarkdown,
 };

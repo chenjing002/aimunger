@@ -5,7 +5,7 @@ slug: "onewo"
 canonical_url: "https://aimunger.com/wiki/onewo/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 07:00:00"
 tags: []
 description: "万物云（HK 2602）：万科旗下物业服务与城市服务平台，2022年港股上市"

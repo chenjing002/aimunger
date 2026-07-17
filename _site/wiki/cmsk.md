@@ -5,7 +5,7 @@ slug: "cmsk"
 canonical_url: "https://aimunger.com/wiki/cmsk/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-08"
+updated_at: "2026-07-17"
 created: "2026-05-11 06:25:00"
 tags: []
 description: "招商蛇口（001979.SZ）：招商局集团旗下综合型房地产开发商"

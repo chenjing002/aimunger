@@ -1,7 +1,7 @@
 // Generates a unified sitemap.xml by scanning the assembled _site directory
 const fs = require('fs');
 const path = require('path');
-const { parseSimpleMeta, splitFrontmatter } = require('./site-md-utils');
+const { parseSimpleMeta, resolveGitDate, resolvePublishDate, splitFrontmatter } = require('./site-md-utils');
 
 const SITE = 'https://aimunger.com';
 const SITE_DIR = path.join(__dirname, '_site');
@@ -14,12 +14,14 @@ function buildLastmodMap() {
   if (!fs.existsSync(BLOG_SOURCE_DIR)) return map;
   for (const file of fs.readdirSync(BLOG_SOURCE_DIR)) {
     if (!file.endsWith('.md')) continue;
-    const raw = fs.readFileSync(path.join(BLOG_SOURCE_DIR, file), 'utf-8');
+    const filePath = path.join(BLOG_SOURCE_DIR, file);
+    const raw = fs.readFileSync(filePath, 'utf-8');
     const meta = parseSimpleMeta(splitFrontmatter(raw).frontmatter);
     const slug = meta.slug || file.replace(/\.md$/, '');
-    if (meta.date && /^\d{4}-\d{2}-\d{2}/.test(meta.date)) {
-      map.set(`${SITE}/blog/${slug}/`, meta.date.slice(0, 10));
-    }
+    // Archival posts carry the original document's historical date in
+    // frontmatter; lastmod must reflect when the page actually changed.
+    const lastmod = resolveGitDate(filePath) || resolvePublishDate(filePath, meta.date);
+    if (lastmod) map.set(`${SITE}/blog/${slug}/`, lastmod);
   }
   return map;
 }
