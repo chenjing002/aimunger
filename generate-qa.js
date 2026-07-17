@@ -116,7 +116,8 @@ function generateArticlePage(article) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
+    <meta name="referrer" content="no-referrer">${article.noindex ? `
+    <meta name="robots" content="noindex, follow" />` : ''}
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>${escapeHtml(article.title)} - aimunger</title>
     <meta name="description" content="${escapeHtml(description)}">
@@ -311,6 +312,11 @@ function loadBlogArticles() {
       answer: content,
       created_at: meta.date || '',
       filePath,
+      // Posts that cite an external 原文地址 are translations/reposts syndicated
+      // from the author's WeChat 公众号 (or third-party works). They are kept
+      // for readers but excluded from search indexing so the site's indexed
+      // surface is its original material (book notes, wiki, original essays).
+      noindex: /原文地址/.test(content),
     };
   });
 }

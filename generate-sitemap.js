@@ -27,15 +27,23 @@ function buildLastmodMap() {
 }
 
 // Collect all HTML pages from the built site
+// A page carrying a noindex robots directive must not appear in the sitemap;
+// listing a noindexed URL triggers a "Submitted URL marked noindex" error in
+// Search Console.
+function isNoindex(filePath) {
+  const html = fs.readFileSync(filePath, 'utf-8');
+  return /<meta[^>]+name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html);
+}
+
 function collectPages(dir, base = '') {
   const urls = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     if (entry.isDirectory()) {
       urls.push(...collectPages(path.join(dir, entry.name), `${base}/${entry.name}`));
     } else if (entry.name === 'index.html') {
-      urls.push(`${base}/`);
+      if (!isNoindex(path.join(dir, entry.name))) urls.push(`${base}/`);
     } else if (entry.name.endsWith('.html')) {
-      urls.push(`${base}/${entry.name}`);
+      if (!isNoindex(path.join(dir, entry.name))) urls.push(`${base}/${entry.name}`);
     }
   }
   return urls;
