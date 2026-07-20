@@ -86,8 +86,17 @@ function generateSlug(qa) {
   return `post-${qa.id}`;
 }
 
+// Pulls the first inline image URL for the social-share preview. Only matches
+// absolute https URLs — the same constraint the body renderer uses — so the
+// og:image always points at an image that actually renders on the page.
+function extractFirstImage(markdown) {
+  const m = (markdown || '').match(/!\[[^\]]*\]\((https?:\/\/[^)\s]+)\)/);
+  return m ? m[1] : null;
+}
+
 function generateArticlePage(article) {
   const contentHtml = renderMarkdownToHtml(article.answer);
+  const ogImage = extractFirstImage(article.answer);
   const dateStr = (article.created_at || '').slice(0, 10);
   const mdHref = `/blog/${article.slug}.md`;
   const pageUrl = `https://aimunger.com/blog/${article.slug}/`;
@@ -107,9 +116,17 @@ function generateArticlePage(article) {
     ...(publishedDate ? { datePublished: publishedDate } : {}),
     ...(modifiedDate ? { dateModified: modifiedDate } : {}),
     inLanguage: 'zh-CN',
+    ...(ogImage ? { image: ogImage } : {}),
     isPartOf: { '@type': 'Blog', name: 'aimunger 文章', url: 'https://aimunger.com/blog/' },
     publisher: { '@type': 'Organization', name: 'aimunger', url: 'https://aimunger.com' },
   });
+
+  // Social-share preview: only emitted when the post has an image, so posts
+  // without one keep the default (text-only) card rather than a broken image.
+  const ogImageTags = ogImage ? `
+    <meta property="og:image" content="${escapeHtml(ogImage)}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="${escapeHtml(ogImage)}" />` : '';
 
   return injectAlternateMarkdownLink(`<!DOCTYPE html>
 <html lang="zh-CN">
@@ -127,7 +144,7 @@ function generateArticlePage(article) {
     <meta property="og:url" content="${pageUrl}" />
     <meta property="og:type" content="article" />
     <meta property="og:locale" content="zh_CN" />
-    <meta property="og:site_name" content="aimunger" />${publishedDate ? `
+    <meta property="og:site_name" content="aimunger" />${ogImageTags}${publishedDate ? `
     <meta property="article:published_time" content="${escapeHtml(publishedDate)}" />` : ''}${modifiedDate ? `
     <meta property="article:modified_time" content="${escapeHtml(modifiedDate)}" />` : ''}
     ${jsonLd}
