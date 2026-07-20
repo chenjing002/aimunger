@@ -112,8 +112,15 @@ function run() {
         }
 
         .group {
+            position: relative;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+        }
+        /* Promote the whole group's stacking order the instant it is hovered,
+           so its fanned-out background cards sit above the adjacent stack
+           immediately — no z-index transition, only transform/shadow animate. */
+        .group:hover {
+            z-index: 10;
         }
 
         .group-stack {
