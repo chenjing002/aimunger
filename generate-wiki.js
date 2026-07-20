@@ -770,12 +770,14 @@ function generateGraphScript() {
   function openGraph() {
     graphSection.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    if (location.hash !== '#graph') history.replaceState(null, '', '#graph');
     mountGraph();
   }
 
   function closeGraph() {
     graphSection.classList.remove('is-open');
     document.body.style.overflow = '';
+    if (location.hash === '#graph') history.replaceState(null, '', location.pathname + location.search);
     viewBtns.forEach(function(b) {
       b.classList.toggle('active', b.getAttribute('data-view') === 'list');
     });
@@ -803,6 +805,14 @@ function generateGraphScript() {
   });
 
   searchInput.addEventListener('input', function() { applyListSearch(this.value.trim()); });
+
+  // Deep link: /wiki/#graph opens the graph view directly
+  if (location.hash === '#graph') {
+    viewBtns.forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-view') === 'graph');
+    });
+    openGraph();
+  }
 
   // Prefetch graph module and all dependencies during idle time
   function prefetchGraph() {
@@ -966,7 +976,7 @@ function generateWikiCSS() {
     position: absolute;
     top: 18px;
     right: 22px;
-    z-index: 10;
+    z-index: 40; /* above node labels and canvas overlays */
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -1044,7 +1054,8 @@ function generateWikiCSS() {
 .g-legend {
     position: absolute;
     left: 28px;
-    bottom: 50px;
+    bottom: 24px;
+    z-index: 30;
     display: flex;
     gap: 16px;
     font-size: 11px;
@@ -1056,12 +1067,20 @@ function generateWikiCSS() {
     align-items: center;
     gap: 7px;
 }
+.g-legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.g-legend-dot.is-pe { background: #2a2723; }
+.g-legend-dot.is-co { background: #8b2500; }
 .g-search {
     position: absolute;
     top: 26px;
     left: 28px;
     width: 230px;
-    z-index: 5;
+    z-index: 30; /* above node labels (zIndexRange caps at 10) */
 }
 .g-search-input {
     width: 100%;
@@ -1112,6 +1131,7 @@ function generateWikiCSS() {
     position: absolute;
     right: 22px;
     bottom: 22px;
+    z-index: 30; /* above node labels */
     display: flex;
     flex-direction: column;
     gap: 7px;
@@ -1140,7 +1160,8 @@ function generateWikiCSS() {
     letter-spacing: 0.12em;
     color: #8a857b;
     white-space: nowrap;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     user-select: none;
     transition: opacity 0.4s ease, transform 0.4s ease;
     animation: gLabelIn 0.5s ease both;
@@ -1168,9 +1189,9 @@ function generateWikiCSS() {
     opacity: 1;
 }
 .g-label-idle {
-    color: #9e998f;
-    font-size: 10px;
-    opacity: 0.65;
+    color: #635f57;
+    font-size: 10.5px;
+    opacity: 0.95;
 }
 @keyframes gLabelIn {
     from { opacity: 0; transform: translateY(4px); }
@@ -1263,7 +1284,7 @@ function generateWikiCSS() {
     flex-shrink: 0;
 }
 .g-pill-dot.is-pe { background: #262320; }
-.g-pill-dot.is-co { background: #5c4a3c; }
+.g-pill-dot.is-co { background: #8b2500; } /* match company node color */
 .g-actions {
     margin-bottom: 22px;
 }

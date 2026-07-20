@@ -16,7 +16,7 @@ const html = htm.bind(React.createElement);
 
 /* ---------------------------------------------------------------- palette */
 const C = {
-  bg: '#f9f9ff',
+  bg: '#ebe8e2',
   ink: '#26241f',
   inkSoft: '#6f6a60',
   person: '#2a2723',
@@ -273,7 +273,7 @@ function NodeMesh({ node, targetPosition, radius, state, onClick, onOver, onOut 
       case 'neighbor': return { scale: 1.0, opacity: 0.85, color: baseColor };
       case 'hover': return { scale: 1.15, opacity: 1, color: baseColor };
       case 'dim': return { scale: 0.78, opacity: 0.15, color: C.faded };
-      default: return { scale: 1, opacity: 0.6, color: baseColor };
+      default: return { scale: 1, opacity: 0.92, color: baseColor };
     }
   }, [state, node.type]);
 
@@ -304,7 +304,10 @@ function NodeMesh({ node, targetPosition, radius, state, onClick, onOver, onOut 
 }
 
 /* ---------------------------------------------------------------- animated label that follows its node */
-function AnimatedLabel({ targetPosition, offset, cls, text }) {
+/* Labels are clickable proxies for their node: click selects, hover highlights.
+   (drei's Html wrapper always captures pointer events in non-transform mode,
+   so making labels interactive beats having them silently swallow clicks.) */
+function AnimatedLabel({ id, targetPosition, offset, cls, text, onPick, onOver, onOut }) {
   const groupRef = useRef();
   const targetPos = useRef(new THREE.Vector3());
   targetPos.current.set(targetPosition.x, targetPosition.y + offset, targetPosition.z);
@@ -319,8 +322,13 @@ function AnimatedLabel({ targetPosition, offset, cls, text }) {
 
   return html`
     <group ref=${groupRef} position=${initPos}>
-      <${Html} center=${true} zIndexRange=${[20, 0]} pointerEvents=${'none'}>
-        <div class=${cls}>${text}</div>
+      <${Html} center=${true} zIndexRange=${[10, 0]}>
+        <div
+          class=${cls}
+          onClick=${(e) => { e.stopPropagation(); onPick(id); }}
+          onPointerEnter=${() => onOver(id)}
+          onPointerLeave=${() => onOut(id)}
+        >${text}</div>
       <//>
     </group>
   `;
@@ -391,8 +399,8 @@ function FocusRing({ targetPosition, radius }) {
 
 /* ---------------------------------------------------------------- edges — active / faded / idle */
 function Edge({ curvePoints, state }) {
-  const lw = state === 'active' ? 1.0 : state === 'faded' ? 0.3 : 0.4;
-  const op = state === 'active' ? 0.4 : state === 'faded' ? 0.03 : 0.1;
+  const lw = state === 'active' ? 1.0 : state === 'faded' ? 0.3 : 0.55;
+  const op = state === 'active' ? 0.4 : state === 'faded' ? 0.03 : 0.22;
   return html`
     <${Line}
       points=${curvePoints}
@@ -471,7 +479,9 @@ function CameraRig({ focusPos, controlsRef, requestRef, layout }) {
         const ctrl = controlsRef.current; if (!ctrl) return;
         const t = ctrl.target;
         const dir = camera.position.clone().sub(t);
-        dir.multiplyScalar(factor);
+        // Clamp to the OrbitControls distance range so wheel input doesn't snap afterwards
+        const len = Math.max(ctrl.minDistance || 5, Math.min(dir.length() * factor, ctrl.maxDistance || 110));
+        dir.normalize().multiplyScalar(len);
         const np = t.clone().add(dir);
         gsap.to(camera.position, { x: np.x, y: np.y, z: np.z, duration: 0.5, ease: 'power2.out', onUpdate: () => ctrl.update() });
       },
@@ -489,7 +499,7 @@ function CameraRig({ focusPos, controlsRef, requestRef, layout }) {
         const vDist = sphere.radius / Math.tan(fov / 2);
         const hFov = 2 * Math.atan(Math.tan(fov / 2) * (camera.aspect || 1));
         const hDist = sphere.radius / Math.tan(hFov / 2);
-        const dist = Math.max(vDist, hDist) * 1.5;
+        const dist = Math.max(vDist, hDist) * 1.2;
         const ip = new THREE.Vector3(center.x, center.y + 1, center.z + dist);
         const o = { px: camera.position.x, py: camera.position.y, pz: camera.position.z, tx: ctrl.target.x, ty: ctrl.target.y, tz: ctrl.target.z };
         gsap.to(o, { px: ip.x, py: ip.y, pz: ip.z, tx: center.x, ty: center.y, tz: center.z, duration: 0.8, ease: 'power2.inOut',
@@ -557,7 +567,7 @@ function FitAll({ layout, controlsRef }) {
     const vDist = sphere.radius / Math.tan(fov / 2);
     const hFov = 2 * Math.atan(Math.tan(fov / 2) * (camera.aspect || 1));
     const hDist = sphere.radius / Math.tan(hFov / 2);
-    const dist = Math.max(vDist, hDist) * 1.5;
+    const dist = Math.max(vDist, hDist) * 1.2;
 
     camera.position.set(center.x, center.y + 1, center.z + dist);
     if (controlsRef.current) {
@@ -566,6 +576,23 @@ function FitAll({ layout, controlsRef }) {
     }
   }, [layout, camera, controlsRef]);
 
+  return null;
+}
+
+/* ---------------------------------------------------------------- fog that scales with viewing distance
+   A fixed fog range washes out the far half of the graph at overview distance
+   (and can swallow it entirely on narrow/mobile aspect ratios). Track the
+   camera-to-target distance so fog only ever grades the far fringe. */
+function AdaptiveFog({ controlsRef }) {
+  const { scene, camera } = useThree();
+  useFrame(() => {
+    const fog = scene.fog;
+    if (!fog) return;
+    const t = controlsRef.current ? controlsRef.current.target : null;
+    const d = t ? camera.position.distanceTo(t) : camera.position.length();
+    fog.near += (d * 1.05 - fog.near) * 0.1;
+    fog.far += (d * 2.4 - fog.far) * 0.1;
+  });
   return null;
 }
 
@@ -648,10 +675,14 @@ function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, neighb
         const offset = st === 'focus' ? r + 0.9 : r + 0.55;
         return html`<${AnimatedLabel}
           key=${'l' + n.id}
+          id=${n.id}
           targetPosition=${p}
           offset=${offset}
           cls=${cls}
           text=${n.id}
+          onPick=${onPick}
+          onOver=${onOver}
+          onOut=${onOut}
         />`;
       })}
 
@@ -665,17 +696,34 @@ function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, neighb
         zoomSpeed=${0.8}
         panSpeed=${0.7}
         minDistance=${5}
-        maxDistance=${65}
+        maxDistance=${110}
       />
       <${CameraRig} focusPos=${focusPos} controlsRef=${controlsRef} requestRef=${requestRef} layout=${expandedLayout} />
       <${FitAll} layout=${expandedLayout} controlsRef=${controlsRef} />
+      <${AdaptiveFog} controlsRef=${controlsRef} />
     </group>
   `;
 }
 
 /* ---------------------------------------------------------------- right detail panel */
 function DetailPanel({ node, data, degree, neighborsList, index, total, onPick, onPrev, onNext, typeLabels }) {
-  if (!node) return null;
+  if (!node) {
+    const top = [...data.nodes].sort((a, b) => (degree[b.id] || 0) - (degree[a.id] || 0)).slice(0, 8);
+    return html`
+      <div class="g-panel-inner">
+        <h2 class="g-title">关系图谱</h2>
+        <p class="g-desc">共收录 ${data.nodes.length} 个节点、${data.edges.length} 条关联。点击图中任意节点或名字查看详情；拖拽旋转视角，滚轮缩放，点击空白处返回全景。</p>
+        <div class="g-section-label">核心节点</div>
+        <div class="g-pills">
+          ${top.map((nb) => html`
+            <button key=${nb.id} class="g-pill" onClick=${() => onPick(nb.id)}>
+              <span class=${'g-pill-dot ' + (nb.type === 'company' ? 'is-co' : 'is-pe')}></span>${nb.id}
+            </button>
+          `)}
+        </div>
+      </div>
+    `;
+  }
   return html`
     <div key=${node.id} class=${'g-panel-inner'}>
         <h2 class="g-title">${node.id}</h2>
@@ -766,8 +814,14 @@ function App({ data }) {
   const pick = useCallback((id) => { setFocusId(id); setQuery(''); setSearchOpen(false); }, []);
 
   const idx = useMemo(() => order.findIndex((n) => n.id === focusId), [order, focusId]);
-  const prev = useCallback(() => { if (idx >= 0) pick(order[(idx - 1 + order.length) % order.length].id); }, [idx, order, pick]);
-  const next = useCallback(() => { if (idx >= 0) pick(order[(idx + 1) % order.length].id); }, [idx, order, pick]);
+  const prev = useCallback(() => {
+    if (!order.length) return;
+    pick(idx >= 0 ? order[(idx - 1 + order.length) % order.length].id : order[order.length - 1].id);
+  }, [idx, order, pick]);
+  const next = useCallback(() => {
+    if (!order.length) return;
+    pick(idx >= 0 ? order[(idx + 1) % order.length].id : order[0].id);
+  }, [idx, order, pick]);
 
   const focusNode = focusId ? nodeById[focusId] : null;
   const neighborsList = useMemo(() => {
@@ -788,19 +842,36 @@ function App({ data }) {
       if (e.target.tagName === 'INPUT') return;
       if (e.key === 'ArrowRight') next();
       else if (e.key === 'ArrowLeft') prev();
+      else if (e.key === 'Escape' && focusId) {
+        // First Escape deselects; stop it from reaching the page-level
+        // handler that closes the whole overlay (second Escape does that).
+        e.stopPropagation();
+        setFocusId(null);
+      }
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [next, prev]);
+    // Capture phase so we run before the document-level overlay-close handler
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
+  }, [next, prev, focusId]);
+
+  /* click on empty canvas (not a drag) → back to overview */
+  const downPos = useRef(null);
+  const onCanvasMissed = useCallback((e) => {
+    const d = downPos.current;
+    if (d && (Math.abs(e.clientX - d[0]) > 5 || Math.abs(e.clientY - d[1]) > 5)) return;
+    setFocusId(null);
+    setQuery('');
+    setSearchOpen(false);
+  }, []);
 
   return html`
     <div class="g-root">
-      <div class="g-canvas-wrap">
+      <div class="g-canvas-wrap" onPointerDown=${(e) => { downPos.current = [e.clientX, e.clientY]; }}>
         <${Canvas}
           camera=${{ position: [0, 2, 26], fov: 42 }}
           gl=${{ antialias: true, alpha: false }}
           dpr=${[1, 2]}
-          onPointerMissed=${() => {}}
+          onPointerMissed=${onCanvasMissed}
           onCreated=${({ scene, gl }) => { scene.fog = new THREE.Fog(C.bg, 32, 75); gl.setClearColor(C.bg, 1); }}
         >
           <${Scene}
@@ -826,7 +897,7 @@ function App({ data }) {
             value=${query}
             onFocus=${() => setSearchOpen(true)}
             onChange=${(e) => setQuery(e.target.value)}
-            onKeyDown=${(e) => { if (e.key === 'Enter' && searchResults[0]) pick(searchResults[0].id); if (e.key === 'Escape') { setQuery(''); setSearchOpen(false); e.target.blur(); } }}
+            onKeyDown=${(e) => { if (e.key === 'Enter' && searchResults[0]) pick(searchResults[0].id); if (e.key === 'Escape') { e.stopPropagation(); setQuery(''); setSearchOpen(false); e.target.blur(); } }}
           />
           ${searchResults.length ? html`
             <div class="g-search-results">
@@ -834,6 +905,11 @@ function App({ data }) {
                 <span class=${'g-pill-dot ' + (n.type === 'company' ? 'is-co' : 'is-pe')}></span>${n.id}
               </button>`)}
             </div>` : null}
+        </div>
+
+        <div class="g-legend">
+          <span><i class="g-legend-dot is-pe"></i>人物</span>
+          <span><i class="g-legend-dot is-co"></i>公司</span>
         </div>
 
         <div class="g-zoom">
@@ -865,7 +941,7 @@ function App({ data }) {
           </button>
           <button class="g-nav-btn g-nav-next" onClick=${next}>
             <span class="g-nav-k">下一个</span>
-            <span class="g-nav-t">${idx >= 0 ? order[(idx + 1) % order.length].id : (order[1] && order[1].id)}</span>
+            <span class="g-nav-t">${idx >= 0 ? order[(idx + 1) % order.length].id : (order[0] && order[0].id)}</span>
           </button>
         </div>
       </aside>
