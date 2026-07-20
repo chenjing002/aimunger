@@ -1,6 +1,6 @@
 ---
 title: "曾在传奇价值投资机构Ruane Cunniff工作20 年的David Poppe，分享其投资哲学与实践"
-date: 2025-01-01
+date: 2025-03-06
 slug: david-poppe-ruane-cunniff
 ---
 

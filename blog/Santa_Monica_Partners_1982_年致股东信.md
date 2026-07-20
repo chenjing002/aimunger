@@ -1,6 +1,6 @@
 ---
 title: "Santa Monica Partners 1982 年致股东信"
-date: 1982-02-01
+date: 2026-03-07
 slug: santa-monica-partners-1982-letter
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "“印度巴菲特” Mohnish Pabrai：低风险的 Dhandho 投资法"
-date: 2025-01-01
+date: 2026-04-18
 slug: mohnish-pabrai-dhandho-investor
 ---
 

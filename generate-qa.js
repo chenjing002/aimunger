@@ -116,7 +116,8 @@ function generateArticlePage(article) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
+    <meta name="referrer" content="no-referrer">${article.noindex ? `
+    <meta name="robots" content="noindex, follow" />` : ''}
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>${escapeHtml(article.title)} - aimunger</title>
     <meta name="description" content="${escapeHtml(description)}">
@@ -172,6 +173,9 @@ function generateArticlePage(article) {
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
+                <a href="/about/">关于</a>
+                <a href="/privacy/">隐私政策</a>
+                <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
                 <a href="https://aimunger.com/llm-reader/">llm-reader</a>
                 <a href="https://aimunger.com/llm.txt">llm.txt</a>
@@ -275,6 +279,9 @@ ${cards}
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
+                <a href="/about/">关于</a>
+                <a href="/privacy/">隐私政策</a>
+                <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
                 <a href="https://aimunger.com/llm-reader/">llm-reader</a>
                 <a href="https://aimunger.com/llm.txt">llm.txt</a>
@@ -305,6 +312,11 @@ function loadBlogArticles() {
       answer: content,
       created_at: meta.date || '',
       filePath,
+      // Posts that cite an external 原文地址 are translations/reposts syndicated
+      // from the author's WeChat 公众号 (or third-party works). They are kept
+      // for readers but excluded from search indexing so the site's indexed
+      // surface is its original material (book notes, wiki, original essays).
+      noindex: /原文地址/.test(content),
     };
   });
 }

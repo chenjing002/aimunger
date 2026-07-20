@@ -1,6 +1,6 @@
 ---
 title: "主动投资的十个半真相 10½ Lessons from Experience"
-date: 2025-01-01
+date: 2025-01-30
 slug: 10-lessons-from-experience
 ---
 

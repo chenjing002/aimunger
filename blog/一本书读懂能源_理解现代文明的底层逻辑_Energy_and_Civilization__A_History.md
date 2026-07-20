@@ -1,6 +1,6 @@
 ---
 title: "一本书读懂能源，理解现代文明的底层逻辑 Energy and Civilization: A History"
-date: 2025-01-01
+date: 2026-03-11
 slug: energy-and-civilization
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "护城河如何转化为长期超额收益：Morningstar 的实证框架"
-date: 2025-01-01
+date: 2026-04-28
 slug: morningstar-moats-excess-returns
 ---
 

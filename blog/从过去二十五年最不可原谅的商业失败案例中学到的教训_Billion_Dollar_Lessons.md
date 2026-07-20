@@ -1,6 +1,6 @@
 ---
 title: "从过去二十五年最不可原谅的商业失败案例中学到的教训 Billion Dollar Lessons"
-date: 2025-01-01
+date: 2025-06-27
 slug: billion-dollar-lessons
 ---
 

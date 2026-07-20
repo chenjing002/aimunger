@@ -1,6 +1,6 @@
 ---
 title: "《Quality of Earnings》教你如何读懂公司真实的利润"
-date: 2025-01-01
+date: 2025-11-05
 slug: quality-of-earnings
 ---
 

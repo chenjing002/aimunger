@@ -1,6 +1,6 @@
 ---
 title: "福特汽车为何输给日产？一本书看懂美国汽车业的兴衰与制度力量的觉醒 The Reckoning"
-date: 2025-01-01
+date: 2025-07-23
 slug: ford-vs-nissan-the-reckoning
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "不用手机、住普通房子的金融集团 Shriram Finance 创始人：拉马穆尔蒂·蒂亚加拉詹"
-date: 2025-01-01
+date: 2025-05-05
 slug: shriram-finance-thyagarajan
 ---
 

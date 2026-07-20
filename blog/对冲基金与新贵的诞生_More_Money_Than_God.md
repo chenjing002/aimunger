@@ -1,6 +1,6 @@
 ---
 title: "对冲基金与新贵的诞生 More Money Than God"
-date: 2025-01-01
+date: 2025-08-02
 slug: more-money-than-god
 ---
 

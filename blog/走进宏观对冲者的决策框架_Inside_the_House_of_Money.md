@@ -1,6 +1,6 @@
 ---
 title: "走进宏观对冲者的决策框架 Inside the House of Money"
-date: 2025-01-01
+date: 2025-08-23
 slug: inside-the-house-of-money
 ---
 

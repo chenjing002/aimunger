@@ -1,6 +1,6 @@
 ---
 title: "Anseres Capital 创始人 Robert Joo-Hyung Lee：没有生存，就没有长期投资"
-date: 2025-01-01
+date: 2026-03-16
 slug: anseres-capital-robert-lee-survival-first
 ---
 

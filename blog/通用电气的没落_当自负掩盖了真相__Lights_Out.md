@@ -1,6 +1,6 @@
 ---
 title: "通用电气的没落：当自负掩盖了真相 Lights Out"
-date: 2025-01-01
+date: 2025-09-19
 slug: ge-lights-out
 ---
 

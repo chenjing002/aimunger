@@ -1,6 +1,6 @@
 ---
 title: "从废铁到黄金：Copart 创业传奇与可复制的方法论 Junk to Gold"
-date: 2025-01-01
+date: 2025-09-22
 slug: copart-junk-to-gold
 ---
 

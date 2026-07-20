@@ -1,6 +1,6 @@
 ---
 title: "十年私募股权（PE），十条硬核教训"
-date: 2025-01-01
+date: 2025-10-04
 slug: 10-years-private-equity-lessons
 ---
 

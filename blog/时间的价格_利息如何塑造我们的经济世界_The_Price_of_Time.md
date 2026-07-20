@@ -1,6 +1,6 @@
 ---
 title: "时间的价格：利息如何塑造我们的经济世界 The Price of Time"
-date: 2025-01-01
+date: 2026-07-08
 slug: price-of-time
 ---
 

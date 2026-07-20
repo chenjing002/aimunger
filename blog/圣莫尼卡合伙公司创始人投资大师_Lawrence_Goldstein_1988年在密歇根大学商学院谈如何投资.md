@@ -1,6 +1,6 @@
 ---
 title: "圣莫尼卡合伙公司创始人投资大师 Lawrence Goldstein 1988年在密歇根大学商学院谈如何投资"
-date: 1988-01-01
+date: 2026-03-25
 slug: lawrence-goldstein-1988-michigan-talk
 ---
 
