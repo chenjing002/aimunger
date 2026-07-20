@@ -113,11 +113,18 @@ function run() {
 
         .group {
             position: relative;
+            z-index: 1;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+            /* Hold the elevated stacking until the fan finishes closing,
+               so the collapsing fan never slips under a neighboring deck */
+            transition: z-index 0s linear 0.6s;
         }
         /* Let the fan splay over neighboring cells */
-        .group:hover { z-index: 10; }
+        .group:hover {
+            z-index: 10;
+            transition-delay: 0s;
+        }
 
         .group-stack {
             position: relative;
