@@ -641,10 +641,10 @@ function generateIndexPage(entries) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>Wiki - aimunger</title>
-    <meta name="description" content="aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱">
+    <meta name="description" content="aimunger 投资知识图谱：关键人物、公司及其关联，从投资视角梳理履历、关键决策与最新动态。">
     <link rel="canonical" href="https://aimunger.com/wiki/" />
     <meta property="og:title" content="Wiki - aimunger" />
-    <meta property="og:description" content="aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱" />
+    <meta property="og:description" content="aimunger 投资知识图谱：关键人物、公司及其关联，从投资视角梳理履历、关键决策与最新动态。" />
     <meta property="og:url" content="https://aimunger.com/wiki/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_CN" />
@@ -653,7 +653,7 @@ function generateIndexPage(entries) {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'aimunger Wiki',
-      description: 'aimunger 投资研究 Wiki - 人物、公司与投资概念知识图谱',
+      description: 'aimunger 投资知识图谱：关键人物、公司及其关联，从投资视角梳理履历、关键决策与最新动态。',
       url: 'https://aimunger.com/wiki/',
       inLanguage: 'zh-CN',
       mainEntity: {
