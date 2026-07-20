@@ -46,6 +46,16 @@
             z-index: 10;
             transition-delay: 0s;
         }
+        /* When another deck is actively hovered, drop the idle decks to their
+           base layer immediately — skipping the closing-hold above. Without
+           this, a deck you just left stays held at z-index 10 for 0.6s and
+           ties with the newly hovered deck, so its fan appears to slide on top
+           only after a delay. The hold still applies when the pointer leaves
+           to empty space (no deck hovered), keeping the graceful fan close. */
+        .groups-grid:has(.group:hover) .group:not(:hover) {
+            z-index: 1;
+            transition-delay: 0s;
+        }
 
         .group-stack {
             position: relative;
