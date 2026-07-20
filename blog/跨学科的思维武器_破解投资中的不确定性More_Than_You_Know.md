@@ -14,7 +14,7 @@ slug: more-than-you-know-mauboussin
 
 Michael Mauboussin 在 **More Than You Know** 给出了一个答案：因为投资和决策，从来就不只是数学题，而是一门跨学科的智慧活儿。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4lOH8qUngOQxfFxNScXst10iad2MAsdABy9YEdcKy5uav5xBmNBFqZDzqmmPbgy9Kicyog63lF3N5w/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-76d0a642a5672aa7.png)
 
 投资的秘密，不在K线图里
 ============

@@ -6,7 +6,7 @@ slug: seeking-wisdom-darwin-to-munger
 
 > 原文地址：<https://mp.weixin.qq.com/s/P0PZU6EBRJvbPGXLDRfqvw>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic79icxic2F2n1Q501iaGccfibjIjYRaKPgn1kZGXzDgr87exkHc9gtMGOvKqpftI69PdrUvjEYjsiaYiaibQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-56d276c9f3d495b4.png)
 
 这本书是一本面向“避免大错”的思维工具箱。作者Bevelin以达尔文与芒格为两条线索，汇聚生物学、心理学、物理与数学等跨学科洞见，核心主张不是追求天才式的决定，而是系统地识别误判来源、建立防错机制。书中更强调反向思考与安全边际的逻辑：与其奢望每次都“想对”，不如先学会不把事情“做错”，把可致命的失误从源头剔除。
 

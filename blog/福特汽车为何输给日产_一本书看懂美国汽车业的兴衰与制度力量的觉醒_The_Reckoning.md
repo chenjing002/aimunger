@@ -7,7 +7,7 @@ slug: ford-vs-nissan-the-reckoning
 > 原文地址：<https://mp.weixin.qq.com/s/cHX54rNl7rB52nsFq8YROg>
 为什么底特律曾经不可一世的汽车帝国，会在七十年代被日本小车逐步压制？大卫·哈尔伯斯塔姆在《The Reckoning》中给出一部冷静而犀利的回答：不是技术不行，而是制度与文化出了问题。福特的短期财务化思维，与日产的长期纪律文化，构成了这场“自我清算”的深层逻辑。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6U3mib1g6OicOJ8btrE09czCoXEbBVInjyeIdrgLuyTYDU7T0MUHY3p1cLNwpZrv5DT7clNjRic5lIg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-c8bfe48b7457a096.png)
 
 此书发表于1986年，作者为此投入五年田野与档案调查，也是他“三部曲”的收官之作，与《The Best and the Brightest》、《The Powers That Be》并列。
 

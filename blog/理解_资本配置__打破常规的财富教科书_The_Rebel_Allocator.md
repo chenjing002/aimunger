@@ -7,7 +7,7 @@ slug: rebel-allocator
 > 原文地址：<https://mp.weixin.qq.com/s/4Onf1KA2OFLaUalkhrLJxQ>
 在投资和商业书籍的广阔天地里，我们习惯了与密集的理论、复杂的图表和严谨的学术语言为伴。这些著作无疑是知识的基石，但其枯燥与晦涩也常常让求知者望而却步。然而，一部名为《资本配置反叛者》（The Rebel Allocator）的作品，却以一种截然不同的方式，为我们揭示了企业成功与财富增值的核心秘诀。它没有选择成为一本正襟危坐的教科书，而是将那些足以影响万千财富的商业智慧，巧妙地融入到一个引人入胜的成长故事之中。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic68sFmMDxOialCS4QlDuZwxCgtBJ9KxMY53r2q96LKHrNqmShFCBn6NoH8ngSm9jGTU4yJMddoiaJGw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-879a630c69847e91.png)
 
 这本书的作者雅各布·泰勒（Jacob Taylor）本身就是一位价值投资者和企业家，他深知将复杂的金融概念传达给大众的挑战。于是，他借鉴了“教学相长”的古老智慧，创造了一场介于《深夜小狗神秘习题》的纯真探索与《门口的野蛮人》的商业洞见之间的阅读体验。这不仅仅是一本书，更像是一场与一位睿智导师的深度对话，一次关于资本、商业和人生哲学的思想探险。它成功地将那些通常只在商学院高级课程或企业董事会中讨论的“资本配置”（Capital Allocation）概念，变得亲切、生动且极易理解。
 

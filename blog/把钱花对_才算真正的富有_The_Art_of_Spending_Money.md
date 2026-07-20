@@ -6,7 +6,7 @@ slug: art-of-spending-money
 
 > 原文地址：<https://mp.weixin.qq.com/s/b-ZiU5EbmbSnDbesWi9FQQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic431iaTViajR4LibibLdvEq0oNAW2dMMw6s3eLmuMpiaYTVIQRWlv4ibdpTgxeJQgNxYFB9gzU6TzfPZZuw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-7579521f4a0f9fad.png)
 
 在个人财富的写作领域，摩根·豪塞尔（Morgan Housel）是极少数能把金融行为学写出温度与洞见的作者。他曾是《华尔街日报》和 The Motley Fool 的专栏作者，获得过纽约时报 Sidney Award、两次 SABEW 商业新闻奖，并两度入围洛布新闻奖。如今他是投资机构 Collaborative Fund 的合伙人，代表作有《The Psychology of Money》和《Same as Ever》，全球销量数百万册、译本遍及多语种。
 

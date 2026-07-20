@@ -9,7 +9,7 @@ slug: quality-of-earnings
 
 所谓“收益质量”，并非利润的高低，而是利润的可信度与可持续性。同样是每股收益增长 20%，一家可能来自主营业务量价齐升和营运效率提升，另一家却靠一次性收益、会计估计调整或财务操作“挤”出来。O’glove 的方法很朴素：沿着损益表—资产负债表—现金流量表这条线索，把耀眼数字背后的构成逐一拆开，确认现金是否跟上利润、营运效率是否支撑增长、一次性因素是否被过度“包装”。他反复提醒：审计意见与财务附注不是装饰，很多“猫腻”恰恰写在脚注里——只是大多数人不读。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6e7qQjXX8pBdt35h52bt1PicHmVlzuiaGC9BTqu1bqp1sxzLIobCaITb77Va3Yjmsg5x8iaQtxcAz1w/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-8ebbf754422a5cba.png)
 
 全书并不依赖复杂数学，更像一场“文件考古”。他格外看重工作资本（Working Capital）的细节，因为那是理解增长质量的入口。若销售增速平平，但应收账款（Accounts Receivable）和“应收周转天数”（Days Sales Outstanding, DSO）却持续攀升，往往意味着公司放宽了赊销条件以“催生”收入，真实需求未必改善；存货（Inventory）也是同理，周转放缓与库存堆积，往往是未来跌价与减记的先兆。把这些变动与现金流量表的经营性现金流（Operating Cash Flow, CFO）对照，若净利润节节攀升而现金跟不上，警报应当拉响。
 

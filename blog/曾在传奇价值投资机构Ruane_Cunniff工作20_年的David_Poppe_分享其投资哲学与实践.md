@@ -6,7 +6,7 @@ slug: david-poppe-ruane-cunniff
 
 > 原文地址：<https://mp.weixin.qq.com/s/CwVBsNbA7pElSmCSw1Fe5A>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6fw6pvLCfmdpY6SBWpdLdSiaBwUhG3iaroI14r1slbTcIVwSuGtp3Cia261lXRWPTuBI26anRwmmib6Q/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-25aff627916ae597.png)
 
 David Poppe 是 Giverny Capital Asset Management（GCAM）的联合创始人兼总裁。在创立 GCAM 之前，他曾在传奇价值投资机构 Ruane Cunniff 工作 20 年，其中 13 年担任红杉基金（Sequoia Fund）的联席基金经理，并一度出任 CEO。Poppe 从记者出身，到成为高度集中、长期持有型投资的践行者，其背后是一套清晰而克制的长期主义框架。
 

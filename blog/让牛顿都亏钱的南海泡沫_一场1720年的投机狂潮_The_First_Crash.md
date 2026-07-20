@@ -7,7 +7,7 @@ slug: south-sea-bubble-first-crash
 > 原文地址：<https://mp.weixin.qq.com/s/M9VVGxzT4KOeEolWfE1q8g>
 理查德·戴尔（Richard Dale）撰写的《第一次崩盘：南海泡沫的教训》（The First Crash: Lessons from the South Sea Bubble）不仅仅是对三百年前一次金融狂热的复盘，更是一面映照当今世界。它带领我们穿越回18世纪初的伦敦，以一种引人入胜的方式，再现了那场几乎倾覆了整个大英帝国的金融风暴——南海泡沫事件。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7xcajXptGnZcQ5L2e3hLXsuu5C6W7MVq7s6hBqicpLictkibLn0Oiaeib8XSYvjynXtsz2tRkHDEu91RA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-dcdf100bb7382cd3.png)
 
 在深入本书之前，我们有必要简要回顾一下历史背景。18世纪初的英国，正处在一个变革的十字路口。经历了数十年的战争，国家背负了沉重的债务。与此同时，一个全新的金融世界正在萌芽，股份制公司、股票交易、金融衍生品等概念开始进入人们的视野。伦敦的交易所巷（Exchange Alley）——那个时代的华尔街——已经人声鼎沸，充满了机遇与风险。正是在这样一个背景下，南海公司登上了历史舞台。
 

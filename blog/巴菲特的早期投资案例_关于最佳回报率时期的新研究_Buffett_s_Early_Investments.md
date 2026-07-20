@@ -7,7 +7,7 @@ slug: buffett-early-investments-research
 > 原文地址：<https://mp.weixin.qq.com/s/cKWsUUBl9dSeD0w5tGnXSw>
 布雷特·加德纳所著的《巴菲特的早期投资案例：关于最佳回报率时期的新研究》(Buffett's Early Investments: A New Investigation into the Decades When Warren Buffett Earned His Best Returns)深入探讨了沃伦·巴菲特在1950年代和1960年代期间的十项重要投资。这段时期，他取得了卓越的投资回报，并积累了最初的财富。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5nbZ5JbsE7HoAcxcNibdoNWxvOPNyccZyjOkbQj2SVdrDzibf6mNFoHExmJYuRvB37NJrW4AibPWY8A/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-1d9a3a908dd18578.png)
 
 **概述**
 本书深入研究了巴菲特早期的投资策略，利用他当时决策过程中参考的原始文件进行分析。加德纳揭示了这些投资如何塑造了巴菲特的价值投资方法，并强调了他的导师本·格雷厄姆(Ben Graham)的影响。

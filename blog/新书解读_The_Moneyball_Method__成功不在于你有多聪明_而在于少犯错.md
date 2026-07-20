@@ -6,7 +6,7 @@ slug: moneyball-method
 
 > 原文地址：<https://mp.weixin.qq.com/s/dW5ipicrT1hGdCJTb5HypA>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4zWglPlnrwibjyl9MzsYPywwTmulzaNzINbHKiaqQwCjnibZq2SdElnRLStzribc1TFwj4yrWH6V2cVQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-1392023c53802b9a.png)
 
 查理·芒格有句广为流传的话：“令人惊讶的是，像我们这样的人，长期以来获得了多么巨大的优势——并不是因为努力变得非常聪明，而是因为始终努力不去做愚蠢的事。”
 

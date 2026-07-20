@@ -7,7 +7,7 @@ slug: mohnish-pabrai-dhandho-investor
 > 原文地址：<https://mp.weixin.qq.com/s/vjhKm3Aw4nDGLeOHP7U7ug>
 在 MOI Global 的 2019 年“作者见面会·夏季论坛”上，Mohnish Pabrai 讨论了他的著作《The Dhandho Investor》（《憨夺型投资者》）。Mohnish 现任 Dhandho Funds 首席执行官，并担任 Pabrai Investment Funds 的管理合伙人。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5ibibUN9D1CDnlmnFIXxN3b2FACBFmC99067dUINrjCbJlW8aibQrzqYfjrPTzuevkjPZcHhaF7spcg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-60af8e0a5c73f0b1.png)
 
 * * *
 

@@ -9,7 +9,7 @@ slug: copart-junk-to-gold
 
 如果有人告诉你：角落那堆破旧车零件，足以撬动一家全球化平台的诞生——你会信吗？威利斯·约翰逊（Willis Johnson）信了，也做到了。从乡村男孩到军人，再到把一片废车场打造成市值数十亿美元的线上汽车拍卖帝国 Copart，他靠的不是显赫背景，而是一种把“看不见的价值”组织出来的能力。《Junk to Gold》讲的，正是这种能力如何被一步步练出来、用出来、放大到极致。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7uFeoTbbJdj5QiaIfM51sQ17LVFsibrXMicUf3rcumIuzmgKicb85JZ04BKpWXCOral9sYZAukGyAGLw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-3053433f2d5842f4.png)
 
 核心观点
 ====

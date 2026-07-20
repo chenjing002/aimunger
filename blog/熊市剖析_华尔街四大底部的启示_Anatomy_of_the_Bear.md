@@ -12,7 +12,7 @@ slug: anatomy-of-the-bear
 作者回到《华尔街日报》，从四个被公认的“伟大底部”时间点——1921年8月、1932年7月、1949年6月与1982年8月——各自前后两个月，逐篇筛读并整理约七万篇报道，试图从彼时的叙事与数据中提炼可重复的信号，而不是事后回溯的“胜利者叙事”。
 这种方法使得结论更贴近投资者在当时真实可见、可感知的市场环境。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4gTicDicOeeFpcwT3thBmZMib3TCWc3ECUuqE1xicxWhE5GWibR00dwSricwRTfbwqibkWomWgaQ5Ttx1hA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-0ee2442484b1a5dc.png)
 
 * * *
 

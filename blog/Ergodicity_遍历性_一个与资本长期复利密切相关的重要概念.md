@@ -6,7 +6,7 @@ slug: ergodicity-long-term-compounding
 
 > 原文地址：<https://mp.weixin.qq.com/s/ZLitkPVruwNYTKTfnmJbMQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic478hnzkImwJ9IIMOKSTAtuLia9IYTC9S830WNMHkg0HnickkwLhoqSrkLz8vn9Cia4xANicbXsCoqspA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-ffb67357cfe35b5b.png)
 
 **遍历性（Ergodicity）** 描述的是：在一个系统中，若一个个体的长期平均表现，等同于群体同时参与时的平均表现，这个系统具有遍历性；若两者不同，则系统是非遍历的。
 

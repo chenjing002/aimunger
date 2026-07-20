@@ -8,7 +8,7 @@ slug: mohnish-pabrai-shameless-cloner-2025
 
 > 原文地址：<https://mp.weixin.qq.com/s/4uNgGSDNBxckoJ6Nge07Mg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic7QcR7fOVBCVXkiapphb6uZib5bomP7Ahgbxogty1oxf81ML5S4TbmJdNtcalToxDnUDvInWSibkGgTg/640?wx_fmt=jpeg&from=appmsg)
+![](https://aimunger.com/blog/images/wx-4e87e448a10f5703.jpg)
 
 2025 年 10 月 14 日，在本·格雷厄姆欧洲价值投资大会（Ben Graham Centre’s European Value Investing Conference）上，Pabrai Investment Funds 的管理合伙人 **Mohnish Pabrai** 带来了一个具有挑衅意味的主题演讲：做一个无耻的克隆者的快乐！
 

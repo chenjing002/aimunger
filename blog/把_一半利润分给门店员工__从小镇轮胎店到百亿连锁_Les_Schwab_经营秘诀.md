@@ -7,7 +7,7 @@ slug: les-schwab-profit-sharing
 > 原文地址：<https://mp.weixin.qq.com/s/ZrGGteh28-ryDOktRGEoqw>
 顾客的车一进场，员工会小跑着迎上去。很少有一本企业家自述，把这种“可见的服务动作”和“不可见的制度设计”粘得如此牢。《Les Schwab: Pride in Performance, Keep It Going!》这本书讲的不是励志鸡汤，而是一套能在低毛利、强服务的行业里反复跑通的经营系统。书出版于1986年，作者是创始人本人的一手经历与方法论。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4iaaDCvxeJljkUdHFeVZBApTLYZnLpXVAEZAbKQSmQq4fUqibxUSaGTpUBztakjAz5iayTUmTwiaLFkA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-93f068a706d71ac8.png)
 
 用真正的“所有权”点燃前线。做法并不花哨：把每家门店做成独立利润中心，再把该店利润的一半直接分给在店员工；只从内部晋升；把决策和回报尽量下沉到面对客户的那一刻。于是，速度、服务与责任感被持续地“制度化”，而非靠口号。书中不断强调：“利润分享不是慈善，是最理性的自利——‘不自私的好理由’”。对比后来公司发展与行业口碑，这套机制解释力极强。
 

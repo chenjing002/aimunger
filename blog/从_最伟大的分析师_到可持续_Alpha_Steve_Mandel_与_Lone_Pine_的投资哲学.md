@@ -9,7 +9,7 @@ Steve Mandel，Lone Pine Capital 创始人。[Seth Klarman](https://mp.weixin.qq
 
 这期播客不是追忆传奇，而是一堂关于长期主义、组织设计与研究方法的系统课：如何在被动化与平台化席卷的市场里，依然产出可持续的 Alpha；co-CIO 双中枢如何打造既稳健又敏捷的投研组织；以及在 AI 时代，投研流程和资产配置应如何重构。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4iaaDCvxeJljkUdHFeVZBApDFaSw2ia0BZt1aDpSTEYuicFsER112VzmUB77DUEgiaHTxCzOS5OGNQLw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-3e6410d5b3be3085.png)
 
 适合谁听
 ====

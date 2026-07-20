@@ -7,7 +7,7 @@ slug: rethinking-investing
 > 原文地址：<https://mp.weixin.qq.com/s/dxR51ANFNpFpXnb41cGO0g>
 《Rethinking Investing: A Very Short Guide to Very Long-Term Investing》由 Wiley 于 2025 年出版，篇幅不长，却试图把他 60 年的观察浓缩给普通投资者——那些不以打败市场为业，却必须为自己与家人做出长期财务决策的人。这本薄薄的小书，来自投资界熟悉的名字——查理·埃利斯（Charles D. Ellis）。他是格林尼治咨询（Greenwich Associates）创始人，长期担任耶鲁大学捐赠基金投资委员会主席，也写过经典之作《输家的游戏》（Winning the Loser’s Game）。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic41BAg319tkhS0tBKnFF2Z0UaEwZq8zQM8m0hke4kib7biaibt920f2loBHLiaCKr1OImZibibeKc2U6E6g/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-fc3b930ff5164c06.png)
 
 本书不讲复杂财务模型，而是用生活化、可执行的语言，反复强调几件经得起推敲的朴素原则：尽早储蓄、持续投入、降低费用、拥抱被动指数化，把时间站在自己一边。CFA Institute 的资深分析师马丁·弗里德森评价这本百来页的小册子会“得罪不少利益相关方”：它直言绝大多数主动管理在长期跑不赢指数（作者援引长期统计，约 89% 的美国共同基金在 20 年里落后于标准普尔 500），而过往赢家也有 85%–90% 的概率在下一阶段落后；它对“年龄等于债券占比”的经验法则提出质疑，认为许多投资者的“稳态资产”其实已由自住房净值与未来社保构成；它把整洁的指数基金、ETF 比作“洗碗机和室内管道”——不花哨，但真正省心省力。
 

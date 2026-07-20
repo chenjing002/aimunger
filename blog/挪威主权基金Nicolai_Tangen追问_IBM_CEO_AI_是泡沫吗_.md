@@ -6,7 +6,7 @@ slug: nicolai-tangen-ibm-ceo-ai
 
 > 原文地址：<https://mp.weixin.qq.com/s/_08SPzf2oI7T7Bq1ZQoT5w>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/eaWgicUZbfDkr5kot9LhyXoX64c3YNDVuIlCloicVSXbmqI3jxy8XgnalU67AnTicy4HZF7ABYfia7xuOgBZ0fibtuUaABOUpYwCnicwRsndJUPsU/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-7894ca967c8fe563.png)
 
 挪威银行投资管理公司首席执行官 Nicolai Tangen 曾直接追问 IBM 首席执行官 Arvind Krishna：AI 是否正处在泡沫之中？
 

@@ -8,7 +8,7 @@ slug: norbert-lou-punch-card-capital
 
 > 原文地址：<https://mp.weixin.qq.com/s/BELmw9Nu1PbBKowNlgfd6w>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7a5ZZALZ8TibH0jeEkZytsuTIYPpKsvD0S3oTicPazjxGEVHKchYRbOJjsnMaic5sbNAsPjusTuMqvw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-af293abf9803731c.png)
 
 Punch Card Capital 是一家总部位于佛罗里达州奥兰多的投资合伙企业，管理资产规模为 1.15 亿美元。自 2004 年 6 月 1 日成立至 2011 年 9 月 30 日，基金实现了 14.5% 的净年化回报；同期标普 500 指数的年化回报为 2.2%。37 岁的创始人 Norbert Lou 以极少做空、不使用组合杠杆、平均 25% 的现金头寸，以及仅有一个亏损年度（2008 年下跌 35.9%）的方式取得了上述业绩。Norbert 将其超过 90% 的个人净资产投入了该基金。
 

@@ -6,7 +6,7 @@ slug: barton-biggs-hedge-fund-observations
 
 > 原文地址：<https://mp.weixin.qq.com/s/HuJksdGq5gij_a8LByNjpw>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic766xyNIJenyKZqcL3SvqCyoaMdTF0BBJdxSYQnygMJ9bx2VtL9KGvOTcqur4Q2I3WRuq3EPxS80Q/640?wx_fmt=jpeg&from=appmsg)
+![](https://aimunger.com/blog/images/wx-87a802aad5f59181.jpg)
 
 一个在华尔街叱咤三十年的策略师，离开体制，自建基金，在募资、建仓、回撤与舆论的夹缝中，如何继续做出判断。《Hedgehogging》值得读，因为它把对冲基金行业从神秘拉回日常，把“胜率、赔率、周期”这些抽象词汇，变成具象的人与事。
 
@@ -14,7 +14,7 @@ slug: barton-biggs-hedge-fund-observations
 
 《Hedgehogging》写于 Traxis 创立后的头几年。书名来自“hedgehog”（刺猬）与“hedgehogging”的比喻：在作者看来，对冲基金世界吸引了许多强烈、执拗而又古怪的性格，寻找“橡子”（acorns），也就是少见而有利可图的机会，是一种永不停歇的本能。作者在书的引言里坦言，希望读者能从这些第一手经历里得到娱乐与启发。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic766xyNIJenyKZqcL3SvqCyMuJ6cCwJhicwr64AtBFSbiaAfopLqSbmk9JVExKqskN0BX6OY4VeWb6Q/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-d17e5472d29480bb.png)
 
 Traxis创立后资产迅速突破十亿美元，成为当时体量可观的新基金之一。这既展示了作者的人脉与信誉，也让他不得不在更高的资金压力与业绩波动之间寻找平衡。规模并不自动等于胜率，组织能力与风控才是持续性的关键。
 

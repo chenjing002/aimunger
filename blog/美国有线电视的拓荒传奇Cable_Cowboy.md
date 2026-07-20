@@ -10,7 +10,7 @@ slug: cable-cowboy
 
 《Cable Cowboy》是华尔街日报记者 Mark Robichaux 撰写的纪实作品，讲述了美国有线电视产业从边缘业务发展为主流娱乐巨头的过程。书的核心切口是人物——约翰·马龙（John Malone），他通过在 TCI（Tele-Communications Inc.）的经营，推动了整个行业的扩张、整合与商业逻辑重塑。全书不是单纯的传记，而是以马龙的战略决策为线索，揭示了美国传媒产业格局在 1970—1990 年代的深刻转型。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6ASA0bXWz5N4lenTklfEdrwMBXn5ItYaPtLA2iayibTpCKsA9RW5sbic7akUzMY7riaiaH0G06FibvWkew/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-f183ef5b6d87f066.png)
 
 TCI 的困境与马龙的切入
 =============

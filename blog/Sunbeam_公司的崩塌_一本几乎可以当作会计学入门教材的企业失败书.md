@@ -15,7 +15,7 @@ slug: sunbeam-collapse-accounting
 
 * * *
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic78KCcLN0jArGnGzUq6VlZ9fnK4ZD5kLtQa91C7fXmnO5vXeWvCeQZuwjaicPMrVP0kpGRM0c8GGQg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-b2f81b1ea652e191.png)
 
 起初我对这件事是将信将疑的——当我听说《商业周刊》（Business Week）的资深调查记者、知名商业记者 John Byrne 正在写一本“揭底书”，讲述“电锯阿尔”（Chainsaw Al）邓拉普在 Sunbeam 公司的兴衰史时，我并不太当回事。尽管《巴伦周刊》（Barron’s）曾刊发多篇报道，揭露了邓拉普在 Sunbeam 玩弄的会计把戏，并最终促成了他在 1998 年 6 月被解雇，但我仍然怀疑：还有谁会关心“电锯阿尔”呢？毕竟，他已经是去年的旧闻了。
 

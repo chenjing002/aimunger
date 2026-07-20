@@ -9,7 +9,7 @@ slug: shriram-finance-thyagarajan
 
 Shriram Finance 创始人拉马穆尔蒂·蒂亚加拉詹在不使用手机、长期保持节俭生活方式的情况下，建立了一个规模约 15 万亿卢比的金融帝国，其价值观与拉坦·塔塔高度相似。
 
-![Ramamurthy Thyagarajan, founder of Shriram Finance](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic66Z2mXMjCAh9dPYDXzJXtTxZia2StoTTaLHKY85ic6fdbLdShHCs54UOcYT54x2T33PctPyTwu02iaw/640?wx_fmt=png&from=appmsg)
+![Ramamurthy Thyagarajan, founder of Shriram Finance](https://aimunger.com/blog/images/wx-a43fa618879ad4b4.png)
 
 ### 要点
 

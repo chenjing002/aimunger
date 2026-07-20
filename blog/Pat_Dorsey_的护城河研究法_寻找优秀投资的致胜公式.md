@@ -7,7 +7,7 @@ slug: pat-dorsey-moat-research
 > 原文地址：<https://mp.weixin.qq.com/s/0A4XgD1sN_2zPZdtbgOSCw>
 作者 Pat Dorsey 早年在 Morningstar 负责股票研究，帮助建立并推广了以“护城河”为核心的企业竞争优势评估体系，随后创立以长期持有宽护城河企业为策略的 Dorsey Asset Management。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4ibbkUvubbMBQDH3Izs7zHCyYcibMJfvVSzS3iaUqYsCX43dnD6XWOibacNSFOMyzmT1C5LIG38qNAxw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-09c108470037bae4.png)
 
 《The Little Book That Builds Wealth》是他面向大众投资者写的一本薄书，却以简洁而严谨的方式把“护城河思维”落到了可操作的层面。这本书是手把手教读者如何辨认企业真正的竞争壁垒、如何用数据和常识去验证壁垒是否扎实，以及如何在市场情绪起伏中坚持以护城河为中心的投资框架。他另外一本比较有名的书是《股市真规则》。
 

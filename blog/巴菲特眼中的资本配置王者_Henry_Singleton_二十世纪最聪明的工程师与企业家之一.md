@@ -6,7 +6,7 @@ slug: henry-singleton-capital-allocator
 
 > 原文地址：<https://mp.weixin.qq.com/s/P38uBO8Pd13zYvQ4dgkUzQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic478hnzkImwJ9IIMOKSTAtusCxBrs6QIJU4or9E0KSpGTPuZy4NBg1s2biceNnw2FhsmWa8VoWEib2Q/640?wx_fmt=webp&from=appmsg)
+![](https://aimunger.com/blog/images/wx-b5a22db28693771d.jpg)
 
 Henry Singleton 是二十世纪最聪明的工程师与企业家之一。他创建了 Teledyne，以长期主义和独立思考著称。纽约时报在 1999 年的讣闻中引用 Leon Cooperman 的评价：他懂得在实体资产和金融资产之间灵活切换，是我遇到过的最聪明的实业家。他能背诵莎士比亚，喜欢盲棋，把棋子位置存在脑子里。Arthur Rock 回忆说，Singleton 不在意别人怎么看，常常独自留在办公室思考，然后交给团队执行。他既是企业家，也是科学家，发明了潜艇消磁方法，拥有多项专利，受科学界尊重。
 
@@ -30,6 +30,6 @@ Singleton 崇尚现金和高利润率文化。他的搭档 George Roberts 认为
 
 George Roberts 曾撰写过《Distant Force》一书（查理·芒格推荐过此书），系统记录了 Teledyne 的发展历程与 Singleton 的经营哲学。这本书为理解 Singleton 的管理方法提供了第一手视角。Roberts 曾总结，如果 1966 年买入 Teledyne 并持有 25 年，年化回报可达 18%，约为 53 倍，而同期标普 500 仅约 7 倍。这样的复利成果，是他坚持灵活决策、专注每股价值的结果。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic478hnzkImwJ9IIMOKSTAtuCYE5vymhKlpWBZvicMicBUJ4Hj9WgfHMDeonh8MlmU594DVia5gUyoicNg/640?wx_fmt=jpeg&from=appmsg)
+![](https://aimunger.com/blog/images/wx-914683ca8ee93407.jpg)
 
 回顾 Singleton 的人生，他用一种极度理性的方式，把企业从行业束缚中解放出来。在他看来，公司做什么不重要，为股东创造长期价值才是根本。当行业进入低回报区间，企业没有义务在原地消耗资本。他曾说，不以条款定义工作，而以能在任何时点做最有利决策的自由来定义工作。Teledyne 的 53 倍长期回报，正是对这句话最好的注释。

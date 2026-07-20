@@ -6,7 +6,7 @@ slug: distant-force-teledyne-singleton
 
 > 原文地址：<https://mp.weixin.qq.com/s/i1Y5jc2GHsVlW2-B-CbU5w>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic45gbvIYibEdpcA0duEoZC3aCVq9Aicib91WkasSCSJcwKruibSa2S4M7ONO2EicrEaPhwYvpreJTrZn6g/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-cad47a32d043b0e0.png)
 
 你或许听说过泰利达（Teledyne）。它曾是《巴菲特最推崇的8大企业家特质》（The Outsiders）中八大传奇公司之一。而让泰利达载入史册的，是创始人亨利·辛格尔顿（Henry Singleton）——一位从工程师成长为资本配置大师的商业天才。巴菲特和芒格对这位天才都表达过极高的赞誉。
 

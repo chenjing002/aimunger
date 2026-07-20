@@ -6,7 +6,7 @@ slug: josh-kushner-thrive-capital
 
 > 原文地址：<https://mp.weixin.qq.com/s/QGROJIXY77arCi-gWbHxjQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7j9GSdrcSsRvI65xd05qgse88T7Lc5K6BkQOrqCuHMICNCiarOjATSn4mR3oNKuNUicOVvvKrAQibmw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-b6f35c0823c71717.png)
 
 在马里布的悬崖上，音乐制作人 Rick Rubin（美国知名制作人、Def Jam 联合创始人） 以赤足、长发和禅意闻名。他的院子面朝太平洋，来访者往往在这里把心事剖开。2023 年 11 月的一天，来客是 Josh Kushner——模特的丈夫、白宫边缘的旁观者，更是纽约风格的投资机构 Thrive Capital（2010 年创立于纽约、阶段与赛道相对灵活）的创始人。
 

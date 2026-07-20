@@ -6,7 +6,7 @@ slug: james-nisbet-allvac-teledyne
 
 > 原文地址：<https://mp.weixin.qq.com/s/tpmAzG-v-rXGtojG30XP9A>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6Q61BMbJXibgp23HGMuhNRrM5cvnt9UQbFOEXOArmNpRKbDDyNrRX1bd7nFhI4r6TqevypE1wmzCw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-3b760e79379cf6c1.png)
 
 这本书应该很少有人阅读过。James Nisbet 并不算家喻户晓的名字，但他身上汇聚了两种少见的气质：手里有过硬的工程与冶金本领，头脑里又有企业家的敏锐与胆识。
 

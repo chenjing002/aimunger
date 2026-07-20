@@ -6,7 +6,7 @@ slug: nicholas-sleep-costco-analysis
 
 > 原文地址：<https://mp.weixin.qq.com/s/oKOKj40YHrsWg7yX2fSyhg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4A791HLLSFbKB2I8cOcSL0eh6ocmbjfyrK1bhawgc3H3wDlXFVHibR6r3wrou6ibYPyfZpU36dvkbw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-59a406ac85838075.png)
 
 尽管 Costco 的股价并不便宜，价值投资者 Nicholas Sleep 仍分享了关于这家公司的诸多深刻洞见，并为其长期前景提出了极具说服力的投资论证。
 
@@ -162,7 +162,7 @@ Costco
 
 股价历史走势（2002–2005 年 COST 股价走势图）
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4A791HLLSFbKB2I8cOcSL0PNXnNK2Gc45rX9ARp6z0CQbicQbXldSYW1f8eueicoHgcGrdOctdgT0Q/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-35bb56ff89ed44dc.png)
 
 ### 核心结论（The Bottom Line）
 

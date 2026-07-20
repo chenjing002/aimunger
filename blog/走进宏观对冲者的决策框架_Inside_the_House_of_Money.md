@@ -7,7 +7,7 @@ slug: inside-the-house-of-money
 > 原文地址：<https://mp.weixin.qq.com/s/Tb3VYRLmacb0viZVPwFvpA>
 同一条新闻、同一份经济数据，为什么有人只听到噪音，有人却能从中发现跨市场的机会？由对冲基金顾问 Steven Drobny 采访整理的《Inside the House of Money》，把读者带进全球宏观基金经理的工作现场：他们如何在货币、利率、股指、大宗商品与新兴市场之间切换，用一套严谨的方法寻找不对称的胜率与回报。本书被许多从业者视为理解宏观交易的侧门——通过人物与细节，看到方法论背后的思维与纪律。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5zJqdmmpEQPSOgrojlEaxRjZVB4LUmIS4icW5eqb5Z7XlJo6X3gia8oCSevSlWzdA4FLmRkiagMjndw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-ad617e251cfc7b9f.png)
 
 核心观点
 ====

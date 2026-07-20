@@ -7,7 +7,7 @@ slug: king-of-cash-laurence-tisch
 > 原文地址：<https://mp.weixin.qq.com/s/3wn5eChQ4ckIdRRXH1VV1g>
 在华尔街的璀璨群星中，劳伦斯·蒂施（Laurence Tisch）是一个独特的存在。他不像乔治·索罗斯那样充满哲学思辨的攻击性，也不同于沃伦·巴菲特那般被神话光环笼罩。蒂施的名字总是与一个简单而强大的词汇紧密相连——现金。他被誉为“现金之王”（The King of Cash），这个称号精准地概括了他一生信奉的投资哲学：在市场恐慌时手握巨额现金，以非凡的耐心和决心，去收购那些被严重低估的资产。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7KOf8r0PDDfEFXgLugso3atFXUFyDFUMhblSncB7EJOUS0awQ7xUWzIcBKCaFRHcm59bZUN1rFAQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-e780d70cc06de33e.png)
 
 由前《华尔街日报》记者克里斯托弗·温南斯（Christopher Winans）撰写的传记《现金为王：劳伦斯·蒂施的幕后故事》（The King of Cash: The Inside Story of Laurence Tisch），为我们提供了一个深入了解这位商业巨擘复杂人生的绝佳窗口。这本书并非一部枯燥的商业教科书，而是一幅生动的画卷，描绘了蒂施如何从一个新泽西州的度假村起家，最终建立起一个涵盖酒店、烟草、保险、石油钻探乃至传媒巨头的庞大商业帝国——洛伊斯公司（Loews Corporation），并以前所未有的方式入主并改造了美国哥伦比亚广播公司（CBS）。
 

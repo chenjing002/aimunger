@@ -49,7 +49,7 @@ ROIC = NOPAT / 投入资本
 
 分母投入资本，从本质上看，既可以理解为企业为运营所需配置的净资产（经营视角），也可以理解为这些资产的资金来源（融资视角）。由于资产负债表恒等，这两种视角在数学上是等价的。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic65Iwjt1k366Ffg0S5uPorJ7zYHhhyL4xO6oITQFYia0ONrBdj6viawUibLCqHAzbz8sk1JmhxVn1VpQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-a975406b51b376d2.png)
 
 但如果直接从资产负债表的债务与权益出发，往往会产生误导；而经营视角能更清晰地反映企业真正部署了哪些资产，并有助于持续跟踪资产效率的变化。
 

@@ -7,7 +7,7 @@ slug: ge-lights-out
 > 原文地址：<https://mp.weixin.qq.com/s/zAQ1JZbinMG8pD8UZeSWOQ>
 当一家曾被视为美国工业象征的巨头，可以从标杆地位滑落到被剔出道琼斯指数；当一个以“连年盈利”和“稳健增长”自豪的公司，因为财务操作、治理松懈与战略失误，被认为“比安然更严重”的骗局阴影笼罩 — 这正是《Lights Out》所讲述的故事。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7OkdfFopZl0pUth6wAm8x2XMBpiabibCNSPJk7glicbZwWeYqJYoM0iba3WtM0Cqp4LSnAH4ibZLdAJ4g/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-f80c5ebffd442daf.png)
 
 这本书由两位华尔街日报记者 Thomas Gryta 与 Ted Mann 撰写，主张通用电气（GE）的衰败并非偶然，而是自我膨胀（pride）、决策错觉（delusion）、治理结构与文化缺陷长期累积的结果。
 

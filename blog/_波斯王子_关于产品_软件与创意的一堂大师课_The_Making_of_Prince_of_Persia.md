@@ -6,7 +6,7 @@ slug: making-of-prince-of-persia
 
 > 原文地址：<https://mp.weixin.qq.com/s/gHt4TAja0ZI2cBRzLJjN1Q>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5lu1eYDiaEhM742Myes14p0wunGRoPzr01SxDVlbTf4PnT1zsIPSicuUBc5iamKsSiapvl0qepianVfNw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-dee51547727fb8bf.png)
 
 所有创作者都会遇到同一个时刻：想法闪耀，手却迟疑；进度表越写越漂亮，作品却不往前走。本书是游戏设计师**乔丹·梅克纳（Jordan Mechner）** 的私人日记合集。它完整记录了他在 1980 年代中后期至 1990 年代初创作经典游戏《波斯王子》（_Prince of Persia_）时的心路历程。把每天的真实推进写进日记，把不确定性变成可管理的动量。
 

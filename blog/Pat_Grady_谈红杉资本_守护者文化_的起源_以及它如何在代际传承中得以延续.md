@@ -6,7 +6,7 @@ slug: pat-grady-sequoia-stewardship
 
 > 原文地址：<https://mp.weixin.qq.com/s/EeUKGAzJq33fye2_Uci1qg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic6icsfnozhxGvo9SskL3kElu2BQicOIFibps32yzsAQzmq4PpzRlia2kGwrNbD9EjP06RIibjib17canMlQ/640?wx_fmt=webp&from=appmsg)
+![](https://aimunger.com/blog/images/wx-4053ff731fcbf652.jpg)
 
 Pat Grady 是红杉资本（Sequoia Capital）的合伙人，负责主导公司成长期（Growth Stage）投资业务，2007 年加入红杉。他毕业于波士顿学院（Boston College）经济与金融专业，并在伦敦政治经济学院（LSE）学习过高级计量经济学与博弈论。Grady 主投企业软件、金融科技、云基础设施与生成式 AI 领域，代表性项目包括 Zoom、Okta、HubSpot、Amplitude 和 Hugging Face 等。
 

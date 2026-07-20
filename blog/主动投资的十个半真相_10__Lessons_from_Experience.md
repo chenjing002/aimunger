@@ -7,7 +7,7 @@ slug: 10-lessons-from-experience
 > 原文地址：<https://mp.weixin.qq.com/s/iBKGcb1E1XX4kiGgTS4ENA>
 指数吸金、被动为王，很多人断言“战胜市场已不可能”。可另一头，老牌对冲基金仍在稳稳跑出阿尔法。这本书给出的答案很直接：**机会存在，但它偏爱有纪律、善适应、懂风险、愿意与机器合作的人**。书由马歇尔·华斯（Marshall Wace）联合创始人保罗·马歇尔撰写，凝结其三十五年投研与经营体验，主题是把市场当作人的系统，而非教科书里的理性集合。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5lu1eYDiaEhM742Myes14p0Kib3R7bEU5rsNKe0gek3UHTAkMvicD0J7J1Y6pWdyKfPZb3TIZO154JA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-b43bf14fb1d26a73.png)
 
 书中更强调三点——第一，真实世界的市场并不总有效，人的偏见与结构性摩擦带来反常与延迟；第二，“能力”存在且可持续，但它更像性格与流程的产物，而非神奇的模型；第三，最强的组合来自人机协同：纯机器会赢过纯人，但“人+机器”常胜过“机器”。
 

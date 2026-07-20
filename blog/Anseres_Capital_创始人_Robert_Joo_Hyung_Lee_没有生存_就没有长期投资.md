@@ -6,7 +6,7 @@ slug: anseres-capital-robert-lee-survival-first
 
 > 原文地址：<https://mp.weixin.qq.com/s/QExhO5wfnKj4G49SpTGGlQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6Z6cpfIRW8bC32OqfTmzvStlf5wNjqme5zMkMKtMOspGcKGLxExGNS1Libr8ibw5CuYrGzOxF6KOSA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-0000c99d6c36ce8a.png)
 
 我最近读到一段来自 Luca Dellanna 的《Ergodicity: How Irreversible Outcomes Affect Long-Term Performance》，它讲到一个与资本长期复利密切相关的重要观念：
 

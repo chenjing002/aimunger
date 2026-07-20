@@ -9,7 +9,7 @@ slug: more-money-than-god
 
 但 Sebastian Mallaby 在《More Money Than God》中，以超过三百小时的一线访谈和大量一手资料，将这群“市场里的异类”从符号还原成鲜活的人与方法论。本书不是猎奇式的富豪传记，而是一部覆盖半个多世纪、跨越多种策略的**对冲基金发展史 + 投资思想史**，也是理解何为“在不完美市场中寻找超额收益”的一本通识之书。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5zJqdmmpEQPSOgrojlEaxR5PoU9JWtIxPh9fhwR3l5w60ApPglsJib2PTX8lsCNQEZyurAkEazGtw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-e7bc91d353bd28cf.png)
 
 为什么值得读？
 =======

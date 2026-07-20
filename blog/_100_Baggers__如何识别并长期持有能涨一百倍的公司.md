@@ -6,7 +6,7 @@ slug: 100-baggers
 
 > 原文地址：<https://mp.weixin.qq.com/s/1_bqUyieLp--ZJxgpNtaUg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6Z6cpfIRW8bC32OqfTmzvSdUia50icNic56CibiccG9J9FlxpgMy4XK4uMibScT0yJ0wwZoA6AZHAJ226Q/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-8faeee5fe97852a4.png)
 
 作者克里斯·梅耶（Chris Mayer）先做了十年公司银行业务，之后转型写投资通讯、走访企业，最终在2019年与伙伴共同创立 Woodlock House Family Capital 基金，亲自把书里的方法用在真实资金上。这样的背景，使得他写“100倍股”不是空谈，更像一本结合统计、案例与投资者心性管理的慢功夫手册。
 

@@ -7,7 +7,7 @@ slug: billion-dollar-lessons
 > 原文地址：<https://mp.weixin.qq.com/s/QSK6nDBvRxJ4Z9DpOZaEKQ>
 查理·芒格曾说过，人类最好的学习方式之一，是从别人的错误中学习，因为你自己不可能活得足够久去犯完所有的错。这句话正好可以作为本书的注脚。很多成功书单教我们如何赢，但真正能减少大错的，往往是弄清为何会输。《Billion Dollar Lessons》正是这样一本把失败当教材的书。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4SH1cZ3ibdy9v6R9c2BfYzicCR88yExawiaTPIU0IcYyGibM2JdeccSVW0Eiaerm6EahQofVqZ8jPN8gQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-20a734dcce5d3de7.png)
 
 作者把镜头对准过去二十五年里最昂贵、最不可原谅的商业失败案例，通过系统梳理，帮助读者识别那些一开始就注定要出问题的战略。对于投资者、企业高管和产品经理而言，它提供的是避免大错的底层清单：在做大决策之前，你该警惕哪些熟悉却危险的叙事，如何把所谓的战略故事拆成可检验的假设，并在阳光与风暴里都站得住脚。
 

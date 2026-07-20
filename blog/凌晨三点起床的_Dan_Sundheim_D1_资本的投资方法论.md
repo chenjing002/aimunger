@@ -6,7 +6,7 @@ slug: dan-sundheim-d1-capital
 
 > 原文地址：<https://mp.weixin.qq.com/s/is22vrQQdDAU9-iAbpfvyg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic60ic2Tz7NeWu8UGQMqibXdxIo4c3icicgPkhakJpsVOfibUvOicG763RDib80A3BD3ibWQ0LBGNbZewOBNkg/640?wx_fmt=jpeg)
+![](https://aimunger.com/blog/images/wx-3d11a37e499bd3dc.jpg)
 
 这期访谈主角是 Dan Sundheim——华尔街著名的公募/私募跨界型投资人、D1 Capital Partners 的创始人兼首席投资官。出道早年，他在 Viking Global 历练 15 年做到 CIO，2018 年自立门户创办 D1，此后以“深度基本面+跨周期持有”的风格，在二级市场和成长期私募之间来回穿梭，成为“crossover”基金中的代表人物之一。D1 成立于 2018 年，团队来自一线多空基金与私募股权背景，既投上市公司，也布局优秀的非上市公司股权，近年来还加深了非流动资产配置并探索专门的私募股权产品线。
 

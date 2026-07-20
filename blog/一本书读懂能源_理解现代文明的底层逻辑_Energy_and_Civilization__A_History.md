@@ -7,7 +7,7 @@ slug: energy-and-civilization
 > 原文地址：<https://mp.weixin.qq.com/s/gL1oX5eTmhYBtuNBd4FzAw>
 《Energy and Civilization: A History》是瓦茨拉夫·斯米尔（Vaclav Smil）撰写的一部跨学科著作，系统梳理了能源如何塑造人类历史的脉络。在人类文明这条漫长而曲折的时间线上，真正决定社会形态与生活质量的变量并不多，能源是其中的“底层变量”。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic75tZHCcGiaoCZl6B06s3fDLeZzoyRibLkL5FicJxbQqQrNNT81CtL87GjMaYDszsbq22KJLGptJEU8A/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-85bd600b452abf52.png)
 
 本书以近万年的尺度回看人类社会如何因能源的获取、转化与使用而不断重塑自身。从采猎时代到农业社会，从蒸汽机开启的工业革命到以石油、电力为核心的现代化，再到当下的能源转型议题，书中提供的是一部“通过能源看人类史”的系统全景。
 

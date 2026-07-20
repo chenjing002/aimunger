@@ -7,7 +7,7 @@ slug: morningstar-moats-excess-returns
 > 原文地址：<https://mp.weixin.qq.com/s/2PGvAH6erpgg4N1SztrGBg>
 《Why Moats Matter: The Morningstar Approach to Stock Investing》将巴菲特提出、由晨星（Morningstar）系统化发展的“经济护城河”（economic moat）理念，写成了一本面向实战的读者友好型指南。它把“护城河”从概念、识别标准到估值与投资组合落地，构建成一条连贯清晰的研究路径。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic51VnmZaHMEXAIXHeeAWBymLLOzsiaX9rMzNQXbkS6rprB5yzFJoztydpZPV2YSVKKVdDl44Vyvm3w/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-ef2ca8e1baf745ad.png)
 
 相比之下，[Pat Dorsey 的护城河研究法，寻找优秀投资的致胜公式](https://mp.weixin.qq.com/s?__biz=Mzk1NzI0MDMzMA==&mid=2247484034&idx=1&sn=7e1fa375ca9b46e2f13d37a64b953716&scene=21#wechat_redirect)像是护城河投资的入门教材，重点在于教你如何辨认一家好公司；而《Why Moats Matter》则进一步扩展成完整的投资闭环——从护城河识别到竞争格局分析，再到估值判断与持有或卖出的决策逻辑。
 

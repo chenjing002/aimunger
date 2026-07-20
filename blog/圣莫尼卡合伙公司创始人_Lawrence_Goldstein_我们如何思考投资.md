@@ -6,7 +6,7 @@ slug: lawrence-goldstein-how-we-invest
 
 > 原文地址：<https://mp.weixin.qq.com/s/Im93ko7Kgu0ZntovahOGmw>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic500mLiafxIgKKF68FgcB5Ug5zMSo84NOeyKI8alicgVL1AMtpCRxPC0MadO7uBRuYp2xoOKya6QlNA/640?wx_fmt=webp&from=appmsg)
+![](https://aimunger.com/blog/images/wx-1ca75df89675a8e3.jpg)
 
 **风险误解与短期利益，常常创造长期投资中的巨大机会**
 

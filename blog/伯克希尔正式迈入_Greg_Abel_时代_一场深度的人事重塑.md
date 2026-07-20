@@ -9,11 +9,11 @@ slug: berkshire-greg-abel-era
 > 原文地址：<https://mp.weixin.qq.com/s/3QQeA-PHqv2y7Wbaqhenuw>
 伯克希尔·哈撒韦发布新闻稿，宣布了一系列重大调整，宣告公司将于 2026 年 1 月 1 日正式进入 **Greg Abel 接班时代**。这些变动中既有令人意外的决定，也有随着巴菲特时代落幕而顺理成章的安排。
 
-![Warren Buffett's successor Greg Abel is wooing shareholders](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic4gib4COib666xNsxXWGp0hwaic2KdZHnbnibQZwzZp3U6yZhicJR9AG3icwgzRCUD59wiaC50c5VZNDLwtQ/640?wx_fmt=jpeg&from=appmsg)
+![Warren Buffett's successor Greg Abel is wooing shareholders](https://aimunger.com/blog/images/wx-9a7ad468d709e27a.jpg)
 
 ### 01\. Todd Combs 离开伯克希尔，加入摩根大通
 
-**![Berkshire Hathaway's Todd Combs, investment lieutenant to Buffett and Geico  CEO, is leaving for JPMorgan](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic4gib4COib666xNsxXWGp0hwa60MvQ8libTRog5icVyJnfvhlXGFv5sd6d1p8wfGVJVY0PFMSBvQIWhpQ/640?wx_fmt=jpeg&from=appmsg)**
+**![Berkshire Hathaway's Todd Combs, investment lieutenant to Buffett and Geico  CEO, is leaving for JPMorgan](https://aimunger.com/blog/images/wx-217e8423676b4474.jpg)**
 
 **这无疑是最令人惊讶的消息之一。**
 

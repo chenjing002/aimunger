@@ -6,11 +6,11 @@ slug: jc-penney-golden-rule
 
 > 原文地址：<https://mp.weixin.qq.com/s/QCNKCEFqwwpmgT50DTHhiQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6rVjmK7nMkpd1D1UX1Js7ia9vyNh89VQYWXUicQ7iaRRibmwqHVKibSFW9hUnbPvlicBooUTS6qQgYHpPA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-42dd35fec745496f.png)
 
 J.C. Penney 曾遍布美国的连锁百货店。它的创始人同样叫 James Cash Penney。青年时期的 Penney 在怀俄明州一家名为 “Golden Rule” 的干货小店担任经理，找到真正的事业方向。凭着勤勉与眼光，他在几年后接下了位于 Kemmerer 的店铺，开启了自己的创业之路。1913 年，他已拥有 34 家门店，并将它们统一更名为 J.C. Penney，随后把这项事业扩展成影响美国零售百年的全国连锁品牌。他不仅是一个成功的商业传奇，更是一个以“黄金法则”贯穿一生的实践者。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6rVjmK7nMkpd1D1UX1Js7ia0s5q5NfbLXnXZFicTBJ6GfIvxxqq4nOTZNnlYtEefYC6SCjQiaacrvrA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-73eef4d404b055c4.png)
 
 1949 年，他出版了《My Experience with the Golden Rule》，而后又在另一部更为成熟的作品《Fifty Years with the Golden Rule》中，把自己半个世纪的人生、事业和信仰沉淀成了对后人的提醒。
 
@@ -48,7 +48,7 @@ Penney 的职业起点非常普通，在一家杂货店里每月只挣 2.27 美�
 
 他与妻儿住在店铺的楼上，用木箱做桌椅，日日夜夜照看生意。五年后，他买下全部股权，将一家小店真正变成了属于自己的事业。店名叫 Golden Rule。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic6rVjmK7nMkpd1D1UX1Js7iat1YOXSJ6dtIxdDC9xiczUQQYWyV3TiczVuQEWiamNxSe5u1pLjSCJwziaA/640?wx_fmt=jpeg&from=appmsg)
+![](https://aimunger.com/blog/images/wx-ad325c7faf811a9d.jpg)
 
 到 1913 年，他已经拥有 34 家店，这些店后来统一改名为 “J.C. Penney”。
 

@@ -7,7 +7,7 @@ slug: unreasonable-hospitality
 > 原文地址：<https://mp.weixin.qq.com/s/V6rwTKiY0mIeBXOAsyyO_g>
 在当今这个追求效率与标准化的商业世界里，我们似乎已经习惯了流程化的服务——礼貌但疏远，高效却缺乏温度。然而，一本名为《Unreasonable Hospitality: The Remarkable Power of Giving People More Than They Expect》（中文版：《超乎常理的款待》）书，挑战了这种传统观念。它不仅讲述了一家餐厅如何从默默无闻走向世界之巅的传奇故事，更深刻地揭示了一种可以应用于任何行业甚至个人生活的强大哲学。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7LGlKjNa7mTokI7WUo1gUKVjKpOnl97Vahef8X5UzTiacDBJXj0yHmnC8DriaGAic52FHtmnO7Dm0zg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-c8cc95334604c3b5.png)
 
 这本书的作者是威尔·吉达拉（Will Guidara），一位在美国餐饮界响当当的人物。他并非厨师，而是一位杰出的餐厅经营者。在他的领导下，位于纽约的麦迪逊公园十一号餐厅（Eleven Madison Park, 简称EMP）从一家备受冷落的法式酒馆，蜕变为米其林三星的顶级食府，并最终在2017年荣登“全球50佳餐厅”榜首。这本书既是吉达拉的个人回忆录，也是一本充满激情与智慧的商业管理手册。它用一个个生动的故事，诠释了“不合理的款待”如何成为连接人与人之间最温暖的桥梁，并创造出惊人的商业价值。
 

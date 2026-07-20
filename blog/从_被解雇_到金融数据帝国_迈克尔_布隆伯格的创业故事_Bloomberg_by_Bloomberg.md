@@ -7,7 +7,7 @@ slug: bloomberg-by-bloomberg
 > 原文地址：<https://mp.weixin.qq.com/s/5C8PIFk8qjicrasJaHsgxQ>
 《Bloomberg by Bloomberg》是迈克尔·布隆伯格与其长期合作者、资深新闻人马修·温克勒合著的自传。全书首次出版于 1997 年，2019 年推出修订版。布隆伯格在书中回溯了自己从华尔街中层被解雇，到白手起家打造全球金融信息帝国的全过程。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6ASA0bXWz5N4lenTklfEdrkq0wJhlogEjOfMHibogkU2RSZkvf5TO4jk1icjFPlYB4D33g1iaTDqnjg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-e5ac38bbeae22ec0.png)
 
 起点：所罗门兄弟到 Bloomberg
 ===================

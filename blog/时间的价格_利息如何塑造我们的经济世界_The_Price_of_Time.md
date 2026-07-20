@@ -7,7 +7,7 @@ slug: price-of-time
 > 原文地址：<https://mp.weixin.qq.com/s/2CENbYfBGeWewDaE5G1WYQ>
 《The Price of Time: The Real Story of Interest》是一部追溯“利息”观念与实践演变的金融思想史。作者爱德华·钱瑟勒（Edward Chancellor）指出，利息（interest）并非抽象概念，而是贯穿文明发展的核心机制——它是时间的价格，揭示人类如何在当下与未来之间分配有限资源、在风险与回报之间寻找平衡。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5Dm8lFXXfGxmwoatbRtVVuVKdAE3ibZ5NuO682Q0fakLDQ1J70dpZGz6vS14RicC7ib4knCSNEF6ZmQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-50af9d54c730217c.png)
 
 利息的存在，让资本能够跨越时间流动，也让社会在增长与约束中形成秩序。理解这种“为时间定价”的逻辑，就等于洞察经济的节奏：它塑造储蓄与投资的方向，影响资产估值与资本成本，决定企业扩张、创新动力与经济周期的波动。
 

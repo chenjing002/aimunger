@@ -21,7 +21,7 @@ slug: robert-pritzker-100x-paint-roller
 
 油漆，曾经是一门手艺人的技艺。要把一栋房子刷好、不留下刷痕，需要熟练的刷漆技巧。随后，在 20 世纪 40 年代初期，**滚筒刷（paint roller）** 被发明出来，一举把所有人都变成了业余的室内装潢师，也让丈夫们不得不屈从于妻子们不断翻新的装修雄心。
 
-![滚筒刷](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4PV88iaT5BSZ4XIgY2AbBRsPwRibSyTCFibRrdnyhcmaMa92HnKUKPRqZibVmD9SWRzEbKyQvIPVpt6g/640?wx_fmt=png&from=appmsg)
+![滚筒刷](https://aimunger.com/blog/images/wx-8a9e7449a6d7c6bd.png)
 
 滚筒刷
 
@@ -47,7 +47,7 @@ slug: robert-pritzker-100x-paint-roller
 
 这个机会就是 **Colson Corporation**——后来发展为 **The Marmon Group** 的起点，这又是另一篇文章的故事了。
 
-为了能与 Jay 一起投入 Colson，据说 Bob 需要从滚筒刷生意中抽身而出。根据 Rodengen 所著的 **《The Marmon Group: The First Fifty Years》** 记载：![The Marmon Group: The First Fifty Years](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic4PV88iaT5BSZ4XIgY2AbBRsMZFib0zjPPibU53Nia0Uysxnic4PiagQq8BFzOscSZmyGxvXiaicff6ZP9A0A/640?wx_fmt=jpeg)
+为了能与 Jay 一起投入 Colson，据说 Bob 需要从滚筒刷生意中抽身而出。根据 Rodengen 所著的 **《The Marmon Group: The First Fifty Years》** 记载：![The Marmon Group: The First Fifty Years](https://aimunger.com/blog/images/wx-6c018ae3597cce9e.jpg)
 
 > “我有一个大学同学正在找事情做，于是我问他是否愿意买下我那一半的股份，”Bob 回忆道，“他说，‘当然愿意’，但我的合伙人不同意。所以大约三周后，我的合伙人来找我说，‘我想搬到加州去。不如我们把整个公司卖掉吧。’**最终，我把当初用 26,000 美元买下的那一半股份，以大约 250 万美元的价格卖掉了。**”
 

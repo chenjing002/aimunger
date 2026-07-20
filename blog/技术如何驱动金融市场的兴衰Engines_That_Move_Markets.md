@@ -7,7 +7,7 @@ slug: engines-that-move-markets
 > 原文地址：<https://mp.weixin.qq.com/s/dxmjCa14X3gt7tCqfuzYWw>
 本书核心探讨的，是技术创新如何一再重塑金融市场的运行逻辑，从19世纪的铁路、电报，到20世纪的汽车、航空、计算机，再到互联网与电商浪潮。作者力图展示，市场并非孤立波动，而是与技术周期紧密相连，每一代新技术的兴起，都伴随着投资狂热、投机泡沫与长期转型的交织。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic6rtmlhg35qZ5ej3lgmy8biaribRDf099PTWNOAOcSQxSygYiaxr2uyDtdLoByA53up5Hib7z339NjTFQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-1c4eb6aa70b26de2.png)
 
 技术周期
 ====

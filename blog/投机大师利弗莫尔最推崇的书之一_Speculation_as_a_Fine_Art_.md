@@ -6,7 +6,7 @@ slug: speculation-as-fine-art
 
 > 原文地址：<https://mp.weixin.qq.com/s/bpJEkw_8tkCw58nnqR0Yyg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic784AiaOtjEHpMW12sJx1WLvlekqe12b7d8iavQhhvYiaW9RGicLBz4mkwBvsFnDkQqLluHyCo97GDZTg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-d3dc9648d57fc6ad.png)
 
 当杰西·利弗莫尔诞生之时，迪克森·瓦茨正处于其事业的巅峰。他的著作对利弗莫尔关于投机的观点产生了深远影响。
 

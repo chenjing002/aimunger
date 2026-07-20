@@ -6,7 +6,7 @@ slug: high-growth-handbook
 
 > 原文地址：<https://mp.weixin.qq.com/s/QKwNoBviRsefz1iJoDXulQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4gTicDicOeeFpcwT3thBmZMibicmZEVwfllrmibe7hT3Ejic0YicJBtc2BpbTpoe6Custmr2sYW9PPbjh8w/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-b178f65231e54fc8.png)
 
 这本书讨论的不是如何找到产品市场匹配（product–market fit），而是在达到初步成功后，如何把一家十几人的公司稳步扩张到上万人。作者把高增长拆解为一系列可执行的决策与流程：CEO角色重塑、董事会与融资、招聘与高管团队、组织结构与重组、产品与市场传播、并购与IPO。书中更强调“战术性”，提供判断依据与操作细节，并辅以行业领袖的访谈，帮助读者在复杂局面中迅速落地。
 

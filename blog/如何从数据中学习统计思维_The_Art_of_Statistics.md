@@ -7,7 +7,7 @@ slug: art-of-statistics
 > 原文地址：<https://mp.weixin.qq.com/s/UUm13o_0tn4HMonrKdwuUw>
 在这个信息爆炸的时代，人们每天都在被数字和图表包围。新闻里说“某项风险增加了200%”，商家宣称“客户满意度达到95%”，社交媒体上更是随处可见“相关研究显示”的结论。然而，当这些看似科学的数据被端到你面前，你能分辨它们背后隐藏的偏差和不确定性吗？
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4iaaDCvxeJljkUdHFeVZBApiaR3dPD6qanKTbA4g3m2uia6xb7FXANibY8LicwQ2voDW2yLY4js0F3AicQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-82cdc18ae3811c7b.png)
 
 大卫·斯皮格尔霍尔特的《The Art of Statistics》想要传达的并非复杂的公式，而是一种思维方式：如何从纷繁的数据中提炼出有意义的结论，又如何避免被表象所迷惑。
 

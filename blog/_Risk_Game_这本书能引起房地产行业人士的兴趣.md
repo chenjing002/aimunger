@@ -8,7 +8,7 @@ slug: risk-game-real-estate
 
 > 原文地址：<https://mp.weixin.qq.com/s/TnM-rG6A6bwlrAXzmHfvFA>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7HBy3s9ric8WQYtfUppBxVFyH3ySicWjTua4QYE8SZaTkiaRlCCgZyajnFnyznzTb58WI3ISTPoGmnA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-c27520070c0417f1.png)
 
 关于房地产投资，有三本书格外值得细读。它们不是枯燥的教科书，而是三位亲历市场沉浮的实干家，用亲身经历讲述财富、风险与直觉的故事。
 

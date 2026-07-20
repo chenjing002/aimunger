@@ -6,7 +6,7 @@ slug: quality-investing
 
 > 原文地址：<https://mp.weixin.qq.com/s/ZkJrtqDUszjNcfj2LIBkEQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic51VnmZaHMEXAIXHeeAWBymJo3OldK5osYqPrRSbdcfQ0GbA6O6hbxdRhTXMHVjkclibwc2kbjGoUA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-60b97c50459c4f39.png)
 
 《Quality Investing》是一本讲如何寻找投资优质公司的书。作者包括三位：Lawrence A. Cunningham（长期研究伯克希尔的法学教授与作家，编撰《The Essays of Warren Buffett》），以及来自伦敦资管机构 AKO Capital 的两位投资人 Torkell T. Eide 与 Patrick Hargreaves。AKO 在欧洲股票市场长期以优质风格见长，书中既有框架，也有大量来自一线调研与持有经验的总结。
 

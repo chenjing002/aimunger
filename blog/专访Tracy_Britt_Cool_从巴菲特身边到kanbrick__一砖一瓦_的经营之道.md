@@ -7,7 +7,7 @@ slug: tracy-britt-cool-kanbrick-interview
 > 原文地址：<https://mp.weixin.qq.com/s/pTVaPUKI_DL916t6HnNCgQ>
 Tracy Britt Cool 的名字往往与“巴菲特助理”“问题企业的救火队长”“Pampered Chef 的扭转者”并列出现。但把这些标签并在一起，并不足以概括她的方法论。她在《The Knowledge Project》的最新一期访谈中，回顾了从堪萨斯州家庭农场到伯克希尔总部、再到自创投资平台 Kanbrick 的完整轨迹。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7icZaDbd7M8TBpeicyfeBr07nY4DXrjQWKwoZkwS0u30h6ysI3eqmPpaF3myWlqVQM4iaFCzCotJ1sg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-820f7e64fc3edbb6.png)
 
 从农场摊位到哈佛课堂
 ==========

@@ -6,7 +6,7 @@ slug: big-blues-ibm-decline
 
 > 原文地址：<https://mp.weixin.qq.com/s/1eHgKlk89HxSm5eRCut4yg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic478hnzkImwJ9IIMOKSTAtuscRclmtb0oapfM53oLzPVJ947ttoiaLJFxbItQDWt4DkhV7NFJUWLiag/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-4e507d16502a033a.png)
 
 在今天回看上世纪八九十年代的信息产业版图，IBM 的跌宕几乎是所有商学院案例与投资者研究的起点。《Big Blues: The Unmaking of IBM》由《华尔街日报》记者 Paul B. Carroll 撰写，记录了这家曾经“无所不能”的巨头如何一步步被官僚与判断失误拖入衰退。
 

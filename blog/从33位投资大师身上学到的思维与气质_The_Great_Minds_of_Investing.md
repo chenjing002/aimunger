@@ -7,7 +7,7 @@ slug: great-minds-of-investing
 > 原文地址：<https://mp.weixin.qq.com/s/aHIQ3AhPVwv4rFnXh7Pe-A>
 多数人寻找“下一只十倍股”，却忽视了一个更可靠的点：真正决定长期回报的，不是技巧清单，而是思维方式与性格禀赋。《The Great Minds of Investing》正好把镜头对准这一点——它不是公式汇编，而是一堂如何“成为那类人”的课。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5bD2KtRicu0g2G66icl1YfIAqeibNYoqPhlA0VdMsHOibpMPAr7CfF7PuQIS5wnL8mGCiaS231gUFctCA/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-5b47cff0423f764b.png)
 
 这本书的独特之处在于形态与立意的双重反常识。它由资深财经作者 William Green 撰写人物特写，配以摄影师 Michael O’Brien 历时五年拍摄的黑白肖像，呈现 33 位顶级投资者的内在世界；既是“咖啡桌艺术书”，又是思想志。出版时曾被《巴伦周刊》节选，引发圈内广泛讨论。
 

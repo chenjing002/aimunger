@@ -9,7 +9,7 @@ slug: lords-of-creation-1890-1930
 
 弗雷德里克·刘易斯·艾伦（Frederick Lewis Allen）的《The Lords of Creation》（1935）正是一本写给大众的金融通史，以1890年代至1930年代为时间跨度，追踪这张权力网络如何在繁荣中加杠杆，最终在1929年一夕坍塌。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5S8IncibZ2qpyHoDxCLh4ZLoNY0sazDMdkHX8pkXZiaA65HtJdgr2z1yBBBicicFicE5jBowp9q8UYU2Q/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-4e67e0cd983c8e16.png)
 
 艾伦其人，出身哈佛，长期担任《哈珀斯》（Harper’s Magazine）编辑。他并非学院派的“脚注型”学者，更像一位敏感的纪实作家：擅用人物、见闻和档案，把制度与情绪放在同一幅画里。这种写法，在当年就被评论界视为“更大、更有思想性的作品”，既能吸引通俗读者，又足以让严肃读者驻足——这也是本书初版即走红的关键。
 

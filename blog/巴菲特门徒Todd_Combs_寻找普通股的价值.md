@@ -6,7 +6,7 @@ slug: todd-combs-value-in-common-stocks
 
 > 原文地址：<https://mp.weixin.qq.com/s/GHdfCMokuTm_NGb6pXwyOg>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4Ppmaicqm9Prpw3x1huF4ib6dzrjbkwMU52YcDHATLXyA8oaTDPRVBbNwpcj8Mz9iaeD2VB6v6kWvQQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-09614fb5a5eb4c05.png)
 
 在格雷厄姆和多德的《证券分析》(Security Analysis) 首次出版大约九十年后，书中阐述的许多（如果不是大多数）原则至今仍然适用。当然，对潜在投资进行彻底分析的必要性和下行保护 (downside protection) 的重要性，在我多年前第一次阅读《证券分析》时就引起了共鸣，到现在依然如此。考虑到作者写作时正值1929年股市崩盘后几年，且正处于大萧条时期，他们的投资方法完全可以理解。按照格雷厄姆和多德的观点，投资可以被视为一种"消极的艺术"，更注重下行保护而不是追求上行空间。
 

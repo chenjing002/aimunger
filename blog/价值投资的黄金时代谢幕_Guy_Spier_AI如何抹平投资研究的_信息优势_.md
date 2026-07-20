@@ -7,7 +7,7 @@ slug: guy-spier-ai-value-investing
 > 原文地址：<https://mp.weixin.qq.com/s/R3tFCEMC-7MNTNVXvhGoDQ>
 价值投资者 Guy Spier 最近发表一篇新文章，英文题目是 “The Golden Age of Value Investing Is Over”，中文可译为 《价值投资的黄金时代已经结束》。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_jpg/5HUkibFlfpic6OMPppTD772Esics0Whqn8fycSd5HFCPmVIQWEOUt60ThxrnveCIGn6cu9XTq7MxP7vHgK6asVBAg/640?wx_fmt=webp&from=appmsg)
+![](https://aimunger.com/blog/images/wx-a970d49ea996463f.jpg)
 
 Spier 是The Education of a Value Investor的作者，自1997年以来一直管理苏黎世 Aquamarine 的私募基金。这篇文章中，他结合自己三十年的投资经历，讲述了AI如何正在重塑投资研究的格局，并宣告传统意义上的“价值投资黄金时代”谢幕。
 

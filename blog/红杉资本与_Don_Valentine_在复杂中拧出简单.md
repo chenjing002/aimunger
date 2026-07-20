@@ -7,7 +7,7 @@ slug: don-valentine-sequoia
 > 原文地址：<https://mp.weixin.qq.com/s/4zyZQc5hY-5N2fvdpIO2vg>
 这本约七十页的小书以极近的距离还原了红杉创始人 Don Valentine 的“绿墨世界”。他在 3000 Sand Hill Road 的小圆桌旁面试，先泡一壶茶，再端详你的沉默；随后几道短促的追问，把叙事里所有多余的形容词都逼成名词与数字。他只在乎两件事：市场是不是足够大，结构能不能撑起“高毛利和现金流”。毛利提供犯错的缓冲，现金流决定生死线——这不是漂亮话，而是筛子，能把漂亮的愿景、迷人的 PPT 和多余的流程一起筛掉。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4xebRo2Nzf2JWiabDg2CTkRQrkYDiaHeEVykKH0G5Vhea3Ud5AOWibCTjMYgKM7su9vmSDTRrpSZV7A/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-7dca0f4991f23374.png)
 
 Don 的方法尤其迷人之处，在于它对复杂的反感近乎本能。他把详尽的财务预测当作“漫画”，宁愿用“工程师成本乘以二”的粗算盯住烧钱速度；他不爱宏大叙事，偏要把商业计划压缩到一张名片背面；他讨厌被规训，甚至把名牌别在右胸，只为提醒团队：别让礼仪吞掉判断。正因如此，他能在“黑色星期一”的惊惶中，仍盯住一个朴素事实——一家没有销售队伍的小公司却能持续出货——随后，像修理机器一样替 Cisco 装上会跑的管理层，把“祈祷与点蜡烛”的部分统统换成节拍与执行。
 

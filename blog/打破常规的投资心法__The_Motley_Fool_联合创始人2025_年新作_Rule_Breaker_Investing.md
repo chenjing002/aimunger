@@ -7,7 +7,7 @@ slug: rule-breaker-investing-motley-fool
 > 原文地址：<https://mp.weixin.qq.com/s/ifZ1UCPvTaKdPgzWAEbLEQ>
 2025年新书《Rule Breaker Investing》提供的是一套识别未来巨头、并在漫长时间里与之共同成长的思维方式。作者 David Gardner 是 The Motley Fool 的联合创始人，也是“Rule Breaker（破局者）”体系的奠基人。与传统价值投资强调安全边际不同，他把注意力投向那些仍在快速演化的行业与公司，并鼓励投资者以更长的视角、在更大的不确定性里，去寻找极少数能带来非对称回报的赢家。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5hwvZeyb5yVTYO9aFHJUndDKicf6vW766BeibWRBXNEptO1SOMY2lAXRUGbMSC139QAoPafQBT4wqg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-71529d5444ee3028.png)
 
 这套方法的核心
 =======

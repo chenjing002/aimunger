@@ -6,7 +6,7 @@ slug: kkr-battery-business
 
 > 原文地址：<https://mp.weixin.qq.com/s/YFMz6AEvgy2zzT1sO1RcVQ>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic4t3eGMsSankG5tY16HtobHsnXxO1LhXqUltqTGlBnN4jQw9YVIZEic3YQZ9rdLoib8ibamf3icUibs2qQ/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-070fd4f4d31b310b.png)
 
 1987 年深秋，卡夫（Kraft）首席执行官约翰·里奇曼（John Richman）正承受着来自华尔街的巨大压力。分析师不断强调，金霸王（Duracell）是卡夫体系中的“非核心资产”，与食品主业格格不入，企业掠夺者已经在外围游弋。为了稳住局面，里奇曼必须尽快出售一块资产。
 

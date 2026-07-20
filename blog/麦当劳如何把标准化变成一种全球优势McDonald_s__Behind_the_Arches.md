@@ -7,7 +7,7 @@ slug: mcdonalds-behind-the-arches
 > 原文地址：<https://mp.weixin.qq.com/s/t9yUbMsqSZXnrOCsMZGltQ>
 当一份汉堡能在全球数万家门店尝起来几乎一模一样，这并非偶然，而是制度的胜利。这本书追问的不是“汉堡好不好吃”，而是麦当劳如何把效率、资本与文化组织成一台长期运转的机器。
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic7uFeoTbbJdj5QiaIfM51sQ1nzLIg16eXV69ndqnLFtSDwaAjbVw9suGWBMWelAf4AJ0S0aqRp3lYg/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-7beac1cdf1ffbbd2.png)
 
 本书洞见
 ====

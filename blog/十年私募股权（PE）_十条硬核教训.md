@@ -6,7 +6,7 @@ slug: 10-years-private-equity-lessons
 
 > 原文地址：<https://mp.weixin.qq.com/s/aXwTgJHJi5K4ItNSLM2A9g>
 
-![](https://mmbiz.qpic.cn/sz_mmbiz_png/5HUkibFlfpic5v8qibRZARz9D1NOfcs6KOlhohCyY1ebasjfI6CNewfdFaYuGWJCHib3Z7uWV7xHF9qzYia4uQWibDIw/640?wx_fmt=png&from=appmsg)
+![](https://aimunger.com/blog/images/wx-ce985e3fe01048c4.png)
 
 我想很多人会产生共鸣，或者更好的是，你们已经亲历了这些教训。没有严格轻重排序，但这些是我需要在脑子里不断学习、重学、甚至重新诠释的东西。
 
