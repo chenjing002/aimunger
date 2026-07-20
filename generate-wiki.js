@@ -77,6 +77,12 @@ const SLUG_MAP = {
   '龙湖集团': 'longfor',
   '招商局集团': 'cmg',
   '豫园股份': 'yuyuan-shares',
+  '滔搏': 'topsports',
+  '胜华电缆': 'shenghua-cable',
+  '起帆电缆': 'qifan-cable',
+  '田洪': 'tianhong',
+  '贾新耀': 'jiaxinyao',
+  '马兴瑞': 'maxingrui',
 };
 
 function getSlug(title) {
@@ -134,6 +140,10 @@ const TRADITIONAL_NAMES = {
   '傅育宁': '傅育寧',
   '楼继伟': '樓繼偉',
   '辛杰': '辛傑',
+  '马兴瑞': '馬興瑞',
+  '贾新耀': '賈新耀',
+  '胜华电缆': '勝華電纜',
+  '起帆电缆': '起帆電纜',
 };
 
 function escHtml(s) {
@@ -219,7 +229,8 @@ function classifyNode(title) {
     '万科', '万物云', '新鸿基', '普洛斯', '比亚迪', '深基地B', '美的集团',
     '绿景地产', '雅戈尔', '长江电力', '龙湖集团', '中国平安', '中国建筑',
     '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展',
-    '招商局集团', '中投公司', '中金公司', '深圳地铁', '海尔', '融创中国', '豫园股份'
+    '招商局集团', '中投公司', '中金公司', '深圳地铁', '海尔', '融创中国', '豫园股份',
+    '滔搏', '胜华电缆', '起帆电缆'
   ];
   if (companies.includes(title)) return 'company';
   return 'person';
