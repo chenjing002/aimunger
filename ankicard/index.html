@@ -553,11 +553,6 @@
             transition: transform 0.25s cubic-bezier(0.34,1.45,0.64,1),
                         background 0.2s ease;
         }
-        .tl-node.sub { pointer-events: none; padding: 1px 0; }
-        .tl-node.sub .tl-tick {
-            width: 12px;
-            background: rgba(0,0,0,0.07);
-        }
         .tl-node:hover .tl-tick {
             transform: scaleX(1.25);
             background: rgba(0,0,0,0.35);
@@ -863,21 +858,18 @@
 
         var enterClass = (animateStack && lastDirection === 'prev') ? ' enter-prev' : '';
 
-        // Vertical timeline scrubber (time-machine style), desktop only via CSS
+        // Vertical timeline scrubber (time-machine style), desktop only via CSS.
+        // Every deck renders the same plain numbered style regardless of card
+        // count — the sub-tick density used to flip at 15 cards, which made
+        // small and large decks look inconsistent.
         var tlHtml = '';
         if (total >= 2 && total <= 30) {
-            var subTicks = total <= 15 ? 2 : 0;
             tlHtml = '<div class="review-timeline" id="timeline">';
             for (var t = 0; t < total; t++) {
                 tlHtml += '<button class="tl-node' + (t === currentIndex ? ' active' : '') + '" data-idx="' + t + '">' +
                     '<span class="tl-label">' + (t + 1) + '</span>' +
                     '<span class="tl-tick"></span>' +
                 '</button>';
-                if (t < total - 1) {
-                    for (var s = 0; s < subTicks; s++) {
-                        tlHtml += '<div class="tl-node sub"><span class="tl-tick"></span></div>';
-                    }
-                }
             }
             tlHtml += '</div>';
         }
