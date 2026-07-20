@@ -114,6 +114,9 @@ function run() {
         .group {
             position: relative;
             z-index: 1;
+            /* Each group is its own stacking context: child z-indexes can
+               never interleave with a neighboring group's cards */
+            isolation: isolate;
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             /* Hold the elevated stacking until the fan finishes closing,
@@ -133,41 +136,43 @@ function run() {
         }
 
         /* Radial wheel fan: 4 layers behind the front card, pivot below the deck.
-           dist = -2,-1,+1,+2; hover: rotate dist*18deg around origin 50% 110% */
+           All cards are fully opaque — depth comes from solid tint, scale,
+           borders and shadow, never from transparency, so nothing behind a
+           card can bleed through it. */
         .group-stack-layer {
             position: absolute;
             inset: 0;
-            background: var(--color-card-bg);
+            background: #f0ebe3;
             border: 1px solid var(--color-border);
             border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(16,15,15,0.08);
+            box-shadow: 0 4px 12px rgba(16,15,15,0.1);
             transform-origin: 50% 110%;
             transition: transform 0.55s cubic-bezier(0.34,1.45,0.64,1),
-                        opacity 0.4s ease;
+                        box-shadow 0.4s ease;
+        }
+        .group-stack-layer.accent {
+            background: #b06849;
+            border-color: rgba(139,37,0,0.45);
         }
 
         /* dist -2 (deepest left) */
         .group-stack-layer:nth-child(1) {
             transform: translateY(10px) scale(0.94);
-            opacity: 0.5;
             z-index: 1;
         }
         /* dist -1 */
         .group-stack-layer:nth-child(2) {
             transform: translateY(5px) scale(0.97);
-            opacity: 0.75;
             z-index: 2;
         }
         /* dist +1 */
         .group-stack-layer:nth-child(3) {
             transform: translateY(5px) scale(0.97);
-            opacity: 0.75;
             z-index: 2;
         }
         /* dist +2 (deepest right) */
         .group-stack-layer:nth-child(4) {
             transform: translateY(10px) scale(0.94);
-            opacity: 0.5;
             z-index: 1;
         }
 
@@ -225,21 +230,20 @@ function run() {
             transform: translateY(-28px) scale(1.05);
         }
         /* Wheel fan open: rotate by distance from center, lift the inner pair more */
+        .group:hover .group-stack-layer {
+            box-shadow: 0 10px 28px rgba(16,15,15,0.16);
+        }
         .group:hover .group-stack-layer:nth-child(1) {
             transform: translateY(-7%) rotate(-24deg) scale(0.95);
-            opacity: 0.7;
         }
         .group:hover .group-stack-layer:nth-child(2) {
             transform: translateY(-12%) rotate(-12deg) scale(0.97);
-            opacity: 0.9;
         }
         .group:hover .group-stack-layer:nth-child(3) {
             transform: translateY(-12%) rotate(12deg) scale(0.97);
-            opacity: 0.9;
         }
         .group:hover .group-stack-layer:nth-child(4) {
             transform: translateY(-7%) rotate(24deg) scale(0.95);
-            opacity: 0.7;
         }
 
         .group-meta { text-align: center; }
@@ -394,7 +398,6 @@ function run() {
             box-shadow: none;
             transition: transform 0.45s cubic-bezier(0.23,1,0.32,1), opacity 0.4s ease;
         }
-        .group-stack-layer.accent,
         .card-stack-layer.accent {
             background: #8b2500;
             border-color: rgba(139,37,0,0.5);
@@ -584,10 +587,16 @@ function run() {
             transform: scale(1.3);
         }
 
-        /* ===== Time-machine timeline scrubber (right edge) ===== */
+        /* ===== Time-machine timeline scrubber (right gutter) ===== */
+        /* The scrubber lives in a dedicated gutter: .has-timeline widens the
+           overlay and pads the card area on the right, so ticks (even the
+           1.4x-scaled active one) never reach the card border. */
+        .overlay-content.has-timeline { max-width: 620px; }
+        .has-timeline .review-scroll-body { padding-right: 56px; }
+        .has-timeline .review-progress { margin-right: 56px; }
         .review-timeline {
             position: absolute;
-            right: 6px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
@@ -600,7 +609,7 @@ function run() {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            width: 56px;
+            width: 48px;
             padding: 2px 0;
             background: transparent;
             border: 0;
@@ -652,8 +661,12 @@ function run() {
         @media (min-width: 601px) {
             .has-timeline .review-nav { display: none; }
         }
+        /* Narrow screens: drop the gutter and fall back to the dot nav below */
         @media (max-width: 600px) {
             .review-timeline { display: none; }
+            .overlay-content.has-timeline { max-width: 560px; }
+            .has-timeline .review-scroll-body { padding-right: 0; }
+            .has-timeline .review-progress { margin-right: 0; }
         }
 
         .hint-keys {
