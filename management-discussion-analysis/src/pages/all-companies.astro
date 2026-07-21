@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { buildColorMap } from '../utils/company-colors';
+
+const allLetters = await getCollection('mda');
+
+const companiesMap = new Map<string, { slug: string; name: string; count: number }>();
+
+for (const letter of allLetters) {
+  const companySlug = letter.slug.split('/')[0];
+  if (!companiesMap.has(companySlug)) {
+    companiesMap.set(companySlug, {
+      slug: companySlug,
+      name: letter.data.company,
+      count: 0,
+    });
+  }
+  companiesMap.get(companySlug)!.count++;
+}
+
+const companies = Array.from(companiesMap.values()).sort((a, b) =>
+  b.count - a.count || a.name.localeCompare(b.name, 'zh-CN')
+);
+
+const totalCompanies = companies.length;
+const totalLetters = allLetters.length;
+const base = import.meta.env.BASE_URL;
+const colorMap = buildColorMap(companies.map(c => c.slug));
+---
+
+<BaseLayout title="公司 — 管理层讨论与分析">
+  <section class="hero">
+    <h1 class="hero__title">{totalCompanies} 家上市公司</h1>
+    <p class="hero__subtitle">{totalLetters} 篇管理层讨论与分析</p>
+  </section>
+
+  <section class="all-companies-grid" id="companies-grid">
+    {companies.map((company) => {
+      const color = colorMap[company.slug];
+      return (
+        <a
+          href={`${base}company/${company.slug}/`}
+          class="company-card"
+          style={`--cc-bg: ${color.bg}; --cc-text: ${color.text};`}
+          data-name={company.name}
+        >
+          <div class="company-card__name">{company.name}</div>
+          <div class="company-card__count">{company.count} 篇</div>
+        </a>
+      );
+    })}
+  </section>
+</BaseLayout>

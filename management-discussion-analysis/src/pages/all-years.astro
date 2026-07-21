@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { buildColorMap } from '../utils/company-colors';
+
+const allLetters = await getCollection('mda');
+
+const yearsMap = new Map<number, Set<string>>();
+for (const letter of allLetters) {
+  const y = letter.data.year;
+  const companySlug = letter.slug.split('/')[0];
+  if (!yearsMap.has(y)) yearsMap.set(y, new Set());
+  yearsMap.get(y)!.add(companySlug);
+}
+
+const years = Array.from(yearsMap.entries())
+  .map(([year, slugs]) => ({ year, count: slugs.size }))
+  .sort((a, b) => b.year - a.year);
+
+const totalYears = years.length;
+const totalLetters = allLetters.length;
+const base = import.meta.env.BASE_URL;
+const yearColorMap = buildColorMap(years.map(y => `year-${y.year}`));
+---
+
+<BaseLayout title="年份 — 管理层讨论与分析">
+  <section class="hero">
+    <h1 class="hero__title">{totalYears} 个年份</h1>
+    <p class="hero__subtitle">{totalLetters} 篇管理层讨论与分析</p>
+  </section>
+
+  <section class="all-companies-grid" id="years-grid">
+    {years.map((y) => {
+      const color = yearColorMap[`year-${y.year}`];
+      return (
+        <a
+          href={`${base}year/${y.year}/`}
+          class="company-card year-card"
+          style={`--cc-bg: ${color.bg}; --cc-text: ${color.text};`}
+          data-name={`${y.year}`}
+        >
+          <div class="company-card__name">{y.year} 年</div>
+          <div class="company-card__count">{y.count} 家公司</div>
+        </a>
+      );
+    })}
+  </section>
+</BaseLayout>

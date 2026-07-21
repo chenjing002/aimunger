@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { buildColorMap } from '../utils/company-colors';
+
+const allLetters = await getCollection('mda');
+
+// Group by company
+const companiesMap = new Map<string, { slug: string; name: string; count: number }>();
+
+for (const letter of allLetters) {
+  const companySlug = letter.slug.split('/')[0];
+  if (!companiesMap.has(companySlug)) {
+    companiesMap.set(companySlug, {
+      slug: companySlug,
+      name: letter.data.company,
+      count: 0,
+    });
+  }
+  companiesMap.get(companySlug)!.count++;
+}
+
+const companies = Array.from(companiesMap.values()).sort((a, b) =>
+  b.count - a.count || a.name.localeCompare(b.name, 'zh-CN')
+);
+
+const totalCompanies = companies.length;
+const totalLetters = allLetters.length;
+const base = import.meta.env.BASE_URL;
+
+const colorMap = buildColorMap(companies.map(c => c.slug));
+
+// Attach color to each company for client-side rendering
+const companiesWithColors = companies.map(c => ({
+  ...c,
+  color: colorMap[c.slug],
+}));
+
+const companiesJson = JSON.stringify(companiesWithColors);
+---
+
+<BaseLayout title="管理层讨论与分析 — 中国上市公司 MD&A 合集">
+  <section class="hero">
+    <h1 class="hero__title">管理层讨论与分析</h1>
+    <p class="hero__subtitle">
+      已收录 <a href={`${base}all-companies/`} class="hero__count">{totalCompanies}</a> 家上市公司，共计 <span style="color: #8b2500">{totalLetters}</span> 篇管理层讨论与分析
+    </p>
+  </section>
+
+  <div class="search">
+    <input
+      type="text"
+      class="search__input"
+      id="search-input"
+      placeholder="输入公司名称"
+      autocomplete="off"
+    />
+    <div class="search-dropdown" id="search-dropdown"></div>
+  </div>
+
+  <section class="fan-section" id="fan-section">
+    <div class="card-fan" id="card-fan"></div>
+    <div class="fan-refresh">
+      <button class="fan-refresh__btn" id="refresh-btn" type="button">更换一批</button>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ companiesJson, baseUrl: base }}>
+  var companies = JSON.parse(companiesJson);
+
+  var fanContainer = document.getElementById('card-fan');
+  var searchInput = document.getElementById('search-input');
+  var searchDropdown = document.getElementById('search-dropdown');
+  var refreshBtn = document.getElementById('refresh-btn');
+  var fanSection = document.getElementById('fan-section');
+
+  function shuffleArray(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function pickCompanies(count) {
+    return shuffleArray(companies).slice(0, Math.min(count, companies.length));
+  }
+
+  function renderCards(selected) {
+    fanContainer.innerHTML = '';
+
+    selected.forEach(function(company, i) {
+      var color = company.color;
+
+      var card = document.createElement('a');
+      card.href = baseUrl + 'company/' + company.slug + '/';
+      card.className = 'fan-card';
+      card.style.backgroundColor = color.bg;
+      card.style.color = color.text;
+
+      card.innerHTML =
+        '<div class="fan-card__name">' + company.name + '</div>' +
+        '<div class="fan-card__count">' + company.count + ' 篇</div>';
+
+      // 3D tilt on mouse move
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var tiltX = ((y - rect.height / 2) / (rect.height / 2)) * -8;
+        var tiltY = ((x - rect.width / 2) / (rect.width / 2)) * 8;
+        card.style.setProperty('--tilt-x', tiltX + 'deg');
+        card.style.setProperty('--tilt-y', tiltY + 'deg');
+      });
+
+      card.addEventListener('mouseleave', function() {
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      });
+
+      fanContainer.appendChild(card);
+    });
+
+    // Staggered entrance animation
+    requestAnimationFrame(function() {
+      var cards = fanContainer.querySelectorAll('.fan-card');
+      cards.forEach(function(c, i) {
+        setTimeout(function() { c.classList.add('is-visible'); }, i * 100);
+      });
+    });
+  }
+
+  // Initial render
+  renderCards(pickCompanies(5));
+
+  // Shuffle on "更换一批"
+  refreshBtn.addEventListener('click', function() {
+    var cards = fanContainer.querySelectorAll('.fan-card');
+    cards.forEach(function(c) { c.classList.remove('is-visible'); });
+
+    setTimeout(function() {
+      renderCards(pickCompanies(5));
+    }, 350);
+  });
+
+  // Search dropdown
+  searchInput.addEventListener('input', function() {
+    var query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+      searchDropdown.classList.remove('is-open');
+      searchDropdown.innerHTML = '';
+      fanSection.style.display = '';
+      return;
+    }
+
+    var matches = companies.filter(function(c) {
+      return c.name.toLowerCase().indexOf(query) !== -1;
+    });
+
+    fanSection.style.display = 'none';
+
+    if (!matches.length) {
+      searchDropdown.innerHTML =
+        '<div class="search-dropdown__empty">未找到匹配的公司</div>';
+    } else {
+      searchDropdown.innerHTML = matches.map(function(c) {
+        return '<a class="search-dropdown__item" href="' + baseUrl + 'company/' + c.slug + '/">' +
+               '<span>' + c.name + '</span>' +
+               '<span class="search-dropdown__count">' + c.count + ' 篇</span></a>';
+      }).join('');
+    }
+
+    searchDropdown.classList.add('is-open');
+  });
+
+  // Close dropdown on outside click, restore fan
+  document.addEventListener('click', function(e) {
+    if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+      searchDropdown.classList.remove('is-open');
+      fanSection.style.display = '';
+    }
+  });
+
+  // Re-open dropdown on focus if there's text
+  searchInput.addEventListener('focus', function() {
+    var query = searchInput.value.trim();
+    if (query) {
+      searchInput.dispatchEvent(new Event('input'));
+    }
+  });
+</script>

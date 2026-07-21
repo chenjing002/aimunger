@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allLetters = await getCollection('mda');
+
+  // Group by company for prev/next navigation
+  const companiesMap = new Map<string, typeof allLetters>();
+  for (const letter of allLetters) {
+    const companySlug = letter.slug.split('/')[0];
+    if (!companiesMap.has(companySlug)) {
+      companiesMap.set(companySlug, []);
+    }
+    companiesMap.get(companySlug)!.push(letter);
+  }
+
+  // Sort each company's letters by year
+  for (const letters of companiesMap.values()) {
+    letters.sort((a, b) => a.data.year - b.data.year);
+  }
+
+  return allLetters.map((letter) => {
+    const companySlug = letter.slug.split('/')[0];
+    const siblings = companiesMap.get(companySlug)!;
+    const idx = siblings.findIndex((l) => l.slug === letter.slug);
+
+    return {
+      params: { slug: letter.slug },
+      props: {
+        letter,
+        prev: idx > 0 ? siblings[idx - 1] : null,
+        next: idx < siblings.length - 1 ? siblings[idx + 1] : null,
+      },
+    };
+  });
+}
+
+type LetterEntry = Awaited<ReturnType<typeof getCollection<'mda'>>>[number];
+
+interface Props {
+  letter: LetterEntry;
+  prev: LetterEntry | null;
+  next: LetterEntry | null;
+}
+
+const { letter, prev, next } = Astro.props;
+const { Content } = await letter.render();
+const companySlug = letter.slug.split('/')[0];
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`${letter.data.title} — 管理层讨论与分析`}>
+  <div class="container--narrow" style="padding: 0;">
+    <nav class="breadcrumb">
+      <a href={base}>首页</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href={`${base}company/${companySlug}/`}>{letter.data.company}</a>
+      <span class="breadcrumb__sep">/</span>
+      <span>{letter.data.year}</span>
+    </nav>
+
+    <header class="letter-header">
+      <h1 class="letter-header__title">{letter.data.title}</h1>
+      <div class="letter-meta">
+        <span class="letter-meta__item">{letter.data.company}</span>
+        <span class="letter-meta__item">{letter.data.year} 年</span>
+        {letter.data.source && (
+          <span class="letter-meta__item">来源：{letter.data.source}</span>
+        )}
+        {letter.data.date && (
+          <span class="letter-meta__item">{letter.data.date}</span>
+        )}
+      </div>
+    </header>
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <nav class="letter-nav">
+      {prev ? (
+        <a href={`${base}report/${prev.slug}/`} class="letter-nav__link">
+          <span class="letter-nav__label">← 上一篇</span>
+          <span class="letter-nav__year">{prev.data.year} 年</span>
+        </a>
+      ) : <div />}
+      {next ? (
+        <a href={`${base}report/${next.slug}/`} class="letter-nav__link letter-nav__link--next">
+          <span class="letter-nav__label">下一篇 →</span>
+          <span class="letter-nav__year">{next.data.year} 年</span>
+        </a>
+      ) : <div />}
+    </nav>
+  </div>
+</BaseLayout>

@@ -54,6 +54,12 @@ jobs:
           npm ci
           npm run build
 
+      - name: Build MD&A site
+        working-directory: management-discussion-analysis
+        run: |
+          npm ci
+          npm run build
+
       - name: Assemble site
         run: |
           mkdir -p _site
@@ -61,6 +67,7 @@ jobs:
           cp -r about privacy disclaimer resources data memory blog _site/
           rm -rf _site/memory/worker
           cp -r _build/letters/dist/ _site/letters/
+          cp -r management-discussion-analysis/dist/ _site/management-discussion-analysis/
           mkdir -p _site/llm-reader
           cp _build/llm-reader/*.html _build/llm-reader/logo.svg _site/llm-reader/
 

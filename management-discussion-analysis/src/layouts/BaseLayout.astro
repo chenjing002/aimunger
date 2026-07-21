@@ -1,0 +1,191 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  title: string;
+  description?: string;
+  bodyClass?: string;
+  ogType?: string;
+}
+
+const { title, description = '中国上市公司管理层讨论与分析合集', bodyClass, ogType = 'website' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Active-link detection (handles both / and /letters-to-shareholders/ bases)
+const pathname = Astro.url.pathname;
+const normalized = pathname.replace(/\/+$/, '');
+const companiesActive = normalized.endsWith('/all-companies');
+const yearsActive = normalized.endsWith('/all-years');
+
+// Bake a company list into the header so the global search dropdown
+// works on every page without a separate endpoint.
+const allLetters = await getCollection('mda');
+const companiesMap = new Map<string, { slug: string; name: string; count: number }>();
+for (const l of allLetters) {
+  const s = l.slug.split('/')[0];
+  if (!companiesMap.has(s)) {
+    companiesMap.set(s, { slug: s, name: l.data.company, count: 0 });
+  }
+  companiesMap.get(s)!.count++;
+}
+const headerCompanies = Array.from(companiesMap.values()).sort((a, b) =>
+  b.count - a.count || a.name.localeCompare(b.name, 'zh-CN')
+);
+const headerCompaniesJson = JSON.stringify(headerCompanies);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="管理层讨论与分析 — aimunger" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>
+      // Restore theme before paint to avoid flash
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+          document.documentElement.setAttribute('data-theme', stored);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a href={base} class="site-header__logo" aria-label="管理层讨论与分析 首页">
+          <svg class="site-header__logo-svg" width="28" height="28" viewBox="0 0 100 100" aria-hidden="true">
+            <rect width="100" height="100" rx="20" fill="#8b2500"/>
+            <text x="50" y="68" font-family="'Noto Serif SC', serif" font-size="56" font-weight="bold" fill="white" text-anchor="middle">析</text>
+          </svg>
+          <span class="site-header__logo-text">管理层讨论与分析</span>
+        </a>
+        <nav class="site-nav" aria-label="主导航">
+          <a
+            href={`${base}all-companies/`}
+            class:list={["site-nav__link", { "is-active": companiesActive }]}
+          >公司</a>
+          <a
+            href={`${base}all-years/`}
+            class:list={["site-nav__link", { "is-active": yearsActive }]}
+          >年份</a>
+        </nav>
+        <div class="site-header__actions">
+          <button
+            type="button"
+            class="header-search-btn"
+            id="header-search-btn"
+            aria-label="搜索公司"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+          </button>
+          <ThemeToggle />
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="header-search-panel" id="header-search-panel">
+        <div class="header-search-panel__inner">
+          <input
+            type="text"
+            class="header-search-panel__input"
+            id="header-search-input"
+            placeholder="输入公司名称"
+            autocomplete="off"
+          />
+          <div class="header-search-panel__results" id="header-search-results"></div>
+        </div>
+      </div>
+
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <div class="site-footer__text">中国上市公司管理层讨论与分析合集</div>
+        <div class="site-footer__links">
+          <a href="https://aimunger.com/">aimunger</a>
+          <a href="https://aimunger.com/llm-reader/">LLM Reader</a>
+        </div>
+      </footer>
+    </div>
+
+    <script is:inline define:vars={{ headerCompaniesJson, baseUrl: base }}>
+      (function() {
+        var companies = JSON.parse(headerCompaniesJson);
+        var btn = document.getElementById('header-search-btn');
+        var panel = document.getElementById('header-search-panel');
+        var input = document.getElementById('header-search-input');
+        var results = document.getElementById('header-search-results');
+        if (!btn || !panel || !input || !results) return;
+
+        function open() {
+          panel.classList.add('is-open');
+          btn.classList.add('is-active');
+          input.focus();
+        }
+        function close() {
+          panel.classList.remove('is-open');
+          btn.classList.remove('is-active');
+          input.value = '';
+          results.innerHTML = '';
+        }
+
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (panel.classList.contains('is-open')) close(); else open();
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!panel.classList.contains('is-open')) return;
+          if (panel.contains(e.target) || btn.contains(e.target)) return;
+          close();
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && panel.classList.contains('is-open')) close();
+        });
+
+        input.addEventListener('input', function() {
+          var q = input.value.trim().toLowerCase();
+          if (!q) { results.innerHTML = ''; return; }
+          var matches = companies.filter(function(c) {
+            return c.name.toLowerCase().indexOf(q) !== -1;
+          });
+          if (!matches.length) {
+            results.innerHTML = '<div class="header-search-panel__empty">未找到匹配的公司</div>';
+            return;
+          }
+          results.innerHTML = matches.map(function(c) {
+            return '<a class="header-search-panel__item" href="' +
+              baseUrl + 'company/' + c.slug + '/">' +
+              '<span>' + c.name + '</span>' +
+              '<span class="header-search-panel__count">' + c.count + ' 篇</span>' +
+              '</a>';
+          }).join('');
+        });
+      })();
+    </script>
+  </body>
+</html>

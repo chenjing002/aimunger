@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allLetters = await getCollection('mda');
+
+  // Group letters by year
+  const yearsMap = new Map<number, typeof allLetters>();
+  for (const letter of allLetters) {
+    const y = letter.data.year;
+    if (!yearsMap.has(y)) yearsMap.set(y, []);
+    yearsMap.get(y)!.push(letter);
+  }
+
+  return Array.from(yearsMap.entries()).map(([year, letters]) => ({
+    params: { year: String(year) },
+    props: {
+      year,
+      // Sort by company name (Chinese collation) so order is stable
+      letters: letters.sort((a, b) =>
+        a.data.company.localeCompare(b.data.company, 'zh-CN')
+      ),
+    },
+  }));
+}
+
+type LetterEntry = Awaited<ReturnType<typeof getCollection<'mda'>>>[number];
+
+interface Props {
+  year: number;
+  letters: LetterEntry[];
+}
+
+const { year, letters } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const rendered = await Promise.all(
+  letters.map(async (letter) => {
+    const { Content } = await letter.render();
+    const companySlug = letter.slug.split('/')[0];
+    return {
+      companySlug,
+      companyName: letter.data.company,
+      title: letter.data.title,
+      Content,
+    };
+  })
+);
+---
+
+<BaseLayout title={`${year} 年 — 管理层讨论与分析`} bodyClass="page-reader">
+  <nav class="breadcrumb">
+    <a href={base}>首页</a>
+    <span class="breadcrumb__sep">/</span>
+    <a href={`${base}all-companies/`}>全部公司</a>
+    <span class="breadcrumb__sep">/</span>
+    <span>{year} 年</span>
+  </nav>
+
+  <div class="reader reader--by-year" id="reader">
+    <nav class="reader__sidebar">
+      <div class="reader__years">
+        {rendered.map((r, i) => (
+          <button
+            class:list={["reader__year-btn", { "is-active": i === 0 }]}
+            data-company={r.companySlug}
+          >
+            {r.companyName}
+          </button>
+        ))}
+      </div>
+    </nav>
+
+    <div class="reader__content" id="singleView">
+      {rendered.map((r, i) => (
+        <article
+          class:list={["reader__letter", { "is-active": i === 0 }]}
+          data-company={r.companySlug}
+        >
+          <div class="prose">
+            <r.Content />
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', setup);
+  document.addEventListener('DOMContentLoaded', setup);
+
+  let initialized = false;
+
+  function setup() {
+    if (initialized) return;
+    initialized = true;
+
+    const yearBtns = document.querySelectorAll<HTMLButtonElement>('.reader__year-btn');
+    const articles = document.querySelectorAll<HTMLElement>('.reader__letter');
+    const singleView = document.getElementById('singleView');
+    if (!yearBtns.length || !singleView) return;
+
+    yearBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const slug = btn.dataset.company!;
+        yearBtns.forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        articles.forEach((a) => {
+          a.classList.toggle('is-active', a.dataset.company === slug);
+        });
+        singleView.scrollTop = 0;
+      });
+    });
+  }
+</script>
