@@ -87,10 +87,10 @@ for (const page of scannedPages) {
 function getPriority(url) {
   if (url === `${SITE}/`) return '1.0';
   if (url.endsWith('/blog/')) return '0.9';
-  if (url.endsWith('/letters/') || url.endsWith('/llm-reader/')) return '0.8';
+  if (url.endsWith('/letters/') || url.endsWith('/llm-reader/') || url.endsWith('/management-discussion-analysis/')) return '0.8';
   if (url.includes('/blog/') && url !== `${SITE}/blog/`) return '0.7';
   if (url.includes('/company/') || url.includes('/all-companies') || url.includes('/all-years')) return '0.7';
-  if (url.includes('/letter/')) return '0.6';
+  if (url.includes('/letter/') || url.includes('/report/')) return '0.6';
   if (url.includes('/year/')) return '0.5';
   return '0.5';
 }
@@ -99,8 +99,8 @@ function getChangefreq(url) {
   if (url === `${SITE}/`) return 'weekly';
   if (url.includes('/blog/')) return 'weekly';
   if (url.endsWith('/llm-reader/')) return 'daily';
-  if (url.endsWith('/letters/')) return 'weekly';
-  if (url.includes('/company/') || url.includes('/letter/')) return 'monthly';
+  if (url.endsWith('/letters/') || url.endsWith('/management-discussion-analysis/')) return 'weekly';
+  if (url.includes('/company/') || url.includes('/letter/') || url.includes('/report/')) return 'monthly';
   return 'monthly';
 }
 
