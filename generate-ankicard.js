@@ -85,6 +85,7 @@ function run() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>记忆卡 - aimunger</title>
     <meta name="description" content="通过间隔记忆促进理解，而不是死记硬背。">
@@ -764,6 +765,7 @@ function run() {
         <div class="container">
             <div class="footer-links">
                 <a href="/about/">关于</a>
+                <a href="/contact/">联系</a>
                 <a href="/privacy/">隐私政策</a>
                 <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>

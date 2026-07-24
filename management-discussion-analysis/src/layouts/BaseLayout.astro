@@ -9,9 +9,10 @@ interface Props {
   description?: string;
   bodyClass?: string;
   ogType?: string;
+  noindex?: boolean;
 }
 
-const { title, description = '中国上市公司管理层讨论与分析合集', bodyClass, ogType = 'website' } = Astro.props;
+const { title, description = '中国上市公司管理层讨论与分析合集', bodyClass, ogType = 'website', noindex = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -44,6 +45,7 @@ const headerCompaniesJson = JSON.stringify(headerCompanies);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL.href} />
     <meta property="og:title" content={title} />

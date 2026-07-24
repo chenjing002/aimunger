@@ -259,6 +259,7 @@ const FOOTER_HTML = `    <footer class="footer">
         <div class="container">
             <div class="footer-links">
                 <a href="/about/">关于</a>
+                <a href="/contact/">联系</a>
                 <a href="/privacy/">隐私政策</a>
                 <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
@@ -313,6 +314,11 @@ function buildPageTitle(entry) {
 
 function generateArticlePage(entry) {
   const { title, htmlContent } = entry;
+  // Thin, templated bios (few characters of real content) read as low-value to
+  // search engines and AdSense reviewers. Keep the sparsest ones out of the
+  // index and serve them ad-free until they carry enough substance.
+  const contentChars = (htmlContent.replace(/<[^>]+>/g, '').match(/[一-鿿]/g) || []).length;
+  const noindex = contentChars < 300;
   const pageUrl = `https://aimunger.com/wiki/${getSlug(title)}/`;
   const description = extractDescription(entry);
   const pageTitle = buildPageTitle(entry);
@@ -356,7 +362,8 @@ function generateArticlePage(entry) {
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">${noindex ? `
+    <meta name="robots" content="noindex, follow" />` : ''}
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
     <title>${escHtml(pageTitle)}</title>
     <meta name="description" content="${escHtml(description)}">
@@ -374,9 +381,9 @@ function generateArticlePage(entry) {
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/wiki/wiki.css">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">${noindex ? '' : `
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
-         crossorigin="anonymous"></script>
+         crossorigin="anonymous"></script>`}
 </head>
 <body>
 ${NAV_HTML}

@@ -152,9 +152,9 @@ function generateArticlePage(article) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">${article.noindex ? '' : `
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
-         crossorigin="anonymous"></script>
+         crossorigin="anonymous"></script>`}
 </head>
 <body>
     <header class="header">
@@ -191,6 +191,7 @@ function generateArticlePage(article) {
         <div class="container">
             <div class="footer-links">
                 <a href="/about/">关于</a>
+                <a href="/contact/">联系</a>
                 <a href="/privacy/">隐私政策</a>
                 <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
@@ -297,6 +298,7 @@ ${cards}
         <div class="container">
             <div class="footer-links">
                 <a href="/about/">关于</a>
+                <a href="/contact/">联系</a>
                 <a href="/privacy/">隐私政策</a>
                 <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
