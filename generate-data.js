@@ -126,10 +126,17 @@ function main() {
         // Expose the page slug to the index page so chart titles can link out
         if (CHART_META[name]) meta.slug = CHART_META[name].slug;
 
+        // Keep any text the source file carries outside the table (e.g. 注 lines)
+        // so the site shows exactly what the source says — no more, no less.
+        const notes = bodyLines
+            .filter((line, i) => (i < tableStart || i > tableEnd) && line.trim())
+            .map(line => line.trim());
+
         result[name] = {
             meta,
             headers: table.headers,
-            rows: table.rows
+            rows: table.rows,
+            notes
         };
 
         console.log(`Parsed: ${name} (${table.rows.length} rows, ${table.headers.length} cols)`);
@@ -192,11 +199,16 @@ function buildChartPage(name, entry, meta) {
         .replace(/</g, '\\u003c');
     const nameJson = JSON.stringify(name).replace(/</g, '\\u003c');
 
+    // Page text mirrors the source file exactly; the meta description is the
+    // frontmatter description when present, otherwise a neutral generated one.
+    const description = (entry.meta && entry.meta.description) ||
+        `${name}（${span}）历年数据、图表与数据表。`;
+
     const datasetLd = {
         '@context': 'https://schema.org',
         '@type': 'Dataset',
         name,
-        description: meta.summary,
+        description,
         url,
         ...(updated ? { dateModified: updated } : {}),
         ...(span ? { temporalCoverage: span.replace('–', '/') } : {}),
@@ -219,7 +231,7 @@ function buildChartPage(name, entry, meta) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${escapeHtml(name)}（${span}）数据图表 - aimunger</title>
-    <meta name="description" content="${escapeHtml(meta.summary)}">
+    <meta name="description" content="${escapeHtml(description)}">
     <link rel="canonical" href="${url}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -251,11 +263,6 @@ function buildChartPage(name, entry, meta) {
             font-size: 13px;
             color: var(--color-text-secondary);
             margin-bottom: 24px;
-        }
-        .chart-page-intro p {
-            font-size: 15px;
-            line-height: 1.9;
-            margin-bottom: 14px;
         }
         .chart-container {
             width: 100%;
@@ -300,15 +307,7 @@ function buildChartPage(name, entry, meta) {
             font-size: 13px;
             color: var(--color-text-secondary);
             line-height: 1.8;
-        }
-        .chart-related-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 40px;
-        }
-        .chart-related-list li {
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin: 12px 0 40px;
         }
         @media (max-width: 600px) {
             .chart-container { height: 320px; }
@@ -339,11 +338,7 @@ function buildChartPage(name, entry, meta) {
             <nav class="chart-breadcrumb"><a href="/data/">数据</a> / ${escapeHtml(name)}</nav>
 
             <h1 class="chart-page-title">${escapeHtml(name)}（${span}）</h1>
-            <p class="chart-page-meta">${updated ? `数据更新：${updated} · ` : ''}来源：${escapeHtml(meta.source)}</p>
-
-            <div class="chart-page-intro">
-${meta.intro.map(p => `                <p>${escapeHtml(p)}</p>`).join('\n')}
-            </div>
+            ${updated ? `<p class="chart-page-meta">数据更新：${updated}</p>` : ''}
 
             <div class="chart-container" id="chart"></div>
 
@@ -351,14 +346,7 @@ ${meta.intro.map(p => `                <p>${escapeHtml(p)}</p>`).join('\n')}
             <div class="data-table-wrapper">
                 ${buildTableHtml(entry.headers, entry.rows)}
             </div>
-
-            <h2 class="chart-page-section-title">数据说明</h2>
-            <p class="chart-page-note">${escapeHtml(meta.methodology)}</p>
-
-            <h2 class="chart-page-section-title">相关内容</h2>
-            <ul class="chart-related-list">
-${meta.related.map(r => `                <li><a href="${escapeHtml(r.href)}">${escapeHtml(r.label)}</a></li>`).join('\n')}
-            </ul>
+${(entry.notes || []).map(n => `            <p class="chart-page-note">${escapeHtml(n)}</p>`).join('\n')}
         </div>
     </main>
 
