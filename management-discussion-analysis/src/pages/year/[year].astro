@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { makeExcerpt } from '../../utils/excerpt';
 
 export async function getStaticPaths() {
   const allLetters = await getCollection('mda');
@@ -45,16 +44,18 @@ interface Props {
 const { year, letters, prevYear, nextYear } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
+// Only the first company's report is server-rendered; the rest live on their
+// canonical report pages and are fetched on demand when switching companies.
+const FirstContent = letters.length > 0 ? (await letters[0].render()).Content : null;
+
 const items = letters.map((letter) => ({
   companySlug: letter.slug.split('/')[0],
   companyName: letter.data.company,
-  title: letter.data.title,
   slug: letter.slug,
-  excerpt: makeExcerpt(letter.body),
 }));
 
 const companyNames = items.map((i) => i.companyName);
-const description = `${year} 年上市公司管理层讨论与分析：${companyNames.join('、')}。共 ${letters.length} 篇，可阅读全文。`;
+const description = `${year} 年上市公司管理层讨论与分析：${companyNames.join('、')}。共 ${letters.length} 篇，可切换公司阅读全文。`;
 ---
 
 {/* noindex until a year covers enough companies to stand as a real archive;
@@ -63,6 +64,7 @@ const description = `${year} 年上市公司管理层讨论与分析：${company
   title={`${year} 年管理层讨论与分析（${letters.length} 家公司）`}
   description={description}
   noindex={true}
+  bodyClass="page-reader"
 >
   <nav class="breadcrumb">
     <a href={base}>首页</a>
@@ -72,26 +74,37 @@ const description = `${year} 年上市公司管理层讨论与分析：${company
     <span>{year} 年</span>
   </nav>
 
-  <header class="hub-header">
-    <h1 class="hub-header__title">{year} 年管理层讨论与分析</h1>
-    <p class="hub-header__meta">{letters.length} 家公司</p>
-  </header>
+  <div class="reader reader--by-year" id="reader">
+    <nav class="reader__sidebar">
+      <div class="reader__years">
+        {items.map((item, i) => (
+          <a
+            class:list={["reader__year-btn", { "is-active": i === 0 }]}
+            data-company={item.companySlug}
+            href={`${base}report/${item.slug}/`}
+          >
+            {item.companyName}
+          </a>
+        ))}
+      </div>
+    </nav>
 
-  <ol class="hub-list">
-    {items.map((item) => (
-      <li class="hub-item">
-        <a href={`${base}report/${item.slug}/`} class="hub-item__link">
-          <span class="hub-item__body">
-            <span class="hub-item__title">{item.title}</span>
-            {item.excerpt && <span class="hub-item__excerpt">{item.excerpt}</span>}
-          </span>
-        </a>
-        <p class="hub-item__sub">
-          <a href={`${base}company/${item.companySlug}/`}>更多{item.companyName}的管理层讨论与分析 →</a>
-        </p>
-      </li>
-    ))}
-  </ol>
+    <div class="reader__content" id="singleView">
+      {FirstContent && (
+        <article
+          class:list={["reader__letter", "is-active"]}
+          data-company={items[0].companySlug}
+        >
+          <div class="prose">
+            <FirstContent />
+          </div>
+        </article>
+      )}
+      <article class="reader__letter" id="lazyView">
+        <div class="prose" id="lazyProse"></div>
+      </article>
+    </div>
+  </div>
 
   <nav class="hub-pager">
     {prevYear ? (
@@ -102,3 +115,91 @@ const description = `${year} 年上市公司管理层讨论与分析：${company
     ) : <span />}
   </nav>
 </BaseLayout>
+
+<style is:global>
+  a.reader__year-btn {
+    text-decoration: none;
+  }
+  .page-reader .hub-pager {
+    margin-top: 16px;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', setup);
+  document.addEventListener('DOMContentLoaded', setup);
+
+  let initialized = false;
+
+  function setup() {
+    if (initialized) return;
+    initialized = true;
+
+    const yearBtns = document.querySelectorAll<HTMLAnchorElement>('.reader__year-btn');
+    const singleView = document.getElementById('singleView');
+    const lazyView = document.getElementById('lazyView') as HTMLElement;
+    const lazyProse = document.getElementById('lazyProse') as HTMLElement;
+    if (!yearBtns.length || !singleView) return;
+
+    let loadToken = 0;
+
+    const cache = new Map<string, string>();
+    document.querySelectorAll<HTMLElement>('.reader__letter[data-company]').forEach((a) => {
+      const c = a.dataset.company;
+      const p = a.querySelector('.prose');
+      if (c && p && p.innerHTML.trim()) cache.set(c, p.innerHTML);
+    });
+
+    function getContent(companySlug: string): Promise<string> {
+      if (cache.has(companySlug)) return Promise.resolve(cache.get(companySlug)!);
+      const link = document.querySelector<HTMLAnchorElement>(
+        `a.reader__year-btn[data-company="${companySlug}"]`
+      );
+      if (!link) return Promise.resolve('');
+      return fetch(link.href)
+        .then((r) => r.text())
+        .then((html) => {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const prose = doc.querySelector('article.prose');
+          const content = prose ? prose.innerHTML : '<p>加载失败，请直接打开该公司页面。</p>';
+          cache.set(companySlug, content);
+          return content;
+        })
+        .catch(() => '<p>加载失败，请直接打开该公司页面。</p>');
+    }
+
+    function activateArticle(el: HTMLElement) {
+      document.querySelectorAll<HTMLElement>('.reader__letter').forEach((a) => {
+        a.classList.toggle('is-active', a === el);
+      });
+      singleView!.scrollTop = 0;
+    }
+
+    yearBtns.forEach((btn) => {
+      btn.addEventListener('click', (e: MouseEvent) => {
+        // Let modified clicks open the canonical report page normally
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+
+        const slug = btn.dataset.company!;
+        yearBtns.forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        const embedded = document.querySelector<HTMLElement>(
+          `.reader__letter[data-company="${slug}"]`
+        );
+        if (embedded) {
+          activateArticle(embedded);
+          return;
+        }
+
+        const token = ++loadToken;
+        getContent(slug).then((html) => {
+          if (token !== loadToken) return;
+          lazyProse.innerHTML = html;
+          activateArticle(lazyView);
+        });
+      });
+    });
+  }
+</script>

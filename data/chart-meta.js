@@ -32,8 +32,7 @@ module.exports = {
     related: [
       { label: '万科 A 有息负债及结构数据图表', href: '/data/vanke-interest-bearing-debt/' },
       { label: '万科 A 开发业务毛利率数据图表', href: '/data/vanke-development-gross-margin/' },
-      { label: '万科 A 管理层讨论与分析', href: '/management-discussion-analysis/company/vanke/' },
-      { label: '万科 A 致股东信合集', href: '/letters/company/vanke/' },
+      { label: '中国居民个人住房贷款余额数据图表', href: '/data/china-personal-housing-loans/' },
     ],
   },
 
@@ -49,8 +48,7 @@ module.exports = {
     related: [
       { label: '万科 A 合同负债数据图表', href: '/data/vanke-contract-liabilities/' },
       { label: '万科 A 开发业务毛利率数据图表', href: '/data/vanke-development-gross-margin/' },
-      { label: '万科 A 管理层讨论与分析', href: '/management-discussion-analysis/company/vanke/' },
-      { label: '万科 A 致股东信合集', href: '/letters/company/vanke/' },
+      { label: '中国居民个人住房贷款余额数据图表', href: '/data/china-personal-housing-loans/' },
     ],
   },
 
@@ -66,8 +64,7 @@ module.exports = {
     related: [
       { label: '万科 A 合同负债数据图表', href: '/data/vanke-contract-liabilities/' },
       { label: '万科 A 有息负债及结构数据图表', href: '/data/vanke-interest-bearing-debt/' },
-      { label: '万科 A 管理层讨论与分析', href: '/management-discussion-analysis/company/vanke/' },
-      { label: '万科 A 2025 管理层讨论与分析', href: '/management-discussion-analysis/report/vanke/2025/' },
+      { label: '中国居民个人住房贷款余额数据图表', href: '/data/china-personal-housing-loans/' },
     ],
   },
 
@@ -83,8 +80,7 @@ module.exports = {
     related: [
       { label: '万科 A 合同负债数据图表', href: '/data/vanke-contract-liabilities/' },
       { label: '万科 A 有息负债及结构数据图表', href: '/data/vanke-interest-bearing-debt/' },
-      { label: '致股东信合集', href: '/letters/' },
-      { label: '管理层讨论与分析合集', href: '/management-discussion-analysis/' },
+      { label: '万科 A 开发业务毛利率数据图表', href: '/data/vanke-development-gross-margin/' },
     ],
   },
 };
