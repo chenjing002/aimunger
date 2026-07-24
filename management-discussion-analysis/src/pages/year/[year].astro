@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { makeExcerpt } from '../../utils/excerpt';
 
 export async function getStaticPaths() {
   const allLetters = await getCollection('mda');
@@ -13,16 +14,23 @@ export async function getStaticPaths() {
     yearsMap.get(y)!.push(letter);
   }
 
-  return Array.from(yearsMap.entries()).map(([year, letters]) => ({
-    params: { year: String(year) },
-    props: {
-      year,
-      // Sort by company name (Chinese collation) so order is stable
-      letters: letters.sort((a, b) =>
-        a.data.company.localeCompare(b.data.company, 'zh-CN')
-      ),
-    },
-  }));
+  const sortedYears = Array.from(yearsMap.keys()).sort((a, b) => a - b);
+
+  return Array.from(yearsMap.entries()).map(([year, letters]) => {
+    const idx = sortedYears.indexOf(year);
+    return {
+      params: { year: String(year) },
+      props: {
+        year,
+        // Sort by company name (Chinese collation) so order is stable
+        letters: letters.sort((a, b) =>
+          a.data.company.localeCompare(b.data.company, 'zh-CN')
+        ),
+        prevYear: idx > 0 ? sortedYears[idx - 1] : null,
+        nextYear: idx < sortedYears.length - 1 ? sortedYears[idx + 1] : null,
+      },
+    };
+  });
 }
 
 type LetterEntry = Awaited<ReturnType<typeof getCollection<'mda'>>>[number];
@@ -30,88 +38,67 @@ type LetterEntry = Awaited<ReturnType<typeof getCollection<'mda'>>>[number];
 interface Props {
   year: number;
   letters: LetterEntry[];
+  prevYear: number | null;
+  nextYear: number | null;
 }
 
-const { year, letters } = Astro.props;
+const { year, letters, prevYear, nextYear } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
-const rendered = await Promise.all(
-  letters.map(async (letter) => {
-    const { Content } = await letter.render();
-    const companySlug = letter.slug.split('/')[0];
-    return {
-      companySlug,
-      companyName: letter.data.company,
-      title: letter.data.title,
-      Content,
-    };
-  })
-);
+const items = letters.map((letter) => ({
+  companySlug: letter.slug.split('/')[0],
+  companyName: letter.data.company,
+  title: letter.data.title,
+  slug: letter.slug,
+  excerpt: makeExcerpt(letter.body),
+}));
+
+const companyNames = items.map((i) => i.companyName);
+const description = `${year} 年上市公司管理层讨论与分析：${companyNames.join('、')}。共 ${letters.length} 篇，可阅读全文。`;
 ---
 
-<BaseLayout title={`${year} 年 — 管理层讨论与分析`} bodyClass="page-reader">
+{/* noindex until a year covers enough companies to stand as a real archive;
+    the links remain crawlable (noindex, follow). */}
+<BaseLayout
+  title={`${year} 年管理层讨论与分析（${letters.length} 家公司）`}
+  description={description}
+  noindex={true}
+>
   <nav class="breadcrumb">
     <a href={base}>首页</a>
     <span class="breadcrumb__sep">/</span>
-    <a href={`${base}all-companies/`}>全部公司</a>
+    <a href={`${base}all-years/`}>年份</a>
     <span class="breadcrumb__sep">/</span>
     <span>{year} 年</span>
   </nav>
 
-  <div class="reader reader--by-year" id="reader">
-    <nav class="reader__sidebar">
-      <div class="reader__years">
-        {rendered.map((r, i) => (
-          <button
-            class:list={["reader__year-btn", { "is-active": i === 0 }]}
-            data-company={r.companySlug}
-          >
-            {r.companyName}
-          </button>
-        ))}
-      </div>
-    </nav>
+  <header class="hub-header">
+    <h1 class="hub-header__title">{year} 年管理层讨论与分析</h1>
+    <p class="hub-header__meta">{letters.length} 家公司</p>
+  </header>
 
-    <div class="reader__content" id="singleView">
-      {rendered.map((r, i) => (
-        <article
-          class:list={["reader__letter", { "is-active": i === 0 }]}
-          data-company={r.companySlug}
-        >
-          <div class="prose">
-            <r.Content />
-          </div>
-        </article>
-      ))}
-    </div>
-  </div>
+  <ol class="hub-list">
+    {items.map((item) => (
+      <li class="hub-item">
+        <a href={`${base}report/${item.slug}/`} class="hub-item__link">
+          <span class="hub-item__body">
+            <span class="hub-item__title">{item.title}</span>
+            {item.excerpt && <span class="hub-item__excerpt">{item.excerpt}</span>}
+          </span>
+        </a>
+        <p class="hub-item__sub">
+          <a href={`${base}company/${item.companySlug}/`}>更多{item.companyName}的管理层讨论与分析 →</a>
+        </p>
+      </li>
+    ))}
+  </ol>
+
+  <nav class="hub-pager">
+    {prevYear ? (
+      <a href={`${base}year/${prevYear}/`}>← {prevYear} 年</a>
+    ) : <span />}
+    {nextYear ? (
+      <a href={`${base}year/${nextYear}/`}>{nextYear} 年 →</a>
+    ) : <span />}
+  </nav>
 </BaseLayout>
-
-<script>
-  document.addEventListener('astro:page-load', setup);
-  document.addEventListener('DOMContentLoaded', setup);
-
-  let initialized = false;
-
-  function setup() {
-    if (initialized) return;
-    initialized = true;
-
-    const yearBtns = document.querySelectorAll<HTMLButtonElement>('.reader__year-btn');
-    const articles = document.querySelectorAll<HTMLElement>('.reader__letter');
-    const singleView = document.getElementById('singleView');
-    if (!yearBtns.length || !singleView) return;
-
-    yearBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const slug = btn.dataset.company!;
-        yearBtns.forEach((b) => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        articles.forEach((a) => {
-          a.classList.toggle('is-active', a.dataset.company === slug);
-        });
-        singleView.scrollTop = 0;
-      });
-    });
-  }
-</script>

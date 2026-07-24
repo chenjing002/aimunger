@@ -3,7 +3,8 @@
     "meta": {
       "created": "2026-06-16 04:21:14",
       "tags": [],
-      "description": ""
+      "description": "",
+      "slug": "vanke-contract-liabilities"
     },
     "headers": [
       "年份",
@@ -48,7 +49,8 @@
     "meta": {
       "created": "2026-07-22 14:51:27",
       "tags": [],
-      "description": ""
+      "description": "",
+      "slug": "vanke-development-gross-margin"
     },
     "headers": [
       "年份",
@@ -81,7 +83,8 @@
     "meta": {
       "created": "2026-06-04 19:03:22",
       "tags": [],
-      "description": ""
+      "description": "",
+      "slug": "vanke-interest-bearing-debt"
     },
     "headers": [
       "年份",
@@ -153,7 +156,8 @@
     "meta": {
       "created": "2026-06-28 19:21:56",
       "tags": [],
-      "description": ""
+      "description": "",
+      "slug": "china-personal-housing-loans"
     },
     "headers": [
       "年份",

@@ -1639,3 +1639,167 @@ h6 {
         display: none;
     }
 }
+
+/* ── Archive hub pages (company / year) ─────────────────── */
+.hub-header {
+    margin: 8px 0 28px;
+}
+.hub-header__title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+.hub-header__meta {
+    color: var(--tx-2);
+    font-size: 14px;
+    margin: 0;
+}
+.hub-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--tx-2);
+    margin: 0 0 14px;
+    letter-spacing: 0.02em;
+}
+.hub-intro {
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--divider);
+}
+.hub-list {
+    list-style: none;
+    margin: 0 0 40px;
+    padding: 0;
+}
+.hub-item {
+    border-bottom: 1px solid var(--divider);
+    padding-bottom: 4px;
+}
+.hub-item__link {
+    display: flex;
+    gap: 20px;
+    padding: 16px 4px 10px;
+    text-decoration: none;
+    color: var(--tx);
+}
+.hub-item__link:hover .hub-item__title {
+    color: var(--accent);
+}
+.hub-item__year {
+    flex-shrink: 0;
+    width: 52px;
+    font-weight: 600;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+.hub-item__body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+.hub-item__title {
+    font-weight: 600;
+    line-height: 1.5;
+}
+.hub-item__excerpt {
+    font-size: 13px;
+    color: var(--tx-2);
+    line-height: 1.8;
+}
+.hub-item__sub {
+    margin: 0 4px 12px;
+    font-size: 13px;
+}
+.hub-item__sub a {
+    color: var(--link);
+    text-decoration: none;
+}
+.hub-item__sub a:hover {
+    text-decoration: underline;
+}
+.hub-related {
+    margin: 0 0 40px;
+    padding: 18px 22px;
+    background: var(--bg-2);
+    border-radius: 10px;
+}
+.hub-related__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--tx-2);
+    margin: 0 0 10px;
+}
+.hub-related ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.hub-related a {
+    color: var(--link);
+    text-decoration: none;
+    font-size: 14px;
+}
+.hub-related a:hover {
+    text-decoration: underline;
+}
+.hub-pager {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 40px;
+}
+.hub-pager a {
+    color: var(--link);
+    text-decoration: none;
+    font-size: 14px;
+}
+.hub-pager a:hover {
+    text-decoration: underline;
+}
+
+/* ── Static company list on the home page ───────────────── */
+.home-index {
+    margin: 48px 0 40px;
+}
+.home-index__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.home-index__list a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--tx);
+    text-decoration: none;
+    font-size: 14px;
+}
+.home-index__list a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.home-index__count {
+    font-size: 12px;
+    color: var(--tx-3);
+}
+.home-index__more {
+    margin: 16px 0 0;
+    font-size: 14px;
+}
+.home-index__more a {
+    color: var(--link);
+    text-decoration: none;
+}
+.home-index__more a:hover {
+    text-decoration: underline;
+}

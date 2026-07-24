@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { makeExcerpt } from '../../utils/excerpt';
+import { RELATED_LINKS } from '../../utils/related';
 
 export async function getStaticPaths() {
   const allLetters = await getCollection('mda');
@@ -43,275 +45,80 @@ if (introEntry) {
   IntroContent = rendered.Content;
 }
 
-// Render all letters
-const rendered = await Promise.all(
-  letters.map(async (letter) => {
-    const { Content } = await letter.render();
-    return { year: letter.data.year, Content };
-  })
-);
+const items = letters.map((letter) => ({
+  year: letter.data.year,
+  title: letter.data.title,
+  slug: letter.slug,
+  excerpt: makeExcerpt(letter.body),
+}));
+
+const years = letters.map((l) => l.data.year);
+const minYear = Math.min(...years);
+const maxYear = Math.max(...years);
+const yearRange = minYear === maxYear ? `${minYear} 年` : `${minYear}–${maxYear} 年`;
+const description = `${companyName}管理层讨论与分析合集，收录 ${letters.length} 篇（${yearRange}），按年份浏览并阅读全文。`;
+const related = RELATED_LINKS[slug!] ?? [];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: '管理层讨论与分析', item: new URL(base, Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: companyName, item: new URL(`${base}company/${slug}/`, Astro.site).href },
+  ],
+};
 ---
 
-<BaseLayout title={`${companyName} — 管理层讨论与分析`} bodyClass="page-reader">
+<BaseLayout
+  title={`${companyName}管理层讨论与分析（${yearRange}）`}
+  description={description}
+  jsonLd={jsonLd}
+>
   <nav class="breadcrumb">
     <a href={base}>首页</a>
     <span class="breadcrumb__sep">/</span>
     <span>{companyName}</span>
   </nav>
 
-  <div class="reader" id="reader">
-    <nav class="reader__sidebar">
-      <label class="compare-toggle">
-        <input type="checkbox" class="compare-toggle__input" id="compareToggle" />
-        <span class="compare-toggle__track">
-          <span class="compare-toggle__thumb"></span>
-        </span>
-        <span class="compare-toggle__label">对比</span>
-      </label>
+  <header class="hub-header">
+    <h1 class="hub-header__title">{companyName}管理层讨论与分析</h1>
+    <p class="hub-header__meta">{letters.length} 篇 · {yearRange}</p>
+  </header>
 
-      <div class="compare-hint" id="compareHint">选择2个年份 👇</div>
-
-      <div class="reader__years">
-        {IntroContent && (
-          <button
-            class:list={["reader__year-btn", "reader__year-btn--intro", "is-active"]}
-            data-year="intro"
-          >
-            <span class="reader__year-dot"></span>
-            <svg class="intro-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 1L14.59 9.41L24 12L14.59 14.59L12 23L9.41 14.59L0 12L9.41 9.41L12 1Z"/>
-            </svg>
-            综述
-          </button>
-        )}
-        {letters.map((letter, i) => (
-          <button
-            class:list={["reader__year-btn", { "is-active": !IntroContent && i === 0 }]}
-            data-year={letter.data.year}
-          >
-            <span class="reader__year-dot"></span>
-            {letter.data.year}
-          </button>
-        ))}
+  {IntroContent && (
+    <section class="hub-intro">
+      <h2 class="hub-section-title">综述</h2>
+      <div class="prose">
+        <IntroContent />
       </div>
-    </nav>
+    </section>
+  )}
 
-    <!-- Single letter view -->
-    <div class="reader__content" id="singleView">
-      {IntroContent && (
-        <article
-          class:list={["reader__letter", "is-active"]}
-          data-year="intro"
-        >
-          <div class="prose">
-            <IntroContent />
-          </div>
-        </article>
-      )}
-      {rendered.map(({ year, Content }, i) => (
-        <article
-          class:list={["reader__letter", { "is-active": !IntroContent && i === 0 }]}
-          data-year={year}
-        >
-          <div class="prose">
-            <Content />
-          </div>
-        </article>
+  <section>
+    <h2 class="hub-section-title">全部年份</h2>
+    <ol class="hub-list">
+      {items.map((item) => (
+        <li class="hub-item">
+          <a href={`${base}report/${item.slug}/`} class="hub-item__link">
+            <span class="hub-item__year">{item.year}</span>
+            <span class="hub-item__body">
+              <span class="hub-item__title">{item.title}</span>
+              {item.excerpt && <span class="hub-item__excerpt">{item.excerpt}</span>}
+            </span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ol>
+  </section>
 
-    <!-- Compare view (two columns) -->
-    <div class="reader__compare" id="compareView">
-      <div class="reader__compare-col" id="compareLeft">
-        <div class="reader__compare-year" id="compareLabelLeft"></div>
-        <div class="reader__compare-body prose" id="compareBodyLeft"></div>
-      </div>
-      <div class="reader__compare-col" id="compareRight">
-        <div class="reader__compare-year" id="compareLabelRight"></div>
-        <div class="reader__compare-body prose" id="compareBodyRight"></div>
-      </div>
-    </div>
-  </div>
+  {related.length > 0 && (
+    <aside class="hub-related">
+      <h2 class="hub-related__title">相关内容</h2>
+      <ul>
+        {related.map((r) => (
+          <li><a href={r.href}>{r.label}</a></li>
+        ))}
+      </ul>
+    </aside>
+  )}
 </BaseLayout>
-
-<style is:global>
-  .reader__year-btn--intro {
-    color: var(--accent);
-  }
-  .reader__year-btn--intro:hover {
-    color: var(--accent);
-  }
-  .reader__year-btn--intro.is-active {
-    color: var(--accent);
-  }
-  .intro-icon {
-    flex-shrink: 0;
-    opacity: 0.75;
-  }
-</style>
-
-<script>
-  document.addEventListener('astro:page-load', setup);
-  document.addEventListener('DOMContentLoaded', setup);
-
-  let initialized = false;
-
-  function setup() {
-    if (initialized) return;
-    initialized = true;
-
-    const reader = document.getElementById('reader');
-    const toggle = document.getElementById('compareToggle') as HTMLInputElement;
-    const hint = document.getElementById('compareHint');
-    const singleView = document.getElementById('singleView');
-    const compareView = document.getElementById('compareView');
-    const yearBtns = document.querySelectorAll<HTMLButtonElement>('.reader__year-btn');
-    const articles = document.querySelectorAll<HTMLElement>('.reader__letter');
-
-    if (!reader || !toggle || !yearBtns.length) return;
-
-    let isComparing = false;
-    let compareYears: string[] = [];
-
-    // ── Single mode ──────────────────────────────────
-    function handleSingleClick(btn: HTMLButtonElement) {
-      const year = btn.dataset.year!;
-      yearBtns.forEach((b) => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      articles.forEach((a) => {
-        a.classList.toggle('is-active', a.dataset.year === year);
-      });
-      singleView!.scrollTop = 0;
-    }
-
-    // ── Compare mode ─────────────────────────────────
-    function handleCompareClick(btn: HTMLButtonElement) {
-      const year = btn.dataset.year!;
-
-      if (btn.classList.contains('is-active')) {
-        // Deselect
-        btn.classList.remove('is-active');
-        compareYears = compareYears.filter((y) => y !== year);
-      } else if (compareYears.length < 2) {
-        // Select
-        btn.classList.add('is-active');
-        compareYears.push(year);
-      } else {
-        // Already 2 selected — replace the older one
-        const oldest = compareYears.shift()!;
-        yearBtns.forEach((b) => {
-          if (b.dataset.year === oldest) b.classList.remove('is-active');
-        });
-        btn.classList.add('is-active');
-        compareYears.push(year);
-      }
-
-      updateCompareView();
-    }
-
-    function fillCol(labelEl: HTMLElement, bodyEl: HTMLElement, colEl: HTMLElement, year: string | null) {
-      if (!year) {
-        labelEl.textContent = '';
-        bodyEl.innerHTML = '';
-        colEl.classList.remove('has-content');
-        return;
-      }
-      labelEl.textContent = year === 'intro' ? '综述' : year + '年';
-      const art = document.querySelector<HTMLElement>(`.reader__letter[data-year="${year}"]`);
-      bodyEl.innerHTML = art ? art.querySelector('.prose')!.innerHTML : '';
-      colEl.scrollTop = 0;
-      colEl.classList.add('has-content');
-    }
-
-    function updateCompareView() {
-      const leftLabel = document.getElementById('compareLabelLeft')!;
-      const rightLabel = document.getElementById('compareLabelRight')!;
-      const leftBody = document.getElementById('compareBodyLeft')!;
-      const rightBody = document.getElementById('compareBodyRight')!;
-      const leftCol = document.getElementById('compareLeft')!;
-      const rightCol = document.getElementById('compareRight')!;
-
-      // Sort: put intro first if selected, otherwise newer year on left
-      const sorted = [...compareYears].sort((a, b) => {
-        if (a === 'intro') return -1;
-        if (b === 'intro') return 1;
-        return Number(b) - Number(a);
-      });
-      const [left, right] = sorted;
-
-      fillCol(leftLabel, leftBody, leftCol, left ?? null);
-      fillCol(rightLabel, rightBody, rightCol, right ?? null);
-
-      compareView!.classList.toggle('has-content', compareYears.length > 0);
-    }
-
-    // ── Toggle handler ───────────────────────────────
-    toggle.addEventListener('change', () => {
-      isComparing = toggle.checked;
-      reader.classList.toggle('is-comparing', isComparing);
-
-      if (isComparing) {
-        // Enter compare mode — pre-select the first two years
-        compareYears = [];
-        yearBtns.forEach((b) => b.classList.remove('is-active'));
-        if (yearBtns.length >= 2) {
-          yearBtns[0].classList.add('is-active');
-          yearBtns[1].classList.add('is-active');
-          compareYears = [yearBtns[0].dataset.year!, yearBtns[1].dataset.year!];
-        }
-        updateCompareView();
-      } else {
-        // Exit compare mode — select the first year
-        compareYears = [];
-        yearBtns.forEach((b, i) => b.classList.toggle('is-active', i === 0));
-        articles.forEach((a, i) => a.classList.toggle('is-active', i === 0));
-      }
-    });
-
-    // ── Year button click ────────────────────────────
-    yearBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (isComparing) {
-          handleCompareClick(btn);
-        } else {
-          handleSingleClick(btn);
-        }
-      });
-    });
-
-    // ── Inline audio player (podcast card) ───────────
-    document.querySelectorAll<HTMLElement>('.audio-card').forEach((card) => {
-      const btn = card.querySelector<HTMLButtonElement>('[data-audio-toggle]');
-      const audio = card.querySelector<HTMLAudioElement>('[data-audio-el]');
-      if (!btn || !audio) return;
-
-      btn.addEventListener('click', () => {
-        if (audio.paused) {
-          // Pause any other audio elements on the page
-          document.querySelectorAll<HTMLAudioElement>('[data-audio-el]').forEach((a) => {
-            if (a !== audio && !a.paused) {
-              a.pause();
-              a.closest('.audio-card')?.classList.remove('is-playing');
-            }
-          });
-          audio.play();
-        } else {
-          audio.pause();
-        }
-      });
-
-      audio.addEventListener('play', () => {
-        card.classList.add('is-playing');
-        btn.setAttribute('aria-label', '暂停');
-      });
-      audio.addEventListener('pause', () => {
-        card.classList.remove('is-playing');
-        btn.setAttribute('aria-label', '播放');
-      });
-      audio.addEventListener('ended', () => {
-        card.classList.remove('is-playing');
-        btn.setAttribute('aria-label', '播放');
-      });
-    });
-  }
-</script>

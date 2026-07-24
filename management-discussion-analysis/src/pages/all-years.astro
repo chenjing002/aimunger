@@ -23,7 +23,10 @@ const base = import.meta.env.BASE_URL;
 const yearColorMap = buildColorMap(years.map(y => `year-${y.year}`));
 ---
 
-<BaseLayout title="年份 — 管理层讨论与分析" noindex={true}>
+<BaseLayout
+  title="年份 — 管理层讨论与分析"
+  description={`按年份浏览管理层讨论与分析：${totalYears} 个年份，共 ${totalLetters} 篇。`}
+>
   <section class="hero">
     <h1 class="hero__title">{totalYears} 个年份</h1>
     <p class="hero__subtitle">{totalLetters} 篇管理层讨论与分析</p>

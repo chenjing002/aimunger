@@ -39,7 +39,10 @@ const companiesWithColors = companies.map(c => ({
 const companiesJson = JSON.stringify(companiesWithColors);
 ---
 
-<BaseLayout title="管理层讨论与分析 — 中国上市公司 MD&A 合集">
+<BaseLayout
+  title="管理层讨论与分析 — 中国上市公司 MD&A 合集"
+  description={`中国上市公司管理层讨论与分析（MD&A）合集：收录 ${totalCompanies} 家公司共 ${totalLetters} 篇，按公司与年份浏览全文。`}
+>
   <section class="hero">
     <h1 class="hero__title">管理层讨论与分析</h1>
     <p class="hero__subtitle">
@@ -63,6 +66,18 @@ const companiesJson = JSON.stringify(companiesWithColors);
     <div class="fan-refresh">
       <button class="fan-refresh__btn" id="refresh-btn" type="button">更换一批</button>
     </div>
+  </section>
+
+  <section class="home-index">
+    <h2 class="hub-section-title">全部公司</h2>
+    <ul class="home-index__list">
+      {companies.map((c) => (
+        <li>
+          <a href={`${base}company/${c.slug}/`}>{c.name}<span class="home-index__count">{c.count} 篇</span></a>
+        </li>
+      ))}
+    </ul>
+    <p class="home-index__more"><a href={`${base}all-years/`}>按年份浏览 →</a></p>
   </section>
 </BaseLayout>
 

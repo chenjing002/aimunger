@@ -23,6 +23,17 @@ const path = require('path');
 
 const DATA_SOURCE = path.resolve(__dirname, '../IR-log/data');
 const OUTPUT_FILE = path.resolve(__dirname, 'data/data.json');
+const DATA_DIR = path.resolve(__dirname, 'data');
+const SITE = 'https://aimunger.com';
+
+// Editorial metadata (slug, prose, source, methodology) per chart.
+// Charts with an entry here get a standalone indexable page at /data/<slug>/.
+let CHART_META = {};
+try {
+    CHART_META = require('./data/chart-meta.js');
+} catch (e) {
+    console.warn('chart-meta.js not found or invalid — no chart pages will be generated.');
+}
 
 function parseFrontmatter(content) {
     const match = content.match(/^---\n([\s\S]*?)\n---\n/);
@@ -112,6 +123,9 @@ function main() {
         const table = parseMarkdownTable(tableText);
         if (!table) continue;
 
+        // Expose the page slug to the index page so chart titles can link out
+        if (CHART_META[name]) meta.slug = CHART_META[name].slug;
+
         result[name] = {
             meta,
             headers: table.headers,
@@ -123,6 +137,312 @@ function main() {
 
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(result, null, 2), 'utf-8');
     console.log(`\nWritten: ${OUTPUT_FILE}`);
+
+    generateChartPages(result);
+    updateIndexChartLinks(result);
+}
+
+// ── Standalone chart pages (/data/<slug>/) ──────────────────────────────
+//
+// Each chart with editorial metadata in chart-meta.js gets a static,
+// indexable page: prose intro, source, methodology, the full data table in
+// HTML (crawlable), Dataset + BreadcrumbList JSON-LD, and the interactive
+// ECharts chart hydrating on top. The /data/ index stays the visual
+// overview; these pages are the canonical, linkable URLs per dataset.
+
+function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function isPercentHeader(h) {
+    return h.includes('比例') || h.includes('占比') || /率\s*$/.test(h);
+}
+
+function formatCell(cell, header) {
+    if (typeof cell === 'number') {
+        return isPercentHeader(header) ? cell + '%' : cell.toLocaleString();
+    }
+    return cell;
+}
+
+function buildTableHtml(headers, rows) {
+    const head = headers.map(h => `<th>${escapeHtml(h)}</th>`).join('');
+    const body = rows.map(row =>
+        `<tr>${row.map((cell, i) => `<td>${escapeHtml(formatCell(cell, headers[i] || ''))}</td>`).join('')}</tr>`
+    ).join('\n');
+    return `<table class="data-table"><thead><tr>${head}</tr></thead><tbody>\n${body}\n</tbody></table>`;
+}
+
+function yearSpan(rows) {
+    const years = rows
+        .map(r => String(r[0]).replace(/[^0-9]/g, ''))
+        .filter(y => y.length === 4)
+        .map(Number);
+    if (!years.length) return '';
+    const min = Math.min(...years);
+    const max = Math.max(...years);
+    return min === max ? String(min) : `${min}–${max}`;
+}
+
+function buildChartPage(name, entry, meta) {
+    const updated = entry.meta && entry.meta.created ? entry.meta.created.split(' ')[0] : '';
+    const span = yearSpan(entry.rows);
+    const url = `${SITE}/data/${meta.slug}/`;
+    const entryJson = JSON.stringify({ headers: entry.headers, rows: entry.rows, meta: entry.meta })
+        .replace(/</g, '\\u003c');
+    const nameJson = JSON.stringify(name).replace(/</g, '\\u003c');
+
+    const datasetLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Dataset',
+        name,
+        description: meta.summary,
+        url,
+        ...(updated ? { dateModified: updated } : {}),
+        ...(span ? { temporalCoverage: span.replace('–', '/') } : {}),
+        inLanguage: 'zh-CN',
+        isAccessibleForFree: true,
+        creator: { '@type': 'Organization', name: 'aimunger', url: `${SITE}/` }
+    };
+    const breadcrumbLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            { '@type': 'ListItem', position: 1, name: '数据', item: `${SITE}/data/` },
+            { '@type': 'ListItem', position: 2, name, item: url }
+        ]
+    };
+
+    return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapeHtml(name)}（${span}）数据图表 - aimunger</title>
+    <meta name="description" content="${escapeHtml(meta.summary)}">
+    <link rel="canonical" href="${url}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script type="application/ld+json">${JSON.stringify(datasetLd).replace(/</g, '\\u003c')}</script>
+    <script type="application/ld+json">${JSON.stringify(breadcrumbLd).replace(/</g, '\\u003c')}</script>
+    <style>
+        .chart-breadcrumb {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+        }
+        .chart-breadcrumb a {
+            color: var(--color-text-secondary);
+        }
+        .chart-breadcrumb a:hover {
+            color: var(--color-accent);
+        }
+        .chart-page-title {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        .chart-page-meta {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 24px;
+        }
+        .chart-page-intro p {
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 14px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 24px 0 32px;
+        }
+        .chart-page-section-title {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-weight: 700;
+            margin: 32px 0 12px;
+        }
+        .data-table-wrapper {
+            overflow-x: auto;
+        }
+        .data-table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+        }
+        .data-table th,
+        .data-table td {
+            border: 1px solid var(--color-border);
+            padding: 6px 10px;
+            text-align: right;
+            white-space: nowrap;
+        }
+        .data-table th {
+            background: var(--color-surface);
+            font-weight: 600;
+            text-align: center;
+        }
+        .data-table td:first-child,
+        .data-table th:first-child {
+            text-align: center;
+        }
+        .chart-page-note {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+        .chart-related-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px;
+        }
+        .chart-related-list li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .chart-container { height: 320px; }
+            .chart-page-title { font-size: 21px; }
+        }
+    </style>
+</head>
+<body id="top">
+    <header class="header">
+        <nav class="nav container">
+            <a href="/" class="logo">
+                <span class="logo-icon">M</span>
+                <span class="logo-text">aimunger</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/resources/">资料库</a></li>
+                <li><a href="/wiki/">Wiki</a></li>
+                <li><a href="/blog/">文章</a></li>
+                <li><a href="/data/" class="active">数据</a></li>
+                <li><a href="/ankicard/">记忆卡</a></li>
+                <li><a href="/about/">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <nav class="chart-breadcrumb"><a href="/data/">数据</a> / ${escapeHtml(name)}</nav>
+
+            <h1 class="chart-page-title">${escapeHtml(name)}（${span}）</h1>
+            <p class="chart-page-meta">${updated ? `数据更新：${updated} · ` : ''}来源：${escapeHtml(meta.source)}</p>
+
+            <div class="chart-page-intro">
+${meta.intro.map(p => `                <p>${escapeHtml(p)}</p>`).join('\n')}
+            </div>
+
+            <div class="chart-container" id="chart"></div>
+
+            <h2 class="chart-page-section-title">数据表</h2>
+            <div class="data-table-wrapper">
+                ${buildTableHtml(entry.headers, entry.rows)}
+            </div>
+
+            <h2 class="chart-page-section-title">数据说明</h2>
+            <p class="chart-page-note">${escapeHtml(meta.methodology)}</p>
+
+            <h2 class="chart-page-section-title">相关内容</h2>
+            <ul class="chart-related-list">
+${meta.related.map(r => `                <li><a href="${escapeHtml(r.href)}">${escapeHtml(r.label)}</a></li>`).join('\n')}
+            </ul>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="/about/">关于</a>
+                <a href="/contact/">联系</a>
+                <a href="/privacy/">隐私政策</a>
+                <a href="/disclaimer/">免责声明</a>
+                <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
+                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
+                <a href="https://aimunger.com/llm.txt">llm.txt</a>
+                <a href="https://aimunger.com/sitemap.xml">sitemap</a>
+                <a href="https://aimunger.com/rss.xml">rss</a>
+            </div>
+            <p>&copy; 2026 aimunger</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="/data/chart-configs.js"></script>
+    <script>
+    (function() {
+        var NAME = ${nameJson};
+        var ENTRY = ${entryJson};
+        var el = document.getElementById('chart');
+        if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
+            var chart = echarts.init(el);
+            chart.setOption(CHART_CONFIGS[NAME](ENTRY));
+            window.addEventListener('resize', function() { chart.resize(); });
+        } else {
+            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">该数据暂无图表配置</div>';
+        }
+    })();
+    </script>
+    <script src="/memory-notify.js"></script>
+</body>
+</html>
+`;
+}
+
+function generateChartPages(result) {
+    for (const [name, entry] of Object.entries(result)) {
+        const meta = CHART_META[name];
+        if (!meta) {
+            console.log(`No chart-meta for "${name}" — skipping standalone page.`);
+            continue;
+        }
+        const dir = path.join(DATA_DIR, meta.slug);
+        fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(path.join(dir, 'index.html'), buildChartPage(name, entry, meta), 'utf-8');
+        console.log(`Page: data/${meta.slug}/index.html`);
+    }
+}
+
+// Rewrite the static, crawlable chart-link list on data/index.html between
+// the chart-links markers, so the index always links every chart page.
+function updateIndexChartLinks(result) {
+    const indexPath = path.join(DATA_DIR, 'index.html');
+    if (!fs.existsSync(indexPath)) return;
+    const html = fs.readFileSync(indexPath, 'utf-8');
+    const START = '<!-- chart-links:start -->';
+    const END = '<!-- chart-links:end -->';
+    const s = html.indexOf(START);
+    const e = html.indexOf(END);
+    if (s === -1 || e === -1) {
+        console.warn('chart-links markers not found in data/index.html — static link list not updated.');
+        return;
+    }
+
+    const items = Object.entries(result)
+        .filter(([name]) => CHART_META[name])
+        .map(([name, entry]) => {
+            const meta = CHART_META[name];
+            const span = yearSpan(entry.rows);
+            const updated = entry.meta && entry.meta.created ? entry.meta.created.split(' ')[0] : '';
+            const info = [span, updated ? `更新 ${updated}` : ''].filter(Boolean).join(' · ');
+            return `                <li><a href="${meta.slug}/">${escapeHtml(name)}</a>${info ? `<span class="chart-index__info">${info}</span>` : ''}</li>`;
+        });
+
+    const block = `${START}\n            <ul class="chart-index__list">\n${items.join('\n')}\n            </ul>\n            ${END}`;
+    fs.writeFileSync(indexPath, html.slice(0, s) + block + html.slice(e + END.length), 'utf-8');
+    console.log(`Updated static chart links on data/index.html (${items.length} charts).`);
 }
 
 main();

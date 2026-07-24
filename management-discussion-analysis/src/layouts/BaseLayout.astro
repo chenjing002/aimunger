@@ -10,9 +10,10 @@ interface Props {
   bodyClass?: string;
   ogType?: string;
   noindex?: boolean;
+  jsonLd?: object | object[];
 }
 
-const { title, description = '中国上市公司管理层讨论与分析合集', bodyClass, ogType = 'website', noindex = false } = Astro.props;
+const { title, description = '中国上市公司管理层讨论与分析合集', bodyClass, ogType = 'website', noindex = false, jsonLd } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -54,6 +55,7 @@ const headerCompaniesJson = JSON.stringify(headerCompanies);
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:site_name" content="管理层讨论与分析 — aimunger" />
+    {jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
