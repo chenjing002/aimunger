@@ -152,7 +152,7 @@ function generateArticlePage(article) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">${article.noindex ? '' : `
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">${article.paywallStub ? '' : `
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2876035394247776"
          crossorigin="anonymous"></script>`}
 </head>
@@ -336,6 +336,10 @@ function loadBlogArticles() {
       // for readers but excluded from search indexing so the site's indexed
       // surface is its original material (book notes, wiki, original essays).
       noindex: /原文地址/.test(content),
+      // Paywall stubs have no on-page content — just a "本文为付费文章" notice and
+      // a link out. Serving ads on a content-empty page violates AdSense policy,
+      // so these (unlike full-text reposts) are also stripped of ad code.
+      paywallStub: /本文为付费文章/.test(content),
     };
   });
 }
