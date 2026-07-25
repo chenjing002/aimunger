@@ -20,6 +20,8 @@ const WIKI_SOURCE_DIR = path.join(ROOT, 'wiki-source');
 const WIKI_PUBLIC_DIR = path.join(SITE_DIR, 'wiki');
 const BOOKS_SOURCE_DIR = path.join(ROOT, 'resources', 'books');
 const BOOKS_PUBLIC_DIR = path.join(SITE_DIR, 'resources', 'books');
+const MDA_SOURCE_DIR = path.join(ROOT, 'management-discussion-analysis', 'src', 'content', 'mda');
+const MDA_PUBLIC_DIR = path.join(SITE_DIR, 'management-discussion-analysis');
 const CONTENT_DIR = path.join(SITE_DIR, 'content');
 const today = new Date().toISOString().split('T')[0];
 
@@ -416,6 +418,100 @@ function collectLetterItems() {
   return items;
 }
 
+function collectMdaItems() {
+  // The MD&A subsite is built by Astro into _site/management-discussion-analysis;
+  // skip when either the source content or the assembled subsite is absent.
+  if (!fs.existsSync(MDA_SOURCE_DIR) || !fs.existsSync(MDA_PUBLIC_DIR)) return [];
+
+  const items = [];
+  for (const companyEntry of fs.readdirSync(MDA_SOURCE_DIR, { withFileTypes: true })) {
+    if (!companyEntry.isDirectory()) continue;
+    const companySlug = companyEntry.name;
+    for (const file of fs.readdirSync(path.join(MDA_SOURCE_DIR, companySlug))) {
+      if (!file.endsWith('.md')) continue;
+      const raw = fs.readFileSync(path.join(MDA_SOURCE_DIR, companySlug, file), 'utf-8');
+      const { frontmatter, body } = splitFrontmatter(raw);
+      const meta = parseSimpleMeta(frontmatter);
+      const year = file.replace(/\.md$/, '');
+      const title = meta.title ||
+        `${meta.company || companySlug} ${year} 年管理层讨论与分析`;
+      const htmlUrl = `${SITE}/management-discussion-analysis/report/${companySlug}/${year}/`;
+      const mdUrl = `${SITE}/management-discussion-analysis/report/${companySlug}/${year}.md`;
+
+      writeMarkdownFile(
+        path.join(MDA_PUBLIC_DIR, 'report', companySlug, `${year}.md`),
+        buildPublishedMarkdown({
+          extraMeta: {
+            type: 'mda',
+            slug: `${companySlug}-${year}`,
+            canonical_url: htmlUrl,
+            source_section: 'management-discussion-analysis',
+            lang: 'zh-CN',
+            updated_at: today,
+          },
+          sourceFrontmatter: frontmatter,
+          body,
+        })
+      );
+
+      injectAlternateMarkdownLinkInFile(
+        path.join(MDA_PUBLIC_DIR, 'report', companySlug, year, 'index.html'),
+        `/management-discussion-analysis/report/${companySlug}/${year}.md`
+      );
+
+      items.push({
+        type: 'mda',
+        title,
+        slug: `${companySlug}-${year}`,
+        date: /^\d{4}$/.test(year) ? `${year}-01-01` : '',
+        html_url: htmlUrl,
+        md_url: mdUrl,
+        summary: excerpt(body),
+      });
+    }
+  }
+
+  items.sort((a, b) => (b.date || '').localeCompare(a.date || '') || a.title.localeCompare(b.title, 'zh-CN'));
+
+  writeMarkdownFile(
+    path.join(MDA_PUBLIC_DIR, 'index.md'),
+    buildSectionIndexMarkdown({
+      title: 'aimunger 管理层讨论与分析索引',
+      section: 'management-discussion-analysis',
+      canonicalUrl: `${SITE}/management-discussion-analysis/`,
+      description: '中国上市公司年报「管理层讨论与分析」章节全文索引。优先使用详情页 Markdown 或本索引进行抓取。',
+      items,
+    })
+  );
+  injectAlternateMarkdownLinkInFile(
+    path.join(MDA_PUBLIC_DIR, 'index.html'),
+    '/management-discussion-analysis/index.md'
+  );
+
+  return items;
+}
+
+// Standalone chart pages under /data/<slug>/ (built by generate-data.js and
+// committed with the repo). They have no Markdown counterpart — the page HTML
+// carries the full data table — so they are listed in llms.txt by HTML URL.
+function collectDataChartLinks() {
+  const metaPath = path.join(ROOT, 'data', 'chart-meta.js');
+  if (!fs.existsSync(metaPath)) return [];
+  let chartMeta;
+  try {
+    chartMeta = require(metaPath);
+  } catch (_) {
+    return [];
+  }
+  return Object.entries(chartMeta)
+    .filter(([, meta]) => meta && meta.slug)
+    .map(([name, meta]) => ({
+      title: name,
+      html_url: `${SITE}/data/${meta.slug}/`,
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
+}
+
 function writeContentIndexes(sections) {
   ensureDir(CONTENT_DIR);
 
@@ -484,7 +580,7 @@ function localPathForMdUrl(mdUrl) {
 
 // llms.txt following the llmstxt.org convention: H1 + blockquote summary,
 // then H2 sections whose links point at the published Markdown endpoints.
-function writeLlmsTxt(sections) {
+function writeLlmsTxt(sections, dataCharts) {
   const lines = [
     '# aimunger',
     '',
@@ -510,11 +606,19 @@ function writeLlmsTxt(sections) {
     }
   }
 
+  if (dataCharts.length) {
+    lines.push('', '## 数据图表', '');
+    lines.push(`- [数据总览](${SITE}/data/): 全部图表与数据表`);
+    for (const chart of dataCharts) {
+      lines.push(`- [${chart.title}](${chart.html_url})`);
+    }
+    lines.push(`- [财务数据 JSON](${SITE}/data/data.json): 上述图表页的底层数据（精确数值请读此文件）`);
+  }
+
   lines.push(
     '',
     '## Optional',
     '',
-    `- [财务数据 JSON](${SITE}/data/data.json): 中国上市公司历史财务数据（/data/ 图表页的底层数据）`,
     `- [记忆卡](${SITE}/ankicard/): 由学习材料生成的间隔重复记忆卡`,
     `- [关于](${SITE}/about/): 站点说明与联系方式`,
     ''
@@ -524,19 +628,20 @@ function writeLlmsTxt(sections) {
 }
 
 // llms-full.txt: full text of blog, wiki, and book notes in one file.
-// Letters are excluded to keep the file size reasonable; they are listed in
-// llms.txt and available per-letter as Markdown.
+// Letters and MD&A reports are excluded to keep the file size reasonable;
+// they are listed in llms.txt and available per-document as Markdown.
 function writeLlmsFullTxt(sections) {
   const parts = [
     '# aimunger llms-full.txt',
     '',
     `> 全站文章、Wiki 与书籍笔记的完整 Markdown 合集。生成日期：${today}。`,
     `> 致股东信未收录于本文件，请通过 ${SITE}/letters/index.md 获取。`,
+    `> 管理层讨论与分析未收录于本文件，请通过 ${SITE}/management-discussion-analysis/index.md 获取。`,
     `> 每篇文档以 "<!-- ===== url ===== -->" 分隔，frontmatter 中的 canonical_url 为引用地址。`,
   ];
 
   for (const section of sections) {
-    if (section.id === 'letters') continue;
+    if (section.id === 'letters' || section.id === 'management-discussion-analysis') continue;
     for (const item of section.items) {
       const localPath = localPathForMdUrl(item.md_url);
       if (!fs.existsSync(localPath)) continue;
@@ -582,6 +687,8 @@ function run() {
   const wikiItems = collectWikiItems();
   const bookItems = collectBookItems();
   const letterItems = collectLetterItems();
+  const mdaItems = collectMdaItems();
+  const dataCharts = collectDataChartLinks();
 
   const sections = [
     {
@@ -612,11 +719,18 @@ function run() {
       md_url: `${SITE}/letters/index.md`,
       items: letterItems,
     },
+    {
+      id: 'management-discussion-analysis',
+      title: '管理层讨论与分析',
+      html_url: `${SITE}/management-discussion-analysis/`,
+      md_url: `${SITE}/management-discussion-analysis/index.md`,
+      items: mdaItems,
+    },
   ].filter(section => section.items.length > 0);
 
   writeContentIndexes(sections);
   writeMarkdownSitemap(sections);
-  writeLlmsTxt(sections);
+  writeLlmsTxt(sections, dataCharts);
   writeLlmsFullTxt(sections);
 
   console.log(`Generated agent-friendly markdown endpoints for ${sections.reduce((sum, section) => sum + section.items.length, 0)} items`);

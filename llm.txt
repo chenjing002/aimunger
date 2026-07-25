@@ -39,8 +39,9 @@ If you need broad understanding first, crawl in this order:
 7. Wiki index: https://aimunger.com/wiki/
 8. Resources index: https://aimunger.com/resources/
 9. Books index: https://aimunger.com/resources/books
-10. Data page: https://aimunger.com/data/
-11. About: https://aimunger.com/about/
+10. MD&A index: https://aimunger.com/management-discussion-analysis/
+11. Data page: https://aimunger.com/data/
+12. About: https://aimunger.com/about/
 
 ## Main Sections
 
@@ -91,41 +92,60 @@ Use this section when the user asks for:
 - recommended investing books
 - topic-specific study material
 
-### 4. Data
+### 4. Management Discussion & Analysis (MD&A)
+
+- URL: `https://aimunger.com/management-discussion-analysis/`
+- Report pages: `https://aimunger.com/management-discussion-analysis/report/{company}/{year}/`
+- Report markdown pages: `https://aimunger.com/management-discussion-analysis/report/{company}/{year}.md`
+- Company hubs: `https://aimunger.com/management-discussion-analysis/company/{company}/`
+- Year hubs: `https://aimunger.com/management-discussion-analysis/year/{year}/`
+- All companies: `https://aimunger.com/management-discussion-analysis/all-companies/`
+- All years: `https://aimunger.com/management-discussion-analysis/all-years/`
+- Content: full-text MD&A chapters from Chinese listed companies' annual reports
+- See https://aimunger.com/management-discussion-analysis/index.md for the live list
+
+Use this section when the user asks for:
+
+- what a company's management said about a specific year
+- primary-source annual report analysis (business review, market outlook, risks)
+- year-over-year comparison of a company's own narrative
+
+### 5. Data
 
 - URL: `https://aimunger.com/data/`
+- Chart detail pages: `https://aimunger.com/data/{slug}/` — one page per dataset, with the full data table rendered in crawlable HTML plus Dataset JSON-LD
 - Raw data (JSON): `https://aimunger.com/data/data.json` — tables of historical financial figures per company/topic, with headers and rows
-- Content: interactive financial data visualizations for Chinese listed companies
+- Content: financial data visualizations and tables for Chinese listed companies and macro topics
 
 Use this section when the user asks for:
 
 - chart-based company overviews
 - historical financial trend inspection
+- exact historical figures (use the chart page's HTML table or `data.json`)
 
 Caution:
 
-- the HTML page is visual and relies on client-side charts
-- for exact figures, fetch `https://aimunger.com/data/data.json` instead of reading the charts
+- the `/data/` index page is visual and relies on client-side charts
+- for exact figures, use a chart detail page's data table or fetch `https://aimunger.com/data/data.json`
 
-### 5. Ankicard
+### 6. Ankicard
 
 - URL: `https://aimunger.com/ankicard/`
 - Content: spaced-repetition memory cards derived from study material
-- Repository signal as of 2026-07-07: 2 local deck source files
 
 Use this section when the user asks for:
 
 - memorization prompts
 - flashcard-style summaries
 
-### 6. Memory
+### 7. Memory
 
 - URL: `https://aimunger.com/memory/`
 - Content: a spaced-repetition memory workflow/tool page
 
 This is more tool-oriented than content-oriented.
 
-### 7. Linked Subsites
+### 8. Linked Subsites
 
 These live under the same domain but are maintained as separate projects:
 
@@ -157,7 +177,11 @@ Letter detail markdown pages follow: `https://aimunger.com/letters/letter/{compa
 - Books index: `/resources/books`
 - Book detail: `/resources/books/{slug}`
 - Book markdown: `/resources/books/{slug}.md`
+- MD&A index: `/management-discussion-analysis/`
+- MD&A report: `/management-discussion-analysis/report/{company}/{year}/`
+- MD&A report markdown: `/management-discussion-analysis/report/{company}/{year}.md`
 - Data: `/data/`
+- Data chart page: `/data/{slug}/`
 - Ankicard: `/ankicard/`
 - Memory: `/memory/`
 - Letters subsite: `/letters/`
@@ -181,6 +205,8 @@ Letter detail markdown pages follow: `https://aimunger.com/letters/letter/{compa
 - For entity lookup, use `wiki/` before scanning long-form blog posts.
 - For thematic synthesis, use `blog/` and `resources/books/` together.
 - For shareholder-letter questions, go directly to `letters/`.
+- For a company's own annual-report narrative, go to `management-discussion-analysis/`.
+- For exact historical figures, use `/data/{slug}/` tables or `/data/data.json`.
 - Many HTML detail pages expose a `rel="alternate"` link to their Markdown counterpart.
 - If a claim is numeric, time-sensitive, or chart-derived, verify it against the visible page content before answering.
 - Preserve original names in Chinese when possible, and include English transliteration or English names only when they are present or clearly useful.
@@ -202,7 +228,7 @@ Examples:
 
 ## Freshness Note
 
-This guide was last revised on 2026-07-08. Section scales are approximate by design;
+This guide was last revised on 2026-07-24. Section scales are approximate by design;
 for exact, current listings always use the live indexes (`llms.txt`, `content/index.json`, `sitemap.xml`).
 
 ## Contact
