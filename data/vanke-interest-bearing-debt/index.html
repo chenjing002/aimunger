@@ -114,6 +114,7 @@
             <p class="chart-page-meta">数据更新：2026-06-04</p>
 
             <div class="chart-container" id="chart"></div>
+            <noscript><p class="chart-page-note">交互图表需要 JavaScript，完整数据见下方数据表。</p></noscript>
 
             <h2 class="chart-page-section-title">数据表</h2>
             <div class="data-table-wrapper">
@@ -153,12 +154,12 @@
         var NAME = "万科A 有息负债及结构";
         var ENTRY = {"headers":["年份","有息负债合计（亿元）","占总资产比例","一年内到期有息负债（亿元）","一年内占比","一年以上有息负债（亿元）","一年以上占比"],"rows":[[2020,2585.3,13.8,829.1,32.1,1756.2,67.9],[2021,2659.6,13.7,586.2,22,2073.4,78],[2022,3141.1,17.9,645.2,20.5,2495.9,79.5],[2023,3200.5,21.3,624.2,19.5,2576.3,80.5],[2024,3612.8,28.1,1582.8,43.8,2030,56.2],[2025,3584.8,35.1,1605.6,44.8,1979.2,55.2]],"meta":{"created":"2026-06-04 19:03:22","tags":[],"description":"","slug":"vanke-interest-bearing-debt"}};
         var el = document.getElementById('chart');
-        if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
+        if (typeof echarts !== 'undefined' && typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
             var chart = echarts.init(el);
             chart.setOption(CHART_CONFIGS[NAME](ENTRY));
             window.addEventListener('resize', function() { chart.resize(); });
         } else {
-            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">该数据暂无图表配置</div>';
+            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">图表未能加载，完整数据见下方数据表</div>';
         }
     })();
     </script>

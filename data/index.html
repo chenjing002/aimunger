@@ -166,6 +166,7 @@
             </ul>
             <!-- chart-links:end -->
 
+            <noscript><p class="chart-note">交互图表需要 JavaScript。每个数据集的完整数据表与说明见上方链接的独立页面。</p></noscript>
             <div id="charts-root"></div>
         </div>
     </main>
@@ -262,14 +263,18 @@
 
                     root.appendChild(section);
 
-                    // Initialize chart
-                    if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[name]) {
+                    // Initialize chart; if the chart library or config is
+                    // unavailable (e.g. CDN blocked), fall back to showing
+                    // the data table so the section is never empty.
+                    if (typeof echarts !== 'undefined' && typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[name]) {
                         var chart = echarts.init(chartDiv);
                         var option = CHART_CONFIGS[name](entry);
                         chart.setOption(option);
                         charts.push(chart);
                     } else {
-                        chartDiv.innerHTML = '<div class="no-config">该数据文件暂无图表配置</div>';
+                        chartDiv.innerHTML = '<div class="no-config">图表未能加载，数据表见下方</div>';
+                        tableWrapper.classList.add('visible');
+                        btn.textContent = '隐藏数据表';
                     }
                 });
 

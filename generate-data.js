@@ -341,6 +341,7 @@ function buildChartPage(name, entry, meta) {
             ${updated ? `<p class="chart-page-meta">数据更新：${updated}</p>` : ''}
 
             <div class="chart-container" id="chart"></div>
+            <noscript><p class="chart-page-note">交互图表需要 JavaScript，完整数据见下方数据表。</p></noscript>
 
             <h2 class="chart-page-section-title">数据表</h2>
             <div class="data-table-wrapper">
@@ -373,12 +374,12 @@ ${(entry.notes || []).map(n => `            <p class="chart-page-note">${escapeH
         var NAME = ${nameJson};
         var ENTRY = ${entryJson};
         var el = document.getElementById('chart');
-        if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
+        if (typeof echarts !== 'undefined' && typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
             var chart = echarts.init(el);
             chart.setOption(CHART_CONFIGS[NAME](ENTRY));
             window.addEventListener('resize', function() { chart.resize(); });
         } else {
-            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">该数据暂无图表配置</div>';
+            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">图表未能加载，完整数据见下方数据表</div>';
         }
     })();
     </script>

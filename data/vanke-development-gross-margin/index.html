@@ -114,6 +114,7 @@
             <p class="chart-page-meta">数据更新：2026-07-22</p>
 
             <div class="chart-container" id="chart"></div>
+            <noscript><p class="chart-page-note">交互图表需要 JavaScript，完整数据见下方数据表。</p></noscript>
 
             <h2 class="chart-page-section-title">数据表</h2>
             <div class="data-table-wrapper">
@@ -152,12 +153,12 @@
         var NAME = "万科A 房地产开发及相关资产经营业务毛利率";
         var ENTRY = {"headers":["年份","毛利率"],"rows":[["2025 年",11.8],["2024 年",11.1],["2023 年",16.5],["2022 年",20.8],["2021 年",22.78]],"meta":{"created":"2026-07-22 14:51:27","tags":[],"description":"","slug":"vanke-development-gross-margin"}};
         var el = document.getElementById('chart');
-        if (typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
+        if (typeof echarts !== 'undefined' && typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[NAME]) {
             var chart = echarts.init(el);
             chart.setOption(CHART_CONFIGS[NAME](ENTRY));
             window.addEventListener('resize', function() { chart.resize(); });
         } else {
-            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">该数据暂无图表配置</div>';
+            el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:14px;">图表未能加载，完整数据见下方数据表</div>';
         }
     })();
     </script>

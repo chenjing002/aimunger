@@ -65,8 +65,10 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp index.html style.css favicon.svg CNAME llm.txt memory-notify.js ads.txt _site/
-          cp -r about contact privacy disclaimer resources data memory blog _site/
+          cp index.html 404.html style.css favicon.svg CNAME llm.txt memory-notify.js ads.txt _site/
+          # llm-reader here is noindex redirect stubs only (old indexed URLs
+          # → / and /blog/), not the removed subsite content.
+          cp -r about contact privacy disclaimer resources data memory blog llm-reader _site/
           rm -rf _site/memory/worker
           cp -r _build/letters/dist/ _site/letters/
           cp -r management-discussion-analysis/dist/ _site/management-discussion-analysis/

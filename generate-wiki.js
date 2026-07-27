@@ -84,10 +84,25 @@ const SLUG_MAP = {
   '贾新耀': 'jiaxinyao',
   '马兴瑞': 'maxingrui',
   '林茂德': 'linmaode',
+  '李西廷': 'lixiting',
+};
+
+// Old URLs published before their titles had a SLUG_MAP entry (the fallback
+// used to percent-encode the title, producing directories that 404 at the
+// decoded URL). Serve a redirect at the decoded path → the real slug.
+const LEGACY_REDIRECTS = {
+  '李西廷': 'lixiting',
 };
 
 function getSlug(title) {
-  return SLUG_MAP[title] || encodeURIComponent(title);
+  if (!SLUG_MAP[title]) {
+    // A percent-encoded directory name can never match the decoded URL
+    // crawlers request, so an encodeURIComponent fallback silently 404s.
+    // The raw title works as a UTF-8 path; still, add a SLUG_MAP entry.
+    console.warn(`SLUG_MAP missing entry for "${title}" — using raw title as slug; add an ASCII slug.`);
+    return title;
+  }
+  return SLUG_MAP[title];
 }
 
 // Traditional-character variants for entries whose names differ between
@@ -599,6 +614,7 @@ function run() {
   fs.mkdirSync(WIKI_DIR, { recursive: true });
   const keepFiles = new Set(['data.json', 'index.html', 'wiki.css', 'wiki-graph.js']);
   const slugSet = new Set(entries.map(e => getSlug(e.title)));
+  for (const name of Object.keys(LEGACY_REDIRECTS)) slugSet.add(name);
   for (const name of fs.readdirSync(WIKI_DIR)) {
     if (keepFiles.has(name)) continue;
     const full = path.join(WIKI_DIR, name);
@@ -612,6 +628,26 @@ function run() {
     const dir = path.join(WIKI_DIR, slug);
     fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(path.join(dir, 'index.html'), generateArticlePage(e));
+  }
+
+  for (const [oldName, slug] of Object.entries(LEGACY_REDIRECTS)) {
+    const target = `https://aimunger.com/wiki/${slug}/`;
+    const dir = path.join(WIKI_DIR, oldName);
+    fs.mkdirSync(dir, { recursive: true });
+    // noindex keeps the stub out of the generated sitemap; crawlers treat an
+    // instant meta refresh as a permanent redirect to the canonical URL.
+    fs.writeFileSync(path.join(dir, 'index.html'), `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=${target}">
+<link rel="canonical" href="${target}">
+<title>${escHtml(oldName)}</title>
+</head>
+<body><p>页面已迁移：<a href="${target}">${target}</a></p></body>
+</html>
+`);
   }
 
   const layout = computeBuildLayout(nodes, edges);
