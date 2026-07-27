@@ -85,8 +85,21 @@ body {
 
 .nav-links {
     display: flex;
+    align-items: center;
     list-style: none;
-    gap: 28px;
+    gap: clamp(2px, 2vw, 28px);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.nav-links::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-links li {
+    flex-shrink: 0;
 }
 
 .nav-links a {
@@ -98,6 +111,7 @@ body {
     color: var(--color-text-secondary);
     font-size: 14px;
     font-weight: 500;
+    white-space: nowrap;
     transition: color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -598,26 +612,14 @@ body {
 
     .nav-links {
         gap: 4px;
-        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
         margin-right: -16px;
         padding-right: 16px;
-    }
-
-    .nav-links::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nav-links li {
-        flex-shrink: 0;
     }
 
     .nav-links a {
         padding: 6px 10px;
         font-size: 13px;
-        white-space: nowrap;
     }
 
     .hero {
