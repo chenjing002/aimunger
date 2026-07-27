@@ -8,6 +8,7 @@ const {
   injectHeadSnippetInFile,
   parseSimpleMeta,
   replaceWikiLinks,
+  resolveGitDate,
   splitFrontmatter,
 } = require('./site-md-utils');
 
@@ -152,6 +153,7 @@ function collectBlogItems() {
         html_url: htmlUrl,
         md_url: mdUrl,
         summary: excerpt(body),
+        source_path: path.join(BLOG_SOURCE_DIR, file),
       };
     })
     .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
@@ -220,6 +222,7 @@ function collectWikiItems() {
         html_url: htmlUrl,
         md_url: mdUrl,
         summary: excerpt(cleanedBody),
+        source_path: path.join(WIKI_SOURCE_DIR, file),
       };
     })
     .filter(Boolean)
@@ -318,6 +321,7 @@ function collectBookItems() {
         html_url: htmlUrl,
         md_url: mdUrl,
         summary,
+        source_path: path.join(BOOKS_SOURCE_DIR, file),
       };
     })
     .sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
@@ -398,6 +402,7 @@ function collectLetterItems() {
         html_url: htmlUrl,
         md_url: mdUrl,
         summary: excerpt(body),
+        source_path: path.join(lettersSourceDir, relativePath),
       };
     })
     .filter(Boolean)
@@ -467,6 +472,7 @@ function collectMdaItems() {
         html_url: htmlUrl,
         md_url: mdUrl,
         summary: excerpt(body),
+        source_path: path.join(MDA_SOURCE_DIR, companySlug, file),
       });
     }
   }
@@ -658,19 +664,33 @@ function writeMarkdownSitemap(sections) {
     `${SITE}/content/index.md`,
   ]);
 
+  // Each .md endpoint mirrors one source file; use that file's git date as
+  // lastmod. Index/aggregate URLs have no single source date — omit lastmod
+  // there rather than stamping the build date, which crawlers learn to
+  // distrust.
+  const lastmodByUrl = new Map();
   for (const section of sections) {
     urls.add(section.md_url);
-    for (const item of section.items) urls.add(item.md_url);
+    for (const item of section.items) {
+      urls.add(item.md_url);
+      if (item.source_path) {
+        const date = resolveGitDate(item.source_path);
+        if (date) lastmodByUrl.set(item.md_url, date);
+      }
+    }
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${[...urls].sort().map(url => `  <url>
-    <loc>${url}</loc>
-    <lastmod>${today}</lastmod>
+${[...urls].sort().map(url => {
+    const lastmod = lastmodByUrl.get(url);
+    return `  <url>
+    <loc>${url}</loc>${lastmod ? `
+    <lastmod>${lastmod}</lastmod>` : ''}
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-  </url>`).join('\n')}
+  </url>`;
+  }).join('\n')}
 </urlset>
 `;
 
