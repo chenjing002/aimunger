@@ -150,10 +150,8 @@ This is more tool-oriented than content-oriented.
 These live under the same domain but are maintained as separate projects:
 
 - Letters: https://aimunger.com/letters/
-- LLM Reader: https://aimunger.com/llm-reader/
 
 Letters is the best entry point for Chinese listed-company shareholder letters.
-LLM Reader is a tool/product page for AI-assisted reading notes.
 Letter detail markdown pages follow: `https://aimunger.com/letters/letter/{company}/{year}.md`
 
 ## Content Characteristics
@@ -186,7 +184,6 @@ Letter detail markdown pages follow: `https://aimunger.com/letters/letter/{compa
 - Memory: `/memory/`
 - Letters subsite: `/letters/`
 - Letter markdown: `/letters/letter/{company}/{year}.md`
-- LLM Reader subsite: `/llm-reader/`
 - Machine content index: `/content/index.json`
 - llms.txt: `/llms.txt`
 - llms-full.txt: `/llms-full.txt`

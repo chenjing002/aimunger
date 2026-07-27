@@ -6,9 +6,10 @@
 
 ```
 aimunger.com/              ← 本仓库（静态主页）
-├── /letters/              ← letters-to-shareholders（致股东信）
-└── /llm-reader/           ← llm-reader（AI 辅助阅读笔记）
+└── /letters/              ← letters-to-shareholders（致股东信）
 ```
+
+> llm-reader 仓库仍在构建时被 checkout，但仅作为 `/blog/` 的数据源（`generate-qa.js` 读取其 `qa.html`）；`/llm-reader/` 页面已不再发布（AdSense 内容质量考虑，2026-07）。
 
 ## AI Agent 端点
 
@@ -40,9 +41,9 @@ aimunger (repository_dispatch) ──→ checkout 三个仓库 ──→ 组装 
 
 aimunger 的 deploy workflow 收到 `subsite-updated` 事件后：
 
-1. Checkout 本仓库 + letters-to-shareholders + llm-reader
+1. Checkout 本仓库 + letters-to-shareholders + llm-reader（后者仅作 blog 数据源）
 2. 构建 letters（Astro，重写 base 为 `/letters/`）
-3. 组装 `_site/`：主页文件 + `letters/` + `llm-reader/`
+3. 组装 `_site/`：主页文件 + `letters/`
 4. 生成 sitemap.xml 与 robots.txt
 5. 部署至 GitHub Pages
 

@@ -195,7 +195,6 @@ function generateArticlePage(article) {
                 <a href="/privacy/">隐私政策</a>
                 <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
-                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
                 <a href="https://aimunger.com/llm.txt">llm.txt</a>
                 <a href="https://aimunger.com/sitemap.xml">sitemap</a>
                 <a href="https://aimunger.com/rss.xml">rss</a>
@@ -302,7 +301,6 @@ ${cards}
                 <a href="/privacy/">隐私政策</a>
                 <a href="/disclaimer/">免责声明</a>
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
-                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
                 <a href="https://aimunger.com/llm.txt">llm.txt</a>
                 <a href="https://aimunger.com/sitemap.xml">sitemap</a>
                 <a href="https://aimunger.com/rss.xml">rss</a>

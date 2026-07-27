@@ -222,7 +222,6 @@ Use this exact template (substitute values for `{TITLE_ZH}`, `{TITLE_EN}`, `{AUT
         <div class="container">
             <div class="footer-links">
                 <a href="https://aimunger.com/letters/">letters-to-shareholders</a>
-                <a href="https://aimunger.com/llm-reader/">llm-reader</a>
                 <a href="https://aimunger.com/llm.txt">llm.txt</a>
                 <a href="https://aimunger.com/sitemap.xml">sitemap</a>
                 <a href="https://aimunger.com/rss.xml">rss</a>

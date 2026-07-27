@@ -1,4 +1,4 @@
-// Generates a combined rss.xml from QA articles, letters, and LLM-reader content
+// Generates a combined rss.xml from QA articles and letters
 const fs = require('fs');
 const path = require('path');
 
@@ -93,62 +93,11 @@ function collectLetterItems() {
   return items;
 }
 
-// Collect LLM-reader items from qa.html and insights.html
-function collectLlmReaderItems() {
-  const items = [];
-
-  // QA records from llm-reader
-  const qaPath = path.join(SITE_DIR, 'llm-reader', 'qa.html');
-  if (fs.existsSync(qaPath)) {
-    const html = fs.readFileSync(qaPath, 'utf-8');
-    const match = html.match(/var DATA=(\[[\s\S]*?\]);\s*\n/);
-    if (match) {
-      try {
-        const data = JSON.parse(match[1]);
-        for (const qa of data) {
-          items.push({
-            title: qa.question || `LLM Reader 问答 ${qa.id}`,
-            link: `${SITE}/llm-reader/qa.html`,
-            guid: `${SITE}/llm-reader/qa.html#qa-${qa.id}`,
-            date: (qa.created_at || '').slice(0, 10),
-            description: excerpt(qa.answer),
-            section: 'LLM Reader',
-          });
-        }
-      } catch {}
-    }
-  }
-
-  // Insights from llm-reader
-  const insightsPath = path.join(SITE_DIR, 'llm-reader', 'insights.html');
-  if (fs.existsSync(insightsPath)) {
-    const html = fs.readFileSync(insightsPath, 'utf-8');
-    const match = html.match(/var DATA=(\[[\s\S]*?\]);\s*\n/);
-    if (match) {
-      try {
-        const data = JSON.parse(match[1]);
-        data.forEach((ins, idx) => {
-          items.push({
-            title: `洞察: ${excerpt(ins.content, 60)}`,
-            link: `${SITE}/llm-reader/insights.html`,
-            guid: `${SITE}/llm-reader/insights.html#insight-${idx}`,
-            date: (ins.created_at || '').slice(0, 10),
-            description: excerpt(ins.content),
-            section: 'LLM Reader',
-          });
-        });
-      } catch {}
-    }
-  }
-
-  return items;
-}
 
 // Build combined RSS
 const allItems = [
   ...collectQaItems(),
   ...collectLetterItems(),
-  ...collectLlmReaderItems(),
 ];
 
 // Sort by date descending

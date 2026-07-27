@@ -33,6 +33,8 @@ jobs:
           repository: chenjing002/letters-to-shareholders
           path: _build/letters
 
+      # Data source only: generate-qa.js reads qa.html from this checkout to
+      # build /blog/. The llm-reader pages themselves are no longer published.
       - name: Checkout llm-reader
         uses: actions/checkout@v4
         with:
@@ -68,8 +70,6 @@ jobs:
           rm -rf _site/memory/worker
           cp -r _build/letters/dist/ _site/letters/
           cp -r management-discussion-analysis/dist/ _site/management-discussion-analysis/
-          mkdir -p _site/llm-reader
-          cp _build/llm-reader/*.html _build/llm-reader/logo.svg _build/llm-reader/sitemap.xml _build/llm-reader/robots.txt _site/llm-reader/
 
       - name: Generate Wiki pages
         run: node generate-wiki.js
