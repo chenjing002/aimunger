@@ -1187,6 +1187,30 @@
       "title_zh": "自由资本：12位私人投资者如何在股市积累百万财富",
       "authors": ["Guy Thomas"],
       "cover": "covers/free-capital.jpg"
+    },
+    {
+      "title_en": "Capital Account: A Fund Manager Reports on a Turbulent Decade",
+      "title_zh": "资本账户：一位基金经理眼中的动荡十年",
+      "authors": ["Edward Chancellor (编)", "Marathon Asset Management"],
+      "cover": "covers/capital-account.jpg"
+    },
+    {
+      "title_en": "The Price of Time: The Real Story of Interest",
+      "title_zh": "时间的代价：利息的真实故事",
+      "authors": ["Edward Chancellor"],
+      "cover": "covers/price-of-time.jpg"
+    },
+    {
+      "title_en": "The Making of a Permabear",
+      "title_zh": "永久空头的养成：短期世界中长期投资的风险",
+      "authors": ["Jeremy Grantham", "Edward Chancellor"],
+      "cover": "covers/making-of-a-permabear.jpg"
+    },
+    {
+      "title_en": "Crunch Time for Credit?: An Inquiry into the State of the Credit System in the United States and Great Britain",
+      "title_zh": "信贷的危急时刻：对美英信贷体系的考察",
+      "authors": ["Edward Chancellor"],
+      "cover": "covers/crunch-time-for-credit.jpg"
     }
   ]
 }
