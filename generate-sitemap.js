@@ -74,6 +74,9 @@ function extractAstroSitemapUrls() {
 // every deploy, which teaches crawlers to distrust the field entirely —
 // omitting is better than lying.
 const MDA_CONTENT_DIR = path.join(__dirname, 'management-discussion-analysis', 'src', 'content', 'mda');
+// The letters repo is checked out at CI with full history (fetch-depth: 0
+// in deploy.yml) so its content files carry real git dates.
+const LETTERS_CONTENT_DIR = path.join(__dirname, '_build', 'letters', 'src', 'content', 'letters');
 
 function latestGitDate(dir) {
   if (!fs.existsSync(dir)) return null;
@@ -93,6 +96,21 @@ function resolveLastmod(url, lastmodMap) {
   if (mdaReport) return resolveGitDate(path.join(MDA_CONTENT_DIR, mdaReport[1], `${mdaReport[2]}.md`));
   const mdaCompany = rel.match(/^\/management-discussion-analysis\/company\/([^/]+)\/$/);
   if (mdaCompany) return latestGitDate(path.join(MDA_CONTENT_DIR, mdaCompany[1]));
+
+  // Letters pages are built from the letters repo's content markdown
+  const letter = rel.match(/^\/letters\/letter\/([^/]+)\/([^/]+)\/$/);
+  if (letter) return resolveGitDate(path.join(LETTERS_CONTENT_DIR, letter[1], `${letter[2]}.md`));
+  const lettersCompany = rel.match(/^\/letters\/company\/([^/]+)\/$/);
+  if (lettersCompany) return latestGitDate(path.join(LETTERS_CONTENT_DIR, lettersCompany[1]));
+  const lettersYear = rel.match(/^\/letters\/year\/([^/]+)\/$/);
+  if (lettersYear && fs.existsSync(LETTERS_CONTENT_DIR)) {
+    const dates = fs.readdirSync(LETTERS_CONTENT_DIR)
+      .map(company => path.join(LETTERS_CONTENT_DIR, company, `${lettersYear[1]}.md`))
+      .filter(f => fs.existsSync(f))
+      .map(f => resolveGitDate(f))
+      .filter(Boolean);
+    if (dates.length) return dates.sort().pop();
+  }
 
   // Committed page files: repo root (resources, data, static pages), then
   // the committed _site copy (wiki pages live only there). CI-built pages

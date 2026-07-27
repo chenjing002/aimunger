@@ -3,3 +3,4 @@ node_modules/
 .env
 _site/*
 !_site/wiki/
+_build/

@@ -32,6 +32,9 @@ jobs:
         with:
           repository: chenjing002/letters-to-shareholders
           path: _build/letters
+          # Full history so generate-sitemap.js can resolve real lastmod
+          # dates from the letters content files.
+          fetch-depth: 0
 
       # Data source only: generate-qa.js reads qa.html from this checkout to
       # build /blog/. The llm-reader pages themselves are no longer published.
