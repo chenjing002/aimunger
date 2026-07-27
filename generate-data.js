@@ -328,6 +328,7 @@ function buildChartPage(name, entry, meta) {
                 <li><a href="/blog/">文章</a></li>
                 <li><a href="/data/" class="active">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
+                <li><a href="/podcast/">播客</a></li>
                 <li><a href="/about/">关于</a></li>
             </ul>
         </nav>

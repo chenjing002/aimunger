@@ -169,6 +169,7 @@ function generateArticlePage(article) {
                 <li><a href="/blog/" class="active">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
+                <li><a href="/podcast/">播客</a></li>
                 <li><a href="/about/">关于</a></li>
             </ul>
         </nav>
@@ -273,6 +274,7 @@ function generateListingPage(articles) {
                 <li><a href="/blog/" class="active">文章</a></li>
                 <li><a href="/data/">数据</a></li>
                 <li><a href="/ankicard/">记忆卡</a></li>
+                <li><a href="/podcast/">播客</a></li>
                 <li><a href="/about/">关于</a></li>
             </ul>
         </nav>

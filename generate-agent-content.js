@@ -626,6 +626,7 @@ function writeLlmsTxt(sections, dataCharts) {
     '## Optional',
     '',
     `- [记忆卡](${SITE}/ankicard/): 由学习材料生成的间隔重复记忆卡`,
+    `- [播客](${SITE}/podcast/): TZB阅览播客节目列表`,
     `- [关于](${SITE}/about/): 站点说明与联系方式`,
     ''
   );

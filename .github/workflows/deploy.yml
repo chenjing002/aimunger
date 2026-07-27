@@ -88,6 +88,11 @@ jobs:
       - name: Generate agent-friendly markdown endpoints
         run: node generate-agent-content.js
 
+      # Fetches the podcast RSS feed; falls back to the committed
+      # podcast/episodes.json snapshot if the feed is unreachable.
+      - name: Generate podcast page
+        run: node generate-podcast.js
+
       - name: Generate sitemap, robots.txt, and RSS
         run: |
           node generate-sitemap.js
