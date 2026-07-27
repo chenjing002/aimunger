@@ -105,7 +105,7 @@ body {
 .nav-links a {
     display: inline-flex;
     align-items: center;
-    padding: 6px 12px;
+    padding: 6px clamp(4px, 1.1vw, 12px);
     border-radius: 999px;
     text-decoration: none;
     color: var(--color-text-secondary);
