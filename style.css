@@ -87,7 +87,7 @@ body {
     display: flex;
     align-items: center;
     list-style: none;
-    gap: clamp(2px, 2vw, 28px);
+    gap: clamp(2px, 1.5vw, 18px);
     min-width: 0;
     overflow-x: auto;
     scrollbar-width: none;
