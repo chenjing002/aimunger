@@ -69,7 +69,44 @@ function extractAstroSitemapUrls() {
   return urls;
 }
 
-const today = new Date().toISOString().split('T')[0];
+// Resolve a real last-modified date for a URL, or null to omit <lastmod>.
+// A build-date fallback would stamp the whole site as "modified today" on
+// every deploy, which teaches crawlers to distrust the field entirely —
+// omitting is better than lying.
+const MDA_CONTENT_DIR = path.join(__dirname, 'management-discussion-analysis', 'src', 'content', 'mda');
+
+function latestGitDate(dir) {
+  if (!fs.existsSync(dir)) return null;
+  const dates = fs.readdirSync(dir)
+    .filter(f => f.endsWith('.md'))
+    .map(f => resolveGitDate(path.join(dir, f)))
+    .filter(Boolean);
+  return dates.length ? dates.sort().pop() : null;
+}
+
+function resolveLastmod(url, lastmodMap) {
+  if (lastmodMap.has(url)) return lastmodMap.get(url);
+  const rel = url.slice(SITE.length);
+
+  // MD&A pages are built from committed content files
+  const mdaReport = rel.match(/^\/management-discussion-analysis\/report\/([^/]+)\/([^/]+)\/$/);
+  if (mdaReport) return resolveGitDate(path.join(MDA_CONTENT_DIR, mdaReport[1], `${mdaReport[2]}.md`));
+  const mdaCompany = rel.match(/^\/management-discussion-analysis\/company\/([^/]+)\/$/);
+  if (mdaCompany) return latestGitDate(path.join(MDA_CONTENT_DIR, mdaCompany[1]));
+
+  // Committed page files: repo root (resources, data, static pages), then
+  // the committed _site copy (wiki pages live only there). CI-built pages
+  // with no committed counterpart (letters) resolve to null.
+  const relFile = rel.endsWith('/') ? `${rel}index.html` : rel;
+  for (const base of [__dirname, SITE_DIR]) {
+    const candidate = path.join(base, `.${relFile}`);
+    if (fs.existsSync(candidate)) {
+      const date = resolveGitDate(candidate);
+      if (date) return date;
+    }
+  }
+  return null;
+}
 
 // Start with Astro sitemap URLs if available (they have correct site/base)
 const astroUrls = extractAstroSitemapUrls();
@@ -109,12 +146,15 @@ const lastmodMap = buildLastmodMap();
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sortedUrls.map(url => `  <url>
-    <loc>${url}</loc>
-    <lastmod>${lastmodMap.get(url) || today}</lastmod>
+${sortedUrls.map(url => {
+  const lastmod = resolveLastmod(url, lastmodMap);
+  return `  <url>
+    <loc>${url}</loc>${lastmod ? `
+    <lastmod>${lastmod}</lastmod>` : ''}
     <changefreq>${getChangefreq(url)}</changefreq>
     <priority>${getPriority(url)}</priority>
-  </url>`).join('\n')}
+  </url>`;
+}).join('\n')}
 </urlset>
 `;
 
