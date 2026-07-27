@@ -5,7 +5,7 @@ slug: "fuyuning"
 canonical_url: "https://aimunger.com/wiki/fuyuning/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-06-04 07:00:00"
 tags: []
 description: "先后执掌招商局集团与华润集团的央企企业家"

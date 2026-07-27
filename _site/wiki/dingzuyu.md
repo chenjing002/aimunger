@@ -5,7 +5,7 @@ slug: "dingzuyu"
 canonical_url: "https://aimunger.com/wiki/dingzuyu/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-24 00:00:00"
 tags: []
 description: "易居克而瑞研究中心总裁，房地产行业年度评述发布人"

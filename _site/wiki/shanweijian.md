@@ -5,7 +5,7 @@ slug: "shanweijian"
 canonical_url: "https://aimunger.com/wiki/shanweijian/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-04-14 11:36:21"
 tags: []
 description: ""

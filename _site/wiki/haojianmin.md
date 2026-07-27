@@ -5,7 +5,7 @@ slug: "haojianmin"
 canonical_url: "https://aimunger.com/wiki/haojianmin/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-11 07:00:00"
 tags: []
 description: "中国海外发展前主席，主导中建中信并购与集权式改革"

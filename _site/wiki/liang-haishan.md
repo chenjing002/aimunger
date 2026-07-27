@@ -5,7 +5,7 @@ slug: "liang-haishan"
 canonical_url: "https://aimunger.com/wiki/liang-haishan/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-07-13 10:00:00"
 tags: []
 description: "海尔智家前任董事长，2020-2021年年报签署人"

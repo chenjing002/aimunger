@@ -5,7 +5,7 @@ slug: "huasheng"
 canonical_url: "https://aimunger.com/wiki/huasheng/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-06-04 07:00:00"
 tags: []
 description: "经济学家，价格双轨制、国资体制、股权分置改革主要推动者之一"

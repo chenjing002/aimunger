@@ -5,7 +5,7 @@ slug: "wangshi"
 canonical_url: "https://aimunger.com/wiki/wangshi/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-04-10 09:09:40"
 tags: []
 description: ""
@@ -43,3 +43,4 @@ description: ""
 - [万科](/wiki/vanke/) - 创立并长期执掌的公司
 - [郁亮](/wiki/yuliang/) - 万科继任者，2017 年接任董事会主席
 - [郭钧](/wiki/guojun/) - 万科旧部，曾评价其与任志强"本质共同、路径分殊"
+- [林茂德](/wiki/linmaode/) - 宝万之争中引深圳地铁入主万科，被视为其"白衣骑士"

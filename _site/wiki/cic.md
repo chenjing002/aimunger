@@ -5,7 +5,7 @@ slug: "cic"
 canonical_url: "https://aimunger.com/wiki/cic/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-22 11:00:00"
 tags: []
 description: "中投公司：中国主权财富基金，2007年成立，注册资本2000亿美元"

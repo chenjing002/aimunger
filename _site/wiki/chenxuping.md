@@ -5,7 +5,7 @@ slug: "chenxuping"
 canonical_url: "https://aimunger.com/wiki/chenxuping/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-04-19 08:31:28"
 tags: []
 description: ""

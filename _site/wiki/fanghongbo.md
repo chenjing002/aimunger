@@ -5,7 +5,7 @@ slug: "fanghongbo"
 canonical_url: "https://aimunger.com/wiki/fanghongbo/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-17 21:50:49"
 tags: []
 description: "美的集团董事长兼总裁，中国职业经理人接班的标杆"

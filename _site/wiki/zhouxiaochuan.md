@@ -5,7 +5,7 @@ slug: "zhouxiaochuan"
 canonical_url: "https://aimunger.com/wiki/zhouxiaochuan/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-11 07:00:00"
 tags: []
 description: "中国人民银行前行长（2002–2018），汇改与人民币国际化推动者"

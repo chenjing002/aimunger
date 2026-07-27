@@ -5,7 +5,7 @@ slug: "hexiangjian"
 canonical_url: "https://aimunger.com/wiki/hexiangjian/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-04-21 17:35:12"
 tags: []
 description: "美的集团创始人，开创中国民企传贤不传子的传承范式"

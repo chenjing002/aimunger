@@ -1,0 +1,23 @@
+---
+type: "wiki"
+title: "滔搏"
+slug: "topsports"
+canonical_url: "https://aimunger.com/wiki/topsports/"
+source_section: "wiki"
+lang: "zh-CN"
+updated_at: "2026-07-27"
+created: "2026-07-19 21:00:00"
+tags: []
+description: "中国最大运动零售运营商"
+---
+
+# 滔搏
+
+## 简介
+滔搏企业发展（上海）有限公司是中国最大的运动零售运营商，为 Nike、adidas 在中国的最大零售运营合作伙伴，用户数突破 7000 万。
+
+## 关键信息
+- 与 PUMA、李宁、Converse、Timberland、Vans、The North Face、ASICS、Onitsuka Tiger、SKECHERS 等国内外品牌保持长期深度合作。
+- 2023 年起拓展专业运动与户外业务：与 HOKA、KAILAS 凯乐石达成合作，并投资滑雪装备零售商冷山与户外内容机构山系文化。
+- 2024 年成为加拿大越野跑品牌 norda 中国独家运营合作伙伴，并与体育 IP 授权平台 Fanatics 建立合作。
+- 通过门店、线上平台、直播、社群运营及区域 TP 代运营等多元渠道推进全域零售一体化运营。

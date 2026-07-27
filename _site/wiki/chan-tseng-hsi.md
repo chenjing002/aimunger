@@ -5,7 +5,7 @@ slug: "chan-tseng-hsi"
 canonical_url: "https://aimunger.com/wiki/chan-tseng-hsi/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-22 10:00:00"
 tags: []
 description: "恒隆集团创始人，以极度低调著称的白手起家地产商"

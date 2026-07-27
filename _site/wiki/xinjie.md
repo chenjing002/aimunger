@@ -5,7 +5,7 @@ slug: "xinjie"
 canonical_url: "https://aimunger.com/wiki/xinjie/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-06 10:00:00"
 tags: []
 description: "曾任深圳地铁董事长，2025年接管万科后失联被查"
@@ -35,3 +35,4 @@ description: "曾任深圳地铁董事长，2025年接管万科后失联被查"
 - [深圳地铁](/wiki/shenzhen-metro/) - 2017—2025 年任董事长
 - [万科](/wiki/vanke/) - 2025 年 1 月起任董事会主席，全面主持工作
 - [郁亮](/wiki/yuliang/) - 万科董事会主席前任
+- [林茂德](/wiki/linmaode/) - 2017 年 10 月其接替的深圳地铁前任董事长

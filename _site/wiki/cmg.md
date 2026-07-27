@@ -5,7 +5,7 @@ slug: "cmg"
 canonical_url: "https://aimunger.com/wiki/cmg/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-06-04 07:00:00"
 tags: []
 description: "1872年创立的中央直管综合型央企，总部香港，现推进第三次创业"

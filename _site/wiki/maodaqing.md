@@ -5,7 +5,7 @@ slug: "maodaqing"
 canonical_url: "https://aimunger.com/wiki/maodaqing/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-06 10:00:00"
 tags: []
 description: "万科前执行副总裁，优客工场创始人"
@@ -31,5 +31,6 @@ description: "万科前执行副总裁，优客工场创始人"
 ## 相关条目
 
 - [万科](/wiki/vanke/) - 曾任执行副总裁
+- [郁亮](/wiki/yuliang/) - 上级，早年任北京万科负责人时获其充分授权
 - [普洛斯](/wiki/glp/) - 曾提出万科物流学习的标杆
 - [陈启宗](/wiki/ronnie-chan/) - 优客工场选址讨论曾引用其观点

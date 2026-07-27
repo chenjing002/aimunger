@@ -5,7 +5,7 @@ slug: "mamingzhe"
 canonical_url: "https://aimunger.com/wiki/mamingzhe/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 tags: []
 description: "中国平安集团董事长"
 created: "2026-05-17 20:13:49"

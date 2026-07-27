@@ -5,7 +5,7 @@ slug: "yuyuan-shares"
 canonical_url: "https://aimunger.com/wiki/yuyuan-shares/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-06-15 09:37:00"
 tags: []
 description: "复星系旗下A股上市消费产业集团，以黄金珠宝零售与豫园核心区商业地产为主"

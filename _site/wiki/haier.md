@@ -5,7 +5,7 @@ slug: "haier"
 canonical_url: "https://aimunger.com/wiki/haier/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-06-04 00:00:00"
 tags: []
 description: "海尔集团：中国最大家电企业集团之一，人单合一管理模式发源地"

@@ -5,7 +5,7 @@ slug: "midea"
 canonical_url: "https://aimunger.com/wiki/midea/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-04-21 17:35:12"
 tags: []
 description: "全球家电与工业技术集团，创始人传承与职业经理人治理的典范"

@@ -5,7 +5,7 @@ slug: "gaoxiqing"
 canonical_url: "https://aimunger.com/wiki/gaoxiqing/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-22 10:00:00"
 tags: []
 description: "高西庆：中投公司首任副董事长兼总经理"

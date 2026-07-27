@@ -5,7 +5,7 @@ slug: "hang-lung"
 canonical_url: "https://aimunger.com/wiki/hang-lung/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-11 06:30:00"
 tags: []
 description: "港资高端商业地产开发与持有商，内地66系列广场运营方"

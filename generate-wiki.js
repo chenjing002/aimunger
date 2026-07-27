@@ -83,6 +83,7 @@ const SLUG_MAP = {
   '田洪': 'tianhong',
   '贾新耀': 'jiaxinyao',
   '马兴瑞': 'maxingrui',
+  '林茂德': 'linmaode',
 };
 
 function getSlug(title) {

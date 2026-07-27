@@ -712,7 +712,7 @@ function DetailPanel({ node, data, degree, neighborsList, index, total, onPick, 
     return html`
       <div class="g-panel-inner">
         <h2 class="g-title">关系图谱</h2>
-        <p class="g-desc">共收录 ${data.nodes.length} 个节点、${data.edges.length} 条关联。点击图中任意节点或名字查看详情；拖拽旋转视角，滚轮缩放，点击空白处返回全景。</p>
+        <p class="g-desc">共收录 ${data.nodes.length} 个节点、${data.edges.length} 条关联。</p>
         <div class="g-section-label">核心节点</div>
         <div class="g-pills">
           ${top.map((nb) => html`

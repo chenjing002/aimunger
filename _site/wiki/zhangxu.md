@@ -5,7 +5,7 @@ slug: "zhangxu"
 canonical_url: "https://aimunger.com/wiki/zhangxu/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 tags: []
 description: "万科集团执行副总裁、首席运营官"
 created: "2026-05-17 20:13:38"

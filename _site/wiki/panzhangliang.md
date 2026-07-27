@@ -5,7 +5,7 @@ slug: "panzhangliang"
 canonical_url: "https://aimunger.com/wiki/panzhangliang/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-24 00:00:00"
 tags: []
 description: "万科职工代表监事，南方区域事业集团合伙人"

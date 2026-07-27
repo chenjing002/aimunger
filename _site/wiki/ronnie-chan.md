@@ -5,7 +5,7 @@ slug: "ronnie-chan"
 canonical_url: "https://aimunger.com/wiki/ronnie-chan/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-11 06:30:00"
 tags: []
 description: "恒隆集团前董事长，港资商业地产长期主义的代表人物"

@@ -5,7 +5,7 @@ slug: "meizhiming"
 canonical_url: "https://aimunger.com/wiki/meizhiming/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-05-22 10:00:00"
 tags: []
 description: "普洛斯GLP联合创始人兼CEO，物流地产领军人物"

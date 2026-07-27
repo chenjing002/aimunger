@@ -5,7 +5,7 @@ slug: "glp"
 canonical_url: "https://aimunger.com/wiki/glp/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 tags: []
 description: "亚洲最大物流设施提供商与另类资产管理平台"
 created: "2026-05-17 20:13:23"

@@ -5,7 +5,7 @@ slug: "wuyajun"
 canonical_url: "https://aimunger.com/wiki/wuyajun/"
 source_section: "wiki"
 lang: "zh-CN"
-updated_at: "2026-07-17"
+updated_at: "2026-07-27"
 created: "2026-04-20 17:19:34"
 tags: []
 description: ""
