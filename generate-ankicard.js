@@ -735,10 +735,15 @@ function run() {
                 <li><a href="/resources/">资料库</a></li>
                 <li><a href="/wiki/">Wiki</a></li>
                 <li><a href="/blog/">文章</a></li>
-                <li><a href="/data/">数据</a></li>
-                <li><a href="/ankicard/" class="active">记忆卡</a></li>
-                <li><a href="/podcast/">播客</a></li>
-                <li><a href="/about/">关于</a></li>
+                <li class="nav-more">
+                    <button type="button" class="nav-more-toggle active" aria-haspopup="true" aria-expanded="false">更多<span class="nav-more-caret" aria-hidden="true">▾</span></button>
+                    <ul class="nav-more-menu">
+                        <li><a href="/data/">数据</a></li>
+                        <li><a href="/ankicard/" class="active">记忆卡</a></li>
+                        <li><a href="/podcast/">播客</a></li>
+                        <li><a href="/about/">关于</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
