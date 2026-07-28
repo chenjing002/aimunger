@@ -20,11 +20,58 @@ const SNAPSHOT = path.join(__dirname, 'podcast', 'episodes.json');
 const OUT_DIR = path.join(__dirname, '_site', 'podcast');
 const PAGE_URL = `${SITE}/podcast/`;
 
-function episodeUrl(guid) {
-    return `${SITE}/podcast/${guid}/`;
+function episodeUrl(slug) {
+    return `${SITE}/podcast/${slug}/`;
 }
-function episodePath(guid) {
-    return `/podcast/${guid}/`;
+function episodePath(slug) {
+    return `/podcast/${slug}/`;
+}
+
+// Build a human-readable, SEO-friendly slug from the episode title, e.g.
+// "E01.《熊市剖析》… Anatomy of the Bear" -> "e01-熊市剖析-anatomy-of-the-bear".
+// The leading "E<n>" number keeps slugs unique and stable; CJK and latin
+// words are kept, everything else collapses to hyphens.
+function slugify(title) {
+    let s = (title || '').toLowerCase().replace(/[’'`]/g, '');
+    // Keep digits, latin letters and CJK ideographs; all else -> hyphen.
+    s = s.replace(/[^0-9a-z一-鿿]+/g, '-').replace(/^-+|-+$/g, '');
+    if (s.length > 48) {
+        s = s.slice(0, 48);
+        const cut = s.lastIndexOf('-');
+        if (cut > 24) s = s.slice(0, cut);
+        s = s.replace(/-+$/, '');
+    }
+    return s;
+}
+
+// Reuse slugs previously assigned to each guid so a URL never changes even if
+// its title is later edited — permanence is keyed on the immutable guid.
+function loadSlugMap() {
+    try {
+        const prev = JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8'));
+        const m = new Map();
+        for (const e of prev.episodes || []) {
+            if (e.guid && e.slug) m.set(e.guid, e.slug);
+        }
+        return m;
+    } catch {
+        return new Map();
+    }
+}
+
+function assignSlugs(feed, priorSlugs) {
+    const used = new Set();
+    for (const ep of feed.episodes) {
+        let slug = priorSlugs.get(ep.guid);
+        if (!slug) {
+            const base = slugify(ep.title) || ep.guid;
+            slug = base;
+            let n = 2;
+            while (used.has(slug)) slug = `${base}-${n++}`;
+        }
+        ep.slug = slug;
+        used.add(slug);
+    }
 }
 
 async function fetchFeed(url) {
@@ -269,7 +316,7 @@ function renderPage(feed) {
         const duration = formatDuration(ep.duration);
         const meta = [date, duration].filter(Boolean).join(' · ');
         const cover = ep.image || feed.image;
-        return `                    <a class="episode-card" href="${escapeHtml(episodePath(ep.guid))}">
+        return `                    <a class="episode-card" href="${escapeHtml(episodePath(ep.slug))}">
                         <img class="episode-cover" src="${escapeHtml(cover)}" alt="${escapeHtml(ep.title)}" loading="lazy" width="84" height="84">
                         <div class="episode-body">
                             <h2 class="episode-title">${escapeHtml(ep.title)}</h2>
@@ -445,7 +492,7 @@ function renderEpisode(feed, ep, index) {
     const duration = formatDuration(ep.duration);
     const meta = [date, duration].filter(Boolean).join(' · ');
     const cover = ep.image || feed.image;
-    const url = episodeUrl(ep.guid);
+    const url = episodeUrl(ep.slug);
     const desc = ep.excerpt || feed.description;
 
     // Feed is newest-first: the newer episode sits at index-1, older at index+1.
@@ -492,13 +539,13 @@ function renderEpisode(feed, ep, index) {
 
     const navLinks = [];
     if (older) {
-        navLinks.push(`                    <a class="episode-nav-link episode-nav-prev" href="${escapeHtml(episodePath(older.guid))}">
+        navLinks.push(`                    <a class="episode-nav-link episode-nav-prev" href="${escapeHtml(episodePath(older.slug))}">
                         <span class="episode-nav-label">上一期</span>
                         <span class="episode-nav-title">${escapeHtml(older.title)}</span>
                     </a>`);
     }
     if (newer) {
-        navLinks.push(`                    <a class="episode-nav-link episode-nav-next" href="${escapeHtml(episodePath(newer.guid))}">
+        navLinks.push(`                    <a class="episode-nav-link episode-nav-next" href="${escapeHtml(episodePath(newer.slug))}">
                         <span class="episode-nav-label">下一期</span>
                         <span class="episode-nav-title">${escapeHtml(newer.title)}</span>
                     </a>`);
@@ -676,18 +723,29 @@ ${FOOTER}
 }
 
 async function main() {
+    // Load slugs assigned on prior builds first, so they survive a snapshot
+    // refresh and URLs stay permanent regardless of later title edits.
+    const priorSlugs = loadSlugMap();
+
     let feed = null;
+    let fetched = false;
     try {
         const xml = await fetchFeed(FEED_URL);
         feed = parseFeed(xml);
         if (!feed.episodes.length) throw new Error('feed parsed but contains no episodes');
-        fs.mkdirSync(path.dirname(SNAPSHOT), { recursive: true });
-        fs.writeFileSync(SNAPSHOT, JSON.stringify(feed, null, 2) + '\n');
-        console.log(`Fetched feed: ${feed.title}, ${feed.episodes.length} episodes (snapshot updated)`);
+        fetched = true;
     } catch (err) {
         console.warn(`Feed fetch failed (${err.message}), falling back to snapshot`);
         feed = JSON.parse(fs.readFileSync(SNAPSHOT, 'utf8'));
         console.log(`Using snapshot: ${feed.title}, ${feed.episodes.length} episodes`);
+    }
+
+    assignSlugs(feed, priorSlugs);
+
+    if (fetched) {
+        fs.mkdirSync(path.dirname(SNAPSHOT), { recursive: true });
+        fs.writeFileSync(SNAPSHOT, JSON.stringify(feed, null, 2) + '\n');
+        console.log(`Fetched feed: ${feed.title}, ${feed.episodes.length} episodes (snapshot updated)`);
     }
 
     fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -697,16 +755,16 @@ async function main() {
     let count = 0;
     for (let i = 0; i < feed.episodes.length; i++) {
         const ep = feed.episodes[i];
-        if (!ep.guid) {
-            console.warn(`Skipping episode with no guid: ${ep.title}`);
+        if (!ep.slug) {
+            console.warn(`Skipping episode with no slug: ${ep.title}`);
             continue;
         }
-        const dir = path.join(OUT_DIR, ep.guid);
+        const dir = path.join(OUT_DIR, ep.slug);
         fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(path.join(dir, 'index.html'), renderEpisode(feed, ep, i));
         count++;
     }
-    console.log(`Wrote ${count} episode pages to _site/podcast/<guid>/index.html`);
+    console.log(`Wrote ${count} episode pages to _site/podcast/<slug>/index.html`);
 }
 
 main().catch((err) => {

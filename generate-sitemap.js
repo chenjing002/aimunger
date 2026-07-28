@@ -17,10 +17,11 @@ function buildPodcastLastmodMap() {
   try {
     const feed = JSON.parse(fs.readFileSync(PODCAST_SNAPSHOT, 'utf-8'));
     for (const ep of feed.episodes || []) {
-      if (!ep.guid || !ep.pubDate) continue;
+      const slug = ep.slug || ep.guid;
+      if (!slug || !ep.pubDate) continue;
       const d = new Date(ep.pubDate);
       if (isNaN(d)) continue;
-      map.set(`${SITE}/podcast/${ep.guid}/`, d.toISOString().slice(0, 10));
+      map.set(`${SITE}/podcast/${slug}/`, d.toISOString().slice(0, 10));
     }
   } catch (err) {
     console.warn(`Could not read podcast snapshot for lastmod: ${err.message}`);
