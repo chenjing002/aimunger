@@ -673,6 +673,8 @@ function run() {
 
 function generateIndexPage(entries) {
   const sorted = [...entries].sort((a, b) => a.title.localeCompare(b.title, 'zh-CN'));
+  const personCount = sorted.filter(e => classifyNode(e.title) === 'person').length;
+  const companyCount = sorted.filter(e => classifyNode(e.title) === 'company').length;
   const cards = sorted.map(e => {
     const excerpt = e.plainText.slice(0, 100);
     const linkCount = e.links.length;
@@ -753,6 +755,10 @@ ${NAV_HTML}
             <section class="hero">
                 <h1 class="hero-title">Wiki</h1>
                 <p class="hero-desc">投资知识图谱：关键人物、公司及其关联。</p>
+                <div class="wiki-stats">
+                    <span class="wiki-stat type-person"><strong>${personCount}</strong> 人物</span>
+                    <span class="wiki-stat type-company"><strong>${companyCount}</strong> 公司</span>
+                </div>
             </section>
 
             <section class="wiki-controls">
@@ -988,6 +994,34 @@ function generateWikiCSS() {
 }
 
 .wiki-card-type.type-company {
+    background: #fbe8e4;
+    color: #8b2500;
+}
+
+.wiki-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.wiki-stat {
+    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 500;
+}
+
+.wiki-stat strong {
+    font-weight: 700;
+}
+
+.wiki-stat.type-person {
+    background: #f0f0f0;
+    color: #1a1a1a;
+}
+
+.wiki-stat.type-company {
     background: #fbe8e4;
     color: #8b2500;
 }
