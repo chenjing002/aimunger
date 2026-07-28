@@ -57,6 +57,34 @@ function slugify(title) {
     return slug;
 }
 
+// Curated slugs for episodes whose Chinese-only title yields no English words.
+// Keyed on the immutable guid; drawn from the book/person/subject named in the
+// episode's show notes so the URL reads meaningfully in English.
+const SLUG_OVERRIDES = {
+    '69e1e1f9b977fb2c47304d7a': 'e63-vanke-shareholder-letters',
+    '6960c347f8b05f9f75a911a6': 'e60-fairfax-prem-watsa',
+    '6911ef6f4619d9940c9f9181': 'e58-the-origin-and-evolution-of-new-businesses',
+    '6909f360af4fc00da717d22a': 'e55-the-enduring-value-of-roger-murray',
+    '690439d39755cb9a68102db0': 'e54-hidden-investment-treasures',
+    '68f87104456ffec65ef5300d': 'e45-howard-marks-memos',
+    '68f849bc456ffec65eee85db': 'e44-superforecasting',
+    '68f597a3456ffec65e90eddd': 'e42-frederick-adler',
+    '68f055532265473020bb5d40': 'e38-avoiding-investment-losses',
+    '68edd3e7224325ea70239703': 'e36-my-life-and-work',
+    '68ec9c1a224325ea70f95ef7': 'e35-michael-dell',
+    '68ebc270224325ea70df5650': 'e34-first-100k',
+    '68e6e9048bf86095c540f371': 'e31-medici-money',
+    '68e67c3a8e321a0d6f59e9ec': 'e30-men-and-rubber',
+    '68e3787e8e321a0d6f13bf05': 'e29-100-to-1-in-the-stock-market',
+    '68e1d7d68e321a0d6ff2f990': 'e27-peter-lynch',
+    '68e0ce048bf86095c5c158a7': 'e26-the-manual-of-ideas',
+    '68dfe38c8bf86095c5b37874': 'e25-capital-returns',
+    '68df5c488bf86095c5a72bb3': 'e24-william-zeckendorf',
+    '68da5a0bb4befcf7307c6cbc': 'e18-thomas-peterffy',
+    '68ca2db1a56ca3e0c4d4f777': 'e11-annenberg-legacy',
+    '68c13ef32c82c9dccaad9efe': 'e03-catching-a-deckload-of-dreams',
+};
+
 // Reuse slugs previously assigned to each guid so a URL never changes even if
 // its title is later edited — permanence is keyed on the immutable guid.
 function loadSlugMap() {
@@ -75,7 +103,7 @@ function loadSlugMap() {
 function assignSlugs(feed, priorSlugs) {
     const used = new Set();
     for (const ep of feed.episodes) {
-        let slug = priorSlugs.get(ep.guid);
+        let slug = SLUG_OVERRIDES[ep.guid] || priorSlugs.get(ep.guid);
         if (!slug) {
             const base = slugify(ep.title) || ep.guid;
             slug = base;
