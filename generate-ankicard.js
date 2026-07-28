@@ -4,7 +4,6 @@ const path = require('path');
 const CARDS_DIR = path.join(__dirname, 'ankicards');
 const SITE_DIR = path.join(__dirname, '_site');
 const OUT_DIR = path.join(SITE_DIR, 'ankicard');
-const INDEX_PATH = path.join(__dirname, 'index.html');
 
 function escHtml(s) {
   return String(s || '')
@@ -1087,42 +1086,8 @@ function run() {
   fs.mkdirSync(ROOT_OUT_DIR, { recursive: true });
   fs.writeFileSync(path.join(ROOT_OUT_DIR, 'index.html'), html);
   console.log(`Generated ankicard page: ${decks.length} decks, ${decks.reduce((s, d) => s + d.cards.length, 0)} cards`);
-
-  // Inject latest 2 decks into root index.html
-  if (decks.length > 0 && fs.existsSync(INDEX_PATH)) {
-    const latestDecks = decks.slice(-2).reverse();
-    const deckCards = latestDecks.map(deck => {
-      const firstQ = deck.cards[0].q;
-      const excerpt = escHtml(firstQ.length > 80 ? firstQ.slice(0, 80) + '...' : firstQ);
-      return `                    <a href="/ankicard/" class="project-card">
-                        <div class="project-card-inner">
-                            <span class="project-label">记忆卡</span>
-                            <h3 class="project-title">${escHtml(deck.title)}</h3>
-                            <p class="project-desc">${excerpt}</p>
-                            <span class="project-arrow">&rarr;</span>
-                        </div>
-                    </a>`;
-    }).join('\n');
-
-    const sectionContent = `
-            <section class="projects">
-                <h2 class="section-title">最新记忆卡</h2>
-                <div class="projects-grid">
-${deckCards}
-                </div>
-            </section>`;
-
-    let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
-    const startMarker = '<!-- ANKICARDS_SECTION_START -->';
-    const endMarker = '<!-- ANKICARDS_SECTION_END -->';
-    const start = indexHtml.indexOf(startMarker);
-    const end = indexHtml.indexOf(endMarker);
-    if (start !== -1 && end !== -1) {
-      indexHtml = indexHtml.slice(0, start) + startMarker + sectionContent + '\n            ' + endMarker + indexHtml.slice(end + endMarker.length);
-      fs.writeFileSync(INDEX_PATH, indexHtml);
-      console.log(`Injected ${latestDecks.length} latest decks into index.html`);
-    }
-  }
+  // Note: the homepage 最新播客 section (injected by generate-podcast.js) now
+  // occupies what used to be the 最新记忆卡 slot — podcast takes priority there.
 }
 
 run();

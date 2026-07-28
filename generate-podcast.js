@@ -18,6 +18,7 @@ const SITE = 'https://aimunger.com';
 const FEED_URL = 'https://feed.xyzfm.space/xkh7dmu4vulb';
 const SNAPSHOT = path.join(__dirname, 'podcast', 'episodes.json');
 const OUT_DIR = path.join(__dirname, '_site', 'podcast');
+const INDEX_PATH = path.join(__dirname, 'index.html');
 const PAGE_URL = `${SITE}/podcast/`;
 
 function episodeUrl(slug) {
@@ -806,6 +807,50 @@ async function main() {
         count++;
     }
     console.log(`Wrote ${count} episode pages to _site/podcast/<slug>/index.html`);
+
+    injectLatestIntoIndex(feed);
+}
+
+// Inject the latest 2 episodes into the homepage 最新播客 section. Podcast
+// takes priority over 记忆卡 here, so this replaces what used to be the
+// ankicard slot on the homepage.
+function injectLatestIntoIndex(feed) {
+    if (!feed.episodes.length || !fs.existsSync(INDEX_PATH)) return;
+
+    const cards = feed.episodes.slice(0, 2).map((ep) => {
+        const excerpt = ep.excerpt && ep.excerpt.length > 80
+            ? ep.excerpt.slice(0, 80) + '...'
+            : (ep.excerpt || '');
+        return `                    <a href="${escapeHtml(episodePath(ep.slug))}" class="project-card">
+                        <div class="project-card-inner">
+                            <span class="project-label">播客</span>
+                            <h3 class="project-title">${escapeHtml(ep.title)}</h3>
+                            <p class="project-desc">${escapeHtml(excerpt)}</p>
+                            <span class="project-arrow">&rarr;</span>
+                        </div>
+                    </a>`;
+    }).join('\n');
+
+    const sectionContent = `
+            <section class="projects">
+                <h2 class="section-title">最新播客</h2>
+                <div class="projects-grid">
+${cards}
+                </div>
+            </section>`;
+
+    let indexHtml = fs.readFileSync(INDEX_PATH, 'utf-8');
+    const startMarker = '<!-- PODCAST_SECTION_START -->';
+    const endMarker = '<!-- PODCAST_SECTION_END -->';
+    const start = indexHtml.indexOf(startMarker);
+    const end = indexHtml.indexOf(endMarker);
+    if (start === -1 || end === -1) {
+        console.warn('PODCAST_SECTION markers not found in index.html; skipping injection');
+        return;
+    }
+    indexHtml = indexHtml.slice(0, start) + startMarker + sectionContent + '\n            ' + endMarker + indexHtml.slice(end + endMarker.length);
+    fs.writeFileSync(INDEX_PATH, indexHtml);
+    console.log('Injected latest 2 episodes into index.html 最新播客 section');
 }
 
 main().catch((err) => {
