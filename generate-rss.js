@@ -4,6 +4,8 @@ const path = require('path');
 
 const SITE = 'https://aimunger.com';
 const SITE_DIR = path.join(__dirname, '_site');
+// Committed feed snapshot, refreshed by generate-podcast.js before this runs.
+const PODCAST_SNAPSHOT = path.join(__dirname, 'podcast', 'episodes.json');
 
 function escXml(s) {
   return String(s || '')
@@ -93,10 +95,46 @@ function collectLetterItems() {
   return items;
 }
 
+// Collect podcast episodes from the committed feed snapshot. Episode pubDates
+// are RFC-822 strings; normalize to ISO YYYY-MM-DD so they sort correctly
+// against the ISO dates used by blog and letter items.
+function collectPodcastItems() {
+  const items = [];
+  if (!fs.existsSync(PODCAST_SNAPSHOT)) return items;
+  let feed;
+  try {
+    feed = JSON.parse(fs.readFileSync(PODCAST_SNAPSHOT, 'utf-8'));
+  } catch (err) {
+    console.warn(`Could not read podcast snapshot for RSS: ${err.message}`);
+    return items;
+  }
+
+  for (const ep of feed.episodes || []) {
+    const slug = ep.slug || ep.guid;
+    if (!slug) continue;
+    const d = ep.pubDate ? new Date(ep.pubDate) : null;
+    const date = d && !isNaN(d.getTime()) ? d.toISOString().slice(0, 10) : '';
+    // excerpt() strips markdown; podcast notes are HTML, so drop tags first.
+    const plain = String(ep.excerpt || ep.content || '').replace(/<[^>]+>/g, ' ');
+
+    items.push({
+      title: ep.title || slug,
+      link: `${SITE}/podcast/${slug}/`,
+      guid: ep.guid || `${SITE}/podcast/${slug}/`,
+      date,
+      description: excerpt(plain),
+      section: '播客',
+    });
+  }
+
+  return items;
+}
+
 
 // Build combined RSS
 const allItems = [
   ...collectQaItems(),
+  ...collectPodcastItems(),
   ...collectLetterItems(),
 ];
 
