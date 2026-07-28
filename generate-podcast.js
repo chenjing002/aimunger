@@ -27,21 +27,34 @@ function episodePath(slug) {
     return `/podcast/${slug}/`;
 }
 
-// Build a human-readable, SEO-friendly slug from the episode title, e.g.
-// "E01.《熊市剖析》… Anatomy of the Bear" -> "e01-熊市剖析-anatomy-of-the-bear".
-// The leading "E<n>" number keeps slugs unique and stable; CJK and latin
-// words are kept, everything else collapses to hyphens.
+// Build an ASCII-only, SEO-friendly slug from the episode title, e.g.
+// "E01.《熊市剖析》… Anatomy of the Bear" -> "e01-anatomy-of-the-bear".
+// CJK is dropped entirely; the slug is the episode number plus the English
+// words in the title. Titles with no English words fall back to the number
+// alone (e.g. "e34"), which is still unique and stable.
 function slugify(title) {
-    let s = (title || '').toLowerCase().replace(/[’'`]/g, '');
-    // Keep digits, latin letters and CJK ideographs; all else -> hyphen.
-    s = s.replace(/[^0-9a-z一-鿿]+/g, '-').replace(/^-+|-+$/g, '');
-    if (s.length > 48) {
-        s = s.slice(0, 48);
-        const cut = s.lastIndexOf('-');
-        if (cut > 24) s = s.slice(0, cut);
-        s = s.replace(/-+$/, '');
+    const t = (title || '').replace(/[’'`]/g, '');
+    // Episode number prefix ("E01." -> "e01"), zero-padded to two digits.
+    const numMatch = t.match(/^\s*E\s*0*(\d+)/i);
+    const prefix = numMatch ? `e${numMatch[1].padStart(2, '0')}` : '';
+    const rest = numMatch ? t.slice(numMatch[0].length) : t;
+    // Split on runs of non-ASCII (CJK/fullwidth punctuation); keep only the
+    // ASCII chunks that contain an English word, then take their tokens. This
+    // keeps digits that qualify a word ("100 Baggers" -> "100-baggers") while
+    // dropping stray digits from Chinese text ("50年", "33位").
+    const words = [];
+    for (const chunk of rest.toLowerCase().split(/[^\x00-\x7f]+/)) {
+        if (!/[a-z]/.test(chunk)) continue;
+        for (const w of chunk.match(/[a-z0-9]+/g) || []) words.push(w);
     }
-    return s;
+    let slug = [prefix, ...words].filter(Boolean).join('-');
+    if (slug.length > 60) {
+        slug = slug.slice(0, 60);
+        const cut = slug.lastIndexOf('-');
+        if (cut > 10) slug = slug.slice(0, cut);
+        slug = slug.replace(/-+$/, '');
+    }
+    return slug;
 }
 
 // Reuse slugs previously assigned to each guid so a URL never changes even if
