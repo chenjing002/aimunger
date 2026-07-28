@@ -6,6 +6,27 @@ const { parseSimpleMeta, resolveGitDate, resolvePublishDate, splitFrontmatter } 
 const SITE = 'https://aimunger.com';
 const SITE_DIR = path.join(__dirname, '_site');
 const BLOG_SOURCE_DIR = path.join(__dirname, 'blog');
+const PODCAST_SNAPSHOT = path.join(__dirname, 'podcast', 'episodes.json');
+
+// Map each episode page URL to its publish date so podcast lastmods reflect
+// real content age instead of the build date. Sourced from the committed
+// feed snapshot, which is refreshed by generate-podcast.js before this runs.
+function buildPodcastLastmodMap() {
+  const map = new Map();
+  if (!fs.existsSync(PODCAST_SNAPSHOT)) return map;
+  try {
+    const feed = JSON.parse(fs.readFileSync(PODCAST_SNAPSHOT, 'utf-8'));
+    for (const ep of feed.episodes || []) {
+      if (!ep.guid || !ep.pubDate) continue;
+      const d = new Date(ep.pubDate);
+      if (isNaN(d)) continue;
+      map.set(`${SITE}/podcast/${ep.guid}/`, d.toISOString().slice(0, 10));
+    }
+  } catch (err) {
+    console.warn(`Could not read podcast snapshot for lastmod: ${err.message}`);
+  }
+  return map;
+}
 
 // Map blog URLs to their publish dates so lastmod reflects real content age
 // instead of the build date.
@@ -143,8 +164,10 @@ function getPriority(url) {
   if (url === `${SITE}/`) return '1.0';
   if (url.endsWith('/blog/')) return '0.9';
   if (url.endsWith('/letters/') || url.endsWith('/management-discussion-analysis/')) return '0.8';
+  if (url.endsWith('/podcast/')) return '0.8';
   if (url.includes('/blog/') && url !== `${SITE}/blog/`) return '0.7';
   if (url.includes('/company/') || url.includes('/all-companies') || url.includes('/all-years')) return '0.7';
+  if (url.includes('/podcast/') && url !== `${SITE}/podcast/`) return '0.6';
   if (url.includes('/letter/') || url.includes('/report/')) return '0.6';
   if (url.includes('/year/')) return '0.5';
   return '0.5';
@@ -154,6 +177,7 @@ function getChangefreq(url) {
   if (url === `${SITE}/`) return 'weekly';
   if (url.includes('/blog/')) return 'weekly';
   if (url.endsWith('/letters/') || url.endsWith('/management-discussion-analysis/')) return 'weekly';
+  if (url.endsWith('/podcast/')) return 'weekly';
   if (url.includes('/company/') || url.includes('/letter/') || url.includes('/report/')) return 'monthly';
   return 'monthly';
 }
@@ -161,6 +185,7 @@ function getChangefreq(url) {
 // Sort URLs for consistent output
 const sortedUrls = [...allUrls].sort();
 const lastmodMap = buildLastmodMap();
+for (const [url, date] of buildPodcastLastmodMap()) lastmodMap.set(url, date);
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
