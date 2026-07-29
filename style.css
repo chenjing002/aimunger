@@ -13,6 +13,20 @@
     --color-surface: #f5f0eb;
     --color-card-bg: #fff;
     --font-serif: 'Noto Serif SC', serif;
+    /* RGB triplet consumed by the ===highlight=== marker gradient */
+    --marker: 255, 213, 79;
+}
+
+/* ===text=== renders as <mark>: a hand-drawn highlighter sweep. Global so
+   every markdown-rendered surface (blog, wiki, podcast, book notes) matches. */
+mark {
+    background: linear-gradient(104deg, rgba(var(--marker), .16), rgba(var(--marker), .85) 6%, rgba(var(--marker), .62) 94%, rgba(var(--marker), .14));
+    color: inherit;
+    padding: 0 2px;
+    margin: 0 -1px;
+    border-radius: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
 html {
