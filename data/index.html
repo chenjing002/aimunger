@@ -82,6 +82,34 @@
             font-size: 12px;
             color: var(--color-text-secondary);
         }
+        .chart-search {
+            margin-bottom: 24px;
+        }
+        .chart-search input {
+            width: 100%;
+            max-width: 340px;
+            font-family: var(--font-serif);
+            font-size: 14px;
+            color: var(--color-text);
+            background: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 8px 14px;
+            outline: none;
+            transition: border-color 160ms ease;
+        }
+        .chart-search input:focus {
+            border-color: var(--color-accent);
+        }
+        .chart-search input::placeholder {
+            color: var(--color-text-secondary);
+        }
+        .chart-search__empty {
+            display: none;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            padding: 24px 0 48px;
+        }
         @media (max-width: 600px) {
             .chart-cards {
                 grid-template-columns: 1fr;
@@ -119,6 +147,11 @@
                 <h1 class="hero-title">数据</h1>
                 <p class="hero-desc">上市公司与宏观经济数据的长期可视化记录。每张图表都有独立页面，含交互图表、完整数据表与来源说明。</p>
             </section>
+
+            <div class="chart-search">
+                <input type="search" id="chart-search-input" placeholder="搜索图表：公司、指标、关键词…" aria-label="搜索图表">
+            </div>
+            <p class="chart-search__empty" id="chart-search-empty">没有匹配的图表。</p>
 
             <!-- chart-links:start -->
             <p class="chart-lib__stats">5 张图表 · 3 个主题 · 最近更新 2026-07-29</p>
@@ -186,6 +219,40 @@
         </div>
     </footer>
 
+    <script>
+    // Filters the generated card grid by matching against each card's text
+    // plus its group title, so queries like "万科"、"毛利率"、"2021" all work.
+    // Reads the DOM only — safe against the build regenerating the grid.
+    (function() {
+        var input = document.getElementById('chart-search-input');
+        var empty = document.getElementById('chart-search-empty');
+        if (!input) return;
+
+        input.addEventListener('input', function() {
+            var q = input.value.trim().toLowerCase();
+            var groups = document.querySelectorAll('.chart-group');
+            var anyMatch = false;
+
+            groups.forEach(function(group) {
+                var titleEl = group.querySelector('.chart-group__title');
+                var groupTitle = titleEl ? titleEl.textContent.toLowerCase() : '';
+                var groupHasMatch = false;
+
+                group.querySelectorAll('.chart-card').forEach(function(card) {
+                    var hay = groupTitle + ' ' + card.textContent.toLowerCase();
+                    var show = !q || hay.indexOf(q) !== -1;
+                    card.style.display = show ? '' : 'none';
+                    if (show) groupHasMatch = true;
+                });
+
+                group.style.display = groupHasMatch ? '' : 'none';
+                if (groupHasMatch) anyMatch = true;
+            });
+
+            if (empty) empty.style.display = anyMatch ? 'none' : 'block';
+        });
+    })();
+    </script>
     <script src="/memory-notify.js"></script>
 </body>
 </html>
