@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="baidu-site-verification" content="codeva-nOGnNnjVUh" />
-    <title>数据可视化 - aimunger</title>
-    <meta name="description" content="中国上市公司与宏观经济数据可视化：万科合同负债、有息负债结构、毛利率、个人住房贷款余额等图表，附数据来源与说明。">
+    <title>数据 - aimunger</title>
+    <meta name="description" content="上市公司与宏观经济数据的长期可视化记录：万科合同负债、有息负债结构、毛利率，万物云管理项目，个人住房贷款余额等图表，附数据来源与说明。">
     <link rel="canonical" href="https://aimunger.com/data/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,121 +13,78 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <style>
-        .chart-section {
-            margin-bottom: 56px;
+        .hero {
+            padding: 64px 0 40px;
         }
-        .chart-title {
-            font-family: var(--font-serif);
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            line-height: 1.4;
-        }
-        .chart-meta {
+        .chart-lib__stats {
             font-size: 13px;
             color: var(--color-text-secondary);
+            margin-bottom: 40px;
+        }
+        .chart-group {
+            margin-bottom: 48px;
+        }
+        .chart-group__title {
+            font-family: var(--font-serif);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--color-text-secondary);
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 8px;
             margin-bottom: 20px;
         }
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            background: var(--color-card-bg);
+        .chart-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .chart-card {
+            display: block;
             border: 1px solid var(--color-border);
             border-radius: 12px;
-            overflow: hidden;
-        }
-        .chart-table-toggle {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
-        .chart-table-toggle button {
-            background: none;
-            border: 1px solid var(--color-border);
-            border-radius: 6px;
-            padding: 4px 12px;
-            font-family: var(--font-serif);
-            font-size: 12px;
-            color: var(--color-text-secondary);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .chart-table-toggle button:hover {
-            color: var(--color-accent);
-            border-color: var(--color-accent);
-        }
-        .data-table-wrapper {
-            display: none;
-            margin-top: 12px;
-            overflow-x: auto;
-        }
-        .data-table-wrapper.visible {
-            display: block;
-        }
-        .data-table {
-            border-collapse: collapse;
-            width: 100%;
-            font-size: 13px;
-        }
-        .data-table th,
-        .data-table td {
-            border: 1px solid var(--color-border);
-            padding: 6px 10px;
-            text-align: right;
-            white-space: nowrap;
-        }
-        .data-table th {
-            background: var(--color-surface);
-            font-weight: 600;
-            text-align: center;
-        }
-        .data-table td:first-child,
-        .data-table th:first-child {
-            text-align: center;
-        }
-        .chart-index__list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 48px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .chart-index__list li {
-            font-size: 15px;
-        }
-        .chart-index__info {
-            margin-left: 10px;
-            font-size: 12px;
-            color: var(--color-text-secondary);
-        }
-        .chart-note {
-            font-size: 12px;
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-            margin-top: 10px;
-        }
-        .chart-title a {
+            padding: 20px;
+            background: var(--color-card-bg);
             color: inherit;
             text-decoration: none;
+            transition: transform 160ms ease, border-color 160ms ease;
         }
-        .chart-title a:hover {
-            color: var(--color-accent);
+        .chart-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--color-accent);
         }
-        .no-config {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
+        .chart-card__preview {
+            margin-bottom: 14px;
+        }
+        .chart-card__preview svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .chart-card__title {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+        .chart-card__summary {
+            font-size: 13px;
+            line-height: 1.8;
             color: var(--color-text-secondary);
-            font-size: 14px;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .chart-card__meta {
+            font-size: 12px;
+            color: var(--color-text-secondary);
         }
         @media (max-width: 600px) {
-            .chart-container {
-                height: 320px;
-            }
-            .chart-title {
-                font-size: 18px;
+            .chart-cards {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -159,22 +116,58 @@
     <main class="main">
         <div class="container">
             <section class="hero">
-                <h1 class="hero-title">数据可视化</h1>
-                <p class="hero-desc">公开数据的可视化展示。每张图表都有独立页面，含数据来源与说明。</p>
+                <h1 class="hero-title">数据</h1>
+                <p class="hero-desc">上市公司与宏观经济数据的长期可视化记录。每张图表都有独立页面，含交互图表、完整数据表与来源说明。</p>
             </section>
 
             <!-- chart-links:start -->
-            <ul class="chart-index__list">
-                <li><a href="onewo-managed-projects-income/">万物云住宅物业及物业设施管理项目数与饱和收入</a><span class="chart-index__info">2024–2025 · 更新 2026-07-29</span></li>
-                <li><a href="vanke-contract-liabilities/">万科A 合同负债</a><span class="chart-index__info">2018–2025 · 更新 2026-06-16</span></li>
-                <li><a href="vanke-development-gross-margin/">万科A 房地产开发及相关资产经营业务毛利率</a><span class="chart-index__info">2021–2025 · 更新 2026-07-22</span></li>
-                <li><a href="vanke-interest-bearing-debt/">万科A 有息负债及结构</a><span class="chart-index__info">2020–2025 · 更新 2026-06-04</span></li>
-                <li><a href="china-personal-housing-loans/">中国居民个人住房贷款余额</a><span class="chart-index__info">2005–2025 · 更新 2026-06-28</span></li>
-            </ul>
+            <p class="chart-lib__stats">5 张图表 · 3 个主题 · 最近更新 2026-07-29</p>
+            <section class="chart-group">
+                <h2 class="chart-group__title">万科A</h2>
+                <div class="chart-cards">
+                    <a class="chart-card" href="vanke-contract-liabilities/">
+                        <div class="chart-card__preview"><svg viewBox="0 0 300 150" role="img" aria-hidden="true" focusable="false" preserveAspectRatio="none"><rect x="6" y="34.6" width="32.5" height="109.4" rx="1.5" fill="#0D95D0"/><rect x="42.5" y="19" width="32.5" height="125" rx="1.5" fill="#0D95D0"/><rect x="79" y="7.3" width="32.5" height="136.7" rx="1.5" fill="#0D95D0"/><rect x="115.5" y="6" width="32.5" height="138" rx="1.5" fill="#0D95D0"/><rect x="152" y="43.1" width="32.5" height="100.9" rx="1.5" fill="#0D95D0"/><rect x="188.5" y="77.1" width="32.5" height="66.9" rx="1.5" fill="#0D95D0"/><rect x="225" y="102.3" width="32.5" height="41.7" rx="1.5" fill="#0D95D0"/><rect x="261.5" y="123.8" width="32.5" height="20.2" rx="1.5" fill="#0D95D0"/></svg></div>
+                        <h3 class="chart-card__title">合同负债</h3>
+                        <p class="chart-card__summary">合同负债从 2021 年高点 6,369 亿元连续四年下降，2025 年降至 931 亿元，不足高点的六分之一。</p>
+                        <p class="chart-card__meta">2018–2025 · 8 年 · 更新 2026-06-16</p>
+                    </a>
+                    <a class="chart-card" href="vanke-development-gross-margin/">
+                        <div class="chart-card__preview"><svg viewBox="0 0 300 150" role="img" aria-hidden="true" focusable="false" preserveAspectRatio="none"><path d="M6,144 L6,6 L78,18 L150,44 L222,76.8 L294,72.5 L294,144 Z" fill="#D44627" fill-opacity="0.12"/><polyline points="6,6 78,18 150,44 222,76.8 294,72.5" fill="none" stroke="#D44627" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="294" cy="72.5" r="3.5" fill="#D44627"/></svg></div>
+                        <h3 class="chart-card__title">房地产开发业务毛利率</h3>
+                        <p class="chart-card__summary">开发业务毛利率从 2021 年的 22.78% 逐年下滑至 2024 年的 11.1%，2025 年微升至 11.8%。</p>
+                        <p class="chart-card__meta">2021–2025 · 5 年 · 更新 2026-07-22</p>
+                    </a>
+                    <a class="chart-card" href="vanke-interest-bearing-debt/">
+                        <div class="chart-card__preview"><svg viewBox="0 0 300 150" role="img" aria-hidden="true" focusable="false" preserveAspectRatio="none"><rect x="6" y="112.3" width="44.7" height="31.7" rx="1.5" fill="#EFB743"/><rect x="6" y="45.2" width="44.7" height="67.1" rx="1.5" fill="#D44627"/><rect x="54.7" y="121.6" width="44.7" height="22.4" rx="1.5" fill="#EFB743"/><rect x="54.7" y="42.4" width="44.7" height="79.2" rx="1.5" fill="#D44627"/><rect x="103.4" y="119.4" width="44.7" height="24.6" rx="1.5" fill="#EFB743"/><rect x="103.4" y="24.1" width="44.7" height="95.3" rx="1.5" fill="#D44627"/><rect x="152.1" y="120.2" width="44.7" height="23.8" rx="1.5" fill="#EFB743"/><rect x="152.1" y="21.8" width="44.7" height="98.4" rx="1.5" fill="#D44627"/><rect x="200.8" y="83.5" width="44.7" height="60.5" rx="1.5" fill="#EFB743"/><rect x="200.8" y="6" width="44.7" height="77.5" rx="1.5" fill="#D44627"/><rect x="249.5" y="82.7" width="44.7" height="61.3" rx="1.5" fill="#EFB743"/><rect x="249.5" y="7.1" width="44.7" height="75.6" rx="1.5" fill="#D44627"/></svg></div>
+                        <h3 class="chart-card__title">有息负债及期限结构</h3>
+                        <p class="chart-card__summary">有息负债总额自 2020 年以来增加约千亿元，2024 年起一年内到期占比升至四成以上，期限结构明显短期化。</p>
+                        <p class="chart-card__meta">2020–2025 · 6 年 · 更新 2026-06-04</p>
+                    </a>
+                </div>
+            </section>
+            <section class="chart-group">
+                <h2 class="chart-group__title">万物云</h2>
+                <div class="chart-cards">
+                    <a class="chart-card" href="onewo-managed-projects-income/">
+                        <div class="chart-card__preview"><svg viewBox="0 0 300 150" role="img" aria-hidden="true" focusable="false" preserveAspectRatio="none"><rect x="6" y="15.8" width="69" height="128.2" rx="1.5" fill="#EFB743"/><rect x="79" y="6" width="69" height="138" rx="1.5" fill="#D44627"/><rect x="152" y="71.8" width="69" height="72.2" rx="1.5" fill="#EFB743"/><rect x="225" y="67.3" width="69" height="76.7" rx="1.5" fill="#D44627"/></svg></div>
+                        <h3 class="chart-card__title">管理项目数与饱和收入</h3>
+                        <p class="chart-card__summary">2025 年住宅物业与物业及设施管理两大业务的在管项目数、在管饱和收入均较 2024 年增长。</p>
+                        <p class="chart-card__meta">2024–2025 · 2 年 · 更新 2026-07-29</p>
+                    </a>
+                </div>
+            </section>
+            <section class="chart-group">
+                <h2 class="chart-group__title">宏观经济</h2>
+                <div class="chart-cards">
+                    <a class="chart-card" href="china-personal-housing-loans/">
+                        <div class="chart-card__preview"><svg viewBox="0 0 300 150" role="img" aria-hidden="true" focusable="false" preserveAspectRatio="none"><rect x="6" y="137.5" width="11.8" height="6.5" rx="1.5" fill="#774FA0"/><rect x="19.8" y="135.9" width="11.8" height="8.1" rx="1.5" fill="#774FA0"/><rect x="33.6" y="133.3" width="11.8" height="10.7" rx="1.5" fill="#774FA0"/><rect x="47.4" y="133.4" width="11.8" height="10.6" rx="1.5" fill="#774FA0"/><rect x="61.2" y="127.1" width="11.8" height="16.9" rx="1.5" fill="#774FA0"/><rect x="75" y="121.9" width="11.8" height="22.1" rx="1.5" fill="#774FA0"/><rect x="88.8" y="118.6" width="11.8" height="25.4" rx="1.5" fill="#774FA0"/><rect x="102.6" y="117.3" width="11.8" height="26.7" rx="1.5" fill="#774FA0"/><rect x="116.4" y="112" width="11.8" height="32" rx="1.5" fill="#774FA0"/><rect x="130.2" y="106.3" width="11.8" height="37.7" rx="1.5" fill="#774FA0"/><rect x="144" y="97.4" width="11.8" height="46.6" rx="1.5" fill="#774FA0"/><rect x="157.8" y="80" width="11.8" height="64" rx="1.5" fill="#774FA0"/><rect x="171.6" y="66.1" width="11.8" height="77.9" rx="1.5" fill="#774FA0"/><rect x="185.4" y="52.2" width="11.8" height="91.8" rx="1.5" fill="#774FA0"/><rect x="199.2" y="36.6" width="11.8" height="107.4" rx="1.5" fill="#774FA0"/><rect x="213" y="21.3" width="11.8" height="122.7" rx="1.5" fill="#774FA0"/><rect x="226.8" y="7.8" width="11.8" height="136.2" rx="1.5" fill="#774FA0"/><rect x="240.6" y="6" width="11.8" height="138" rx="1.5" fill="#774FA0"/><rect x="254.4" y="8.2" width="11.8" height="135.8" rx="1.5" fill="#774FA0"/><rect x="268.2" y="10" width="11.8" height="134" rx="1.5" fill="#774FA0"/><rect x="282" y="12.4" width="11.8" height="131.6" rx="1.5" fill="#774FA0"/></svg></div>
+                        <h3 class="chart-card__title">中国居民个人住房贷款余额</h3>
+                        <p class="chart-card__summary">个人住房贷款余额在 2022 年见顶 38.8 万亿元，此后连续三年回落，结束了此前十余年的持续扩张。</p>
+                        <p class="chart-card__meta">2005–2025 · 21 年 · 更新 2026-06-28</p>
+                    </a>
+                </div>
+            </section>
             <!-- chart-links:end -->
-
-            <noscript><p class="chart-note">交互图表需要 JavaScript。每个数据集的完整数据表与说明见上方链接的独立页面。</p></noscript>
-            <div id="charts-root"></div>
         </div>
     </main>
 
@@ -193,137 +186,6 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-    <script src="chart-configs.js"></script>
-    <script>
-    (function() {
-        var root = document.getElementById('charts-root');
-
-        fetch('data.json')
-            .then(function(res) { return res.json(); })
-            .then(function(allData) {
-                var names = Object.keys(allData);
-                if (names.length === 0) {
-                    root.innerHTML = '<p style="color:#999;text-align:center;padding:40px 0;">暂无数据。</p>';
-                    return;
-                }
-
-                var charts = [];
-
-                names.forEach(function(name) {
-                    var entry = allData[name];
-                    var section = document.createElement('div');
-                    section.className = 'chart-section';
-
-                    // Title (links to the chart's standalone page when one exists)
-                    var title = document.createElement('h2');
-                    title.className = 'chart-title';
-                    if (entry.meta && entry.meta.slug) {
-                        var titleLink = document.createElement('a');
-                        titleLink.href = entry.meta.slug + '/';
-                        titleLink.textContent = name;
-                        title.appendChild(titleLink);
-                    } else {
-                        title.textContent = name;
-                    }
-                    section.appendChild(title);
-
-                    // Meta
-                    if (entry.meta && entry.meta.created) {
-                        var meta = document.createElement('p');
-                        meta.className = 'chart-meta';
-                        meta.textContent = '数据更新: ' + entry.meta.created.split(' ')[0];
-                        section.appendChild(meta);
-                    }
-
-                    // Chart container
-                    var chartDiv = document.createElement('div');
-                    chartDiv.className = 'chart-container';
-                    section.appendChild(chartDiv);
-
-                    // Toggle button + table
-                    var toggleWrap = document.createElement('div');
-                    toggleWrap.className = 'chart-table-toggle';
-                    var btn = document.createElement('button');
-                    btn.textContent = '显示数据表';
-                    toggleWrap.appendChild(btn);
-                    section.appendChild(toggleWrap);
-
-                    var tableWrapper = document.createElement('div');
-                    tableWrapper.className = 'data-table-wrapper';
-                    tableWrapper.innerHTML = buildTable(entry.headers, entry.rows);
-                    section.appendChild(tableWrapper);
-
-                    // Note lines carried by the source file (e.g. 口径说明)
-                    (entry.notes || []).forEach(function(note) {
-                        var noteEl = document.createElement('p');
-                        noteEl.className = 'chart-note';
-                        noteEl.textContent = note;
-                        section.appendChild(noteEl);
-                    });
-
-                    btn.addEventListener('click', function() {
-                        var visible = tableWrapper.classList.toggle('visible');
-                        btn.textContent = visible ? '隐藏数据表' : '显示数据表';
-                    });
-
-                    root.appendChild(section);
-
-                    // Initialize chart; if the chart library or config is
-                    // unavailable (e.g. CDN blocked), fall back to showing
-                    // the data table so the section is never empty.
-                    if (typeof echarts !== 'undefined' && typeof CHART_CONFIGS !== 'undefined' && CHART_CONFIGS[name]) {
-                        var chart = echarts.init(chartDiv);
-                        var option = CHART_CONFIGS[name](entry);
-                        chart.setOption(option);
-                        charts.push(chart);
-                    } else {
-                        chartDiv.innerHTML = '<div class="no-config">图表未能加载，数据表见下方</div>';
-                        tableWrapper.classList.add('visible');
-                        btn.textContent = '隐藏数据表';
-                    }
-                });
-
-                // Responsive resize
-                window.addEventListener('resize', function() {
-                    charts.forEach(function(c) { c.resize(); });
-                });
-            })
-            .catch(function(err) {
-                root.innerHTML = '<p style="color:#c00;text-align:center;padding:40px 0;">加载数据失败: ' + String(err.message).replace(/</g, '&lt;') + '</p>';
-            });
-
-        function buildTable(headers, rows) {
-            var html = '<table class="data-table"><thead><tr>';
-            headers.forEach(function(h) {
-                html += '<th>' + escapeHtml(h) + '</th>';
-            });
-            html += '</tr></thead><tbody>';
-            rows.forEach(function(row) {
-                html += '<tr>';
-                row.forEach(function(cell, i) {
-                    var display = cell;
-                    if (typeof cell === 'number') {
-                        // Check if the header suggests percentage
-                        if (headers[i] && (headers[i].includes('比例') || headers[i].includes('占比') || /率\s*$/.test(headers[i]))) {
-                            display = cell + '%';
-                        } else {
-                            display = cell.toLocaleString();
-                        }
-                    }
-                    html += '<td>' + escapeHtml(String(display)) + '</td>';
-                });
-                html += '</tr>';
-            });
-            html += '</tbody></table>';
-            return html;
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-    })();
-    </script>
     <script src="/memory-notify.js"></script>
 </body>
 </html>

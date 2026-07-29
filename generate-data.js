@@ -165,7 +165,16 @@ function isPercentHeader(h) {
     return h.includes('比例') || h.includes('占比') || /率\s*$/.test(h);
 }
 
+function isYearHeader(h) {
+    return h.includes('年份');
+}
+
 function formatCell(cell, header) {
+    // Years render as plain digits everywhere: no thousands separator
+    // ("2,025") and no trailing 年 ("2025 年" / "2025年").
+    if (isYearHeader(header)) {
+        return String(cell).replace(/\s*年\s*$/, '');
+    }
     if (typeof cell === 'number') {
         return isPercentHeader(header) ? cell + '%' : cell.toLocaleString();
     }
@@ -180,7 +189,7 @@ function buildTableHtml(headers, rows) {
     return `<table class="data-table"><thead><tr>${head}</tr></thead><tbody>\n${body}\n</tbody></table>`;
 }
 
-function yearSpan(rows) {
+function collectYears(rows) {
     // Wide tables carry the year in column 0 (existing behaviour, unchanged).
     let years = rows
         .map(r => String(r[0]).replace(/[^0-9]/g, ''))
@@ -201,10 +210,80 @@ function yearSpan(rows) {
             }
         }
     }
+    return years;
+}
+
+function yearSpan(rows) {
+    const years = collectYears(rows);
     if (!years.length) return '';
     const min = Math.min(...years);
     const max = Math.max(...years);
     return min === max ? String(min) : `${min}–${max}`;
+}
+
+function yearCount(rows) {
+    return new Set(collectYears(rows)).size;
+}
+
+// ── Build-time sparkline previews ───────────────────────────────────────
+//
+// Each index card carries a small inline SVG rendered from the chart's real
+// data (spec in chart-meta.js), so the metric's shape is visible before the
+// page is opened. Fully static: crawlable, no JS, no chart library.
+
+const SPARK_W = 300;
+const SPARK_H = 150;
+const SPARK_PAD = 6;
+
+function svgSparkline(preview, entry) {
+    if (!preview || typeof preview.series !== 'function') return '';
+    const values = (preview.series(entry) || []).filter(v => v !== null && v !== undefined);
+    if (!values.length) return '';
+
+    const innerW = SPARK_W - SPARK_PAD * 2;
+    const innerH = SPARK_H - SPARK_PAD * 2;
+    const r1 = n => Math.round(n * 10) / 10;
+    let body = '';
+
+    if (preview.type === 'line') {
+        const max = Math.max(...values);
+        if (max <= 0) return '';
+        const pts = values.map((v, i) => [
+            r1(SPARK_PAD + (values.length === 1 ? innerW / 2 : (i / (values.length - 1)) * innerW)),
+            r1(SPARK_PAD + (1 - v / max) * innerH)
+        ]);
+        const line = pts.map(p => p.join(',')).join(' ');
+        const last = pts[pts.length - 1];
+        const baseline = SPARK_H - SPARK_PAD;
+        const area = `M${pts[0][0]},${baseline} ` +
+            pts.map(p => `L${p[0]},${p[1]}`).join(' ') +
+            ` L${last[0]},${baseline} Z`;
+        body =
+            `<path d="${area}" fill="${preview.color}" fill-opacity="0.12"/>` +
+            `<polyline points="${line}" fill="none" stroke="${preview.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>` +
+            `<circle cx="${last[0]}" cy="${last[1]}" r="3.5" fill="${preview.color}"/>`;
+    } else {
+        // 'bar' and 'stackbar' — stackbar values are [bottom, top] pairs
+        const totals = values.map(v => Array.isArray(v) ? v.reduce((a, b) => a + (b || 0), 0) : v);
+        const max = Math.max(...totals);
+        if (max <= 0) return '';
+        const gap = values.length > 12 ? 2 : 4;
+        const barW = r1((innerW - gap * (values.length - 1)) / values.length);
+        const colors = preview.colors || [preview.color];
+        body = values.map((v, i) => {
+            const x = r1(SPARK_PAD + i * (barW + gap));
+            const parts = Array.isArray(v) ? v : [v];
+            let y = SPARK_H - SPARK_PAD;
+            return parts.map((p, j) => {
+                const h = r1(((p || 0) / max) * innerH);
+                y -= h;
+                const color = preview.type === 'stackbar' ? colors[j % colors.length] : colors[i % colors.length];
+                return `<rect x="${x}" y="${r1(y)}" width="${barW}" height="${h}" rx="1.5" fill="${color}"/>`;
+            }).join('');
+        }).join('');
+    }
+
+    return `<svg viewBox="0 0 ${SPARK_W} ${SPARK_H}" role="img" aria-hidden="true" focusable="false" preserveAspectRatio="none">${body}</svg>`;
 }
 
 function buildChartPage(name, entry, meta) {
@@ -215,9 +294,10 @@ function buildChartPage(name, entry, meta) {
         .replace(/</g, '\\u003c');
     const nameJson = JSON.stringify(name).replace(/</g, '\\u003c');
 
-    // Page text mirrors the source file exactly; the meta description is the
-    // frontmatter description when present, otherwise a neutral generated one.
-    const description = (entry.meta && entry.meta.description) ||
+    // The table mirrors the source file exactly; the meta description is the
+    // frontmatter description when present, then the editorial summary from
+    // chart-meta.js, otherwise a neutral generated one.
+    const description = (entry.meta && entry.meta.description) || meta.summary ||
         `${name}（${span}）历年数据、图表与数据表。`;
 
     const datasetLd = {
@@ -268,12 +348,26 @@ function buildChartPage(name, entry, meta) {
         .chart-breadcrumb a:hover {
             color: var(--color-accent);
         }
+        .chart-page-eyebrow {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--color-accent);
+            margin-bottom: 6px;
+        }
         .chart-page-title {
             font-family: var(--font-serif);
             font-size: 26px;
             font-weight: 700;
             line-height: 1.4;
             margin-bottom: 8px;
+        }
+        .chart-page-summary {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--color-text);
+            margin-bottom: 10px;
+            max-width: 580px;
         }
         .chart-page-meta {
             font-size: 13px;
@@ -298,26 +392,38 @@ function buildChartPage(name, entry, meta) {
         .data-table-wrapper {
             overflow-x: auto;
         }
+        /* border-collapse: separate (single-sided borders) so the sticky
+           first column works reliably; collapse breaks sticky table cells. */
         .data-table {
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             width: 100%;
             font-size: 13px;
+            font-variant-numeric: tabular-nums;
         }
         .data-table th,
         .data-table td {
-            border: 1px solid var(--color-border);
+            border-right: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
             padding: 6px 10px;
             text-align: right;
             white-space: nowrap;
         }
         .data-table th {
+            border-top: 1px solid var(--color-border);
             background: var(--color-surface);
             font-weight: 600;
             text-align: center;
         }
-        .data-table td:first-child,
-        .data-table th:first-child {
+        .data-table th:first-child,
+        .data-table td:first-child {
+            border-left: 1px solid var(--color-border);
             text-align: center;
+            position: sticky;
+            left: 0;
+        }
+        .data-table td:first-child {
+            background: var(--color-bg);
         }
         .chart-page-note {
             font-size: 13px;
@@ -359,8 +465,12 @@ function buildChartPage(name, entry, meta) {
         <div class="container">
             <nav class="chart-breadcrumb"><a href="/data/">数据</a> / ${escapeHtml(name)}</nav>
 
-            <h1 class="chart-page-title">${escapeHtml(name)}（${span}）</h1>
-            ${updated ? `<p class="chart-page-meta">数据更新：${updated}</p>` : ''}
+${meta.group ? `            <p class="chart-page-eyebrow">${escapeHtml(meta.group)}</p>\n` : ''}            <h1 class="chart-page-title">${escapeHtml(name)}（${span}）</h1>
+${meta.summary ? `            <p class="chart-page-summary">${escapeHtml(meta.summary)}</p>\n` : ''}            <p class="chart-page-meta">${[
+                updated ? `更新 ${updated}` : '',
+                meta.source ? `来源：${escapeHtml(meta.source)}` : '',
+                meta.unit ? `单位：${escapeHtml(meta.unit)}` : ''
+            ].filter(Boolean).join(' · ')}</p>
 
             <div class="chart-container" id="chart"></div>
             <noscript><p class="chart-page-note">交互图表需要 JavaScript，完整数据见下方数据表。</p></noscript>
@@ -424,8 +534,11 @@ function generateChartPages(result) {
     }
 }
 
-// Rewrite the static, crawlable chart-link list on data/index.html between
-// the chart-links markers, so the index always links every chart page.
+// Rewrite the static, crawlable card grid on data/index.html between the
+// chart-links markers: a stats line, then cards grouped by company/topic,
+// each with a build-time SVG sparkline of the chart's real data.
+const GROUP_ORDER = ['万科A', '万物云', '宏观经济'];
+
 function updateIndexChartLinks(result) {
     const indexPath = path.join(DATA_DIR, 'index.html');
     if (!fs.existsSync(indexPath)) return;
@@ -435,23 +548,57 @@ function updateIndexChartLinks(result) {
     const s = html.indexOf(START);
     const e = html.indexOf(END);
     if (s === -1 || e === -1) {
-        console.warn('chart-links markers not found in data/index.html — static link list not updated.');
+        console.warn('chart-links markers not found in data/index.html — card grid not updated.');
         return;
     }
 
-    const items = Object.entries(result)
-        .filter(([name]) => CHART_META[name])
-        .map(([name, entry]) => {
+    const charts = Object.entries(result).filter(([name]) => CHART_META[name]);
+
+    // Stats line: chart count, group count, most recent update.
+    const groups = new Map();
+    let latest = '';
+    for (const [name, entry] of charts) {
+        const g = CHART_META[name].group || '其他';
+        if (!groups.has(g)) groups.set(g, []);
+        groups.get(g).push([name, entry]);
+        const updated = entry.meta && entry.meta.created ? entry.meta.created.split(' ')[0] : '';
+        if (updated > latest) latest = updated;
+    }
+    const stats = [`${charts.length} 张图表`, `${groups.size} 个主题`, latest ? `最近更新 ${latest}` : '']
+        .filter(Boolean).join(' · ');
+
+    const orderedGroups = [...groups.keys()].sort((a, b) => {
+        const ia = GROUP_ORDER.indexOf(a);
+        const ib = GROUP_ORDER.indexOf(b);
+        return (ia === -1 ? GROUP_ORDER.length : ia) - (ib === -1 ? GROUP_ORDER.length : ib);
+    });
+
+    const sections = orderedGroups.map(group => {
+        const cards = groups.get(group).map(([name, entry]) => {
             const meta = CHART_META[name];
             const span = yearSpan(entry.rows);
+            const nYears = yearCount(entry.rows);
             const updated = entry.meta && entry.meta.created ? entry.meta.created.split(' ')[0] : '';
-            const info = [span, updated ? `更新 ${updated}` : ''].filter(Boolean).join(' · ');
-            return `                <li><a href="${meta.slug}/">${escapeHtml(name)}</a>${info ? `<span class="chart-index__info">${info}</span>` : ''}</li>`;
-        });
+            const info = [
+                span ? `${span}${nYears > 1 ? ` · ${nYears} 年` : ''}` : '',
+                updated ? `更新 ${updated}` : ''
+            ].filter(Boolean).join(' · ');
+            const spark = svgSparkline(meta.preview, entry);
+            return `                    <a class="chart-card" href="${meta.slug}/">
+${spark ? `                        <div class="chart-card__preview">${spark}</div>\n` : ''}                        <h3 class="chart-card__title">${escapeHtml(meta.metric || name)}</h3>
+${meta.summary ? `                        <p class="chart-card__summary">${escapeHtml(meta.summary)}</p>\n` : ''}${info ? `                        <p class="chart-card__meta">${info}</p>\n` : ''}                    </a>`;
+        }).join('\n');
+        return `            <section class="chart-group">
+                <h2 class="chart-group__title">${escapeHtml(group)}</h2>
+                <div class="chart-cards">
+${cards}
+                </div>
+            </section>`;
+    }).join('\n');
 
-    const block = `${START}\n            <ul class="chart-index__list">\n${items.join('\n')}\n            </ul>\n            ${END}`;
+    const block = `${START}\n            <p class="chart-lib__stats">${stats}</p>\n${sections}\n            ${END}`;
     fs.writeFileSync(indexPath, html.slice(0, s) + block + html.slice(e + END.length), 'utf-8');
-    console.log(`Updated static chart links on data/index.html (${items.length} charts).`);
+    console.log(`Updated card grid on data/index.html (${charts.length} charts, ${groups.size} groups).`);
 }
 
 main();
