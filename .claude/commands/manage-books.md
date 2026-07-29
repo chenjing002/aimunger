@@ -200,7 +200,7 @@ Use this exact template (substitute values for `{TITLE_ZH}`, `{TITLE_EN}`, `{AUT
     <main class="main">
         <div class="container">
             <div class="book-page-header">
-                <a href="/resources/books/" class="book-page-back">&larr; 所有书籍</a>
+                <a href="/resources/books/" class="book-page-back">所有书籍</a>
                 <div class="book-page-top">
                     <div class="book-page-cover">
                         <img src="../booklists/covers/{SLUG}.jpg" alt="{TITLE_ZH}">
