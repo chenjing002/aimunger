@@ -1,6 +1,9 @@
 .DS_Store
 node_modules/
 .env
-_site/*
-!_site/wiki/
+_site/
 _build/
+
+# Generated at CI build time into _site/ by generate-agent-content.js
+llms.txt
+llms-full.txt
