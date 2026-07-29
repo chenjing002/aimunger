@@ -37,6 +37,20 @@
     --search-border: var(--ui);
     --divider: var(--ui);
     --font-body: "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    /* RGB triplet consumed by the ===highlight=== marker gradient */
+    --marker: 255, 213, 79;
+}
+
+/* ===text=== renders as <mark>: a highlighter sweep. Dark ink in both themes
+   so the text stays legible over the bright marker. */
+mark {
+    background: linear-gradient(104deg, rgba(var(--marker), .16), rgba(var(--marker), .85) 6%, rgba(var(--marker), .62) 94%, rgba(var(--marker), .14));
+    color: var(--black);
+    padding: 0 2px;
+    margin: 0 -1px;
+    border-radius: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
 [data-theme="dark"] {
