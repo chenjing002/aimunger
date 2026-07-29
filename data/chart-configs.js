@@ -421,6 +421,153 @@ const CHART_CONFIGS = {
                 }
             ]
         };
+    },
+
+    /**
+     * 万物云住宅物业及物业设施管理项目数与饱和收入
+     *
+     * Tidy/long-format source: each row is
+     *   [业务服务, 年份, 指标, 数值, 单位]
+     * across 2 segments × 2 years × 4 metrics (two unit families).
+     *
+     * Visualization: focuses on the operative "under management" figures —
+     * grouped bars for 在管项目饱和收入 (2024 vs 2025, left axis, 百万元) plus a
+     * line per year for 在管项目数量 (right axis, 个). x-axis = the two segments.
+     * Contracted (合约) figures live in the full table beneath the chart.
+     */
+    '万物云住宅物业及物业设施管理项目数与饱和收入': function(data) {
+        var segments = ['住宅物业服务', '物业及设施管理服务'];
+        var INCOME = '在管项目饱和收入';
+        var COUNT = '在管项目数量';
+
+        // Pivot the long table: value for a (segment, year, metric) cell.
+        function val(seg, year, metric) {
+            for (var i = 0; i < data.rows.length; i++) {
+                var r = data.rows[i];
+                if (r[0] === seg && Number(r[1]) === year && r[2] === metric) return r[3];
+            }
+            return null;
+        }
+        function seriesFor(year, metric) {
+            return segments.map(function(s) { return val(s, year, metric); });
+        }
+
+        return {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: { color: PALETTE.tx3 },
+                    lineStyle: { color: PALETTE.grid }
+                },
+                backgroundColor: PALETTE.surface,
+                borderColor: PALETTE.border,
+                textStyle: { color: PALETTE.tx1, fontSize: 13 },
+                formatter: function(params) {
+                    var tip = '<b style="color:' + PALETTE.tx1 + '">' + params[0].axisValue + '</b><br/>';
+                    params.forEach(function(p) {
+                        var unit = p.seriesType === 'bar' ? ' 百万元' : ' 个';
+                        var v = (p.value === null || p.value === undefined) ? '—' : p.value.toLocaleString();
+                        tip += p.marker + ' ' + p.seriesName + ': ' + v + unit + '<br/>';
+                    });
+                    return tip;
+                }
+            },
+            legend: {
+                data: ['饱和收入 2024', '饱和收入 2025', '项目数量 2024', '项目数量 2025'],
+                top: 0,
+                textStyle: { color: PALETTE.tx2, fontSize: 12 },
+                itemWidth: 14,
+                itemHeight: 10,
+                itemGap: 16
+            },
+            grid: {
+                top: 48,
+                left: 10,
+                right: 10,
+                bottom: 10,
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: segments,
+                axisLabel: { fontSize: 12, color: PALETTE.tx2 },
+                axisLine: { lineStyle: { color: PALETTE.grid } },
+                axisTick: { lineStyle: { color: PALETTE.grid } }
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '百万元',
+                    nameTextStyle: { fontSize: 11, color: PALETTE.tx3 },
+                    axisLabel: {
+                        fontSize: 11,
+                        color: PALETTE.tx2,
+                        formatter: function(v) { return v.toLocaleString(); }
+                    },
+                    axisLine: { show: false },
+                    axisTick: { show: false },
+                    splitLine: { lineStyle: { color: PALETTE.grid } }
+                },
+                {
+                    type: 'value',
+                    name: '项目数（个）',
+                    nameTextStyle: { fontSize: 11, color: PALETTE.tx3 },
+                    axisLabel: {
+                        fontSize: 11,
+                        color: PALETTE.tx2,
+                        formatter: function(v) { return v.toLocaleString(); }
+                    },
+                    axisLine: { show: false },
+                    axisTick: { show: false },
+                    splitLine: { show: false }
+                }
+            ],
+            series: [
+                {
+                    name: '饱和收入 2024',
+                    type: 'bar',
+                    data: seriesFor(2024, INCOME),
+                    itemStyle: { color: PALETTE.amber, borderRadius: [3, 3, 0, 0] },
+                    barMaxWidth: 46
+                },
+                {
+                    name: '饱和收入 2025',
+                    type: 'bar',
+                    data: seriesFor(2025, INCOME),
+                    itemStyle: { color: PALETTE.orange, borderRadius: [3, 3, 0, 0] },
+                    barMaxWidth: 46
+                },
+                {
+                    name: '项目数量 2024',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: seriesFor(2024, COUNT),
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    lineStyle: { width: 2, color: PALETTE.blue, type: 'dashed' },
+                    itemStyle: { color: PALETTE.blue, borderColor: PALETTE.surface, borderWidth: 2 }
+                },
+                {
+                    name: '项目数量 2025',
+                    type: 'line',
+                    yAxisIndex: 1,
+                    data: seriesFor(2025, COUNT),
+                    symbol: 'circle',
+                    symbolSize: 9,
+                    lineStyle: { width: 2.5, color: PALETTE.blue },
+                    itemStyle: { color: PALETTE.blue, borderColor: PALETTE.surface, borderWidth: 2 },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        distance: 6,
+                        formatter: function(p) { return p.value === null ? '' : p.value.toLocaleString(); },
+                        fontSize: 10,
+                        color: PALETTE.blue
+                    }
+                }
+            ]
+        };
     }
 
 };

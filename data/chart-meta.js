@@ -21,4 +21,7 @@ module.exports = {
   '中国居民个人住房贷款余额': {
     slug: 'china-personal-housing-loans',
   },
+  '万物云住宅物业及物业设施管理项目数与饱和收入': {
+    slug: 'onewo-managed-projects-income',
+  },
 };

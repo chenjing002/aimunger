@@ -181,10 +181,26 @@ function buildTableHtml(headers, rows) {
 }
 
 function yearSpan(rows) {
-    const years = rows
+    // Wide tables carry the year in column 0 (existing behaviour, unchanged).
+    let years = rows
         .map(r => String(r[0]).replace(/[^0-9]/g, ''))
         .filter(y => y.length === 4)
         .map(Number);
+    // Tidy/long-format tables (业务·年份·指标·数值) keep the year in another
+    // column; fall back to scanning every cell, bounded to plausible years so
+    // ordinary data values aren't mistaken for one.
+    if (!years.length) {
+        years = [];
+        for (const r of rows) {
+            for (const cell of r) {
+                const s = String(cell).replace(/[^0-9]/g, '');
+                if (s.length === 4) {
+                    const n = Number(s);
+                    if (n >= 1900 && n <= 2100) years.push(n);
+                }
+            }
+        }
+    }
     if (!years.length) return '';
     const min = Math.min(...years);
     const max = Math.max(...years);
