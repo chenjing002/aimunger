@@ -56,16 +56,34 @@ authors: ["Author Name"]
 ```
 
 **Body:**
-- Write a 1,000–1,500 Chinese-character introduction
-- Base content on the web research from Step 1
-- Use natural, polished Chinese expression and standard Chinese punctuation (use `""` for quotes, `《》` for book titles, `——` for em dash, `、` for enumeration)
-- Include notable recommendations with **exact original wording** and source attribution
-- Avoid vague, generic, promotional, or obviously AI-generated language
-- Make the introduction useful for readers interested in business, investing, management, and long-term thinking
-- Do NOT invent recommendations, quotes, editions, or publication information
-- When evidence is uncertain, state the uncertainty clearly or omit the claim
-- Structure: typically 3–4 paragraphs covering author background, core content/arguments, notable reception/recommendations, and relevance to the target readership
-- Reference existing book markdown files (e.g., `resources/books/lessons-of-history.md`) as style examples
+- Write a 1,000–1,500 Chinese-character introduction, based strictly on the Step 1 research.
+- Use standard Chinese punctuation: `""` for quotes, `《》` for book titles, `——` for em dash, `、` for enumeration.
+- Structure: 3–4 paragraphs — typically author background, core content/arguments, notable reception/recommendations (with **exact original wording** and source attribution), and relevance to readers of business, investing, management, and long-term thinking.
+- Do NOT invent recommendations, quotes, editions, or publication facts. When evidence is uncertain, say so plainly or omit the claim.
+
+**Write like an informed human editor, not a marketing bot. This is the part that matters most.**
+
+The failure mode to avoid is fluent, confident prose that says nothing specific — text that could describe any book. Every paragraph must carry facts a reader couldn't guess from the title: real names, dates, numbers, concrete arguments, specific anecdotes from the book. If a sentence would survive being pasted into a different book's page, delete or rewrite it.
+
+*Concreteness test:* prefer the specific over the abstract every time. Not "书中充满了深刻的洞见" but *which* insight — state the actual argument. Not "作者拥有丰富的经验" but the actual role, firm, and years. Not "这本书对投资者很有启发" but what specifically it changes in how a reader thinks. Name the book's actual chapters, characters, cases, or claims.
+
+**Banned — these are the tells of AI slop. Do not use them:**
+- Empty praise adjectives: 发人深省、引人入胜、鞭辟入里、字字珠玑、振聋发聩、不可多得、堪称经典、掷地有声、金玉良言.
+- Hollow connective scaffolding: 不仅……更是……、无论是……还是……、正所谓、总而言之、综上所述、值得一提的是、不难看出、由此可见.
+- Time-cliché openings: 在这个……的时代、在当今……的背景下、在信息爆炸的今天.
+- Promotional register: 必读、强烈推荐、开卷有益、受益匪浅、不容错过、每一位……都应该读.
+- Formulaic relevance closers that fit any book, e.g. a final paragraph that mechanically starts 对于关注商业、投资与长期思考的读者而言…… and then says nothing specific. If you write a relevance paragraph, ground it in this book's actual content.
+- Fake balance and rhetorical filler: 既……又……、一方面……另一方面…… used only for rhythm; rhetorical questions used as transitions.
+
+**Techniques that produce good prose:**
+- Open on a concrete fact or scene, not a thesis statement. (Good model: `lessons-of-history.md` opens with the Durants' 40-year, 11-volume project and the Pulitzer, not "这是一本关于历史的经典之作".)
+- Vary sentence length and paragraph openings — do not start consecutive sentences or paragraphs with the same structure.
+- Attribute every evaluative claim. "本书是经典" is slop; "萨缪尔森称其为'现代经典'" is a fact. Reserve praise for quoted, sourced endorsements.
+- When you cite an endorsement, give the person's real identity/role and the exact original wording (English in the original, with a natural Chinese rendering if helpful).
+- It is fine to note tension, criticism, or limitations if the research supports them — real editorial writing is not uniformly laudatory, and honest caveats read as human.
+- Read `resources/books/lessons-of-history.md` and one recently-added file as live style references before writing.
+
+**Self-check before saving:** reread the draft and, for each sentence, ask "is this specific to *this* book, and is it true per my research?" Cut anything that fails either test. If a whole paragraph is generic, the fix is more research, not more adjectives.
 
 ## Step 5: Create HTML Pages
 

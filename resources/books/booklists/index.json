@@ -1217,6 +1217,18 @@
       "title_zh": "规则破坏者投资法",
       "authors": ["David Gardner"],
       "cover": "covers/rule-breaker-investing.jpg"
+    },
+    {
+      "title_en": "The Smart Money Method: How to Pick Stocks Like a Hedge Fund Pro",
+      "title_zh": "聪明钱方法：像对冲基金专家一样选股",
+      "authors": ["Stephen Clapham"],
+      "cover": "covers/smart-money-method.jpg"
+    },
+    {
+      "title_en": "The Money Game",
+      "title_zh": "金钱游戏",
+      "authors": ["Adam Smith (George Goodman)"],
+      "cover": "covers/money-game.jpg"
     }
   ]
 }
