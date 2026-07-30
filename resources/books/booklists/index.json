@@ -1229,6 +1229,24 @@
       "title_zh": "金钱游戏",
       "authors": ["Adam Smith (George Goodman)"],
       "cover": "covers/money-game.jpg"
+    },
+    {
+      "title_en": "The Myth of the Rational Market: A History of Risk, Reward, and Delusion on Wall Street",
+      "title_zh": "理性市场的神话：华尔街的风险、回报与妄念史",
+      "authors": ["Justin Fox"],
+      "cover": "covers/myth-of-the-rational-market.jpg"
+    },
+    {
+      "title_en": "Trillions: How a Band of Wall Street Renegades Invented the Index Fund and Changed Finance Forever",
+      "title_zh": "万亿指数",
+      "authors": ["Robin Wigglesworth"],
+      "cover": "covers/trillions.jpg"
+    },
+    {
+      "title_en": "Dark Pools: The Rise of the Machine Traders and the Rigging of the U.S. Stock Market",
+      "title_zh": "暗池",
+      "authors": ["Scott Patterson"],
+      "cover": "covers/dark-pools.jpg"
     }
   ]
 }
