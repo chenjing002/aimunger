@@ -216,7 +216,10 @@
         if (!input) return;
 
         input.addEventListener('input', function() {
-            var q = input.value.trim().toLowerCase();
+            // Split on whitespace and require every token to appear somewhere
+            // in the card's text, so "万科 毛利率" matches a title that carries
+            // both words even when they aren't adjacent.
+            var terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
             var groups = document.querySelectorAll('.chart-group');
             var anyMatch = false;
 
@@ -228,7 +231,7 @@
                 group.querySelectorAll('.chart-card').forEach(function(card) {
                     var title = (card.getAttribute('data-search') || '').toLowerCase();
                     var hay = groupTitle + ' ' + title + ' ' + card.textContent.toLowerCase();
-                    var show = !q || hay.indexOf(q) !== -1;
+                    var show = terms.every(function(t) { return hay.indexOf(t) !== -1; });
                     card.style.display = show ? '' : 'none';
                     if (show) groupHasMatch = true;
                 });
