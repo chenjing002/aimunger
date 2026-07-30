@@ -1313,6 +1313,36 @@
       "title_zh": "质量投资：长期拥有最优质的公司",
       "authors": ["Lawrence A. Cunningham", "Torkell T. Eide", "Patrick Hargreaves"],
       "cover": "covers/quality-investing.jpg"
+    },
+    {
+      "title_en": "There's Always Something to Do: The Peter Cundill Investment Approach",
+      "title_zh": "总有事可做：彼得·坎迪尔的投资之道",
+      "authors": ["Christopher Risso-Gill"],
+      "cover": "covers/theres-always-something-to-do.jpg"
+    },
+    {
+      "title_en": "Principles: Life and Work",
+      "title_zh": "原则",
+      "authors": ["Ray Dalio"],
+      "cover": "covers/principles-life-and-work.jpg"
+    },
+    {
+      "title_en": "Character Counts: The Creation and Building of The Vanguard Group",
+      "title_zh": "品格至上：先锋集团的创建与发展",
+      "authors": ["John C. Bogle"],
+      "cover": "covers/character-counts.jpg"
+    },
+    {
+      "title_en": "Enough: True Measures of Money, Business, and Life",
+      "title_zh": "足够：约翰·博格的金钱、商业、人生准则",
+      "authors": ["John C. Bogle"],
+      "cover": "covers/enough.jpg"
+    },
+    {
+      "title_en": "Paths to Wealth Through Common Stocks",
+      "title_zh": "股市投资致富之道",
+      "authors": ["Philip A. Fisher"],
+      "cover": "covers/paths-to-wealth-through-common-stocks.jpg"
     }
   ]
 }
