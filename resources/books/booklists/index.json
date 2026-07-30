@@ -1343,6 +1343,60 @@
       "title_zh": "股市投资致富之道",
       "authors": ["Philip A. Fisher"],
       "cover": "covers/paths-to-wealth-through-common-stocks.jpg"
+    },
+    {
+      "title_en": "Investing for Growth: How to Make Money by Only Buying the Best Companies in the World",
+      "title_zh": "以增长为本的投资：只买世界上最好的公司",
+      "authors": ["Terry Smith"],
+      "cover": "covers/investing-for-growth.jpg"
+    },
+    {
+      "title_en": "So Far, So Good: The First 94 Years",
+      "title_zh": "目前为止，一切都好：人生前94年",
+      "authors": ["Roy R. Neuberger", "Alfred Connable", "Roma Connable"],
+      "cover": "covers/so-far-so-good.jpg"
+    },
+    {
+      "title_en": "No Bull: My Life In and Out of Markets",
+      "title_zh": "短线大师：斯坦哈特回忆录",
+      "authors": ["Michael Steinhardt"],
+      "cover": "covers/no-bull.jpg"
+    },
+    {
+      "title_en": "From the Bronx to Wall Street: My Fifty Years in Finance and Philanthropy",
+      "title_zh": "从布朗克斯到华尔街：我的金融与慈善五十年",
+      "authors": ["Leon Cooperman"],
+      "cover": "covers/from-bronx-to-wall-street.jpg"
+    },
+    {
+      "title_en": "A Decade of Delusions: From Speculative Contagion to the Great Recession",
+      "title_zh": "十年幻觉：从投机传染到大衰退",
+      "authors": ["Frank K. Martin"],
+      "cover": "covers/decade-of-delusions.jpg"
+    },
+    {
+      "title_en": "Speculative Contagion: An Antidote for Speculative Epidemics",
+      "title_zh": "投机传染：投机流行病的解药",
+      "authors": ["Frank K. Martin"],
+      "cover": "covers/speculative-contagion.jpg"
+    },
+    {
+      "title_en": "A Man for All Markets: From Las Vegas to Wall Street, How I Beat the Dealer and the Market",
+      "title_zh": "战胜一切市场的人",
+      "authors": ["Edward O. Thorp"],
+      "cover": "covers/man-for-all-markets.jpg"
+    },
+    {
+      "title_en": "More Money Than God: Hedge Funds and the Making of a New Elite",
+      "title_zh": "富可敌国：对冲基金与新精英的崛起",
+      "authors": ["Sebastian Mallaby"],
+      "cover": "covers/more-money-than-god.jpg"
+    },
+    {
+      "title_en": "Market Wizards: Interviews with Top Traders",
+      "title_zh": "金融怪杰：华尔街的顶级交易员",
+      "authors": ["Jack D. Schwager"],
+      "cover": "covers/market-wizards.jpg"
     }
   ]
 }
