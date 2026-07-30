@@ -1283,6 +1283,36 @@
       "title_zh": "资本回报：穿越资本周期的投资——一个资产管理人的报告2002—2015",
       "authors": ["Edward Chancellor (编)", "Marathon Asset Management"],
       "cover": "covers/capital-returns.jpg"
+    },
+    {
+      "title_en": "The Davis Dynasty: Fifty Years of Successful Investing on Wall Street",
+      "title_zh": "戴维斯王朝",
+      "authors": ["John Rothchild"],
+      "cover": "covers/davis-dynasty.jpg"
+    },
+    {
+      "title_en": "Beating the Street",
+      "title_zh": "战胜华尔街",
+      "authors": ["Peter Lynch", "John Rothchild"],
+      "cover": "covers/beating-the-street.jpg"
+    },
+    {
+      "title_en": "Damn Right!: Behind the Scenes with Berkshire Hathaway Billionaire Charlie Munger",
+      "title_zh": "查理·芒格传",
+      "authors": ["Janet Lowe"],
+      "cover": "covers/damn-right.jpg"
+    },
+    {
+      "title_en": "What I Learned About Investing from Darwin",
+      "title_zh": "我从达尔文那里学到的投资知识",
+      "authors": ["Pulak Prasad"],
+      "cover": "covers/what-i-learned-about-investing-from-darwin.jpg"
+    },
+    {
+      "title_en": "Quality Investing: Owning the Best Companies for the Long Term",
+      "title_zh": "质量投资：长期拥有最优质的公司",
+      "authors": ["Lawrence A. Cunningham", "Torkell T. Eide", "Patrick Hargreaves"],
+      "cover": "covers/quality-investing.jpg"
     }
   ]
 }
