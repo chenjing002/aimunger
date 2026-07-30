@@ -1253,6 +1253,36 @@
       "title_zh": "創作者的日常生活",
       "authors": ["Mason Currey"],
       "cover": "covers/daily-rituals.jpg"
+    },
+    {
+      "title_en": "The Mind of Wall Street: A Legendary Financier on the Perils of Greed and the Mysteries of the Market",
+      "title_zh": "华尔街的心智：一位传奇金融家论贪婪的危险与市场之谜",
+      "authors": ["Leon Levy", "Eugene Linden"],
+      "cover": "covers/mind-of-wall-street.jpg"
+    },
+    {
+      "title_en": "Of Permanent Value: The Story of Warren Buffett",
+      "title_zh": "永恒的价值：投资天才沃伦·巴菲特传",
+      "authors": ["Andrew Kilpatrick"],
+      "cover": "covers/of-permanent-value.jpg"
+    },
+    {
+      "title_en": "The Snowball: Warren Buffett and the Business of Life",
+      "title_zh": "滚雪球：巴菲特和他的财富人生",
+      "authors": ["Alice Schroeder"],
+      "cover": "covers/snowball.jpg"
+    },
+    {
+      "title_en": "The Little Book of Value Investing",
+      "title_zh": "价值投资者的头号法则",
+      "authors": ["Christopher H. Browne"],
+      "cover": "covers/little-book-of-value-investing.jpg"
+    },
+    {
+      "title_en": "Capital Returns: Investing Through the Capital Cycle: A Money Manager's Reports 2002–15",
+      "title_zh": "资本回报：穿越资本周期的投资——一个资产管理人的报告2002—2015",
+      "authors": ["Edward Chancellor (编)", "Marathon Asset Management"],
+      "cover": "covers/capital-returns.jpg"
     }
   ]
 }
