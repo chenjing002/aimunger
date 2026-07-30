@@ -294,11 +294,11 @@ function buildChartPage(name, entry, meta) {
         .replace(/</g, '\\u003c');
     const nameJson = JSON.stringify(name).replace(/</g, '\\u003c');
 
-    // The table mirrors the source file exactly; the meta description is the
-    // frontmatter description when present, then the editorial summary from
-    // chart-meta.js, otherwise a neutral generated one.
-    const description = (entry.meta && entry.meta.description) || meta.summary ||
-        `${name}（${span}）历年数据、图表与数据表。`;
+    // The page shows only what the source file carries — its table and any
+    // notes. The meta description (invisible, for SEO) is the frontmatter
+    // description when present, otherwise just the dataset name; no generated
+    // prose or year spans leak into the visible page.
+    const description = (entry.meta && entry.meta.description) || name;
 
     const datasetLd = {
         '@context': 'https://schema.org',
@@ -326,7 +326,7 @@ function buildChartPage(name, entry, meta) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${escapeHtml(name)}（${span}）数据图表 - aimunger</title>
+    <title>${escapeHtml(name)} - aimunger</title>
     <meta name="description" content="${escapeHtml(description)}">
     <link rel="canonical" href="${url}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -361,13 +361,6 @@ function buildChartPage(name, entry, meta) {
             font-weight: 700;
             line-height: 1.4;
             margin-bottom: 8px;
-        }
-        .chart-page-summary {
-            font-size: 15px;
-            line-height: 1.9;
-            color: var(--color-text);
-            margin-bottom: 10px;
-            max-width: 580px;
         }
         .chart-page-meta {
             font-size: 13px;
@@ -465,8 +458,8 @@ function buildChartPage(name, entry, meta) {
         <div class="container">
             <nav class="chart-breadcrumb"><a href="/data/">数据</a> / ${escapeHtml(name)}</nav>
 
-${meta.group ? `            <p class="chart-page-eyebrow">${escapeHtml(meta.group)}</p>\n` : ''}            <h1 class="chart-page-title">${escapeHtml(name)}（${span}）</h1>
-${meta.summary ? `            <p class="chart-page-summary">${escapeHtml(meta.summary)}</p>\n` : ''}            <p class="chart-page-meta">${[
+${meta.group ? `            <p class="chart-page-eyebrow">${escapeHtml(meta.group)}</p>\n` : ''}            <h1 class="chart-page-title">${escapeHtml(name)}</h1>
+            <p class="chart-page-meta">${[
                 updated ? `更新 ${updated}` : '',
                 meta.source ? `来源：${escapeHtml(meta.source)}` : '',
                 meta.unit ? `单位：${escapeHtml(meta.unit)}` : ''
@@ -584,9 +577,13 @@ function updateIndexChartLinks(result) {
                 updated ? `更新 ${updated}` : ''
             ].filter(Boolean).join(' · ');
             const spark = svgSparkline(meta.preview, entry);
-            return `                    <a class="chart-card" href="${meta.slug}/">
+            // Searchable text for the index filter: the full source-file name,
+            // the short metric label, and the group — so a query matches the
+            // chart's title however it's phrased.
+            const search = escapeHtml([name, meta.metric, group].filter(Boolean).join(' '));
+            return `                    <a class="chart-card" href="${meta.slug}/" data-search="${search}">
 ${spark ? `                        <div class="chart-card__preview">${spark}</div>\n` : ''}                        <h3 class="chart-card__title">${escapeHtml(meta.metric || name)}</h3>
-${meta.summary ? `                        <p class="chart-card__summary">${escapeHtml(meta.summary)}</p>\n` : ''}${info ? `                        <p class="chart-card__meta">${info}</p>\n` : ''}                    </a>`;
+${info ? `                        <p class="chart-card__meta">${info}</p>\n` : ''}                    </a>`;
         }).join('\n');
         return `            <section class="chart-group">
                 <h2 class="chart-group__title">${escapeHtml(group)}</h2>
