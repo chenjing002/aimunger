@@ -1247,6 +1247,12 @@
       "title_zh": "暗池",
       "authors": ["Scott Patterson"],
       "cover": "covers/dark-pools.jpg"
+    },
+    {
+      "title_en": "Daily Rituals: How Artists Work",
+      "title_zh": "創作者的日常生活",
+      "authors": ["Mason Currey"],
+      "cover": "covers/daily-rituals.jpg"
     }
   ]
 }
