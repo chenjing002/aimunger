@@ -1487,6 +1487,48 @@
       "title_zh": "狮子国度里的斑马：万格投资生存指南",
       "authors": ["Ralph Wanger", "Everett Mattlin"],
       "cover": "covers/zebra-in-lion-country.jpg"
+    },
+    {
+      "title_en": "The Value Investors: Lessons from the World's Top Fund Managers",
+      "title_zh": "世界顶尖投资权威的告白：价值投资的真谛",
+      "authors": ["Ronald W. Chan"],
+      "cover": "covers/value-investors.jpg"
+    },
+    {
+      "title_en": "Contrarian Investment Strategies: The Next Generation",
+      "title_zh": "逆向投资策略",
+      "authors": ["David Dreman"],
+      "cover": "covers/contrarian-investment-strategies.jpg"
+    },
+    {
+      "title_en": "Benjamin Graham: The Memoirs of the Dean of Wall Street",
+      "title_zh": "华尔街教父格雷厄姆传",
+      "authors": ["Benjamin Graham", "Seymour Chatman (编)"],
+      "cover": "covers/benjamin-graham-memoirs.jpg"
+    },
+    {
+      "title_en": "Diary of a Hedgehog: Biggs' Final Words on the Markets",
+      "title_zh": "对冲基金风云录3：王者私语",
+      "authors": ["Barton Biggs"],
+      "cover": "covers/diary-of-a-hedgehog.jpg"
+    },
+    {
+      "title_en": "Hedgehogging",
+      "title_zh": "对冲基金风云录",
+      "authors": ["Barton Biggs"],
+      "cover": "covers/hedgehogging.jpg"
+    },
+    {
+      "title_en": "A Gift to My Children: A Father's Lessons for Life and Investing",
+      "title_zh": "投资大师罗杰斯给宝贝女儿的12封信",
+      "authors": ["Jim Rogers"],
+      "cover": "covers/gift-to-my-children.jpg"
+    },
+    {
+      "title_en": "Big Money Thinks Small: Biases, Blind Spots, and Smarter Investing",
+      "title_zh": "大钱细思：优秀投资者如何思考和决断",
+      "authors": ["Joel Tillinghast"],
+      "cover": "covers/big-money-thinks-small.jpg"
     }
   ]
 }
