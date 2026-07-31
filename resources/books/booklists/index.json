@@ -1439,6 +1439,54 @@
       "title_zh": "愚弄部分人于一时：一场漫长做空的完整故事",
       "authors": ["David Einhorn"],
       "cover": "covers/fooling-some-of-the-people-all-of-the-time.jpg"
+    },
+    {
+      "title_en": "Panic!: The Story of Modern Financial Insanity",
+      "title_zh": "金融往事：恐慌、危机和迟来的复苏",
+      "authors": ["Michael Lewis (编)"],
+      "cover": "covers/panic-modern-financial-insanity.jpg"
+    },
+    {
+      "title_en": "Julian Robertson: A Tiger in the Land of Bulls and Bears",
+      "title_zh": "老虎基金朱利安·罗伯逊",
+      "authors": ["Daniel A. Strachman"],
+      "cover": "covers/julian-robertson.jpg"
+    },
+    {
+      "title_en": "The Art of Speculation",
+      "title_zh": "穿越周期的专业投机技艺",
+      "authors": ["Philip L. Carret"],
+      "cover": "covers/art-of-speculation.jpg"
+    },
+    {
+      "title_en": "King Icahn: The Biography of a Renegade Capitalist",
+      "title_zh": "华尔街之狼：金融之王卡尔·伊坎传",
+      "authors": ["Mark Stevens"],
+      "cover": "covers/king-icahn.jpg"
+    },
+    {
+      "title_en": "A Few Lessons for Investors and Managers from Warren E. Buffett",
+      "title_zh": "巴菲特给投资者和管理者的几堂课",
+      "authors": ["Peter Bevelin"],
+      "cover": "covers/few-lessons-for-investors-and-managers.jpg"
+    },
+    {
+      "title_en": "Warren Buffett and the Art of Stock Arbitrage: Proven Strategies for Arbitrage and Other Special Investment Situations",
+      "title_zh": "巴菲特与股票套利艺术",
+      "authors": ["Mary Buffett", "David Clark"],
+      "cover": "covers/buffett-art-of-stock-arbitrage.jpg"
+    },
+    {
+      "title_en": "Soros on Soros: Staying Ahead of the Curve",
+      "title_zh": "我是索罗斯",
+      "authors": ["George Soros", "Byron Wien", "Krisztina Koenen"],
+      "cover": "covers/soros-on-soros.jpg"
+    },
+    {
+      "title_en": "A Zebra in Lion Country: Ralph Wanger's Investment Survival Guide",
+      "title_zh": "狮子国度里的斑马：万格投资生存指南",
+      "authors": ["Ralph Wanger", "Everett Mattlin"],
+      "cover": "covers/zebra-in-lion-country.jpg"
     }
   ]
 }
