@@ -1529,6 +1529,54 @@
       "title_zh": "大钱细思：优秀投资者如何思考和决断",
       "authors": ["Joel Tillinghast"],
       "cover": "covers/big-money-thinks-small.jpg"
+    },
+    {
+      "title_en": "The Money Masters",
+      "title_zh": "股市大亨",
+      "authors": ["John Train"],
+      "cover": "covers/money-masters.jpg"
+    },
+    {
+      "title_en": "Am I Being Too Subtle?: Straight Talk from a Business Rebel",
+      "title_zh": "我这话还不够直白吗？：一位商业叛逆者的坦言",
+      "authors": ["Sam Zell"],
+      "cover": "covers/am-i-being-too-subtle.jpg"
+    },
+    {
+      "title_en": "Mastering the Market Cycle: Getting the Odds on Your Side",
+      "title_zh": "周期：投资机会、风险、态度与市场周期",
+      "authors": ["Howard Marks"],
+      "cover": "covers/mastering-the-market-cycle.jpg"
+    },
+    {
+      "title_en": "All I Want to Know Is Where I'm Going to Die So I'll Never Go There: Buffett and Munger — A Study in Simplicity and Uncommon, Common Sense",
+      "title_zh": "我只想知道我会死在哪儿，这样我就永远不去那儿：巴菲特与芒格论简单和非凡的常识",
+      "authors": ["Peter Bevelin"],
+      "cover": "covers/all-i-want-to-know-is-where-im-going-to-die.jpg"
+    },
+    {
+      "title_en": "The Dealmaker: Lessons from a Life in Private Equity",
+      "title_zh": "交易缔造者：私募股权人生的经验教训",
+      "authors": ["Guy Hands"],
+      "cover": "covers/dealmaker.jpg"
+    },
+    {
+      "title_en": "The Aggressive Conservative Investor",
+      "title_zh": "积极的保守投资者",
+      "authors": ["Martin J. Whitman", "Martin Shubik"],
+      "cover": "covers/aggressive-conservative-investor.jpg"
+    },
+    {
+      "title_en": "The Battle for Investment Survival",
+      "title_zh": "投资存亡战",
+      "authors": ["Gerald M. Loeb"],
+      "cover": "covers/battle-for-investment-survival.jpg"
+    },
+    {
+      "title_en": "T. Rowe Price: The Man, The Company, and The Investment Philosophy",
+      "title_zh": "T. Rowe Price：创始人、公司与投资哲学",
+      "authors": ["Cornelius C. Bond"],
+      "cover": "covers/t-rowe-price.jpg"
     }
   ]
 }
