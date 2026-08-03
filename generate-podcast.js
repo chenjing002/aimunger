@@ -62,6 +62,7 @@ function slugify(title) {
 // Keyed on the immutable guid; drawn from the book/person/subject named in the
 // episode's show notes so the URL reads meaningfully in English.
 const SLUG_OVERRIDES = {
+    '6a70394a1b5e24969ce81140': 'e68-frederick-gates',
     '6a6acb18b581962ce2bdc05e': 'e67-richard-pzena',
     '69e1e1f9b977fb2c47304d7a': 'e63-vanke-shareholder-letters',
     '6960c347f8b05f9f75a911a6': 'e60-fairfax-prem-watsa',
