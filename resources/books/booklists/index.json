@@ -1577,6 +1577,54 @@
       "title_zh": "T. Rowe Price：创始人、公司与投资哲学",
       "authors": ["Cornelius C. Bond"],
       "cover": "covers/t-rowe-price.jpg"
+    },
+    {
+      "title_en": "Tao of Charlie Munger: A Compilation of Quotes from Berkshire Hathaway's Vice Chairman on Life, Business, and the Pursuit of Wealth With Commentary by David Clark",
+      "title_zh": "查理·芒格之道",
+      "authors": ["David Clark"],
+      "cover": "covers/tao-of-charlie-munger.jpg"
+    },
+    {
+      "title_en": "Charlie Munger: The Complete Investor",
+      "title_zh": "查理·芒格的原则",
+      "authors": ["Tren Griffin"],
+      "cover": "covers/charlie-munger-complete-investor.jpg"
+    },
+    {
+      "title_en": "100 Baggers: Stocks That Return 100-to-1 and How to Find Them",
+      "title_zh": "寻找百倍股",
+      "authors": ["Christopher W. Mayer"],
+      "cover": "covers/100-baggers.jpg"
+    },
+    {
+      "title_en": "The Investor's Anthology: Original Ideas from the Industry's Greatest Minds",
+      "title_zh": "点津：来自大师的精彩篇章",
+      "authors": ["Charles D. Ellis", "James R. Vertin"],
+      "cover": "covers/investors-anthology.jpg"
+    },
+    {
+      "title_en": "Dream Big: How the Brazilian Trio behind 3G Capital – Jorge Paulo Lemann, Marcel Telles and Beto Sicupira – Acquired Anheuser-Busch, Burger King and Heinz",
+      "title_zh": "3G资本帝国",
+      "authors": ["Cristiane Correa"],
+      "cover": "covers/dream-big-3g-capital.jpg"
+    },
+    {
+      "title_en": "The Great Minds of Investing",
+      "title_zh": "投资大师群像",
+      "authors": ["William Green", "Michael O'Brien (摄影)", "Hendrik Leber (策划)"],
+      "cover": "covers/great-minds-of-investing.jpg"
+    },
+    {
+      "title_en": "The Education of a Value Investor: My Transformative Quest for Wealth, Wisdom, and Enlightenment",
+      "title_zh": "与巴菲特共进午餐时，我顿悟到的5个真理：探寻财富、智慧与价值投资的转变之旅",
+      "authors": ["Guy Spier"],
+      "cover": "covers/education-of-a-value-investor.jpg"
+    },
+    {
+      "title_en": "The Dhandho Investor: The Low-Risk Value Method to High Returns",
+      "title_zh": "憨夺型投资者",
+      "authors": ["Mohnish Pabrai"],
+      "cover": "covers/dhandho-investor.jpg"
     }
   ]
 }
