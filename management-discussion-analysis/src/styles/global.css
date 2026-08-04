@@ -109,6 +109,24 @@ html {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    /* Slim, unobtrusive scrollbars (Firefox + Chromium) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--tx-2) transparent;
+}
+
+/* WebKit/Safari fallback */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--tx-2);
+    border-radius: 4px;
 }
 
 body {

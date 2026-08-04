@@ -31,6 +31,25 @@ mark {
 
 html {
     scroll-behavior: smooth;
+    /* Slim, unobtrusive scrollbars that match the warm neutral palette */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-text-secondary) transparent;
+}
+
+/* WebKit/Safari fallback — the standard scrollbar-* props above cover
+   Firefox and Chromium; Safari still needs these. */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-text-secondary);
+    border-radius: 4px;
 }
 
 body {
