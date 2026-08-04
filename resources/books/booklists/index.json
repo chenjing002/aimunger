@@ -1625,6 +1625,18 @@
       "title_zh": "憨夺型投资者",
       "authors": ["Mohnish Pabrai"],
       "cover": "covers/dhandho-investor.jpg"
+    },
+    {
+      "title_en": "The Warren Buffett Portfolio: Mastering the Power of the Focus Investment Strategy",
+      "title_zh": "巴菲特的投资组合",
+      "authors": ["Robert G. Hagstrom"],
+      "cover": "covers/warren-buffett-portfolio.jpg"
+    },
+    {
+      "title_en": "Nothing But Net: 10 Timeless Stock-Picking Lessons from One of Wall Street's Top Tech Analysts",
+      "title_zh": "精準選股：華爾街傳奇科技分析師的10堂投資課",
+      "authors": ["Mark S. F. Mahaney"],
+      "cover": "covers/nothing-but-net.jpg"
     }
   ]
 }
