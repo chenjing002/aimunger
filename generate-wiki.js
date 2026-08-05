@@ -1151,11 +1151,24 @@ function generateWikiCSS() {
     color: #6f6a60;
     pointer-events: none;
 }
-.g-legend span {
+.g-legend-btn {
     display: inline-flex;
     align-items: center;
     gap: 7px;
+    margin: 0;
+    padding: 4px 3px;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.18s ease, color 0.18s ease;
 }
+.g-legend-btn:hover { color: #3a382f; }
+.g-legend-btn.is-off { opacity: 0.42; text-decoration: line-through; }
+.g-legend-btn.is-off .g-legend-dot { background: #b7b2a8; }
 .g-legend-dot {
     display: inline-block;
     width: 8px;
