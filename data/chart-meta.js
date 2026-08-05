@@ -47,6 +47,26 @@ module.exports = {
       series: entry => entry.rows.map(r => [r[3], r[5]]),
     },
   },
+  '万科A 存货情况': {
+    slug: 'vanke-inventory',
+    group: '万科A',
+    metric: '存货及构成',
+    source: '万科A 年度报告',
+    unit: '亿元',
+    preview: {
+      // Two bars (2024, 2025), each stacked by the four components (in 亿元)
+      type: 'stackbar',
+      colors: ['#EFB743', '#D44627', '#774FA0', '#7DC462'],
+      series: entry => {
+        const comp = entry.rows.slice(1);
+        const toYi = v => v / 10000;
+        return [
+          comp.map(r => toYi(r[3])), // 2024 年末
+          comp.map(r => toYi(r[1])), // 2025 年末
+        ];
+      },
+    },
+  },
   '万科A 房地产开发及相关资产经营业务毛利率': {
     slug: 'vanke-development-gross-margin',
     group: '万科A',
