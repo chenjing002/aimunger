@@ -597,9 +597,18 @@ function AdaptiveFog({ controlsRef }) {
 }
 
 /* ---------------------------------------------------------------- the 3D scene */
-function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, neighborsOf, onPick, onOver, onOut, controlsRef, requestRef }) {
+function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, hiddenTypes, neighborsOf, onPick, onOver, onOut, controlsRef, requestRef }) {
   const neighbors = useMemo(() => neighborsOf(focusId), [focusId, neighborsOf]);
   const focusPos = focusId ? expandedLayout[focusId] : null;
+
+  // Nodes whose type is toggled off in the legend — hidden along with their edges.
+  const hiddenNodeIds = useMemo(() => {
+    const s = new Set();
+    if (hiddenTypes && hiddenTypes.size) {
+      data.nodes.forEach((n) => { if (hiddenTypes.has(n.type)) s.add(n.id); });
+    }
+    return s;
+  }, [data.nodes, hiddenTypes]);
 
   const nodeState = useCallback((id) => {
     if (id === focusId) return 'focus';
@@ -619,12 +628,13 @@ function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, neighb
 
   const curvedEdges = useMemo(() => {
     return data.edges.map((e) => {
+      if (hiddenNodeIds.has(e.source) || hiddenNodeIds.has(e.target)) return null;
       const a = expandedLayout[e.source], b = expandedLayout[e.target];
       if (!a || !b) return null;
       const { points, ctrl } = computeCurve(a, b);
       return { source: e.source, target: e.target, points, ctrl, a, b };
     }).filter(Boolean);
-  }, [data.edges, expandedLayout]);
+  }, [data.edges, expandedLayout, hiddenNodeIds]);
 
   const activeCurves = useMemo(() => {
     if (!focusId) return [];
@@ -649,7 +659,7 @@ function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, neighb
 
       ${data.nodes.map((n) => {
         const p = expandedLayout[n.id];
-        if (!p) return null;
+        if (!p || hiddenNodeIds.has(n.id)) return null;
         return html`<${NodeMesh}
           key=${n.id}
           node=${n}
@@ -662,7 +672,7 @@ function Scene({ data, expandedLayout, degree, focusId, hoverId, matches, neighb
         />`;
       })}
 
-      ${data.nodes.filter((n) => expandedLayout[n.id]).map((n) => {
+      ${data.nodes.filter((n) => expandedLayout[n.id] && !hiddenNodeIds.has(n.id)).map((n) => {
         const p = expandedLayout[n.id];
         const r = nodeRadius(degree[n.id]);
         const st = nodeState(n.id);
@@ -791,6 +801,17 @@ function App({ data }) {
   const [hoverId, setHoverId] = useState(null);
   const [query, setQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
+  const [hiddenTypes, setHiddenTypes] = useState(() => new Set());
+
+  const toggleType = useCallback((t) => {
+    setHiddenTypes((prev) => {
+      const n = new Set(prev);
+      if (n.has(t)) n.delete(t); else n.add(t);
+      return n;
+    });
+    // If we just hid the type the focus node belongs to, drop back to overview.
+    setFocusId((f) => (f && nodeById[f] && nodeById[f].type === t ? null : f));
+  }, [nodeById]);
   const controlsRef = useRef();
   const requestRef = useRef({});
 
@@ -881,6 +902,7 @@ function App({ data }) {
             focusId=${focusId}
             hoverId=${hoverId}
             matches=${matches}
+            hiddenTypes=${hiddenTypes}
             neighborsOf=${neighborsOf}
             onPick=${pick}
             onOver=${setHoverId}
@@ -908,8 +930,18 @@ function App({ data }) {
         </div>
 
         <div class="g-legend">
-          <span><i class="g-legend-dot is-pe"></i>人物</span>
-          <span><i class="g-legend-dot is-co"></i>公司</span>
+          <button
+            class=${'g-legend-btn' + (hiddenTypes.has('person') ? ' is-off' : '')}
+            title="显示/隐藏人物节点"
+            aria-pressed=${!hiddenTypes.has('person')}
+            onClick=${() => toggleType('person')}
+          ><i class="g-legend-dot is-pe"></i>人物</button>
+          <button
+            class=${'g-legend-btn' + (hiddenTypes.has('company') ? ' is-off' : '')}
+            title="显示/隐藏公司节点"
+            aria-pressed=${!hiddenTypes.has('company')}
+            onClick=${() => toggleType('company')}
+          ><i class="g-legend-dot is-co"></i>公司</button>
         </div>
 
         <div class="g-zoom">
