@@ -180,7 +180,8 @@
     "meta": {
       "created": "2026-08-03 23:39:25",
       "tags": [],
-      "description": ""
+      "description": "",
+      "slug": "vanke-inventory"
     },
     "headers": [
       "项目",

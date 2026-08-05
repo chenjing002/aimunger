@@ -568,6 +568,128 @@ const CHART_CONFIGS = {
                 }
             ]
         };
+    },
+
+    /**
+     * 万科A 存货情况
+     *
+     * Source table (amounts in 万元): row 0 is the 存货 total; rows 1–4 are its
+     * components (完工开发产品 / 在建开发产品 / 拟开发土地 / 其他), which sum to it.
+     *
+     * Columns:
+     *   0: 项目
+     *   1: 2025 年末金额（万元）
+     *   2: 2025 占总资产比重 (%)
+     *   3: 2024 年末金额（万元）
+     *   4: 2024 占总资产比重 (%)
+     *
+     * Visualization: two stacked bars (2024 年末 vs 2025 年末), each stacked by
+     * the four components, in 亿元. A phantom top series carries the stack total
+     * label so the overall inventory decline reads at a glance.
+     */
+    '万科A 存货情况': function(data) {
+        // 万元 → 亿元, one decimal
+        var toYi = function(v) { return Math.round(v / 1000) / 10; };
+        var years = ['2024 年末', '2025 年末'];
+        var components = data.rows.slice(1); // drop the 存货 total row
+        var colors = [PALETTE.amber, PALETTE.orange, PALETTE.purple, PALETTE.green];
+        var names = components.map(function(r) { return String(r[0]).replace(/^其中：/, ''); });
+        var totals = [toYi(data.rows[0][3]), toYi(data.rows[0][1])];
+
+        var series = components.map(function(r, i) {
+            var isTop = i === components.length - 1;
+            return {
+                name: names[i],
+                type: 'bar',
+                stack: 'inv',
+                data: [toYi(r[3]), toYi(r[1])], // [2024, 2025]
+                itemStyle: {
+                    color: colors[i % colors.length],
+                    borderRadius: isTop ? [3, 3, 0, 0] : 0
+                },
+                barMaxWidth: 96
+            };
+        });
+
+        // Phantom zero-height segment on top of the stack to carry the total label.
+        series.push({
+            name: '合计',
+            type: 'bar',
+            stack: 'inv',
+            data: [0, 0],
+            itemStyle: { color: 'transparent' },
+            silent: true,
+            tooltip: { show: false },
+            label: {
+                show: true,
+                position: 'top',
+                distance: 6,
+                formatter: function(p) { return totals[p.dataIndex].toLocaleString() + ' 亿'; },
+                fontSize: 12,
+                fontWeight: 600,
+                color: PALETTE.tx1
+            }
+        });
+
+        return {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                backgroundColor: PALETTE.surface,
+                borderColor: PALETTE.border,
+                textStyle: { color: PALETTE.tx1, fontSize: 13 },
+                formatter: function(params) {
+                    var bars = params.filter(function(p) { return p.seriesName !== '合计'; });
+                    var tip = '<b style="color:' + PALETTE.tx1 + '">' + params[0].axisValue + '</b><br/>';
+                    var total = 0;
+                    bars.forEach(function(p) {
+                        tip += p.marker + ' ' + p.seriesName + ': '
+                            + p.value.toLocaleString() + ' 亿元<br/>';
+                        total += p.value;
+                    });
+                    tip += '<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'
+                        + PALETTE.tx3 + ';margin-right:5px"></span>'
+                        + '存货合计: ' + (Math.round(total * 10) / 10).toLocaleString() + ' 亿元';
+                    return tip;
+                }
+            },
+            legend: {
+                data: names,
+                top: 0,
+                textStyle: { color: PALETTE.tx2, fontSize: 12 },
+                itemWidth: 14,
+                itemHeight: 10,
+                itemGap: 16
+            },
+            grid: {
+                top: 48,
+                left: 10,
+                right: 10,
+                bottom: 10,
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: years,
+                axisLabel: { fontSize: 12, color: PALETTE.tx2 },
+                axisLine: { lineStyle: { color: PALETTE.grid } },
+                axisTick: { lineStyle: { color: PALETTE.grid } }
+            },
+            yAxis: {
+                type: 'value',
+                name: '亿元',
+                nameTextStyle: { fontSize: 11, color: PALETTE.tx3 },
+                axisLabel: {
+                    fontSize: 11,
+                    color: PALETTE.tx2,
+                    formatter: function(v) { return v.toLocaleString(); }
+                },
+                axisLine: { show: false },
+                axisTick: { show: false },
+                splitLine: { lineStyle: { color: PALETTE.grid } }
+            },
+            series: series
+        };
     }
 
 };
