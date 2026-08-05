@@ -582,7 +582,7 @@ function updateIndexChartLinks(result) {
             // chart's title however it's phrased.
             const search = escapeHtml([name, meta.metric, group].filter(Boolean).join(' '));
             return `                    <a class="chart-card" href="${meta.slug}/" data-search="${search}">
-${spark ? `                        <div class="chart-card__preview">${spark}</div>\n` : ''}                        <h3 class="chart-card__title">${escapeHtml(meta.metric || name)}</h3>
+${spark ? `                        <div class="chart-card__preview">${spark}</div>\n` : ''}                        <h3 class="chart-card__title">${escapeHtml(name)}</h3>
 ${info ? `                        <p class="chart-card__meta">${info}</p>\n` : ''}                    </a>`;
         }).join('\n');
         return `            <section class="chart-group">
