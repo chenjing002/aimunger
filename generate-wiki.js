@@ -87,6 +87,9 @@ const SLUG_MAP = {
   '胜华电缆': 'shenghua-cable',
   '起帆电缆': 'qifan-cable',
   '田洪': 'tianhong',
+  '徐家俊': 'xujiajun',
+  '金地': 'gemdale',
+  '友邦保险': 'aia',
   '贾新耀': 'jiaxinyao',
   '马兴瑞': 'maxingrui',
   '林茂德': 'linmaode',
@@ -166,6 +169,7 @@ const TRADITIONAL_NAMES = {
   '贾新耀': '賈新耀',
   '胜华电缆': '勝華電纜',
   '起帆电缆': '起帆電纜',
+  '友邦保险': '友邦保險',
 };
 
 function escHtml(s) {
@@ -253,7 +257,7 @@ function classifyNode(title) {
     '绿景地产', '雅戈尔', '长江电力', '龙湖集团', '中国平安', '中国建筑',
     '华润置地', '南山控股', '恒隆地产', '招商蛇口', '越秀地产', '中海发展',
     '招商局集团', '中投公司', '中金公司', '深圳地铁', '海尔', '融创中国', '豫园股份',
-    '滔搏', '胜华电缆', '起帆电缆', '中国太平', '人保集团'
+    '滔搏', '胜华电缆', '起帆电缆', '中国太平', '人保集团', '金地', '友邦保险'
   ];
   if (companies.includes(title)) return 'company';
   return 'person';
