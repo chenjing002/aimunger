@@ -1667,6 +1667,12 @@
       "title_zh": "魔鬼金融辞典",
       "authors": ["Jason Zweig"],
       "cover": "covers/devils-financial-dictionary.jpg"
+    },
+    {
+      "title_en": "The Story of the Human Body: Evolution, Health, and Disease",
+      "title_zh": "人体的故事：进化、健康与疾病",
+      "authors": ["Daniel E. Lieberman"],
+      "cover": "covers/story-of-human-body.jpg"
     }
   ]
 }
