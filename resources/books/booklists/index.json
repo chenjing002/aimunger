@@ -1697,6 +1697,12 @@
       "title_zh": "优质成长投资者：如何投资全球最优秀的公司",
       "authors": ["Long Equity"],
       "cover": "covers/quality-growth-investor.jpg"
+    },
+    {
+      "title_en": "Big Data Baseball: Math, Miracles, and the End of a 20-Year Losing Streak",
+      "title_zh": "大数据棒球：数学、奇迹与二十年连败的终结",
+      "authors": ["Travis Sawchik"],
+      "cover": "covers/big-data-baseball.jpg"
     }
   ]
 }
