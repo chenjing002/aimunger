@@ -1673,6 +1673,30 @@
       "title_zh": "人体的故事：进化、健康与疾病",
       "authors": ["Daniel E. Lieberman"],
       "cover": "covers/story-of-human-body.jpg"
+    },
+    {
+      "title_en": "Applied Corporate Finance",
+      "title_zh": "应用公司财务",
+      "authors": ["Aswath Damodaran"],
+      "cover": "covers/applied-corporate-finance.jpg"
+    },
+    {
+      "title_en": "Valuation: Measuring and Managing the Value of Companies",
+      "title_zh": "价值评估：公司价值的衡量与管理",
+      "authors": ["McKinsey & Company", "Tim Koller", "Marc Goedhart", "David Wessels"],
+      "cover": "covers/valuation-mckinsey.jpg"
+    },
+    {
+      "title_en": "Accounting for Growth: Stripping the Camouflage from Company Accounts",
+      "title_zh": "增长的会计：剥去公司账目上的伪装",
+      "authors": ["Terry Smith"],
+      "cover": "covers/accounting-for-growth.jpg"
+    },
+    {
+      "title_en": "The Quality Growth Investor: How To Invest In The World's Best Companies",
+      "title_zh": "优质成长投资者：如何投资全球最优秀的公司",
+      "authors": ["Long Equity"],
+      "cover": "covers/quality-growth-investor.jpg"
     }
   ]
 }
