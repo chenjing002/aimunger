@@ -1703,6 +1703,12 @@
       "title_zh": "大数据棒球：数学、奇迹与二十年连败的终结",
       "authors": ["Travis Sawchik"],
       "cover": "covers/big-data-baseball.jpg"
+    },
+    {
+      "title_en": "Done Deals: Venture Capitalists Tell Their Stories",
+      "title_zh": "成交：风险投资家自述",
+      "authors": ["Udayan Gupta"],
+      "cover": "covers/done-deals.jpg"
     }
   ]
 }
