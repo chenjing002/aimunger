@@ -1709,6 +1709,18 @@
       "title_zh": "成交：风险投资家自述",
       "authors": ["Udayan Gupta"],
       "cover": "covers/done-deals.jpg"
+    },
+    {
+      "title_en": "More Than You Know: Finding Financial Wisdom in Unconventional Places",
+      "title_zh": "魔鬼投资学",
+      "authors": ["Michael J. Mauboussin"],
+      "cover": "covers/more-than-you-know.jpg"
+    },
+    {
+      "title_en": "The Investing Mind: A Guide to the Principles and Processes of Successful Investing",
+      "title_zh": "投资的心智：成功投资的原则与流程指南",
+      "authors": ["Michael J. Mauboussin"],
+      "cover": "covers/investing-mind.jpg"
     }
   ]
 }
