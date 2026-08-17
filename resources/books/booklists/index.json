@@ -1745,6 +1745,12 @@
       "title_zh": "交易的法则",
       "authors": ["Agustin Lebron"],
       "cover": "covers/laws-of-trading.jpg"
+    },
+    {
+      "title_en": "The Big Score: The Billion Dollar Story of Silicon Valley",
+      "title_zh": "大赢家：硅谷的十亿美元故事",
+      "authors": ["Michael S. Malone"],
+      "cover": "covers/big-score.jpg"
     }
   ]
 }
