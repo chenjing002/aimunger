@@ -1751,6 +1751,18 @@
       "title_zh": "大赢家：硅谷的十亿美元故事",
       "authors": ["Michael S. Malone"],
       "cover": "covers/big-score.jpg"
+    },
+    {
+      "title_en": "The Fish That Ate the Whale: The Life and Times of America's Banana King",
+      "title_zh": "吞下鲸鱼的鱼：美国香蕉大王的一生",
+      "authors": ["Rich Cohen"],
+      "cover": "covers/fish-that-ate-the-whale.jpg"
+    },
+    {
+      "title_en": "Mistakes Were Made (But Not by Me): Why We Justify Foolish Beliefs, Bad Decisions, and Hurtful Acts",
+      "title_zh": "错不在我？",
+      "authors": ["Carol Tavris", "Elliot Aronson"],
+      "cover": "covers/mistakes-were-made.jpg"
     }
   ]
 }
