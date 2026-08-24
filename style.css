@@ -272,6 +272,79 @@ body {
     transform: translateX(5px);
 }
 
+/* Resource rows (minimal list style) */
+.resource-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.resource-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 4px;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--color-border);
+    transition: color 0.2s ease;
+}
+
+.resource-row:first-child {
+    border-top: 1px solid var(--color-border);
+}
+
+.resource-row-label {
+    flex-shrink: 0;
+    width: 48px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+}
+
+.resource-row-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.resource-row-title {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    transition: color 0.2s ease;
+}
+
+.resource-row:hover .resource-row-title {
+    color: var(--color-accent);
+}
+
+.resource-row-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.resource-row-arrow {
+    flex-shrink: 0;
+    font-size: 0;
+    line-height: 0;
+    width: 20px;
+    height: 12px;
+    background-color: var(--color-text-secondary);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 14'%3E%3Cpath d='M0 7h15M10 1l6 6-6 6' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 14'%3E%3Cpath d='M0 7h15M10 1l6 6-6 6' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") no-repeat center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.resource-row:hover .resource-row-arrow {
+    background-color: var(--color-accent);
+    transform: translateX(4px);
+}
+
 /* About */
 .about {
     padding-bottom: 72px;
