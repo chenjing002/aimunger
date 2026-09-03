@@ -162,8 +162,8 @@
         }
         /* ---- 3D physical hardcover book ---- */
         .book-scene {
-            --page-thickness: 12px;
-            perspective: 1200px;
+            --page-thickness: 24px;
+            perspective: 1300px;
         }
         .book {
             position: relative;
@@ -175,6 +175,7 @@
         /* front hardcover board, at z = +thickness/2 */
         .book-front {
             position: relative;
+            z-index: 2;
             transform: translateZ(calc(var(--page-thickness) / 2));
             border-radius: 4px 2px 2px 4px;
             /* the book's own shadow — sits close and soft by default */
@@ -187,9 +188,9 @@
             display: block;
             border-radius: 4px 2px 2px 4px;
         }
-        /* integrated rounded spine (dark edge -> curve highlight -> hinge
-           groove) plus a faint right board edge, drawn over the cover art
-           so it inherits each cover's own color */
+        /* integrated rounded spine drawn over the cover art so it inherits
+           each cover's own color: dark outer edge -> curved highlight ->
+           hinge groove -> flat cover */
         .book-front::after {
             content: "";
             position: absolute;
@@ -203,21 +204,16 @@
                 rgba(255, 255, 255, 0.05) 8px,
                 rgba(0, 0, 0, 0.14) 12px,
                 rgba(0, 0, 0, 0.05) 14px,
-                rgba(0, 0, 0, 0) 17px,
-                rgba(0, 0, 0, 0) calc(100% - 2px),
-                rgba(0, 0, 0, 0.10) 100%);
+                rgba(0, 0, 0, 0) 17px);
             opacity: 0.55;
             transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        /* back hardcover board at z = -thickness/2; tinted by the cover art
-           itself (set as inline background-image), protruding 3px past the
-           page block so a thin colored rim shows behind the pages */
+        /* rear hardcover board at z = -thickness/2, flush behind the pages;
+           tinted by the cover art itself (set as inline background-image)
+           so the thin back rim matches each book's color */
         .book-back {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: -3px;
+            inset: 0;
             transform: translateZ(calc(var(--page-thickness) / -2));
             background-size: 100% 100%;
             background-color: #8a8178;
@@ -228,35 +224,42 @@
             position: absolute;
             inset: 0;
             border-radius: 4px 3px 3px 4px;
-            background: rgba(35, 28, 22, 0.42);
+            background: rgba(30, 24, 18, 0.40);
         }
-        /* page block: a plane at the right edge spanning the full depth
-           between the two boards (element x-axis = book depth, left edge =
-           front). Inset top/bottom/right so the boards overhang it. */
+        /* exposed inner pages: the OUTERMOST right face, spanning the full
+           depth between the two boards. Warm ivory paper with fine page-edge
+           striations, flanked by soft cover-shadow rims front and back so it
+           reads as [cover] [ivory pages] [thin back rim]. Boards overhang it
+           top and bottom (top/bottom inset). */
         .book-pages {
             position: absolute;
             top: 4px;
             bottom: 4px;
-            right: 1px;
+            right: 0;
             width: var(--page-thickness);
+            z-index: 1;
             transform-origin: right center;
             transform: translateZ(calc(var(--page-thickness) / -2)) rotateY(90deg);
             background:
                 linear-gradient(90deg,
-                    rgba(0, 0, 0, 0.10) 0, rgba(0, 0, 0, 0) 30%,
-                    rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.12) 100%),
+                    rgba(60, 45, 30, 0.55) 0,
+                    rgba(60, 45, 30, 0.14) 7%,
+                    rgba(0, 0, 0, 0) 15%,
+                    rgba(0, 0, 0, 0) 85%,
+                    rgba(40, 30, 20, 0.30) 95%,
+                    rgba(30, 22, 14, 0.55) 100%),
                 repeating-linear-gradient(90deg,
-                    #f7f2e8 0, #f7f2e8 1px, #e8e0cf 1px, #e8e0cf 2px);
+                    #f8f2e4 0, #f8f2e4 1px, #ece1cb 1px, #ece1cb 2px);
             box-shadow:
-                inset 0 3px 3px -2px rgba(0, 0, 0, 0.18),
-                inset 0 -3px 3px -2px rgba(0, 0, 0, 0.18);
+                inset 0 4px 5px -3px rgba(0, 0, 0, 0.22),
+                inset 0 -4px 5px -3px rgba(0, 0, 0, 0.22);
         }
         @media (hover: hover) and (pointer: fine) {
             .book-card:hover .book {
-                transform: translateY(-5px) rotateY(-7deg) rotateX(1deg) rotateZ(-0.5deg) scale(1.015);
+                transform: translateY(-5px) rotateY(-14deg) rotateX(1deg) rotateZ(-0.5deg) scale(1.015);
             }
             .book-card:hover .book-front {
-                box-shadow: 8px 11px 20px rgba(0, 0, 0, 0.13), 2px 3px 6px rgba(0, 0, 0, 0.07);
+                box-shadow: 9px 13px 24px rgba(0, 0, 0, 0.15), 2px 3px 6px rgba(0, 0, 0, 0.07);
             }
             .book-card:hover .book-front::after {
                 opacity: 1;
