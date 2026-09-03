@@ -160,27 +160,95 @@
             display: flex;
             flex-direction: column;
         }
-        .book-cover-wrap {
-            aspect-ratio: 2 / 3;
-            border-radius: 6px;
-            overflow: hidden;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        /* ---- 3D physical book cover ---- */
+        .book-scene {
+            --page-thickness: 11px;
+            perspective: 1100px;
+            perspective-origin: 50% 44%;
         }
-        .book-card:hover .book-cover-wrap {
-            box-shadow: 0 8px 24px rgba(139, 37, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
-            transform: translateY(-3px);
+        .book {
+            position: relative;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transform: rotateY(0deg);
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .book-cover-wrap img {
+        .book-front {
+            position: relative;
+            z-index: 2;
+            transform: translateZ(calc(var(--page-thickness) / 2));
+            border-radius: 2px 3px 3px 2px;
+            /* the book's own shadow — sits close and soft by default */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .book-front img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
             display: block;
+            border-radius: 2px 3px 3px 2px;
+        }
+        /* subtle spine shading pinned to the left (binding) edge */
+        .book-front::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 2px 3px 3px 2px;
+            background: linear-gradient(90deg,
+                rgba(0, 0, 0, 0.26) 0,
+                rgba(0, 0, 0, 0.09) 3px,
+                rgba(0, 0, 0, 0) 10px,
+                rgba(0, 0, 0, 0) 93%,
+                rgba(255, 255, 255, 0.10) 99%,
+                rgba(0, 0, 0, 0.06) 100%);
+            opacity: 0.85;
+            transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        /* back cover sits directly behind the page block */
+        .book-back {
+            position: absolute;
+            inset: 0;
+            transform: translateZ(calc(var(--page-thickness) / -2));
+            background: #d8d0c3;
+            border-radius: 2px 3px 3px 2px;
+        }
+        /* stacked page block along the right edge */
+        .book-pages {
+            position: absolute;
+            top: 2px;
+            bottom: 3px;
+            right: 0;
+            width: var(--page-thickness);
+            transform-origin: right center;
+            transform: rotateY(90deg);
+            background: repeating-linear-gradient(to right,
+                #f5f0e6 0, #f5f0e6 1px, #e2d9c8 1px, #e2d9c8 2px);
+            box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.15);
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .book-card:hover .book {
+                transform: translateY(-6px) rotateY(-8deg) rotateX(1deg) rotateZ(-0.7deg) scale(1.02);
+            }
+            .book-card:hover .book-front {
+                box-shadow: 8px 11px 20px rgba(0, 0, 0, 0.13), 2px 3px 6px rgba(0, 0, 0, 0.07);
+            }
+            .book-card:hover .book-front::after {
+                opacity: 1;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .book,
+            .book-front,
+            .book-front::after {
+                transition: none;
+            }
+            .book-card:hover .book {
+                transform: none;
+            }
         }
         .book-info {
-            padding-top: 12px;
+            padding-top: 13px;
         }
         .book-title-zh {
             font-family: var(--font-serif);
@@ -189,10 +257,6 @@
             line-height: 1.5;
             margin-bottom: 4px;
             color: var(--color-text);
-            transition: color 0.2s ease;
-        }
-        .book-card:hover .book-title-zh {
-            color: var(--color-accent);
         }
         .book-authors {
             font-size: 12px;
@@ -875,8 +939,14 @@
                     card.className = 'book-card';
                     card.href = '/resources/books/' + book.slug;
                     card.innerHTML =
-                        '<div class="book-cover-wrap">' +
-                            '<img src="booklists/' + esc(book.cover) + '" alt="' + esc(book.title_zh) + '" loading="lazy">' +
+                        '<div class="book-scene">' +
+                            '<div class="book">' +
+                                '<div class="book-back"></div>' +
+                                '<div class="book-pages"></div>' +
+                                '<div class="book-front">' +
+                                    '<img src="booklists/' + esc(book.cover) + '" alt="' + esc(book.title_zh) + '" loading="lazy">' +
+                                '</div>' +
+                            '</div>' +
                         '</div>' +
                         '<div class="book-info">' +
                             '<div class="book-title-zh">' + esc(book.title_zh) + '</div>' +
