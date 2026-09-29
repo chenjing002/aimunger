@@ -94,6 +94,14 @@ const SLUG_MAP = {
   '马兴瑞': 'maxingrui',
   '林茂德': 'linmaode',
   '李西廷': 'lixiting',
+  '碧桂园': 'country-garden',
+  '保利发展': 'poly-developments',
+  '中远海控': 'cosco-shipping-holdings',
+  '京能集团': 'beijing-energy-group',
+  '京能置业': 'jingneng-real-estate',
+  '王良': 'wangliang',
+  '王小青': 'wangxiaoqing',
+  '周安瀰': 'zhouanmi',
 };
 
 // Old URLs published before their titles had a SLUG_MAP entry (the fallback
@@ -170,6 +178,11 @@ const TRADITIONAL_NAMES = {
   '胜华电缆': '勝華電纜',
   '起帆电缆': '起帆電纜',
   '友邦保险': '友邦保險',
+  '碧桂园': '碧桂園',
+  '保利发展': '保利發展',
+  '中远海控': '中遠海控',
+  '京能集团': '京能集團',
+  '京能置业': '京能置業',
 };
 
 function escHtml(s) {
